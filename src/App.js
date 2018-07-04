@@ -10,8 +10,12 @@ class App extends Component {
   constructor() {
     super()
     const dbDir = remote.app.getPath('userData')
-    const dbFile = path.join(dbDir, 'competiwatch-desktop.db')
-    this.db = new Datastore({ filename: dbFile, autoload: true })
+    this.db = {}
+    this.db.accounts = new Datastore({
+      filename: path.join(dbDir, 'competiwatch-accounts.db'),
+      autoload: true
+    })
+    this.db.accounts.loadDatabase()
   }
 
   render() {
