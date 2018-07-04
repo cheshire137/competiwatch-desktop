@@ -26,21 +26,29 @@ class AccountForm extends Component {
 
     return (
       <form
+        className="col-4"
         onSubmit={this.onSubmit}
       >
-        <div>
-          <label
-            htmlFor="account-battletag"
-          >Battletag</label>
-          <input
-            id="account-battletag"
-            type="text"
-            value={battletag}
-            onChange={this.onBattletagChange}
-            autoFocus
-          />
+        <dl className="form-group">
+          <dt>
+            <label
+              htmlFor="account-battletag"
+            >Battletag</label>
+          </dt>
+          <dd>
+            <input
+              id="account-battletag"
+              type="text"
+              className="form-control"
+              value={battletag}
+              onChange={this.onBattletagChange}
+              autoFocus
+            />
+          </dd>
+        </dl>
+        <div className="form-actions">
+          <button type="submit" className="btn">Add account</button>
         </div>
-        <button type="submit">Add account</button>
       </form>
     )
   }

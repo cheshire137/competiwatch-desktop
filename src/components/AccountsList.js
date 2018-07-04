@@ -30,9 +30,9 @@ class AccountsList extends Component {
     const { accounts } = this.state
     const { totalAccounts } = this.props
     return (
-      <div>
-        <h2>Accounts ({totalAccounts})</h2>
-        <ul>
+      <div className="mb-4">
+        <h2 className="h2 text-normal mb-2">Accounts ({totalAccounts})</h2>
+        <ul className="list-style-none">
           {accounts.map(account => (
             <AccountListItem
               key={account._id}

@@ -14,8 +14,8 @@ class AccountListItem extends Component {
     return (
       <li>
         {battletag}
-        <form onSubmit={this.deleteAccount}>
-          <button type="submit">&times;</button>
+        <form onSubmit={this.deleteAccount} className="d-inline-block ml-4">
+          <button type="submit" className="btn-link">&times;</button>
         </form>
       </li>
     )
