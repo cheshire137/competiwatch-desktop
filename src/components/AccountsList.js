@@ -31,7 +31,9 @@ class AccountsList extends Component {
     const { totalAccounts } = this.props
     return (
       <div className="mb-4">
-        <h2 className="h2 text-normal mb-2">Accounts ({totalAccounts})</h2>
+        <h2
+          className="h2 text-normal mb-2 d-flex flex-items-center"
+        >Accounts <span className="Counter ml-2 h4 px-2">{totalAccounts}</span></h2>
         <ul className="list-style-none">
           {accounts.map(account => (
             <AccountListItem
