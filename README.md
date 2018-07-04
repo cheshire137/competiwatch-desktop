@@ -15,7 +15,7 @@ browser tab.
 For macOS, run:
 
 ```bash
-npm run build-macos
+npm run electron-build-macos
 ```
 
-This will product a new directory in dist/ that has a distributable .app file.
+This will produce a new directory in dist/ that has a distributable .app file.
