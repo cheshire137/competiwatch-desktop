@@ -18,7 +18,8 @@
     "dev": "nf start",
     "electron": "electron .",
     "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
-    "electron-build-macos": "if [ -d \"dist/Competiwatch Desktop-darwin-x64\" ]; then rm -r \"dist/Competiwatch Desktop-darwin-x64\"; fi && npm run build && node_modules/electron-packager/cli.js . \"Competiwatch Desktop\" --out=dist --platform=darwin --arch=all"
+    "electron-build-macos": "if [ -d \"dist/Competiwatch Desktop-darwin-x64\" ]; then rm -r \"dist/Competiwatch Desktop-darwin-x64\"; fi && npm run build && node_modules/electron-packager/cli.js . \"Competiwatch Desktop\" --out=dist --platform=darwin --arch=all",
+    "electron-build-windows": "npm run build && node node_modules\\electron-packager\\cli.js . --out=dist --platform=win32 --arch=all"
   },
   "devDependencies": {
     "electron": "^2.0.4",
