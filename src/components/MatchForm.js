@@ -4,29 +4,37 @@ import Match from '../models/Match'
 class MatchForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { rank: 0 }
+    this.state = { rank: 0, comment: '', map: '' }
   }
 
   onSubmit = event => {
     event.preventDefault()
-    const data = { rank: this.state.rank }
+    const { rank, comment, map } = this.state
+    const data = { rank, comment, map }
     const match = new Match(data)
     match.save(this.props.db).then(() => {
       this.props.onCreate()
     })
   }
 
+  onCommentChange = event => {
+    this.setState(prevState => ({ comment: event.target.value }))
+  }
+
+  onMapChange = event => {
+    this.setState(prevState => ({ map: event.target.value }))
+  }
+
   onRankChange = event => {
-    const rank = event.target.value
-    this.setState(prevState => ({ rank }))
+    this.setState(prevState => ({ rank: event.target.value }))
   }
 
   render() {
-    const { rank } = this.state
+    const { rank, comment, map } = this.state
 
     return (
       <form
-        className="col-4"
+        className="col-6"
         onSubmit={this.onSubmit}
       >
         <dl className="form-group">
@@ -54,7 +62,11 @@ class MatchForm extends Component {
             >Map:</label>
           </dt>
           <dd>
-            <select className="form-select">
+            <select
+              className="form-select"
+              value={map}
+              onChange={this.onMapChange}
+            >
               <option value=""></option>
               <optgroup label="Assault">
                 <option value="Hanamura">Hanamura</option>
@@ -83,6 +95,23 @@ class MatchForm extends Component {
                 <option value="Oasis">Oasis</option>
               </optgroup>
             </select>
+          </dd>
+        </dl>
+        <dl className="form-group">
+          <dt>
+            <label
+              htmlFor="match-comment"
+            >Comment:</label>
+          </dt>
+          <dd>
+            <input
+              id="match-comment"
+              type="text"
+              className="form-control"
+              value={comment}
+              onChange={this.onCommentChange}
+              placeholder="Notes about this game"
+            />
           </dd>
         </dl>
         <div className="form-actions">
