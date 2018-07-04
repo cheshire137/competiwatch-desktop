@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Account from '../models/Account'
+import AccountListItem from './AccountListItem'
 
 class AccountsList extends Component {
   constructor(props) {
@@ -18,9 +19,11 @@ class AccountsList extends Component {
     return (
       <ul>
         {accounts.map(account => (
-          <li key={account._id}>
-            {account.battletag}
-          </li>
+          <AccountListItem
+            key={account._id}
+            db={this.props.db}
+            {...account}
+          />
         ))}
       </ul>
     )
