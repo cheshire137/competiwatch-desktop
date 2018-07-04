@@ -5,8 +5,7 @@ import './HeroSelect.css'
 const dpsHeroes = ['Pharah', 'Reaper', 'Doomfist', 'Junkrat']
 const flankerHeroes = ['Genji', 'Sombra', 'Tracer']
 const hitscanHeroes = ['McCree', 'Soldier: 76', 'Widowmaker']
-const tankHeroes = ['Orisa', 'Reinhardt', 'Winston']
-const offTankHeroes = ['D.Va', 'Roadhog', 'Wrecking Ball', 'Zarya']
+const tankHeroes = ['D.Va', 'Orisa', 'Reinhardt', 'Roadhog', 'Winston', 'Wrecking Ball', 'Zarya']
 const defenseHeroes = ['Bastion', 'Hanzo', 'Mei', 'Symmetra', 'Torbjörn']
 const healerHeroes = ['Ana', 'Brigitte', 'Lúcio', 'Mercy', 'Moira', 'Zenyatta']
 const firstSeasons = {
@@ -67,12 +66,6 @@ class HeroSelect extends Component {
           <h5 className="h5 border-bottom pb-2 mb-2">Tanks</h5>
           <HeroCheckboxList
             heroes={tankHeroes}
-            isAvailable={this.isAvailable}
-            isChecked={this.isChecked}
-            onToggle={onToggle}
-          />
-          <HeroCheckboxList
-            heroes={offTankHeroes}
             isAvailable={this.isAvailable}
             isChecked={this.isChecked}
             onToggle={onToggle}

@@ -1,0 +1,10 @@
+.form-group .sr-field.form-control {
+  width: 4.5em;
+  padding: 10px 15px;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.sr-field-label {
+  font-size: 20px;
+}
