@@ -1,4 +1,19 @@
 class Account {
+  static findAll(db) {
+    const conditions = {}
+    return new Promise((resolve, reject) => {
+      db.find(conditions, (err, rows) => {
+        if (err) {
+          console.error('failed to look up accounts', err)
+          reject(err)
+        } else {
+          const accounts = rows.map(data => new Account(data))
+          resolve(accounts)
+        }
+      })
+    })
+  }
+
   constructor(data) {
     this.battletag = data.battletag
     this._id = data._id
