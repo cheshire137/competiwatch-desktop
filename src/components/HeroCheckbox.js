@@ -24,6 +24,9 @@ class HeroCheckbox extends Component {
     if (hero === 'Torbjörn') {
       return 'torbjorn'
     }
+    if (hero === 'Wrecking Ball') {
+      return 'wrecking-ball'
+    }
     return hero.toLowerCase()
   }
 
@@ -55,6 +58,10 @@ class HeroCheckbox extends Component {
     this.props.onToggle(this.props.hero, event.target.checked)
   }
 
+  imageSource = () => {
+    return require(`../images/heroes/${this.slugify(this.props.hero)}.png`)
+  }
+
   render() {
     const { isAvailable, isChecked, hero } = this.props
     const domID = `hero-${this.slugify(hero)}`
@@ -75,6 +82,13 @@ class HeroCheckbox extends Component {
             id={domID}
             onChange={this.onChange}
             type="checkbox"
+          />
+          <img
+            src={this.imageSource()}
+            alt={hero}
+            className="d-inline-block rounded-2 flex-shrink-0 mx-2"
+            width="20"
+            height="20"
           />
           <div className="no-wrap">
             <span className={this.nameClass()}>{hero}</span>
