@@ -26,10 +26,13 @@ class AccountForm extends Component {
 
     return (
       <form
-        className="col-4"
+        className="Box p-3"
         onSubmit={this.onSubmit}
       >
-        <dl className="form-group">
+        <h2
+          className="h2 text-normal mb-2"
+        >Add an account</h2>
+        <dl className="form-group mt-0">
           <dt>
             <label
               htmlFor="account-battletag"

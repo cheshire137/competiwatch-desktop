@@ -22,16 +22,22 @@ class AccountsPage extends Component {
 
     return (
       <div className="container layout-children-container">
-        <AccountsList
-          db={dbAccounts}
-          onLoad={this.onAccountsLoad}
-          totalAccounts={totalAccounts}
-          loadMatchesForAccount={loadMatchesForAccount}
-        />
-        <AccountForm
-          db={dbAccounts}
-          onCreate={this.onAccountCreation}
-        />
+        <div className="clearfix">
+          <div className="col-8 float-left">
+            <AccountsList
+              db={dbAccounts}
+              onLoad={this.onAccountsLoad}
+              totalAccounts={totalAccounts}
+              loadMatchesForAccount={loadMatchesForAccount}
+            />
+          </div>
+          <div className="col-4 float-left">
+            <AccountForm
+              db={dbAccounts}
+              onCreate={this.onAccountCreation}
+            />
+          </div>
+        </div>
       </div>
     )
   }
