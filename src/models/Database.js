@@ -35,7 +35,7 @@ class Database {
           console.error(`failed to delete ${type}`, id)
           reject()
         } else {
-          console.log('deleted', numRemoved, `${type}(s)`)
+          console.log('deleted', numRemoved, `${type}(s)`, id)
           resolve()
         }
       })

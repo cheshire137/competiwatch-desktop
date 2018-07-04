@@ -11,7 +11,9 @@ class AccountForm extends Component {
     event.preventDefault()
     const data = { battletag: this.state.battletag }
     const account = new Account(data)
-    account.save(this.props.db)
+    account.save(this.props.db).then(() => {
+      this.props.onCreate()
+    })
   }
 
   onBattletagChange = event => {

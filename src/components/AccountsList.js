@@ -9,8 +9,10 @@ class AccountsList extends Component {
   }
 
   refreshAccounts = () => {
-    Account.findAll(this.props.db).then(accounts => {
+    const { db, onLoad } = this.props
+    Account.findAll(db).then(accounts => {
       this.setState(prevState => ({ accounts }))
+      onLoad(accounts.length)
     })
   }
 
@@ -18,19 +20,29 @@ class AccountsList extends Component {
     this.refreshAccounts()
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.totalAccounts != this.props.totalAccounts) {
+      this.refreshAccounts()
+    }
+  }
+
   render() {
     const { accounts } = this.state
+    const { totalAccounts } = this.props
     return (
-      <ul>
-        {accounts.map(account => (
-          <AccountListItem
-            key={account._id}
-            db={this.props.db}
-            {...account}
-            onDelete={this.refreshAccounts}
-          />
-        ))}
-      </ul>
+      <div>
+        <h2>Accounts ({totalAccounts})</h2>
+        <ul>
+          {accounts.map(account => (
+            <AccountListItem
+              key={account._id}
+              db={this.props.db}
+              {...account}
+              onDelete={this.refreshAccounts}
+            />
+          ))}
+        </ul>
+      </div>
     )
   }
 }
