@@ -1,17 +1,7 @@
 import React, { Component } from 'react'
-import Account from '../models/Account'
+import AccountDeleteForm from './AccountDeleteForm'
 
 class AccountListItem extends Component {
-  deleteAccount = event => {
-    event.preventDefault()
-    const message = `Are you sure you want to delete ${this.props.battletag}?`
-    if (window.confirm(message)) {
-      const { _id, db, onDelete } = this.props
-      const account = new Account({ _id })
-      account.delete(db).then(onDelete)
-    }
-  }
-
   loadMatchesForAccount = event => {
     event.target.blur()
     this.props.loadMatchesForAccount(this.props._id)
@@ -25,7 +15,7 @@ class AccountListItem extends Component {
   }
 
   render() {
-    const { battletag } = this.props
+    const { battletag, _id, db, onDelete } = this.props
     return (
       <li className={this.outerClass()}>
         <button
@@ -33,12 +23,12 @@ class AccountListItem extends Component {
           className="btn-link f3"
           onClick={this.loadMatchesForAccount}
         >{battletag}</button>
-        <form onSubmit={this.deleteAccount}>
-          <button
-            type="submit"
-            className="btn-link text-red text-small"
-          >Delete account</button>
-        </form>
+        <AccountDeleteForm
+          _id={_id}
+          db={db}
+          onDelete={onDelete}
+          battletag={battletag}
+        />
       </li>
     )
   }
