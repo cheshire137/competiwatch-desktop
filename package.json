@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "electron": "^2.0.4",
+    "electron-packager": "^12.1.0",
     "foreman": "^3.0.1"
   }
 }
