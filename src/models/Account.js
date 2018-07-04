@@ -3,7 +3,7 @@ import Database from './Database'
 class Account {
   static setupDatabase() {
     const db = Database.load('accounts')
-    db.ensureIndex({ fieldName: 'battletag', unique: false }, err => {
+    db.ensureIndex({ fieldName: 'battletag', unique: true }, err => {
       if (err) {
         console.error('failed to add accounts.battletag index', err)
       }
