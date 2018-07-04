@@ -4,12 +4,12 @@ import Match from '../models/Match'
 class MatchForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { rank: 0, comment: '', map: '' }
+    this.state = { rank: 0, comment: '', map: '', group: '' }
   }
 
   onSubmit = event => {
     event.preventDefault()
-    const { rank, comment, map } = this.state
+    const { rank, comment, map, group } = this.state
     const { accountID } = this.props
     const data = { rank, comment, map, accountID }
     const match = new Match(data)
@@ -30,8 +30,12 @@ class MatchForm extends Component {
     this.setState(prevState => ({ rank: event.target.value }))
   }
 
+  onGroupChange = event => {
+    this.setState(prevState => ({ group: event.target.value }))
+  }
+
   render() {
-    const { rank, comment, map } = this.state
+    const { rank, comment, map, group } = this.state
 
     return (
       <form
@@ -96,6 +100,23 @@ class MatchForm extends Component {
                 <option value="Oasis">Oasis</option>
               </optgroup>
             </select>
+          </dd>
+        </dl>
+        <dl className="form-group">
+          <dt>
+            <label
+              htmlFor="match-group"
+            >Group members:</label>
+          </dt>
+          <dd>
+            <input
+              id="match-group"
+              type="text"
+              className="form-control"
+              value={group}
+              onChange={this.onGroupChange}
+              placeholder="Separate names with commas"
+            />
           </dd>
         </dl>
         <dl className="form-group">
