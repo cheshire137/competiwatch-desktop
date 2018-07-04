@@ -14,10 +14,22 @@ class Match {
   constructor(data) {
     this.accountID = data.accountID
     this._id = data._id
+    this.rank = data.rank
+    this.comment = data.comment
+    this.map = data.map
+    this.group = data.group
+    this.heroes = data.heroes
   }
 
   save(db) {
-    const data = { battletag: this.battletag }
+    const data = {
+      rank: this.rank,
+      comment: this.comment,
+      map: this.map,
+      group: this.group,
+      heroes: this.heroes,
+      accountID: this.accountID
+    }
     return Database.upsert(db, data, this._id, 'match').
       then(newMatch => { this._id = newMatch._id })
   }

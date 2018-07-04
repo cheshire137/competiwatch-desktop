@@ -7,22 +7,30 @@ import './MatchForm.css'
 class MatchForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { rank: 0, comment: '', map: '', group: '', heroes: '' }
+    this.state = { rank: '', comment: '', map: '', group: '', heroes: '' }
   }
 
   onSubmit = event => {
     event.preventDefault()
-    const { rank, comment, map, group } = this.state
-    const { accountID } = this.props
-    const data = { rank, comment, map, accountID }
+    const { rank, comment, map, group, heroes } = this.state
+    const { accountID, db } = this.props
+    const data = {
+      rank: parseFloat(rank),
+      comment,
+      map,
+      group,
+      accountID,
+      heroes
+    }
     const match = new Match(data)
-    match.save(this.props.db).then(() => {
+    match.save(db).then(() => {
       this.props.onCreate()
     })
   }
 
   onCommentChange = event => {
-    this.setState(prevState => ({ comment: event.target.value }))
+    const comment = event.target.value
+    this.setState(prevState => ({ comment }))
   }
 
   onMapChange = map => {
@@ -30,16 +38,19 @@ class MatchForm extends Component {
   }
 
   onRankChange = event => {
-    this.setState(prevState => ({ rank: event.target.value }))
+    const rank = event.target.value
+    this.setState(prevState => ({ rank }))
   }
 
   onGroupChange = event => {
-    this.setState(prevState => ({ group: event.target.value }))
+    const group = event.target.value
+    this.setState(prevState => ({ group }))
   }
 
   onHeroChange = (hero, isSelected) => {
     this.setState(prevState => {
-      const heroes = prevState.heroes.split(',').map(str => str.trim())
+      const heroes = prevState.heroes.split(',').map(str => str.trim()).
+        filter(str => str && str.length > 0)
       const heroIndex = heroes.indexOf(hero)
       if (isSelected && heroIndex < 0) {
         heroes.push(hero)
@@ -58,7 +69,7 @@ class MatchForm extends Component {
     return (
       <form
         onSubmit={this.onSubmit}
-        className="clearfix"
+        className="clearfix mb-4"
       >
         <div className="col-md-12 col-lg-5 float-left pr-3-md">
           <div className="d-flex-md flex-items-center-md flex-justify-between-md">
@@ -72,7 +83,7 @@ class MatchForm extends Component {
               <dd>
                 <input
                   id="match-rank"
-                  type="text"
+                  type="number"
                   className="form-control sr-field"
                   value={rank}
                   onChange={this.onRankChange}

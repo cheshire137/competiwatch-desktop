@@ -36,6 +36,7 @@ class MatchesPage extends Component {
         <MatchesAccountHeader
           account={account}
           season={latestSeason}
+          totalMatches={totalMatches}
         />
         <MatchForm
           season={latestSeason}
