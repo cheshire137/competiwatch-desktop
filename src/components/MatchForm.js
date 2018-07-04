@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Match from '../models/Match'
+import MapSelect from './MapSelect'
 
 class MatchForm extends Component {
   constructor(props) {
@@ -22,8 +23,8 @@ class MatchForm extends Component {
     this.setState(prevState => ({ comment: event.target.value }))
   }
 
-  onMapChange = event => {
-    this.setState(prevState => ({ map: event.target.value }))
+  onMapChange = map => {
+    this.setState(prevState => ({ map }))
   }
 
   onRankChange = event => {
@@ -67,39 +68,7 @@ class MatchForm extends Component {
             >Map:</label>
           </dt>
           <dd>
-            <select
-              className="form-select"
-              value={map}
-              onChange={this.onMapChange}
-            >
-              <option value=""></option>
-              <optgroup label="Assault">
-                <option value="Hanamura">Hanamura</option>
-                <option value="Horizon Lunar Colony">Horizon Lunar Colony</option>
-                <option value="Temple of Anubis">Temple of Anubis</option>
-                <option value="Volskaya Industries">Volskaya Industries</option>
-              </optgroup>
-              <optgroup label="Escort">
-                <option value="Dorado">Dorado</option>
-                <option value="Junkertown">Junkertown</option>
-                <option value="Rialto">Rialto</option>
-                <option value="Route 66">Route 66</option>
-                <option value="Watchpoint: Gibraltar">Watchpoint: Gibraltar</option>
-              </optgroup>
-              <optgroup label="Hybrid">
-                <option value="Blizzard World">Blizzard World</option>
-                <option value="Eichenwalde">Eichenwalde</option>
-                <option value="Hollywood">Hollywood</option>
-                <option value="King's Row">King's Row</option>
-                <option value="Numbani">Numbani</option>
-              </optgroup>
-              <optgroup label="Control">
-                <option value="Ilios">Ilios</option>
-                <option value="Lijiang Tower">Lijiang Tower</option>
-                <option value="Nepal">Nepal</option>
-                <option value="Oasis">Oasis</option>
-              </optgroup>
-            </select>
+            <MapSelect map={map} onChange={this.onMapChange} />
           </dd>
         </dl>
         <dl className="form-group">
