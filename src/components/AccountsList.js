@@ -9,8 +9,8 @@ class AccountsList extends Component {
   }
 
   refreshAccounts = () => {
-    const { db, onLoad } = this.props
-    Account.findAll(db).then(accounts => {
+    const { dbAccounts, onLoad } = this.props
+    Account.findAll(dbAccounts).then(accounts => {
       this.setState(prevState => ({ accounts }))
       onLoad(accounts.length)
     })
@@ -28,7 +28,7 @@ class AccountsList extends Component {
 
   render() {
     const { accounts } = this.state
-    const { totalAccounts, loadMatchesForAccount } = this.props
+    const { totalAccounts, loadMatchesForAccount, dbAccounts, dbMatches } = this.props
     return (
       <div className="mb-4">
         <h2
@@ -38,7 +38,8 @@ class AccountsList extends Component {
           {accounts.map((account, i) => (
             <AccountListItem
               key={account._id}
-              db={this.props.db}
+              dbAccounts={dbAccounts}
+              dbMatches={dbMatches}
               {...account}
               isLast={i === accounts.length - 1}
               onDelete={this.refreshAccounts}

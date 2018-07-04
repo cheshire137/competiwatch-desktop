@@ -15,7 +15,7 @@ class AccountListItem extends Component {
   }
 
   render() {
-    const { battletag, _id, db, onDelete } = this.props
+    const { battletag, _id, dbAccounts, dbMatches, onDelete } = this.props
     return (
       <li className={this.outerClass()}>
         <button
@@ -25,9 +25,10 @@ class AccountListItem extends Component {
         >{battletag}</button>
         <AccountDeleteForm
           _id={_id}
-          db={db}
+          dbAccounts={dbAccounts}
           onDelete={onDelete}
           battletag={battletag}
+          dbMatches={dbMatches}
         />
       </li>
     )

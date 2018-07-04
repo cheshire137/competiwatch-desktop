@@ -25,6 +25,11 @@ class Account {
     this._id = data._id
   }
 
+  hasMatches(dbMatches) {
+    const conditions = { accountID: this._id }
+    return Database.count(dbMatches, conditions).then(count => count > 0)
+  }
+
   save(db) {
     const data = { battletag: this.battletag }
     return Database.upsert(db, data, this._id, 'account').

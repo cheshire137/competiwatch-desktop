@@ -26,6 +26,18 @@ class Database {
     })
   }
 
+  static count(db, conditions) {
+    return new Promise((resolve, reject) => {
+      db.count(conditions, (err, count) => {
+        if (err) {
+          console.error('failed to count records', err)
+        } else {
+          resolve(count)
+        }
+      })
+    })
+  }
+
   static findAll(db, type, sort) {
     const conditions = {}
     return new Promise((resolve, reject) => {
