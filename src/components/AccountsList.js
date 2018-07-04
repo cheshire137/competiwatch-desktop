@@ -28,7 +28,7 @@ class AccountsList extends Component {
 
   render() {
     const { accounts } = this.state
-    const { totalAccounts } = this.props
+    const { totalAccounts, loadMatchesForAccount } = this.props
     return (
       <div className="mb-4">
         <h2
@@ -41,6 +41,7 @@ class AccountsList extends Component {
               db={this.props.db}
               {...account}
               onDelete={this.refreshAccounts}
+              loadMatchesForAccount={loadMatchesForAccount}
             />
           ))}
         </ul>

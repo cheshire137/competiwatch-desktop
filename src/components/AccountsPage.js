@@ -17,7 +17,7 @@ class AccountsPage extends Component {
   }
 
   render() {
-    const { dbAccounts } = this.props
+    const { dbAccounts, loadMatchesForAccount } = this.props
     const { totalAccounts } = this.state
 
     return (
@@ -26,6 +26,7 @@ class AccountsPage extends Component {
           db={dbAccounts}
           onLoad={this.onAccountsLoad}
           totalAccounts={totalAccounts}
+          loadMatchesForAccount={loadMatchesForAccount}
         />
         <AccountForm
           db={dbAccounts}

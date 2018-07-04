@@ -14,6 +14,21 @@ class Header extends Component {
     return 'UnderlineNav-item btn-link'
   }
 
+  renderMatchesButton = () => {
+    if (!this.props.activeAccountID) {
+      return null
+    }
+
+    return (
+      <button
+        name="matches"
+        type="button"
+        className={this.pageButtonClass('matches')}
+        onClick={this.changeActivePage}
+      >Matches</button>
+    )
+  }
+
   render() {
     return (
       <div className="mb-4">
@@ -25,12 +40,7 @@ class Header extends Component {
         <nav className="UnderlineNav">
           <div className="container">
             <div className="UnderlineNav-body">
-              <button
-                name="matches"
-                type="button"
-                className={this.pageButtonClass('matches')}
-                onClick={this.changeActivePage}
-              >Matches</button>
+              {this.renderMatchesButton()}
               <button
                 name="accounts"
                 type="button"
