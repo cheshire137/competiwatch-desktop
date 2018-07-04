@@ -24,10 +24,17 @@ class App extends Component {
     return <AccountsPage dbAccounts={this.db.accounts} />
   }
 
+  changeActivePage = newActive => {
+    this.setState(prevState => ({ active: newActive }))
+  }
+
   render() {
     return (
       <div className="layout-container">
-        <Header />
+        <Header
+          activePage={this.state.active}
+          onPageChange={this.changeActivePage}
+        />
         {this.activePage()}
       </div>
     )
