@@ -1,4 +1,5 @@
 import Database from './Database'
+import Match from './Match'
 
 class Account {
   static setupDatabase() {
@@ -23,6 +24,25 @@ class Account {
   constructor(data) {
     this.battletag = data.battletag
     this._id = data._id
+  }
+
+  latestMatch(dbMatches) {
+    const conditions = { accountID: this._id }
+    return new Promise((resolve, reject) => {
+      dbMatches.find(conditions).sort({ date: -1 }).limit(1).exec((err, rows) => {
+        if (err) {
+          console.error('failed to load latest match', err)
+          reject(err)
+        } else {
+          const data = rows[0]
+          if (data) {
+            resolve(new Match(data))
+          } else {
+            resolve()
+          }
+        }
+      })
+    })
   }
 
   hasMatches(dbMatches) {
