@@ -4,9 +4,12 @@ import Account from '../models/Account'
 class AccountListItem extends Component {
   deleteAccount = event => {
     event.preventDefault()
-    const { _id, db, onDelete } = this.props
-    const account = new Account({ _id })
-    account.delete(db).then(onDelete)
+    const message = `Are you sure you want to delete ${this.props.battletag}?`
+    if (window.confirm(message)) {
+      const { _id, db, onDelete } = this.props
+      const account = new Account({ _id })
+      account.delete(db).then(onDelete)
+    }
   }
 
   render() {
