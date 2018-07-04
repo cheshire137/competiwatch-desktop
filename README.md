@@ -19,3 +19,11 @@ npm run electron-build-macos
 ```
 
 This will produce a new directory in dist/ that has a distributable .app file.
+
+For Windows, run:
+
+```bash
+npm run electron-build-windows
+```
+
+This will produce new directories in dist/ with .exe files.
