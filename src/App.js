@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Header from './components/Header'
+import AccountForm from './components/AccountForm'
 import './App.css'
 import Database from './models/Database'
 
@@ -14,6 +15,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
+        <AccountForm db={this.db.accounts} />
       </div>
     )
   }
