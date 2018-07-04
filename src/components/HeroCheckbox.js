@@ -3,7 +3,7 @@ import './HeroCheckbox.css'
 
 class HeroCheckbox extends Component {
   containerClass = () => {
-    const classes = ['form-checkbox', 'mb-0']
+    const classes = ['form-checkbox', 'mb-0', 'mt-1']
     if (!this.props.isAvailable) {
       classes.push('tooltipped')
       classes.push('tooltipped-n')

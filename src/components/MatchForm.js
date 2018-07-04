@@ -4,15 +4,36 @@ import MapSelect from './MapSelect'
 import HeroSelect from './HeroSelect'
 import './MatchForm.css'
 
+const today = () => {
+  const date = new Date()
+  const year = date.getFullYear()
+  let month = date.getMonth() + 1
+  if (month <= 9) {
+    month = `0${month}`
+  }
+  let day = date.getDate()
+  if (day <= 9) {
+    day = `0${day}`
+  }
+  return `${year}-${month}-${day}`
+}
+
 class MatchForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { rank: '', comment: '', map: '', group: '', heroes: '' }
+    this.state = {
+      rank: '',
+      comment: '',
+      map: '',
+      group: '',
+      heroes: '',
+      date: today()
+    }
   }
 
   onSubmit = event => {
     event.preventDefault()
-    const { rank, comment, map, group, heroes } = this.state
+    const { rank, comment, map, group, heroes, date } = this.state
     const { accountID, db } = this.props
     const data = {
       rank: parseFloat(rank),
@@ -20,7 +41,8 @@ class MatchForm extends Component {
       map,
       group,
       accountID,
-      heroes
+      heroes,
+      date
     }
     const match = new Match(data)
     match.save(db).then(() => {
@@ -47,6 +69,11 @@ class MatchForm extends Component {
     this.setState(prevState => ({ group }))
   }
 
+  onDateChange = event => {
+    const date = event.target.value
+    this.setState(prevState => ({ date }))
+  }
+
   onHeroChange = (hero, isSelected) => {
     this.setState(prevState => {
       const heroes = prevState.heroes.split(',').map(str => str.trim()).
@@ -63,7 +90,7 @@ class MatchForm extends Component {
   }
 
   render() {
-    const { rank, comment, map, group, heroes } = this.state
+    const { rank, comment, map, group, heroes, date } = this.state
     const { season } = this.props
 
     return (
@@ -140,6 +167,22 @@ class MatchForm extends Component {
               </dd>
             </dl>
           </div>
+          <dl className="form-group">
+            <dt>
+              <label
+                htmlFor="match-date"
+              >Date played:</label>
+            </dt>
+            <dd>
+              <input
+                id="match-date"
+                type="date"
+                className="form-control"
+                value={date}
+                onChange={this.onDateChange}
+              />
+            </dd>
+          </dl>
         </div>
         <div className="col-md-12 col-lg-6 float-left pl-4-md">
           <dl className="form-group my-0">

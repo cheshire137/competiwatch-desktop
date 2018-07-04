@@ -19,6 +19,7 @@ class Match {
     this.map = data.map
     this.group = data.group
     this.heroes = data.heroes
+    this.date = data.date
   }
 
   save(db) {
@@ -28,7 +29,8 @@ class Match {
       map: this.map,
       group: this.group,
       heroes: this.heroes,
-      accountID: this.accountID
+      accountID: this.accountID,
+      date: this.date
     }
     return Database.upsert(db, data, this._id, 'match').
       then(newMatch => { this._id = newMatch._id })

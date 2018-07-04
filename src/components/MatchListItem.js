@@ -10,11 +10,11 @@ class MatchListItem extends Component {
   }
 
   render() {
-    const { rank, _id, db, map, group, heroes, comment, onDelete } = this.props
+    const { rank, _id, db, map, group, heroes, comment, date, onDelete } = this.props
 
     return (
       <li className={this.outerClass()}>
-        {rank}
+        {rank} - {date}
         <MatchDeleteForm
           _id={_id}
           db={db}
