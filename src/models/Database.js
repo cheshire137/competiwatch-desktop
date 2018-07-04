@@ -26,10 +26,10 @@ class Database {
     })
   }
 
-  static findAll(db, type) {
+  static findAll(db, type, sort) {
     const conditions = {}
     return new Promise((resolve, reject) => {
-      db.find(conditions, (err, rows) => {
+      db.find(conditions).sort(sort).exec((err, rows) => {
         if (err) {
           console.error(`failed to look up ${type}s`, err)
           reject(err)
