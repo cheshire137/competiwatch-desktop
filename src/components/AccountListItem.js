@@ -17,21 +17,27 @@ class AccountListItem extends Component {
     this.props.loadMatchesForAccount(this.props._id)
   }
 
+  outerClass = () => {
+    if (this.props.isLast) {
+      return ''
+    }
+    return 'border-bottom pb-2 mb-2'
+  }
+
   render() {
     const { battletag } = this.props
     return (
-      <li>
+      <li className={this.outerClass()}>
         <button
           type="button"
-          className="btn-link"
+          className="btn-link f3"
           onClick={this.loadMatchesForAccount}
         >{battletag}</button>
-        <form onSubmit={this.deleteAccount} className="d-inline-block ml-4">
+        <form onSubmit={this.deleteAccount}>
           <button
             type="submit"
-            className="btn-link tooltipped tooltipped-n text-gray-dark text-bold"
-            aria-label="Delete this account"
-          >&times;</button>
+            className="btn-link text-red text-small"
+          >Delete account</button>
         </form>
       </li>
     )

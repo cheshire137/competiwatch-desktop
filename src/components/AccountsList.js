@@ -35,11 +35,12 @@ class AccountsList extends Component {
           className="h2 text-normal mb-2 d-flex flex-items-center"
         >Battle.net accounts <span className="Counter ml-2 h4 px-2">{totalAccounts}</span></h2>
         <ul className="list-style-none">
-          {accounts.map(account => (
+          {accounts.map((account, i) => (
             <AccountListItem
               key={account._id}
               db={this.props.db}
               {...account}
+              isLast={i === accounts.length - 1}
               onDelete={this.refreshAccounts}
               loadMatchesForAccount={loadMatchesForAccount}
             />
