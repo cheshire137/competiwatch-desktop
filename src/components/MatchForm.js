@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import Match from '../models/Match'
 import MapSelect from './MapSelect'
+import HeroSelect from './HeroSelect'
+
+const latestSeason = 11
 
 class MatchForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { rank: 0, comment: '', map: '', group: '' }
+    this.state = { rank: 0, comment: '', map: '', group: '', heroes: '' }
   }
 
   onSubmit = event => {
@@ -36,11 +39,10 @@ class MatchForm extends Component {
   }
 
   render() {
-    const { rank, comment, map, group } = this.state
+    const { rank, comment, map, group, heroes } = this.state
 
     return (
       <form
-        className="col-6"
         onSubmit={this.onSubmit}
       >
         <dl className="form-group">
@@ -85,6 +87,15 @@ class MatchForm extends Component {
               value={group}
               onChange={this.onGroupChange}
               placeholder="Separate names with commas"
+            />
+          </dd>
+        </dl>
+        <dl className="form-group">
+          <dt>Heroes played:</dt>
+          <dd>
+            <HeroSelect
+              heroes={heroes}
+              season={latestSeason}
             />
           </dd>
         </dl>

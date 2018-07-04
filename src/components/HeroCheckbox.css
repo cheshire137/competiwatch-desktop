@@ -1,0 +1,133 @@
+.disabled-hero {
+  text-decoration: line-through;
+}
+
+.text-ana {
+  color: #408fff;
+}
+
+.text-bastion {
+  color: #818e9c;
+}
+
+.text-brigitte {
+  color: #ac5b3b;
+}
+
+.disabled .text-brigitte {
+  color: #cb8468;
+}
+
+.text-doomfist {
+  color: #e04e34;
+}
+
+.disabled .text-doomfist {
+  color: #ea8876;
+}
+
+.text-dva {
+  color: #ff4de3;
+}
+
+.text-genji {
+  color: #00f21d;
+}
+
+.text-hanzo {
+  color: #776931;
+}
+
+.text-junkrat {
+  color: #d39308;
+}
+
+.text-lucio {
+  color: #2cd13f;
+}
+
+.text-mccree {
+  color: #d44124;
+}
+
+.text-mei {
+  color: #009be8;
+}
+
+.text-mercy {
+  color: #998700;
+}
+
+.text-moira {
+  color: #691ccf;
+}
+
+.disabled .text-moira {
+  color: #9150e7;
+}
+
+.text-orisa {
+  color: #9fbc30;
+}
+
+.disabled .text-orisa {
+  color: #bfd762;
+}
+
+.text-pharah {
+  color: #008ff5;
+}
+
+.text-reaper {
+  color: #000000;
+}
+
+.text-reinhardt {
+  color: #81736b;
+}
+
+.text-roadhog {
+  color: #f9c907;
+}
+
+.text-soldier76 {
+  color: #fd0d15;
+}
+
+.text-sombra {
+  color: #9743ad;
+}
+
+.disabled .text-sombra {
+  color: #b774c9;
+}
+
+.text-symmetra {
+  color: #00ccff;
+}
+
+.text-torbjorn {
+  color: #b38900;
+}
+
+.text-tracer {
+  color: #ffb803;
+}
+
+.text-widowmaker {
+  color: #95a2ea;
+}
+
+.text-winston {
+  color: #414f68;
+}
+
+.text-zarya {
+  color: #ea4d98;
+}
+
+.text-zenyatta {
+  color: #897f69;
+}
+
+

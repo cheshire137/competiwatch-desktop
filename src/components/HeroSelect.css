@@ -1,0 +1,9 @@
+.hero-box {
+  width: 48%;
+}
+
+@media (min-width: 768px) {
+  .hero-box {
+    width: 30%;
+  }
+}
