@@ -13,17 +13,22 @@ class Database {
     return db
   }
 
-  static find(db, id, type) {
+  static findOne(db, conditions) {
     return new Promise((resolve, reject) => {
-      db.findOne({ _id: id }, (err, data) => {
+      db.findOne(conditions, (err, data) => {
         if (err) {
-          console.error(`failed to load ${type}`, id, err)
+          console.error('failed to look up a record', conditions, err)
           reject(err)
         } else {
           resolve(data)
         }
       })
     })
+  }
+
+  static find(db, id) {
+    const conditions = { _id: id }
+    return Database.findOne(db, conditions)
   }
 
   static count(db, conditions) {

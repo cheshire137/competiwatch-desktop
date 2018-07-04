@@ -17,7 +17,7 @@ class Account {
   }
 
   static find(db, id) {
-    return Database.find(db, id, 'account').then(data => new Account(data))
+    return Database.find(db, id).then(data => new Account(data))
   }
 
   constructor(data) {
