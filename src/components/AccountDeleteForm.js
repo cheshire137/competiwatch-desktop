@@ -11,9 +11,9 @@ class AccountDeleteForm extends Component {
     event.preventDefault()
     const message = `Are you sure you want to delete ${this.props.battletag}?`
     if (window.confirm(message)) {
-      const { _id, db, onDelete } = this.props
+      const { _id, dbAccounts, onDelete } = this.props
       const account = new Account({ _id })
-      account.delete(db).then(onDelete)
+      account.delete(dbAccounts).then(onDelete)
     }
   }
 
@@ -28,6 +28,9 @@ class AccountDeleteForm extends Component {
   }
 
   render() {
+    if (!this.state.showForm) {
+      return null
+    }
     return (
       <form onSubmit={this.deleteAccount}>
         <button
