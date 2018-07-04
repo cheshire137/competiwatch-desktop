@@ -21,7 +21,7 @@ class AccountsPage extends Component {
     const { totalAccounts } = this.state
 
     return (
-      <div>
+      <div className="container layout-children-container">
         <AccountsList
           db={dbAccounts}
           onLoad={this.onAccountsLoad}

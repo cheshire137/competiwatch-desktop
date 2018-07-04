@@ -14,7 +14,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="layout-container">
         <Header />
         <AccountsPage dbAccounts={this.db.accounts} />
       </div>
