@@ -8,10 +8,14 @@ class AccountsList extends Component {
     this.state = { accounts: [] }
   }
 
-  componentDidMount() {
+  refreshAccounts = () => {
     Account.findAll(this.props.db).then(accounts => {
       this.setState(prevState => ({ accounts }))
     })
+  }
+
+  componentDidMount() {
+    this.refreshAccounts()
   }
 
   render() {
@@ -23,6 +27,7 @@ class AccountsList extends Component {
             key={account._id}
             db={this.props.db}
             {...account}
+            onDelete={this.refreshAccounts}
           />
         ))}
       </ul>

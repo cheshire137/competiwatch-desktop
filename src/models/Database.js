@@ -27,6 +27,21 @@ class Database {
     })
   }
 
+  static delete(db, id, type) {
+    return new Promise((resolve, reject) => {
+      const options = {}
+      db.remove({ _id: id }, options, (err, numRemoved) => {
+        if (err) {
+          console.error(`failed to delete ${type}`, id)
+          reject()
+        } else {
+          console.log('deleted', numRemoved, `${type}(s)`)
+          resolve()
+        }
+      })
+    })
+  }
+
   static upsert(db, data, id, type) {
     return new Promise((resolve, reject) => {
       if (id) {

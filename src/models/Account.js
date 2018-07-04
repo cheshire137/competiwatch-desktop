@@ -23,20 +23,12 @@ class Account {
 
   save(db) {
     const data = { battletag: this.battletag }
-    Database.upsert(db, data, this._id, 'account').then(newAccount => {
-      this._id = newAccount._id
-    })
+    return Database.upsert(db, data, this._id, 'account').
+      then(newAccount => { this._id = newAccount._id })
   }
 
   delete(db) {
-    const options = {}
-    db.remove({ _id: this._id }, options, (err, numRemoved) => {
-      if (err) {
-        console.error('failed to delete account', this._id)
-      } else {
-        console.log('deleted', numRemoved, 'account(s)')
-      }
-    })
+    return Database.delete(db, this._id, 'account')
   }
 }
 

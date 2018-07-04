@@ -4,9 +4,9 @@ import Account from '../models/Account'
 class AccountListItem extends Component {
   deleteAccount = event => {
     event.preventDefault()
-    const { _id, db } = this.props
+    const { _id, db, onDelete } = this.props
     const account = new Account({ _id })
-    account.delete(db)
+    account.delete(db).then(onDelete)
   }
 
   render() {
