@@ -42,6 +42,7 @@ class AccountForm extends Component {
               className="form-control"
               value={battletag}
               onChange={this.onBattletagChange}
+              placeholder="ASampleAccount#1234"
               autoFocus
             />
           </dd>
