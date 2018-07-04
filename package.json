@@ -17,7 +17,8 @@
     "eject": "react-scripts eject",
     "dev": "nf start",
     "electron": "electron .",
-    "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron ."
+    "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
+    "build-macos": "node_modules/electron-packager/cli.js . \"Competiwatch Desktop\" --out=dist --platform=darwin --arch=all"
   },
   "devDependencies": {
     "electron": "^2.0.4",
