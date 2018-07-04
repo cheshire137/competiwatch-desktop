@@ -26,7 +26,7 @@ class MatchesPage extends Component {
   }
 
   render() {
-    const { dbMatches } = this.props
+    const { dbMatches, accountID } = this.props
     const { totalMatches, account } = this.state
 
     return (
@@ -35,6 +35,7 @@ class MatchesPage extends Component {
           account={account}
         />
         <MatchForm
+          accountID={accountID}
           db={dbMatches}
           onCreate={this.onMatchCreation}
         />

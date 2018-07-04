@@ -10,7 +10,8 @@ class MatchForm extends Component {
   onSubmit = event => {
     event.preventDefault()
     const { rank, comment, map } = this.state
-    const data = { rank, comment, map }
+    const { accountID } = this.props
+    const data = { rank, comment, map, accountID }
     const match = new Match(data)
     match.save(this.props.db).then(() => {
       this.props.onCreate()
