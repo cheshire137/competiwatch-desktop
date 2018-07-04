@@ -36,6 +36,20 @@ class MatchForm extends Component {
     this.setState(prevState => ({ group: event.target.value }))
   }
 
+  onHeroChange = (hero, isSelected) => {
+    this.setState(prevState => {
+      const heroes = prevState.heroes.split(',').map(str => str.trim())
+      const heroIndex = heroes.indexOf(hero)
+      if (isSelected && heroIndex < 0) {
+        heroes.push(hero)
+      }
+      if (!isSelected && heroIndex > -1) {
+        delete heroes[heroIndex]
+      }
+      return { heroes: heroes.join(', ') }
+    })
+  }
+
   render() {
     const { rank, comment, map, group, heroes } = this.state
     const { season } = this.props
@@ -95,6 +109,7 @@ class MatchForm extends Component {
             <HeroSelect
               heroes={heroes}
               season={season}
+              onToggle={this.onHeroChange}
             />
           </dd>
         </dl>

@@ -51,6 +51,10 @@ class HeroCheckbox extends Component {
     return classes.join(' ')
   }
 
+  onChange = event => {
+    this.props.onToggle(this.props.hero, event.target.checked)
+  }
+
   render() {
     const { isAvailable, isChecked, hero } = this.props
     const domID = `hero-${this.slugify(hero)}`
@@ -69,6 +73,7 @@ class HeroCheckbox extends Component {
             checked={isChecked}
             value={hero}
             id={domID}
+            onChange={this.onChange}
             type="checkbox"
           />
           <div className="no-wrap">
