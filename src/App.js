@@ -10,7 +10,7 @@ import './primer.css'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { active: 'accounts' }
+    this.state = { active: 'matches' }
     this.db = {}
     this.db.accounts = Account.setupDatabase()
     this.db.matches = Match.setupDatabase()
@@ -19,7 +19,7 @@ class App extends Component {
   activePage = () => {
     const { active } = this.state
     if (active === 'matches') {
-      return <MatchesPage dbAccounts={this.db.matches} />
+      return <MatchesPage dbMatches={this.db.matches} />
     }
     return <AccountsPage dbAccounts={this.db.accounts} />
   }

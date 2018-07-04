@@ -26,17 +26,17 @@ class Header extends Component {
           <div className="container">
             <div className="UnderlineNav-body">
               <button
-                name="accounts"
-                type="button"
-                className={this.pageButtonClass('accounts')}
-                onClick={this.changeActivePage}
-              >Accounts</button>
-              <button
                 name="matches"
                 type="button"
                 className={this.pageButtonClass('matches')}
                 onClick={this.changeActivePage}
               >Matches</button>
+              <button
+                name="accounts"
+                type="button"
+                className={this.pageButtonClass('accounts')}
+                onClick={this.changeActivePage}
+              >Accounts</button>
             </div>
           </div>
         </nav>
