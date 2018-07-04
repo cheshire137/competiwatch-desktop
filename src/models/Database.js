@@ -1,4 +1,7 @@
 import Datastore from 'nedb'
+import path from 'path'
+
+const remote = window.require('electron').remote
 
 class Database {
   static load(name) {
