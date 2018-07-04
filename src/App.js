@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Account from './models/Account'
 import AccountsPage from './components/AccountsPage'
 import './App.css'
+import './primer.css'
 
 class App extends Component {
   constructor() {
