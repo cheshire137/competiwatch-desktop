@@ -12,6 +12,33 @@ class Database {
     db.loadDatabase()
     return db
   }
+
+  static upsert(db, data, id, type) {
+    return new Promise((resolve, reject) => {
+      if (id) {
+        const options = {}
+        db.update({ _id: id }, data, options, (err, numReplaced) => {
+          if (err) {
+            console.error(`failed to update ${type}`, this._id, err)
+            reject(err)
+          } else {
+            console.log('updated', numReplaced, `${type}(s)`, this._id)
+            resolve()
+          }
+        })
+      } else {
+        db.insert([data], (err, newAccount) => {
+          if (err) {
+            console.error(`failed to create ${type}`, data, err)
+            reject(err)
+          } else {
+            console.log(`created ${type}`, newAccount)
+            resolve(newAccount)
+          }
+        })
+      }
+    })
+  }
 }
 
 export default Database
