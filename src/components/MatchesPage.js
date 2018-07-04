@@ -4,6 +4,8 @@ import MatchesAccountHeader from './MatchesAccountHeader'
 import Match from '../models/Match'
 import Account from '../models/Account'
 
+const latestSeason = 11
+
 class MatchesPage extends Component {
   constructor(props) {
     super(props)
@@ -33,8 +35,10 @@ class MatchesPage extends Component {
       <div className="container layout-children-container">
         <MatchesAccountHeader
           account={account}
+          season={latestSeason}
         />
         <MatchForm
+          season={latestSeason}
           accountID={accountID}
           db={dbMatches}
           onCreate={this.onMatchCreation}

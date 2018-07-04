@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 class MatchesAccountHeader extends Component {
   render() {
-    const { account } = this.props
+    const { account, season } = this.props
 
     if (!account) {
       return null
@@ -10,6 +10,8 @@ class MatchesAccountHeader extends Component {
 
     return (
       <h2>
+        Season {season}
+        <span> / </span>
         {account.battletag} Matches
       </h2>
     )

@@ -3,8 +3,6 @@ import Match from '../models/Match'
 import MapSelect from './MapSelect'
 import HeroSelect from './HeroSelect'
 
-const latestSeason = 11
-
 class MatchForm extends Component {
   constructor(props) {
     super(props)
@@ -40,6 +38,7 @@ class MatchForm extends Component {
 
   render() {
     const { rank, comment, map, group, heroes } = this.state
+    const { season } = this.props
 
     return (
       <form
@@ -95,7 +94,7 @@ class MatchForm extends Component {
           <dd>
             <HeroSelect
               heroes={heroes}
-              season={latestSeason}
+              season={season}
             />
           </dd>
         </dl>
