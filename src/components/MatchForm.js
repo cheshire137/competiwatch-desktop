@@ -71,9 +71,10 @@ class MatchForm extends Component {
         onSubmit={this.onSubmit}
         className="clearfix mb-4"
       >
+        <h2 className="h2 text-normal mb-2">Log a match</h2>
         <div className="col-md-12 col-lg-5 float-left pr-3-md">
           <div className="d-flex-md flex-items-center-md flex-justify-between-md">
-            <dl className="form-group">
+            <dl className="form-group mt-0">
               <dt>
                 <label
                   htmlFor="match-rank"
