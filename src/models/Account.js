@@ -16,6 +16,10 @@ class Account {
       then(rows => rows.map(data => new Account(data)))
   }
 
+  static find(db, id) {
+    return Database.find(db, id, 'account').then(data => new Account(data))
+  }
+
   constructor(data) {
     this.battletag = data.battletag
     this._id = data._id

@@ -29,6 +29,7 @@ class App extends Component {
       return (
         <MatchesPage
           accountID={activeAccountID}
+          dbAccounts={this.db.accounts}
           dbMatches={this.db.matches}
         />
       )

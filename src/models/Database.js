@@ -13,6 +13,19 @@ class Database {
     return db
   }
 
+  static find(db, id, type) {
+    return new Promise((resolve, reject) => {
+      db.findOne({ _id: id }, (err, data) => {
+        if (err) {
+          console.error(`failed to load ${type}`, id, err)
+          reject(err)
+        } else {
+          resolve(data)
+        }
+      })
+    })
+  }
+
   static findAll(db, type) {
     const conditions = {}
     return new Promise((resolve, reject) => {
