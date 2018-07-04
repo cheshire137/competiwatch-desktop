@@ -2,18 +2,8 @@ import Database from './Database'
 
 class Account {
   static findAll(db) {
-    const conditions = {}
-    return new Promise((resolve, reject) => {
-      db.find(conditions, (err, rows) => {
-        if (err) {
-          console.error('failed to look up accounts', err)
-          reject(err)
-        } else {
-          const accounts = rows.map(data => new Account(data))
-          resolve(accounts)
-        }
-      })
-    })
+    return Database.findAll(db, 'account').
+      then(rows => rows.map(data => new Account(data)))
   }
 
   constructor(data) {

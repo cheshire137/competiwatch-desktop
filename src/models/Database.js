@@ -13,6 +13,20 @@ class Database {
     return db
   }
 
+  static findAll(db, type) {
+    const conditions = {}
+    return new Promise((resolve, reject) => {
+      db.find(conditions, (err, rows) => {
+        if (err) {
+          console.error(`failed to look up ${type}s`, err)
+          reject(err)
+        } else {
+          resolve(rows)
+        }
+      })
+    })
+  }
+
   static upsert(db, data, id, type) {
     return new Promise((resolve, reject) => {
       if (id) {
