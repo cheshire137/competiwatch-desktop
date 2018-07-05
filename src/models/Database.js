@@ -86,6 +86,7 @@ class Database {
           }
         })
       } else {
+        data.createdAt = new Date().toJSON()
         db.insert([data], (err, newAccount) => {
           if (err) {
             console.error(`failed to create ${type}`, data, err)

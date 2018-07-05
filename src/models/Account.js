@@ -28,8 +28,9 @@ class Account {
 
   latestMatch(dbMatches) {
     const conditions = { accountID: this._id }
+    const sort = { date: -1, createdAt: -1 }
     return new Promise((resolve, reject) => {
-      dbMatches.find(conditions).sort({ date: -1 }).limit(1).exec((err, rows) => {
+      dbMatches.find(conditions).sort(sort).limit(1).exec((err, rows) => {
         if (err) {
           console.error('failed to load latest match', err)
           reject(err)
