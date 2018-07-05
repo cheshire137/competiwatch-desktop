@@ -17,7 +17,8 @@ class Match {
   }
 
   static findAll(db) {
-    return Database.findAll(db, 'match').
+    const sort = { playedAt: 1, createdAt: 1 }
+    return Database.findAll(db, sort).
       then(rows => rows.map(data => new Match(data)))
   }
 

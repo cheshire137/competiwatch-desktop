@@ -13,7 +13,8 @@ class Account {
   }
 
   static findAll(db) {
-    return Database.findAll(db, 'account', { battletag: 1 }).
+    const sort = { battletag: 1 }
+    return Database.findAll(db, sort).
       then(rows => rows.map(data => new Account(data)))
   }
 
