@@ -61,6 +61,7 @@ class MatchesList extends Component {
               <th className="match-header hide-sm">Heroes</th>
               <th className="match-header hide-sm">Group</th>
               <th className="match-header hide-sm tooltipped tooltipped-n" aria-label="Throwers and leavers">😢</th>
+              <th className="match-header hide-sm tooltipped tooltipped-n" aria-label="Play of the game">🎉</th>
               <th className="match-header"><span className="ion-ios-cog ion"></span></th>
             </tr>
           </thead>

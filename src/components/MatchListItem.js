@@ -77,14 +77,26 @@ class MatchListItem extends Component {
           {allyThrower || enemyThrower ? (
             <span
               className="Counter tooltipped tooltipped-n text-white bg-red"
-              aria-label="{this.throwerTooltip()}"
+              aria-label={this.throwerTooltip()}
             >T</span>
           ) : ''}
           {allyLeaver || enemyLeaver ? (
             <span
               className="Counter tooltipped tooltipped-n text-white bg-red"
-              aria-label="{this.leaverTooltip()}"
+              aria-label={this.leaverTooltip()}
             >L</span>
+          ) : ''}
+        </td>
+        <td
+          className="match-cell hide-sm potg-cell"
+        >
+          {playOfTheGame ? (
+            <span
+              className="tooltipped tooltipped-n"
+              aria-label="Play of the game"
+            >
+              <span className="text-green ion ion-ios-checkmark-circle"></span>
+            </span>
           ) : ''}
         </td>
         <td className="match-cell options-cell">
