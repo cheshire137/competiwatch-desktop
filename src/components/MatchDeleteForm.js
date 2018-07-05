@@ -18,7 +18,7 @@ class MatchDeleteForm extends Component {
         <button
           type="submit"
           className="btn-link text-red text-small"
-        >Delete match</button>
+        >&times;</button>
       </form>
     )
   }

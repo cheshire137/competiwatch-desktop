@@ -1,5 +1,12 @@
 import Database from './Database'
 
+const cleanupCommaList = str => {
+  const items = str.split(',').map(str => str.trim()).
+    filter(str => str && str.length > 0)
+  items.sort()
+  return items.join(', ')
+}
+
 class Match {
   static setupDatabase() {
     const db = Database.load('matches')
@@ -17,8 +24,8 @@ class Match {
     this.rank = data.rank
     this.comment = data.comment
     this.map = data.map
-    this.group = data.group
-    this.heroes = data.heroes
+    this.group = cleanupCommaList(data.group)
+    this.heroes = cleanupCommaList(data.heroes)
     this.date = data.date
   }
 
