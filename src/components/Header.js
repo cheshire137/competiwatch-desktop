@@ -7,11 +7,11 @@ class Header extends Component {
     this.props.onPageChange(active)
   }
 
-  pageButtonClass = page => {
+  listItemClass = page => {
     if (this.props.activePage === page) {
-      return 'breadcrumb-item btn-link breadcrumb-item-selected'
+      return 'breadcrumb-item breadcrumb-item-selected'
     }
-    return 'breadcrumb-item btn-link'
+    return 'breadcrumb-item'
   }
 
   renderMatchesButton = () => {
@@ -20,12 +20,14 @@ class Header extends Component {
     }
 
     return (
-      <button
-        name="matches"
-        type="button"
-        className={this.pageButtonClass('matches')}
-        onClick={this.changeActivePage}
-      >Matches</button>
+      <li className={this.listItemClass('matches')}>
+        <button
+          name="matches"
+          type="button"
+          className="btn-link"
+          onClick={this.changeActivePage}
+        >Matches</button>
+      </li>
     )
   }
 
@@ -40,12 +42,14 @@ class Header extends Component {
         <nav aria-label="Breadcrumb">
           <div className="container">
             <ol>
-              <button
-                name="accounts"
-                type="button"
-                className={this.pageButtonClass('accounts')}
-                onClick={this.changeActivePage}
-              >Accounts</button>
+              <li className={this.listItemClass('accounts')}>
+                <button
+                  name="accounts"
+                  type="button"
+                  className="btn-link"
+                  onClick={this.changeActivePage}
+                >Accounts</button>
+              </li>
               {this.renderMatchesButton()}
             </ol>
           </div>
