@@ -28,7 +28,8 @@ class AccountsList extends Component {
 
   render() {
     const { accounts } = this.state
-    const { totalAccounts, loadMatchesForAccount, dbAccounts, dbMatches } = this.props
+    const { totalAccounts, loadMatchesForAccount, dbAccounts,
+            dbMatches, loadMatchFormForAccount } = this.props
     return (
       <div className="mb-4">
         <h2
@@ -44,6 +45,7 @@ class AccountsList extends Component {
               isLast={i === accounts.length - 1}
               onDelete={this.refreshAccounts}
               loadMatchesForAccount={loadMatchesForAccount}
+              loadMatchFormForAccount={loadMatchFormForAccount}
             />
           ))}
           {accounts.length < 1 ? (

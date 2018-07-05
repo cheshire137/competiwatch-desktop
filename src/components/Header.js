@@ -31,6 +31,23 @@ class Header extends Component {
     )
   }
 
+  renderLogMatchButton = () => {
+    if (this.props.activePage !== 'log-match') {
+      return null
+    }
+
+    return (
+      <li className={this.listItemClass('log-match')}>
+        <button
+          name="log-match"
+          type="button"
+          className="btn-link"
+          onClick={this.changeActivePage}
+        >Log a match</button>
+      </li>
+    )
+  }
+
   render() {
     return (
       <div className="mb-4">
@@ -51,6 +68,7 @@ class Header extends Component {
                 >Accounts</button>
               </li>
               {this.renderMatchesButton()}
+              {this.renderLogMatchButton()}
             </ol>
           </div>
         </nav>

@@ -17,7 +17,8 @@ class AccountsPage extends Component {
   }
 
   render() {
-    const { dbAccounts, dbMatches, loadMatchesForAccount } = this.props
+    const { dbAccounts, dbMatches, loadMatchesForAccount,
+            loadMatchFormForAccount } = this.props
     const { totalAccounts } = this.state
 
     return (
@@ -30,6 +31,7 @@ class AccountsPage extends Component {
               onLoad={this.onAccountsLoad}
               totalAccounts={totalAccounts}
               loadMatchesForAccount={loadMatchesForAccount}
+              loadMatchFormForAccount={loadMatchFormForAccount}
             />
           </div>
           <div className="col-4 float-left">

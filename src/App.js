@@ -4,6 +4,7 @@ import Account from './models/Account'
 import Match from './models/Match'
 import AccountsPage from './components/AccountsPage'
 import MatchesPage from './components/MatchesPage'
+import MatchFormPage from './components/MatchFormPage'
 import './primer.css'
 import './ionicons.min.css'
 import './App.css'
@@ -23,6 +24,10 @@ class App extends Component {
     this.setState(prevState => ({ activeAccountID: accountID, activePage: 'matches' }))
   }
 
+  loadMatchFormForAccount = accountID => {
+    this.setState(prevState => ({ activeAccountID: accountID, activePage: 'log-match' }))
+  }
+
   renderActivePage = () => {
     const { activePage, activeAccountID } = this.state
 
@@ -35,11 +40,23 @@ class App extends Component {
         />
       )
     }
+
+    if (activePage === 'log-match') {
+      return (
+        <MatchFormPage
+          accountID={activeAccountID}
+          dbAccounts={this.db.accounts}
+          dbMatches={this.db.matches}
+        />
+      )
+    }
+
     return (
       <AccountsPage
         dbAccounts={this.db.accounts}
         dbMatches={this.db.matches}
         loadMatchesForAccount={this.loadMatchesForAccount}
+        loadMatchFormForAccount={this.loadMatchFormForAccount}
       />
     )
   }

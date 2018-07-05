@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 class MatchesAccountHeader extends Component {
   render() {
-    const { account, season } = this.props
+    const { account, season, activePage } = this.props
 
     if (!account) {
       return null
@@ -13,6 +13,9 @@ class MatchesAccountHeader extends Component {
         <span className="text-gray">Season {season}</span>
         <span> / </span>
         {account.battletag}
+        {activePage === 'log-match' ? (
+          <span> / Log a match</span>
+        ) : ''}
       </h2>
     )
   }
