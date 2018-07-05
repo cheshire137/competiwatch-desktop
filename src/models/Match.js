@@ -1,6 +1,9 @@
 import Database from './Database'
 
 const cleanupCommaList = str => {
+  if (!str) {
+    return ''
+  }
   const items = str.split(',').map(str => str.trim()).
     filter(str => str && str.length > 0)
   items.sort()
@@ -23,6 +26,7 @@ class Match {
     this._id = data._id
     this.rank = data.rank
     this.comment = data.comment
+    this.season = data.season
     this.map = data.map
     this.group = cleanupCommaList(data.group)
     this.heroes = cleanupCommaList(data.heroes)
@@ -49,7 +53,8 @@ class Match {
       allyThrower: this.allyThrower,
       enemyLeaver: this.enemyLeaver,
       allyLeaver: this.allyLeaver,
-      playOfTheGame: this.playOfTheGame
+      playOfTheGame: this.playOfTheGame,
+      season: this.season
     }
     return Database.upsert(db, data, this._id, 'match').
       then(newMatch => { this._id = newMatch._id })

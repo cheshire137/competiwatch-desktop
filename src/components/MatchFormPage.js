@@ -22,6 +22,7 @@ class MatchFormPage extends Component {
 
   onMatchCreation = () => {
     this.setState(prevState => ({ totalMatches: prevState.totalMatches + 1 }))
+    this.props.onPageChange('matches')
   }
 
   render() {

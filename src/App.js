@@ -58,6 +58,7 @@ class App extends Component {
           accountID={activeAccountID}
           dbAccounts={this.db.accounts}
           dbMatches={this.db.matches}
+          onPageChange={this.changeActivePage}
         />
       )
     }
