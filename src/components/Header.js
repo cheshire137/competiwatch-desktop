@@ -9,9 +9,9 @@ class Header extends Component {
 
   pageButtonClass = page => {
     if (this.props.activePage === page) {
-      return 'UnderlineNav-item btn-link selected'
+      return 'breadcrumb-item btn-link breadcrumb-item-selected'
     }
-    return 'UnderlineNav-item btn-link'
+    return 'breadcrumb-item btn-link'
   }
 
   renderMatchesButton = () => {
@@ -37,17 +37,17 @@ class Header extends Component {
             <h1 className="h1 lh-condensed">Competiwatch Desktop</h1>
           </div>
         </header>
-        <nav className="UnderlineNav">
+        <nav aria-label="Breadcrumb">
           <div className="container">
-            <div className="UnderlineNav-body">
-              {this.renderMatchesButton()}
+            <ol>
               <button
                 name="accounts"
                 type="button"
                 className={this.pageButtonClass('accounts')}
                 onClick={this.changeActivePage}
               >Accounts</button>
-            </div>
+              {this.renderMatchesButton()}
+            </ol>
           </div>
         </nav>
       </div>

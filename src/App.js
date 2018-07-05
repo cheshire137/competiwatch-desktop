@@ -45,7 +45,13 @@ class App extends Component {
   }
 
   changeActivePage = activePage => {
-    this.setState(prevState => ({ activePage }))
+    this.setState(prevState => {
+      const newState = { activePage }
+      if (activePage === 'accounts') {
+        newState.activeAccountID = null
+      }
+      return newState
+    })
   }
 
   render() {

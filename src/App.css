@@ -7,3 +7,7 @@
 .layout-children-container {
   flex: 1 0 auto;
 }
+
+.container {
+  width: 95%;
+}
