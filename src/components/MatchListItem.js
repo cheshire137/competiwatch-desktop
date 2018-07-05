@@ -10,8 +10,34 @@ class MatchListItem extends Component {
     return 'border-bottom pb-2 mb-2'
   }
 
+  throwerTooltip = () => {
+    const { allyThrower, enemyThrower } = this.props
+    const tooltip = []
+    if (allyThrower) {
+      tooltip.push('Thrower on my team')
+    }
+    if (enemyThrower) {
+      tooltip.push('Thrower on the enemy team')
+    }
+    return tooltip.join(' + ')
+  }
+
+  leaverTooltip = () => {
+    const { allyLeaver, enemyLeaver } = this.props
+    const tooltip = []
+    if (allyLeaver) {
+      tooltip.push('Leaver on my team')
+    }
+    if (enemyLeaver) {
+      tooltip.push('Leaver on the enemy team')
+    }
+    return tooltip.join(' + ')
+  }
+
   render() {
-    const { rank, _id, db, map, group, heroes, comment, playedAt, onDelete, index } = this.props
+    const { rank, _id, db, map, group, heroes, comment, playedAt,
+            onDelete, index, allyThrower, allyLeaver,
+            enemyThrower, enemyLeaver, playOfTheGame } = this.props
 
     return (
       <tr className={this.outerClass()}>
@@ -47,7 +73,20 @@ class MatchListItem extends Component {
         >{group}</td>
         <td
           className="match-cell hide-sm throwers-leavers-cell"
-        ></td>
+        >
+          {allyThrower || enemyThrower ? (
+            <span
+              className="Counter tooltipped tooltipped-n text-white bg-red"
+              aria-label="{this.throwerTooltip()}"
+            >T</span>
+          ) : ''}
+          {allyLeaver || enemyLeaver ? (
+            <span
+              className="Counter tooltipped tooltipped-n text-white bg-red"
+              aria-label="{this.leaverTooltip()}"
+            >L</span>
+          ) : ''}
+        </td>
         <td className="match-cell options-cell">
           <MatchDeleteForm
             _id={_id}
