@@ -1,0 +1,61 @@
+
+.match-cell,
+.match-header {
+  border: 1px solid #000;
+  padding: 0.3em 0.6em;
+}
+
+.match-cell {
+  text-align: center;
+}
+
+.match-header {
+  background-color: #bed6ed;
+}
+
+.match-placement-log-row .match-cell {
+  background-color: #9dc3e3;
+}
+
+.match-placement-row .match-cell.sr-change-cell,
+.match-placement-row .match-cell.rank-cell,
+.match-placement-row .match-cell.comment-cell,
+.match-placement-row .match-cell.time-cell,
+.match-placement-row .match-cell.heroes-cell,
+.match-placement-row .match-cell.throwers-leavers-cell,
+.match-placement-row .match-cell.options-cell,
+.match-placement-row .match-cell.friends-cell {
+  background-color: #efefef;
+}
+
+.match-placement-log-row .match-cell.rank-cell,
+.match-placement-row.match-last-placement-row .match-cell.rank-cell {
+  background-color: #fed86e;
+}
+
+.rank-cell.worse-than-placement,
+.result-loss.result-cell {
+  background-color: #fc0d1b;
+}
+
+.rank-cell.better-than-placement,
+.result-win.result-cell {
+  background-color: #a9cf90;
+}
+
+.result-draw.result-cell {
+  background-color: #fed86e;
+}
+
+.match-number-cell,
+.match-placement-log-row .match-number-cell.match-cell {
+  background-color: #d0cece;
+}
+
+.match-number-cell.match-placement-number-cell {
+  background-color: #e8e8e8;
+}
+
+.streak-empty {
+  background-color: #ddd;
+}
