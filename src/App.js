@@ -6,6 +6,7 @@ import AccountsPage from './components/AccountsPage'
 import MatchesPage from './components/MatchesPage'
 import './App.css'
 import './primer.css'
+import './ionicons.min.css'
 
 class App extends Component {
   constructor(props) {
