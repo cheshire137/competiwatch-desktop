@@ -32,6 +32,7 @@ class Match {
     this.allyThrower = data.allyThrower
     this.enemyLeaver = data.enemyLeaver
     this.allyLeaver = data.allyLeaver
+    this.playOfTheGame = data.playOfTheGame
   }
 
   save(db) {
@@ -47,7 +48,8 @@ class Match {
       enemyThrower: this.enemyThrower,
       allyThrower: this.allyThrower,
       enemyLeaver: this.enemyLeaver,
-      allyLeaver: this.allyLeaver
+      allyLeaver: this.allyLeaver,
+      playOfTheGame: this.playOfTheGame
     }
     return Database.upsert(db, data, this._id, 'match').
       then(newMatch => { this._id = newMatch._id })

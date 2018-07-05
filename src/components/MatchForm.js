@@ -35,13 +35,20 @@ class MatchForm extends Component {
       map: '',
       group: '',
       heroes: '',
-      playedAt: currentDatetime()
+      playedAt: currentDatetime(),
+      playOfTheGame: false,
+      allyThrower: false,
+      allyLeaver: false,
+      enemyThrower: false,
+      enemyLeaver: false
     }
   }
 
   onSubmit = event => {
     event.preventDefault()
-    const { rank, comment, map, group, heroes, playedAt } = this.state
+    const { rank, comment, map, group, heroes, playedAt,
+            allyThrower, allyLeaver, enemyThrower, enemyLeaver,
+            playOfTheGame } = this.state
     const { accountID, db } = this.props
     const data = {
       rank: parseFloat(rank),
@@ -50,7 +57,12 @@ class MatchForm extends Component {
       group,
       accountID,
       heroes,
-      playedAt
+      playedAt,
+      allyThrower,
+      allyLeaver,
+      enemyThrower,
+      enemyLeaver,
+      playOfTheGame
     }
     const match = new Match(data)
     match.save(db).then(() => {
@@ -117,9 +129,15 @@ class MatchForm extends Component {
     this.setState(prevState => ({ enemyLeaver }))
   }
 
+  onPlayOfTheGameChange = event => {
+    const playOfTheGame = event.target.checked
+    this.setState(prevState => ({ playOfTheGame }))
+  }
+
   render() {
     const { rank, comment, map, group, heroes, playedAt,
-            allyThrower, allyLeaver, enemyThrower, enemyLeaver } = this.state
+            allyThrower, allyLeaver, enemyThrower, enemyLeaver,
+            playOfTheGame } = this.state
     const { season } = this.props
 
     return (
@@ -211,6 +229,16 @@ class MatchForm extends Component {
                 />
               </dd>
             </dl>
+            <div className="form-checkbox mr-4 my-1">
+              <label className="text-normal">
+                <input
+                  type="checkbox"
+                  checked={playOfTheGame}
+                  onChange={this.onPlayOfTheGameChange}
+                />
+                Play of the game
+              </label>
+            </div>
           </div>
           <div className="col-md-12 col-lg-6 float-right">
             <dl className="form-group my-0">
