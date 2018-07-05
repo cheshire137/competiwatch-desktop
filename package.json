@@ -25,6 +25,7 @@
     "electron": "^2.0.4",
     "electron-packager": "^12.1.0",
     "foreman": "^3.0.1",
+    "ionicons": "^4.2.4",
     "primer": "^10.7.0"
   }
 }
