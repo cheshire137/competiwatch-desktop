@@ -28,7 +28,7 @@ class MatchesPage extends Component {
   }
 
   render() {
-    const { dbMatches, accountID } = this.props
+    const { dbMatches, accountID, onPageChange } = this.props
     const { totalMatches, account } = this.state
 
     return (
@@ -42,6 +42,7 @@ class MatchesPage extends Component {
           totalMatches={totalMatches}
           db={dbMatches}
           onLoad={this.onMatchesLoad}
+          onPageChange={onPageChange}
         />
       </div>
     )

@@ -26,15 +26,27 @@ class MatchesList extends Component {
     }
   }
 
+  changeToMatchFormPage = event => {
+    event.target.blur()
+    this.props.onPageChange('log-match')
+  }
+
   render() {
     const { matches } = this.state
     const { totalMatches, db } = this.props
 
     return (
       <div className="mb-4">
-        <h2
-          className="h2 text-normal mb-2 d-flex flex-items-center"
-        >Matches <span className="Counter ml-2 h4 px-2">{totalMatches}</span></h2>
+        <div className="d-flex flex-items-center flex-justify-between">
+          <h2
+            className="h2 text-normal mb-2 d-flex flex-items-center"
+          >Matches <span className="Counter ml-2 h4 px-2">{totalMatches}</span></h2>
+          <button
+            type="button"
+            className="btn-link"
+            onClick={this.changeToMatchFormPage}
+          >Log a match</button>
+        </div>
         <table className="width-full">
           <thead>
             <tr>

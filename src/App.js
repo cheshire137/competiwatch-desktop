@@ -28,6 +28,16 @@ class App extends Component {
     this.setState(prevState => ({ activeAccountID: accountID, activePage: 'log-match' }))
   }
 
+  changeActivePage = activePage => {
+    this.setState(prevState => {
+      const newState = { activePage }
+      if (activePage === 'accounts') {
+        newState.activeAccountID = null
+      }
+      return newState
+    })
+  }
+
   renderActivePage = () => {
     const { activePage, activeAccountID } = this.state
 
@@ -37,6 +47,7 @@ class App extends Component {
           accountID={activeAccountID}
           dbAccounts={this.db.accounts}
           dbMatches={this.db.matches}
+          onPageChange={this.changeActivePage}
         />
       )
     }
@@ -59,16 +70,6 @@ class App extends Component {
         loadMatchFormForAccount={this.loadMatchFormForAccount}
       />
     )
-  }
-
-  changeActivePage = activePage => {
-    this.setState(prevState => {
-      const newState = { activePage }
-      if (activePage === 'accounts') {
-        newState.activeAccountID = null
-      }
-      return newState
-    })
   }
 
   render() {
