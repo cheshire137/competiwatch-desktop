@@ -4,7 +4,7 @@ import MapSelect from './MapSelect'
 import HeroSelect from './HeroSelect'
 import './MatchForm.css'
 
-const today = () => {
+const currentDatetime = () => {
   const date = new Date()
   const year = date.getFullYear()
   let month = date.getMonth() + 1
@@ -15,7 +15,15 @@ const today = () => {
   if (day <= 9) {
     day = `0${day}`
   }
-  return `${year}-${month}-${day}`
+  let hour = date.getHours()
+  if (hour <= 9) {
+    hour = `0${hour}`
+  }
+  let minute = date.getMinutes()
+  if (minute <= 9) {
+    minute = `0${minute}`
+  }
+  return `${year}-${month}-${day}T${hour}:${minute}`
 }
 
 class MatchForm extends Component {
@@ -27,13 +35,13 @@ class MatchForm extends Component {
       map: '',
       group: '',
       heroes: '',
-      date: today()
+      playedAt: currentDatetime()
     }
   }
 
   onSubmit = event => {
     event.preventDefault()
-    const { rank, comment, map, group, heroes, date } = this.state
+    const { rank, comment, map, group, heroes, playedAt } = this.state
     const { accountID, db } = this.props
     const data = {
       rank: parseFloat(rank),
@@ -42,7 +50,7 @@ class MatchForm extends Component {
       group,
       accountID,
       heroes,
-      date
+      playedAt
     }
     const match = new Match(data)
     match.save(db).then(() => {
@@ -69,9 +77,9 @@ class MatchForm extends Component {
     this.setState(prevState => ({ group }))
   }
 
-  onDateChange = event => {
-    const date = event.target.value
-    this.setState(prevState => ({ date }))
+  onPlayedAtChange = event => {
+    const playedAt = event.target.value
+    this.setState(prevState => ({ playedAt }))
   }
 
   onHeroChange = (hero, isSelected) => {
@@ -89,66 +97,87 @@ class MatchForm extends Component {
     })
   }
 
+  onAllyThrowerChange = event => {
+    const allyThrower = event.target.checked
+    this.setState(prevState => ({ allyThrower }))
+  }
+
+  onAllyLeaverChange = event => {
+    const allyLeaver = event.target.checked
+    this.setState(prevState => ({ allyLeaver }))
+  }
+
+  onEnemyThrowerChange = event => {
+    const enemyThrower = event.target.checked
+    this.setState(prevState => ({ enemyThrower }))
+  }
+
+  onEnemyLeaverChange = event => {
+    const enemyLeaver = event.target.checked
+    this.setState(prevState => ({ enemyLeaver }))
+  }
+
   render() {
-    const { rank, comment, map, group, heroes, date } = this.state
+    const { rank, comment, map, group, heroes, playedAt,
+            allyThrower, allyLeaver, enemyThrower, enemyLeaver } = this.state
     const { season } = this.props
 
     return (
       <form
         onSubmit={this.onSubmit}
-        className="clearfix mb-4"
+        className="mb-4"
       >
         <h2 className="h2 text-normal mb-2">Log a match</h2>
-        <div className="col-md-12 col-lg-5 float-left pr-3-md">
-          <div className="d-flex-md flex-items-center-md flex-justify-between-md">
+        <div className="clearfix">
+          <div className="col-md-12 col-lg-5 float-left pr-3-md">
+            <div className="d-flex-md mb-2 flex-items-center-md flex-justify-between-md">
+              <dl className="form-group my-0">
+                <dt>
+                  <label
+                    htmlFor="match-rank"
+                    className="sr-field-label"
+                  >New SR:</label>
+                </dt>
+                <dd>
+                  <input
+                    id="match-rank"
+                    type="number"
+                    className="form-control sr-field"
+                    value={rank}
+                    onChange={this.onRankChange}
+                    placeholder="2500"
+                    autoFocus
+                  />
+                </dd>
+              </dl>
+              <dl className="form-group my-0">
+                <dt>
+                  <label
+                    htmlFor="match-map"
+                  >Map:</label>
+                </dt>
+                <dd>
+                  <MapSelect map={map} onChange={this.onMapChange} />
+                </dd>
+              </dl>
+            </div>
             <dl className="form-group mt-0">
               <dt>
                 <label
-                  htmlFor="match-rank"
-                  className="sr-field-label"
-                >New SR:</label>
+                  htmlFor="match-comment"
+                >Comment:</label>
               </dt>
               <dd>
                 <input
-                  id="match-rank"
-                  type="number"
-                  className="form-control sr-field"
-                  value={rank}
-                  onChange={this.onRankChange}
-                  placeholder="2500"
-                  autoFocus
+                  id="match-comment"
+                  type="text"
+                  className="form-control"
+                  value={comment}
+                  onChange={this.onCommentChange}
+                  placeholder="Notes about this game"
                 />
               </dd>
             </dl>
-            <dl className="form-group">
-              <dt>
-                <label
-                  htmlFor="match-map"
-                >Map:</label>
-              </dt>
-              <dd>
-                <MapSelect map={map} onChange={this.onMapChange} />
-              </dd>
-            </dl>
-          </div>
-          <dl className="form-group mt-0">
-            <dt>
-              <label
-                htmlFor="match-comment"
-              >Comment:</label>
-            </dt>
-            <dd>
-              <input
-                id="match-comment"
-                type="text"
-                className="form-control"
-                value={comment}
-                onChange={this.onCommentChange}
-                placeholder="Notes about this game"
-              />
-            </dd>
-          </dl>
-          <div className="Box p-3 mb-3">
             <dl className="form-group">
               <dt>
                 <label
@@ -166,38 +195,84 @@ class MatchForm extends Component {
                 />
               </dd>
             </dl>
+            <dl className="form-group">
+              <dt>
+                <label
+                  htmlFor="match-played-at"
+                >Date played:</label>
+              </dt>
+              <dd>
+                <input
+                  id="match-played-at"
+                  type="datetime-local"
+                  className="form-control"
+                  value={playedAt}
+                  onChange={this.onPlayedAtChange}
+                />
+              </dd>
+            </dl>
           </div>
-          <dl className="form-group">
-            <dt>
-              <label
-                htmlFor="match-date"
-              >Date played:</label>
-            </dt>
-            <dd>
-              <input
-                id="match-date"
-                type="date"
-                className="form-control"
-                value={date}
-                onChange={this.onDateChange}
-              />
-            </dd>
-          </dl>
+          <div className="col-md-12 col-lg-6 float-right">
+            <dl className="form-group my-0">
+              <dt className="text-bold">Heroes played:</dt>
+              <dd>
+                <HeroSelect
+                  heroes={heroes}
+                  season={season}
+                  onToggle={this.onHeroChange}
+                />
+              </dd>
+            </dl>
+          </div>
         </div>
-        <div className="col-md-12 col-lg-6 float-left pl-4-md">
-          <dl className="form-group my-0">
-            <dt className="text-bold">Heroes played:</dt>
-            <dd>
-              <HeroSelect
-                heroes={heroes}
-                season={season}
-                onToggle={this.onHeroChange}
-              />
-            </dd>
-          </dl>
-          <div className="form-actions">
-            <button type="submit" className="btn">Save match</button>
+        <div className="d-flex flex-wrap mb-3">
+          <div className="rounded-2 border bg-gray-light d-flex mr-4 px-2">
+            <div className="form-checkbox mr-4 my-1">
+              <label className="text-normal text-ally">
+                <input
+                  type="checkbox"
+                  checked={allyThrower}
+                  onChange={this.onAllyThrowerChange}
+                />
+                Thrower on my team
+              </label>
+            </div>
+            <div className="form-checkbox my-1">
+              <label className="text-normal text-enemy">
+                <input
+                  type="checkbox"
+                  checked={enemyThrower}
+                  onChange={this.onEnemyThrowerChange}
+                />
+                Thrower on the enemy team
+              </label>
+            </div>
           </div>
+          <div className="rounded-2 border bg-gray-light d-flex px-2">
+            <div className="form-checkbox mr-4 my-1">
+              <label className="text-normal text-ally">
+                <input
+                  type="checkbox"
+                  checked={allyLeaver}
+                  onChange={this.onAllyLeaverChange}
+                />
+                Leaver on my team
+              </label>
+            </div>
+            <div className="form-checkbox my-1">
+              <label className="text-normal text-enemy">
+                <input
+                  type="checkbox"
+                  checked={enemyLeaver}
+                  onChange={this.onEnemyLeaverChange}
+                />
+                Leaver on the enemy team
+              </label>
+            </div>
+          </div>
+        </div>
+        <div className="form-actions">
+          <button type="submit" className="btn btn-primary btn-large">Save match</button>
         </div>
       </form>
     )

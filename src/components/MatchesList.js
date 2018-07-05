@@ -58,6 +58,7 @@ class MatchesList extends Component {
                 key={match._id}
                 db={db}
                 {...match}
+                index={i}
                 isLast={i === matches.length - 1}
                 onDelete={this.refreshMatches}
               />

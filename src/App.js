@@ -4,9 +4,9 @@ import Account from './models/Account'
 import Match from './models/Match'
 import AccountsPage from './components/AccountsPage'
 import MatchesPage from './components/MatchesPage'
-import './App.css'
 import './primer.css'
 import './ionicons.min.css'
+import './App.css'
 
 class App extends Component {
   constructor(props) {

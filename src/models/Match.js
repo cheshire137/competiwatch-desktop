@@ -26,7 +26,12 @@ class Match {
     this.map = data.map
     this.group = cleanupCommaList(data.group)
     this.heroes = cleanupCommaList(data.heroes)
-    this.date = data.date
+    this.playedAt = data.playedAt
+    this.isPlacement = data.isPlacement
+    this.enemyThrower = data.enemyThrower
+    this.allyThrower = data.allyThrower
+    this.enemyLeaver = data.enemyLeaver
+    this.allyLeaver = data.allyLeaver
   }
 
   save(db) {
@@ -37,7 +42,12 @@ class Match {
       group: this.group,
       heroes: this.heroes,
       accountID: this.accountID,
-      date: this.date
+      playedAt: this.playedAt,
+      isPlacement: this.isPlacement,
+      enemyThrower: this.enemyThrower,
+      allyThrower: this.allyThrower,
+      enemyLeaver: this.enemyLeaver,
+      allyLeaver: this.allyLeaver
     }
     return Database.upsert(db, data, this._id, 'match').
       then(newMatch => { this._id = newMatch._id })
