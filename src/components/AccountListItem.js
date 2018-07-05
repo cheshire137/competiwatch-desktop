@@ -39,17 +39,18 @@ class AccountListItem extends Component {
 
     return (
       <li className={this.outerClass()}>
-        <button
-          type="button"
-          className="btn-link f3"
-          onClick={this.loadMatchesForAccount}
-        >{battletag}</button>
-        &mdash;
-        <button
-          type="button"
-          className="btn-link f2 text-gray"
-          onClick={this.loadMatchFormForAccount}
-        >Log a match</button>
+        <div className="d-flex flex-items-center">
+          <button
+            type="button"
+            className="btn-link f3"
+            onClick={this.loadMatchesForAccount}
+          >{battletag}</button>
+          <button
+            type="button"
+            className="btn-link ml-4 f4"
+            onClick={this.loadMatchFormForAccount}
+          >Log a match</button>
+        </div>
         {latestMatch ? (
           <div className="text-gray">SR: {latestMatch.rank}</div>
         ) : ''}
