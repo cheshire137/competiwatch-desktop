@@ -34,6 +34,15 @@ class MatchListItem extends Component {
     return tooltip.join(' + ')
   }
 
+  mapBackgroundClass = () => {
+    const { map } = this.props
+    if (!map) {
+      return ''
+    }
+    const slug = map.toLowerCase().replace(/:/, '').replace(/\s/, '-')
+    return `background-${slug}`
+  }
+
   render() {
     const { rank, _id, db, map, group, heroes, comment, playedAt,
             onDelete, index, allyThrower, allyLeaver,
@@ -57,7 +66,7 @@ class MatchListItem extends Component {
           className="match-cell position-relative hide-sm"
         ></td>
         <td
-          className="match-cell no-wrap"
+          className={`match-cell no-wrap ${this.mapBackgroundClass()}`}
         >{map}</td>
         <td
           className="match-cell hide-sm comment-cell"
