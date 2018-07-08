@@ -30,6 +30,7 @@ class Match {
     this.comment = data.comment
     this.season = data.season
     this.map = data.map
+    this.result = data.result
     this.group = cleanupCommaList(data.group)
     this.heroes = cleanupCommaList(data.heroes)
     this.playedAt = data.playedAt
@@ -56,7 +57,8 @@ class Match {
       enemyLeaver: this.enemyLeaver,
       allyLeaver: this.allyLeaver,
       playOfTheGame: this.playOfTheGame,
-      season: this.season
+      season: this.season,
+      result: this.result
     }
     return Database.upsert(db, data, this._id, 'match').
       then(newMatch => { this._id = newMatch._id })

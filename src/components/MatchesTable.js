@@ -42,19 +42,8 @@ class MatchesTable extends Component {
             <MatchListItem
               key={match._id}
               db={db}
-              rank={match.rank}
-              _id={match._id}
-              map={match.map}
-              group={match.group}
-              heroes={match.heroes}
-              comment={match.comment}
+              match={match}
               index={i}
-              playedAt={match.playedAt}
-              allyThrower={match.allyThrower}
-              enemyThrower={match.enemyThrower}
-              allyLeaver={match.allyLeaver}
-              enemyLeaver={match.enemyLeaver}
-              playOfTheGame={match.playOfTheGame}
               result={match.result || this.matchResult(match, matches[i - 1])}
               isLast={i === matches.length - 1}
               onDelete={this.refreshMatches}

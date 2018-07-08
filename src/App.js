@@ -27,9 +27,13 @@ class App extends Component {
 
   changeActivePage = (activePage, latestRank) => {
     this.setState(prevState => {
-      const newState = { activePage, latestRank }
+      const newState = { activePage }
+      if (typeof latestRank === 'number') {
+        newState.latestRank = latestRank
+      }
       if (activePage === 'accounts') {
         newState.activeAccountID = null
+        newState.latestRank = 2500
       }
       return newState
     })

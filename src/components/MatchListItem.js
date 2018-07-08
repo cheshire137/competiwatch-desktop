@@ -7,46 +7,54 @@ class MatchListItem extends Component {
     if (this.props.isLast) {
       return ''
     }
+
     return 'border-bottom pb-2 mb-2'
   }
 
   throwerTooltip = () => {
-    const { allyThrower, enemyThrower } = this.props
+    const match = this.props.match
+    const { allyThrower, enemyThrower } = match
     const tooltip = []
+
     if (allyThrower) {
       tooltip.push('Thrower on my team')
     }
     if (enemyThrower) {
       tooltip.push('Thrower on the enemy team')
     }
+
     return tooltip.join(' + ')
   }
 
   leaverTooltip = () => {
-    const { allyLeaver, enemyLeaver } = this.props
+    const match = this.props.match
+    const { allyLeaver, enemyLeaver } = match
     const tooltip = []
+
     if (allyLeaver) {
       tooltip.push('Leaver on my team')
     }
     if (enemyLeaver) {
       tooltip.push('Leaver on the enemy team')
     }
+
     return tooltip.join(' + ')
   }
 
   mapBackgroundClass = () => {
-    const { map } = this.props
+    const map = this.props.match.map
     if (!map) {
       return ''
     }
+
     const slug = map.toLowerCase().replace(/:/, '').replace(/\s/, '-')
     return `background-${slug}`
   }
 
   render() {
-    const { rank, _id, db, map, group, heroes, comment, playedAt,
-            onDelete, index, allyThrower, allyLeaver,
-            enemyThrower, enemyLeaver, playOfTheGame, result } = this.props
+    const { db, onDelete, index, result, match } = this.props
+    const { rank, _id, group, heroes, comment, playedAt, playOfTheGame,
+            allyThrower, allyLeaver, enemyThrower, enemyLeaver, map } = match
 
     return (
       <tr className={this.outerClass()}>
