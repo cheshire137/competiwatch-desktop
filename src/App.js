@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Header from './components/Header'
 import Account from './models/Account'
 import Match from './models/Match'
+import Season from './models/Season'
 import AccountsPage from './components/AccountsPage'
 import MatchesPage from './components/MatchesPage'
 import MatchFormPage from './components/MatchFormPage'
@@ -9,20 +10,41 @@ import './primer.css'
 import './ionicons.min.css'
 import './App.css'
 
-const latestSeason = 11
+const latestKnownSeason = 11
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       activePage: 'accounts',
-      activeSeason: latestSeason,
       latestRank: 2500,
-      isPlacement: false
+      isPlacement: false,
+      latestSeason: latestKnownSeason
     }
     this.db = {}
     this.db.accounts = Account.setupDatabase()
     this.db.matches = Match.setupDatabase()
+    this.db.seasons = Season.setupDatabase()
+  }
+
+  setActiveSeason = season => {
+    this.setState(prevState => {
+      const newState = { activeSeason: season }
+      if (season > prevState.latestSeason) {
+        newState.latestSeason = season
+      }
+      return newState
+    })
+  }
+
+  componentDidMount() {
+    Season.latest(this.db.seasons).then(number => {
+      if (number) {
+        this.setActiveSeason(number)
+      } else {
+        this.setState(prevState => ({ activeSeason: latestKnownSeason }))
+      }
+    })
   }
 
   loadMatchesForAccount = accountID => {
@@ -101,17 +123,19 @@ class App extends Component {
   }
 
   render() {
-    const { activePage, activeAccountID, activeSeason } = this.state
+    const { activePage, activeAccountID, activeSeason, latestSeason } = this.state
 
     return (
       <div className="layout-container">
         <Header
+          dbSeasons={this.db.seasons}
           activePage={activePage}
           activeAccountID={activeAccountID}
           onPageChange={this.changeActivePage}
           activeSeason={activeSeason}
           latestSeason={latestSeason}
           onSeasonChange={this.changeActiveSeason}
+          onSeasonCreate={this.setActiveSeason}
         />
         {this.renderActivePage()}
       </div>

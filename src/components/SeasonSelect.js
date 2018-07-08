@@ -1,9 +1,28 @@
 import React, { Component } from 'react'
+import SeasonForm from './SeasonForm'
+
+const getSeasonsList = (latestSeason) => {
+  const seasons = []
+  for (let season = latestSeason; season >= 1; season--) {
+    seasons.push(season)
+  }
+  return seasons
+}
 
 class SeasonSelect extends Component {
   constructor(props) {
     super(props)
-    this.state = { isOpen: false }
+    this.state = {
+      isOpen: false,
+      showSeasonForm: false,
+      seasons: getSeasonsList(props.latestSeason)
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.latestSeason !== this.props.latestSeason) {
+      this.setState(prevState => ({ seasons: getSeasonsList(this.props.latestSeason) }))
+    }
   }
 
   containerClass = () => {
@@ -27,15 +46,6 @@ class SeasonSelect extends Component {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }))
   }
 
-  allSeasons = () => {
-    const { latestSeason } = this.props
-    const seasons = []
-    for (let season = latestSeason; season >= 1; season--) {
-      seasons.push(season)
-    }
-    return seasons
-  }
-
   seasonButtonClass = season => {
     const classes = ['select-menu-item', 'text-left', 'width-full', 'btn-link']
     if (this.props.activeSeason === season) {
@@ -53,36 +63,68 @@ class SeasonSelect extends Component {
     this.setState(prevState => ({ isOpen: false }))
   }
 
+  addSeason = event => {
+    this.setState(prevState => ({ showSeasonForm: true }))
+  }
+
+  hideSeasonForm = () => {
+    this.setState(prevState => ({ showSeasonForm: false }))
+  }
+
+  onSeasonCreate = newSeason => {
+    this.setState(prevState => ({ showSeasonForm: false, isOpen: false }))
+    this.props.onSeasonCreate(newSeason)
+  }
+
   render() {
-    const { activeSeason } = this.props
+    const { activeSeason, latestSeason, dbSeasons } = this.props
+    const { showSeasonForm, seasons } = this.state
 
     return (
-      <div className={this.containerClass()}>
-        <button
-          className={this.toggleButtonClass()}
-          type="button"
-          onClick={this.toggleOpen}
-          aria-haspopup="true"
-          aria-expanded="false"
-        >Season {activeSeason}</button>
-        <div className="select-menu-modal-holder">
-          <div className="select-menu-modal">
-            <div className="select-menu-list">
-              {this.allSeasons().map(season => (
+      <div>
+        <div className={this.containerClass()}>
+          <button
+            className={this.toggleButtonClass()}
+            type="button"
+            onClick={this.toggleOpen}
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Season {activeSeason}</button>
+          <div className="select-menu-modal-holder">
+            <div className="select-menu-modal">
+              <div className="select-menu-list">
+                {seasons.map(season => (
+                  <button
+                    className={this.seasonButtonClass(season)}
+                    key={season}
+                    type="button"
+                    value={season}
+                    onClick={this.onChange}
+                  >
+                    <span className="ion ion-ios-checkmark select-menu-item-icon" />
+                    <span className="select-menu-item-text">Season {season}</span>
+                  </button>
+                ))}
                 <button
-                  className={this.seasonButtonClass(season)}
-                  key={season}
+                  className="select-menu-item text-left width-full btn-link"
                   type="button"
-                  value={season}
-                  onClick={this.onChange}
+                  onClick={this.addSeason}
                 >
                   <span className="ion ion-ios-checkmark select-menu-item-icon" />
-                  <span className="select-menu-item-text">Season {season}</span>
+                  <span className="select-menu-item-text">Add a season</span>
                 </button>
-              ))}
+              </div>
             </div>
           </div>
         </div>
+        {showSeasonForm ? (
+          <SeasonForm
+            onClose={this.hideSeasonForm}
+            onCreate={this.onSeasonCreate}
+            latestSeason={latestSeason}
+            db={dbSeasons}
+          />
+        ) : null}
       </div>
     )
   }

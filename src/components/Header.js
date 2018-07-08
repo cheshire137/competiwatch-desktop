@@ -55,7 +55,8 @@ class Header extends Component {
   }
 
   render() {
-    const { activeSeason, latestSeason, onSeasonChange } = this.props
+    const { activeSeason, latestSeason, onSeasonChange, dbSeasons,
+            onSeasonCreate } = this.props
 
     return (
       <div className="mb-4">
@@ -64,6 +65,8 @@ class Header extends Component {
             activeSeason={activeSeason}
             latestSeason={latestSeason}
             onChange={onSeasonChange}
+            onSeasonCreate={onSeasonCreate}
+            dbSeasons={dbSeasons}
           />
         </div>
         <nav aria-label="Breadcrumb">
