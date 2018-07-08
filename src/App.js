@@ -13,7 +13,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      activePage: 'accounts'
+      activePage: 'accounts',
+      latestRank: 2500
     }
     this.db = {}
     this.db.accounts = Account.setupDatabase()
@@ -28,9 +29,10 @@ class App extends Component {
     this.setState(prevState => ({ activeAccountID: accountID, activePage: 'log-match' }))
   }
 
-  changeActivePage = activePage => {
+  changeActivePage = (activePage, latestRank) => {
     this.setState(prevState => {
-      const newState = { activePage }
+      console.log('latestRank', latestRank)
+      const newState = { activePage, latestRank }
       if (activePage === 'accounts') {
         newState.activeAccountID = null
       }
@@ -39,7 +41,7 @@ class App extends Component {
   }
 
   renderActivePage = () => {
-    const { activePage, activeAccountID } = this.state
+    const { activePage, activeAccountID, latestRank } = this.state
 
     if (activePage === 'matches') {
       return (
@@ -59,6 +61,7 @@ class App extends Component {
           dbAccounts={this.db.accounts}
           dbMatches={this.db.matches}
           onPageChange={this.changeActivePage}
+          latestRank={latestRank}
         />
       )
     }

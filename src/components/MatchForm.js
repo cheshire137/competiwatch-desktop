@@ -139,7 +139,8 @@ class MatchForm extends Component {
     const { rank, comment, map, group, heroes, playedAt,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
             playOfTheGame } = this.state
-    const { season } = this.props
+    const { season, latestRank } = this.props
+    console.log('form latest rank', latestRank)
 
     return (
       <form
@@ -164,7 +165,7 @@ class MatchForm extends Component {
                     className="form-control sr-field"
                     value={rank}
                     onChange={this.onRankChange}
-                    placeholder="2500"
+                    placeholder={latestRank}
                     autoFocus
                   />
                 </dd>

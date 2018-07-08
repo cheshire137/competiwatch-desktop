@@ -26,7 +26,7 @@ class MatchFormPage extends Component {
   }
 
   render() {
-    const { dbMatches, accountID } = this.props
+    const { dbMatches, accountID, latestRank } = this.props
     const { account } = this.state
 
     return (
@@ -40,6 +40,7 @@ class MatchFormPage extends Component {
           season={latestSeason}
           accountID={accountID}
           db={dbMatches}
+          latestRank={latestRank}
           onCreate={this.onMatchCreation}
         />
       </div>
