@@ -4,22 +4,22 @@ import MatchListItem from './MatchListItem'
 class MatchesTable extends Component {
   matchResult = (match, prevMatch) => {
     if (match.result) {
-      return match.result.charAt(0).toUpperCase()
+      return match.result
     }
 
     if (prevMatch) {
       if (match.rank > prevMatch.rank) {
-        return 'W'
+        return 'win'
       }
 
       if (match.rank === prevMatch.rank) {
-        return 'D'
+        return 'draw'
       }
 
-      return 'L'
+      return 'loss'
     }
 
-    return '--'
+    return null
   }
 
   render() {
