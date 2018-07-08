@@ -46,18 +46,16 @@ class Match {
 
     return Database.findAll(db, sort, conditions).then(rows => {
       const matches = rows.map(data => new Match(data))
-      const matchesWithoutResults = matches.filter(match => !match.result)
-
-      for (let i = 0; i < matchesWithoutResults.length; i++) {
-        const match = matchesWithoutResults[i]
-        const prevMatch = matchesWithoutResults[i - 1]
-        match.result = matchResult(match, prevMatch)
-      }
 
       for (let i = 0; i < matches.length; i++) {
         const match = matches[i]
         const prevMatch = matches[i-1]
+
         match.rankChange = matchRankChange(match, prevMatch)
+
+        if (!match.result) {
+          match.result = matchResult(match, prevMatch)
+        }
       }
 
       return matches
