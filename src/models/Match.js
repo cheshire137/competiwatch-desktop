@@ -73,6 +73,7 @@ class Match {
     this.result = data.result
     this.group = cleanupCommaList(data.group)
     this.heroes = cleanupCommaList(data.heroes)
+    this.heroList = this.heroes.split(', ')
     if (data.playedAt) {
       this.playedAt = new Date(data.playedAt)
     }

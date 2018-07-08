@@ -1,3 +1,6 @@
+.hero-portrait-container {
+  height: 20px;
+}
 
 .match-cell,
 .match-header {
@@ -15,6 +18,10 @@
 
 .match-placement-log-row .match-cell {
   background-color: #9dc3e3;
+}
+
+.match-cell.heroes-cell {
+  padding-bottom: 0;
 }
 
 .match-placement-row .match-cell.sr-change-cell,

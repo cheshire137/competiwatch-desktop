@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import HeroImage from './HeroImage'
+import HeroUtil from '../models/HeroUtil'
 import './HeroCheckbox.css'
 
 class HeroCheckbox extends Component {
@@ -9,25 +11,6 @@ class HeroCheckbox extends Component {
       classes.push('tooltipped-n')
     }
     return classes.join(' ')
-  }
-
-  slugify = hero => {
-    if (hero === 'D.Va') {
-      return 'dva'
-    }
-    if (hero === 'Lúcio') {
-      return 'lucio'
-    }
-    if (hero === 'Soldier: 76') {
-      return 'soldier76'
-    }
-    if (hero === 'Torbjörn') {
-      return 'torbjorn'
-    }
-    if (hero === 'Wrecking Ball') {
-      return 'wrecking-ball'
-    }
-    return hero.toLowerCase()
   }
 
   containerTooltip = () => {
@@ -47,7 +30,7 @@ class HeroCheckbox extends Component {
 
   nameClass = () => {
     const { hero, isAvailable } = this.props
-    const classes = [`text-${this.slugify(hero)}`]
+    const classes = [`text-${HeroUtil.slugify(hero)}`]
     if (!isAvailable) {
       classes.push('disabled-hero')
     }
@@ -58,13 +41,9 @@ class HeroCheckbox extends Component {
     this.props.onToggle(this.props.hero, event.target.checked)
   }
 
-  imageSource = () => {
-    return require(`../images/heroes/${this.slugify(this.props.hero)}.png`)
-  }
-
   render() {
     const { isAvailable, isChecked, hero } = this.props
-    const domID = `hero-${this.slugify(hero)}`
+    const domID = `hero-${HeroUtil.slugify(hero)}`
 
     return (
       <div
@@ -83,12 +62,9 @@ class HeroCheckbox extends Component {
             onChange={this.onChange}
             type="checkbox"
           />
-          <img
-            src={this.imageSource()}
-            alt={hero}
+          <HeroImage
+            hero={hero}
             className="d-inline-block rounded-2 flex-shrink-0 mx-2"
-            width="20"
-            height="20"
           />
           <div className="no-wrap">
             <span className={this.nameClass()}>{hero}</span>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import MatchDeleteForm from './MatchDeleteForm'
 import ColorGradient from '../models/ColorGradient'
 import MatchRankImage from './MatchRankImage'
+import HeroImage from './HeroImage'
 import './MatchListItem.css'
 
 const winColors = [[178,212,132], [102,189,125]]
@@ -133,7 +134,7 @@ class MatchListItem extends Component {
 
   render() {
     const { db, onDelete, index, match, priorRank } = this.props
-    const { rank, _id, group, heroes, comment, playOfTheGame, result,
+    const { rank, _id, group, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
             rankChange, isPlacement } = match
 
@@ -174,7 +175,20 @@ class MatchListItem extends Component {
         >{match.prettyPlayedAt()}</td>
         <td
           className="match-cell hide-sm heroes-cell"
-        >{heroes}</td>
+        >
+          {heroList.map(hero => (
+            <span
+              key={hero}
+              className="tooltipped tooltipped-n d-inline-block hero-portrait-container"
+              aria-label={hero}
+            >
+              <HeroImage
+                hero={hero}
+                className="rounded-1 d-inline-block"
+              />
+            </span>
+          ))}
+        </td>
         <td
           className="match-cell hide-sm friends-cell"
         >{group}</td>
