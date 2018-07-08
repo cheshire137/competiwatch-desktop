@@ -31,7 +31,7 @@ class HeroSelect extends Component {
   }
 
   render() {
-    const { heroes, onToggle } = this.props
+    const { onToggle } = this.props
 
     return (
       <div className="d-flex flex-wrap flex-justify-between">

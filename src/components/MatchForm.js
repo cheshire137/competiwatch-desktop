@@ -105,8 +105,9 @@ class MatchForm extends Component {
 
   onHeroChange = (hero, isSelected) => {
     this.setState(prevState => {
-      const heroes = prevState.heroes.split(',').map(str => str.trim()).
-        filter(str => str && str.length > 0)
+      const heroes = prevState.heroes.split(',')
+        .map(str => str.trim())
+        .filter(str => str && str.length > 0)
       const heroIndex = heroes.indexOf(hero)
       if (isSelected && heroIndex < 0) {
         heroes.push(hero)

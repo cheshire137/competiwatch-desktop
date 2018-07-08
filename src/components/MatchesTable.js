@@ -10,8 +10,9 @@ class MatchesTable extends Component {
       rankChanges[result] = []
 
       const matchesWithResult = this.props.matches.filter(match => match.result === result)
-      const rankChangesForResult = matchesWithResult.map(match => match.rankChange).
-        filter(rankChange => typeof rankChange === 'number').sort()
+      const rankChangesForResult = matchesWithResult
+        .map(match => match.rankChange)
+        .filter(rankChange => typeof rankChange === 'number').sort()
 
       for (const rankChange of rankChangesForResult) {
         if (rankChanges[result].indexOf(rankChange) < 0) {
@@ -41,9 +42,9 @@ class MatchesTable extends Component {
   }
 
   showshowThrowerLeaverColumn = () => {
-    const matches = this.props.matches.
-      filter(match => match.allyThrower || match.allyLeaver ||
-                      match.enemyThrower || match.enemyLeaver)
+    const matches = this.props.matches
+      .filter(match => match.allyThrower || match.allyLeaver ||
+                       match.enemyThrower || match.enemyLeaver)
     return matches.length > 0
   }
 
@@ -91,12 +92,16 @@ class MatchesTable extends Component {
               <th
                 className="match-header hide-sm tooltipped tooltipped-n"
                 aria-label="Throwers and leavers"
-              >😢</th>
+              >
+                <span role="img" aria-label="Sad face">😢</span>
+              </th>
             ) : ''}
             <th
               className="match-header hide-sm tooltipped tooltipped-n"
               aria-label="Play of the game"
-            >🎉</th>
+            >
+              <span role="img" aria-label="Party">🎉</span>
+            </th>
             <th
               className="match-header"
             ><span className="ion-ios-cog ion"></span></th>

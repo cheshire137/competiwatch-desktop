@@ -21,7 +21,7 @@ class MatchesList extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.totalMatches != this.props.totalMatches) {
+    if (prevProps.totalMatches !== this.props.totalMatches) {
       this.refreshMatches()
     }
   }

@@ -133,10 +133,10 @@ class MatchListItem extends Component {
   }
 
   render() {
-    const { db, onDelete, index, match, priorRank, showThrowerLeaver } = this.props
-    const { rank, _id, group, heroList, comment, playOfTheGame, result,
+    const { db, onDelete, match, priorRank, showThrowerLeaver } = this.props
+    const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
-            rankChange, isPlacement } = match
+            rankChange } = match
 
     return (
       <tr className={this.outerClass()}>
@@ -154,7 +154,6 @@ class MatchListItem extends Component {
           <div className="d-flex flex-items-center flex-justify-center">
             <MatchRankImage
               rank={rank}
-              isPlacement={isPlacement}
               priorRank={priorRank}
               className="d-inline-block mr-1 hide-sm"
             />
@@ -191,7 +190,7 @@ class MatchListItem extends Component {
         </td>
         <td
           className="match-cell hide-sm friends-cell"
-        >{group}</td>
+        >{groupList.join(', ')}</td>
         {showThrowerLeaver ? (
           <td
             className="match-cell hide-sm throwers-leavers-cell"

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import MatchForm from './MatchForm'
 import MatchesAccountHeader from './MatchesAccountHeader'
-import MatchesList from './MatchesList'
-import Match from '../models/Match'
 import Account from '../models/Account'
 
 const latestSeason = 11

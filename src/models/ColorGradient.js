@@ -7,8 +7,8 @@ class ColorGradient {
   }
 
   rgb() {
-    return this.generate().
-      map(rgbColor => rgbColor.map(part => parseInt(part, 10)))
+    return this.generate()
+               .map(rgbColor => rgbColor.map(part => parseInt(part, 10)))
   }
 
   generate() {

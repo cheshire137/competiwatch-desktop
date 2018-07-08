@@ -14,8 +14,8 @@ class Account {
 
   static findAll(db) {
     const sort = { battletag: 1 }
-    return Database.findAll(db, sort).
-      then(rows => rows.map(data => new Account(data)))
+    return Database.findAll(db, sort)
+                   .then(rows => rows.map(data => new Account(data)))
   }
 
   static find(db, id) {
@@ -54,8 +54,8 @@ class Account {
 
   save(db) {
     const data = { battletag: this.battletag }
-    return Database.upsert(db, data, this._id, 'account').
-      then(newAccount => { this._id = newAccount._id })
+    return Database.upsert(db, data, this._id, 'account')
+                   .then(newAccount => { this._id = newAccount._id })
   }
 
   delete(db) {

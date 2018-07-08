@@ -21,7 +21,7 @@ class AccountsList extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.totalAccounts != this.props.totalAccounts) {
+    if (prevProps.totalAccounts !== this.props.totalAccounts) {
       this.refreshAccounts()
     }
   }

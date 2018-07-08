@@ -29,8 +29,8 @@ const cleanupCommaList = str => {
     return ''
   }
 
-  const items = str.split(',').map(str => str.trim()).
-    filter(str => str && str.length > 0)
+  const items = str.split(',').map(str => str.trim())
+    .filter(str => str && str.length > 0)
   items.sort()
   return items.join(',')
 }
@@ -73,6 +73,10 @@ class Match {
     this.isPlacement = data.isPlacement
     this.result = data.result
     this.group = cleanupCommaList(data.group)
+    this.groupList = []
+    if (this.group.length > 0) {
+      this.groupList = this.group.split(',')
+    }
     this.heroes = cleanupCommaList(data.heroes)
     this.heroList = []
     if (this.heroes.length > 0) {
@@ -114,8 +118,8 @@ class Match {
       season: this.season,
       result: this.result
     }
-    return Database.upsert(db, data, this._id, 'match').
-      then(newMatch => { this._id = newMatch._id })
+    return Database.upsert(db, data, this._id, 'match')
+      .then(newMatch => { this._id = newMatch._id })
   }
 
   delete(db) {

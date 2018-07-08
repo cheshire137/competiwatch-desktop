@@ -25,7 +25,7 @@ const rankTierFor = rank => {
 
 class MatchRankImage extends Component {
   render() {
-    const { rank, isPlacement, priorRank, className } = this.props
+    const { rank, priorRank, className } = this.props
 
     if (typeof rank !== 'number') {
       return null
@@ -44,6 +44,7 @@ class MatchRankImage extends Component {
           src={src}
           className={imgClass}
           aria-label={rank}
+          alt={`${rank} (${rankTier})`}
         />
       </span>
     )
