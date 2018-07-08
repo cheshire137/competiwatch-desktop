@@ -9,11 +9,14 @@ import './primer.css'
 import './ionicons.min.css'
 import './App.css'
 
+const latestSeason = 11
+
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       activePage: 'accounts',
+      activeSeason: latestSeason,
       latestRank: 2500,
       isPlacement: false
     }
@@ -28,6 +31,10 @@ class App extends Component {
 
   setIsPlacement = (isPlacement, isLastPlacement) => {
     this.setState(prevState => ({ isPlacement, isLastPlacement }))
+  }
+
+  changeActiveSeason = activeSeason => {
+    this.setState(prevState => ({ activeSeason }))
   }
 
   changeActivePage = (activePage, latestRank) => {
@@ -53,12 +60,13 @@ class App extends Component {
 
   renderActivePage = () => {
     const { activePage, activeAccountID, latestRank, isPlacement,
-            isLastPlacement } = this.state
+            isLastPlacement, activeSeason } = this.state
 
     if (activePage === 'matches') {
       return (
         <MatchesPage
           accountID={activeAccountID}
+          season={activeSeason}
           dbAccounts={this.db.accounts}
           dbMatches={this.db.matches}
           onPageChange={this.changeActivePage}
@@ -76,6 +84,7 @@ class App extends Component {
           onPageChange={this.changeActivePage}
           latestRank={latestRank}
           isPlacement={isPlacement}
+          season={activeSeason}
           isLastPlacement={isLastPlacement}
         />
       )
@@ -85,13 +94,14 @@ class App extends Component {
       <AccountsPage
         dbAccounts={this.db.accounts}
         dbMatches={this.db.matches}
+        season={activeSeason}
         loadMatchesForAccount={this.loadMatchesForAccount}
       />
     )
   }
 
   render() {
-    const { activePage, activeAccountID } = this.state
+    const { activePage, activeAccountID, activeSeason } = this.state
 
     return (
       <div className="layout-container">
@@ -99,6 +109,9 @@ class App extends Component {
           activePage={activePage}
           activeAccountID={activeAccountID}
           onPageChange={this.changeActivePage}
+          activeSeason={activeSeason}
+          latestSeason={latestSeason}
+          onSeasonChange={this.changeActiveSeason}
         />
         {this.renderActivePage()}
       </div>

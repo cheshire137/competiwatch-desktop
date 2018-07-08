@@ -41,9 +41,9 @@ class Match {
     return db
   }
 
-  static findAll(db, accountID) {
+  static findAll(db, accountID, season) {
     const sort = { playedAt: 1, createdAt: 1 }
-    const conditions = { accountID }
+    const conditions = { accountID, season }
 
     return Database.findAll(db, sort, conditions).then(rows => {
       const matches = rows.map(data => new Match(data))
@@ -66,9 +66,11 @@ class Match {
   constructor(data) {
     this.accountID = data.accountID
     this._id = data._id
-    this.rank = data.rank
+    if (typeof data.rank === 'number' || typeof data.rank === 'string') {
+      this.rank = parseInt(data.rank, 10)
+    }
     this.comment = data.comment
-    this.season = data.season
+    this.season = parseInt(data.season, 10)
     this.map = data.map
     this.isPlacement = data.isPlacement
     this.result = data.result

@@ -200,15 +200,15 @@ class MatchListItem extends Component {
                 className="Counter tooltipped tooltipped-n text-white bg-red"
                 aria-label={this.throwerTooltip()}
               >T</span>
-            ) : ''}
+            ) : null}
             {allyLeaver || enemyLeaver ? (
               <span
                 className="Counter tooltipped tooltipped-n text-white bg-red"
                 aria-label={this.leaverTooltip()}
               >L</span>
-            ) : ''}
+            ) : null}
           </td>
-        ) : ''}
+        ) : null}
         <td
           className="match-cell hide-sm potg-cell"
         >
@@ -219,7 +219,7 @@ class MatchListItem extends Component {
             >
               <span className="text-green ion ion-ios-checkmark-circle"></span>
             </span>
-          ) : ''}
+          ) : null}
         </td>
         <td className="match-cell options-cell">
           <MatchDeleteForm

@@ -27,8 +27,8 @@ class Account {
     this._id = data._id
   }
 
-  latestMatch(dbMatches) {
-    const conditions = { accountID: this._id }
+  latestMatch(dbMatches, season) {
+    const conditions = { accountID: this._id, season: season }
     const sort = { date: -1, createdAt: -1 }
     return new Promise((resolve, reject) => {
       dbMatches.find(conditions).sort(sort).limit(1).exec((err, rows) => {

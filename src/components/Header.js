@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import SeasonSelect from './SeasonSelect'
 
 class Header extends Component {
   changeActivePage = event => {
@@ -54,13 +55,17 @@ class Header extends Component {
   }
 
   render() {
+    const { activeSeason, latestSeason, onSeasonChange } = this.props
+
     return (
       <div className="mb-4">
-        <header className="pt-3 text-gray-light">
-          <div className="container">
-            <h1 className="h1 lh-condensed">Competiwatch Desktop</h1>
-          </div>
-        </header>
+        <div className="container mb-2 mt-4">
+          <SeasonSelect
+            activeSeason={activeSeason}
+            latestSeason={latestSeason}
+            onChange={onSeasonChange}
+          />
+        </div>
         <nav aria-label="Breadcrumb">
           <div className="container">
             <ol>

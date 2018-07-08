@@ -17,22 +17,24 @@ class AccountsPage extends Component {
   }
 
   render() {
-    const { dbAccounts, dbMatches, loadMatchesForAccount } = this.props
+    const { dbAccounts, dbMatches, loadMatchesForAccount,
+            season } = this.props
     const { totalAccounts } = this.state
 
     return (
       <div className="container layout-children-container">
         <div className="clearfix">
-          <div className="col-8 float-left">
+          <div className="col-7 float-left">
             <AccountsList
               dbAccounts={dbAccounts}
               dbMatches={dbMatches}
               onLoad={this.onAccountsLoad}
               totalAccounts={totalAccounts}
+              season={season}
               loadMatchesForAccount={loadMatchesForAccount}
             />
           </div>
-          <div className="col-4 float-left">
+          <div className="col-4 float-right">
             <AccountForm
               db={dbAccounts}
               onCreate={this.onAccountCreation}

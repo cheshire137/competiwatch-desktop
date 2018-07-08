@@ -1,0 +1,91 @@
+import React, { Component } from 'react'
+
+class SeasonSelect extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { isOpen: false }
+  }
+
+  containerClass = () => {
+    const classes = ['select-menu', 'd-inline-block']
+    if (this.state.isOpen) {
+      classes.push('active')
+    }
+    return classes.join(' ')
+  }
+
+  toggleButtonClass = () => {
+    const classes = ['btn', 'select-menu-button']
+    if (this.state.isOpen) {
+      classes.push('selected')
+    }
+    return classes.join(' ')
+  }
+
+  toggleOpen = event => {
+    event.target.blur()
+    this.setState(prevState => ({ isOpen: !prevState.isOpen }))
+  }
+
+  allSeasons = () => {
+    const { latestSeason } = this.props
+    const seasons = []
+    for (let season = latestSeason; season >= 1; season--) {
+      seasons.push(season)
+    }
+    return seasons
+  }
+
+  seasonButtonClass = season => {
+    const classes = ['select-menu-item', 'text-left', 'width-full', 'btn-link']
+    if (this.props.activeSeason === season) {
+      classes.push('selected')
+    }
+    return classes.join(' ')
+  }
+
+  onChange = event => {
+    const button = event.currentTarget
+    const season = parseInt(button.value, 10)
+
+    button.blur()
+    this.props.onChange(season)
+    this.setState(prevState => ({ isOpen: false }))
+  }
+
+  render() {
+    const { activeSeason } = this.props
+
+    return (
+      <div className={this.containerClass()}>
+        <button
+          className={this.toggleButtonClass()}
+          type="button"
+          onClick={this.toggleOpen}
+          aria-haspopup="true"
+          aria-expanded="false"
+        >Season {activeSeason}</button>
+        <div className="select-menu-modal-holder">
+          <div className="select-menu-modal">
+            <div className="select-menu-list">
+              {this.allSeasons().map(season => (
+                <button
+                  className={this.seasonButtonClass(season)}
+                  key={season}
+                  type="button"
+                  value={season}
+                  onClick={this.onChange}
+                >
+                  <span className="ion ion-ios-checkmark select-menu-item-icon" />
+                  <span className="select-menu-item-text">Season {season}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+export default SeasonSelect

@@ -95,7 +95,7 @@ class MatchesTable extends Component {
               >
                 <span role="img" aria-label="Sad face">😢</span>
               </th>
-            ) : ''}
+            ) : null}
             <th
               className="match-header hide-sm tooltipped tooltipped-n"
               aria-label="Play of the game"

@@ -9,8 +9,8 @@ class MatchesList extends Component {
   }
 
   refreshMatches = () => {
-    const { db, onLoad, accountID } = this.props
-    Match.findAll(db, accountID).then(matches => {
+    const { db, onLoad, accountID, season } = this.props
+    Match.findAll(db, accountID, season).then(matches => {
       this.setState(prevState => ({ matches }))
       onLoad(matches.length)
     })
@@ -21,7 +21,8 @@ class MatchesList extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.totalMatches !== this.props.totalMatches) {
+    if (prevProps.totalMatches !== this.props.totalMatches ||
+        prevProps.season !== this.props.season) {
       this.refreshMatches()
     }
   }
@@ -39,7 +40,7 @@ class MatchesList extends Component {
 
   render() {
     const { matches } = this.state
-    const { totalMatches, db } = this.props
+    const { totalMatches, db, season } = this.props
     const anyMatches = matches.length > 0
 
     return (
@@ -64,7 +65,7 @@ class MatchesList extends Component {
           />
         ) : (
           <div className="blankslate">
-            <h3 className="mb-2">No matches have been added</h3>
+            <h3 className="mb-2">No matches have been logged in season {season}</h3>
             <button
               type="button"
               className="btn-large btn btn-primary"

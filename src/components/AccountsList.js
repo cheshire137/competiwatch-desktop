@@ -29,7 +29,7 @@ class AccountsList extends Component {
   render() {
     const { accounts } = this.state
     const { totalAccounts, loadMatchesForAccount, dbAccounts,
-            dbMatches } = this.props
+            dbMatches, season } = this.props
 
     return (
       <div className="mb-4">
@@ -42,6 +42,7 @@ class AccountsList extends Component {
               key={account._id}
               dbAccounts={dbAccounts}
               dbMatches={dbMatches}
+              season={season}
               {...account}
               isLast={i === accounts.length - 1}
               onDelete={this.refreshAccounts}

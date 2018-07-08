@@ -3,7 +3,6 @@ import MatchesAccountHeader from './MatchesAccountHeader'
 import MatchesList from './MatchesList'
 import Account from '../models/Account'
 
-const latestSeason = 11
 const totalPlacementMatches = 10
 
 class MatchesPage extends Component {
@@ -33,19 +32,19 @@ class MatchesPage extends Component {
   }
 
   render() {
-    const { dbMatches, accountID, onPageChange } = this.props
+    const { dbMatches, accountID, onPageChange, season } = this.props
     const { totalMatches, account } = this.state
 
     return (
       <div className="container layout-children-container">
         <MatchesAccountHeader
           account={account}
-          season={latestSeason}
           activePage="matches"
         />
         <MatchesList
           totalMatches={totalMatches}
           db={dbMatches}
+          season={season}
           accountID={accountID}
           onLoad={this.onMatchesLoad}
           onPageChange={onPageChange}

@@ -20,12 +20,22 @@ class AccountListItem extends Component {
     return 'border-bottom pb-2 mb-2'
   }
 
-  componentDidMount() {
-    const { _id, dbMatches } = this.props
+  refreshLatestMatch = () => {
+    const { _id, dbMatches, season } = this.props
     const account = new Account({ _id })
-    account.latestMatch(dbMatches).then(match => {
+    account.latestMatch(dbMatches, season).then(match => {
       this.setState(prevState => ({ latestMatch: match }))
     })
+  }
+
+  componentDidMount() {
+    this.refreshLatestMatch()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.season !== this.props.season) {
+      this.refreshLatestMatch()
+    }
   }
 
   render() {
@@ -41,9 +51,19 @@ class AccountListItem extends Component {
             onClick={this.loadMatchesForAccount}
           >{battletag}</button>
         </div>
-        {latestMatch ? (
-          <div className="text-gray">SR: {latestMatch.rank}</div>
-        ) : ''}
+        <div className="text-gray">
+          {latestMatch ? (
+            <span>
+              {typeof latestMatch.rank === 'number' ? (
+                <span>SR: {latestMatch.rank}</span>
+              ) : (
+                <span>Last match: {latestMatch.result}</span>
+              )}
+            </span>
+          ) : (
+            <span>No matches</span>
+          )}
+        </div>
         <AccountDeleteForm
           _id={_id}
           dbAccounts={dbAccounts}

@@ -3,8 +3,6 @@ import MatchForm from './MatchForm'
 import MatchesAccountHeader from './MatchesAccountHeader'
 import Account from '../models/Account'
 
-const latestSeason = 11
-
 class MatchFormPage extends Component {
   constructor(props) {
     super(props)
@@ -25,19 +23,18 @@ class MatchFormPage extends Component {
 
   render() {
     const { dbMatches, accountID, latestRank, isPlacement,
-            isLastPlacement } = this.props
+            isLastPlacement, season } = this.props
     const { account } = this.state
 
     return (
       <div className="container layout-children-container">
         <MatchesAccountHeader
           account={account}
-          season={latestSeason}
           isPlacement={isPlacement}
           activePage="log-match"
         />
         <MatchForm
-          season={latestSeason}
+          season={season}
           accountID={accountID}
           db={dbMatches}
           isPlacement={isPlacement}
