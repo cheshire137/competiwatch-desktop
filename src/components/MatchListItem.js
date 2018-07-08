@@ -18,6 +18,10 @@ class MatchListItem extends Component {
     }
     if (match.isPlacement) {
       classes.push('match-placement-row')
+
+      if (typeof match.rank === 'number') {
+        classes.push('match-last-placement-row')
+      }
     }
 
     return classes.join(' ')
