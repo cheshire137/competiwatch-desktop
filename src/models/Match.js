@@ -1,5 +1,29 @@
 import Database from './Database'
 
+const matchRankChange = (match, prevMatch) => {
+  if (prevMatch && typeof match.rank === 'number' && typeof prevMatch.rank === 'number') {
+    return match.rank - prevMatch.rank
+  }
+}
+
+const matchResult = (match, prevMatch) => {
+  if (match.result) {
+    return match.result
+  }
+
+  if (prevMatch) {
+    if (match.rank > prevMatch.rank) {
+      return 'win'
+    }
+
+    if (match.rank === prevMatch.rank) {
+      return 'draw'
+    }
+
+    return 'loss'
+  }
+}
+
 const cleanupCommaList = str => {
   if (!str) {
     return ''
@@ -19,8 +43,25 @@ class Match {
   static findAll(db, accountID) {
     const sort = { playedAt: 1, createdAt: 1 }
     const conditions = { accountID }
-    return Database.findAll(db, sort, conditions).
-      then(rows => rows.map(data => new Match(data)))
+
+    return Database.findAll(db, sort, conditions).then(rows => {
+      const matches = rows.map(data => new Match(data))
+      const matchesWithoutResults = matches.filter(match => !match.result)
+
+      for (let i = 0; i < matchesWithoutResults.length; i++) {
+        const match = matchesWithoutResults[i]
+        const prevMatch = matchesWithoutResults[i - 1]
+        match.result = matchResult(match, prevMatch)
+      }
+
+      for (let i = 0; i < matches.length; i++) {
+        const match = matches[i]
+        const prevMatch = matches[i-1]
+        match.rankChange = matchRankChange(match, prevMatch)
+      }
+
+      return matches
+    })
   }
 
   constructor(data) {

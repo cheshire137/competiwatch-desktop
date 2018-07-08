@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import MatchDeleteForm from './MatchDeleteForm'
+import ColorGradient from '../models/ColorGradient'
 import './MatchListItem.css'
+
+const winColors = [[178,212,132], [102,189,125]]
+const lossColors = [[250,170,124], [246,106,110]]
+const neutralColor = [254,234,138]
 
 class MatchListItem extends Component {
   outerClass = () => {
@@ -10,7 +15,7 @@ class MatchListItem extends Component {
     if (!isLast) {
       classes = classes.concat(['border-bottom', 'pb-2', 'mb-2'])
     }
-    if (match.isPlacement()) {
+    if (match.isPlacement) {
       classes.push('match-placement-row')
     }
 
@@ -60,7 +65,7 @@ class MatchListItem extends Component {
   matchNumber = () => {
     const { match, index } = this.props
 
-    if (match.isPlacement()) {
+    if (match.isPlacement) {
       return `P${index + 1}`
     }
 
@@ -70,17 +75,47 @@ class MatchListItem extends Component {
   matchNumberClass = () => {
     const classes = ['match-cell', 'hide-sm', 'match-number-cell']
 
-    if (this.props.match.isPlacement()) {
+    if (this.props.match.isPlacement) {
       classes.push('match-placement-number-cell')
     }
 
     return classes.join(' ')
   }
 
+  rankChangeStyle = () => {
+    const { match, rankChanges } = this.props
+    const style = {}
+
+    if (match.isPlacement) {
+      return style
+    }
+
+    let color = null
+    if (match.result === 'draw') {
+      color = neutralColor
+    } else {
+      const colorRange = match.result === 'win' ? winColors : lossColors
+      const gradient = new ColorGradient(colorRange, rankChanges.length)
+      const rgbColors = gradient.rgb()
+      const index = rankChanges.indexOf(match.rankChange)
+
+      if (typeof index === 'number') {
+        color = rgbColors[index]
+      }
+    }
+
+    if (color) {
+      style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`
+    }
+
+    return style
+  }
+
   render() {
-    const { db, onDelete, index, result, match } = this.props
-    const { rank, _id, group, heroes, comment, playOfTheGame,
-            allyThrower, allyLeaver, enemyThrower, enemyLeaver, map } = match
+    const { db, onDelete, index, match } = this.props
+    const { rank, _id, group, heroes, comment, playOfTheGame, result,
+            allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
+            rankChange } = match
 
     return (
       <tr className={this.outerClass()}>
@@ -91,8 +126,9 @@ class MatchListItem extends Component {
           className={`match-cell hide-sm result-cell result-${result}`}
         >{result ? result.charAt(0).toUpperCase() : '--'}</td>
         <td
+          style={this.rankChangeStyle()}
           className="position-relative match-cell sr-change-cell"
-        ></td>
+        >{rankChange ? rankChange : '--'}</td>
         <td
           className="match-cell rank-cell"
         >{rank || '--'}</td>

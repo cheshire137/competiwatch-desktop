@@ -2,28 +2,30 @@ import React, { Component } from 'react'
 import MatchListItem from './MatchListItem'
 
 class MatchesTable extends Component {
-  matchResult = (match, prevMatch) => {
-    if (match.result) {
-      return match.result
+  matchRankChangesByResult = () => {
+    const results = ['win', 'loss']
+    const rankChanges = { draw: [] }
+
+    for (const result of results) {
+      rankChanges[result] = []
+
+      const matchesWithResult = this.props.matches.filter(match => match.result === result)
+      const rankChangesForResult = matchesWithResult.map(match => match.rankChange).
+        filter(rankChange => typeof rankChange === 'number').sort()
+
+      for (const rankChange of rankChangesForResult) {
+        if (rankChanges[result].indexOf(rankChange) < 0) {
+          rankChanges[result].push(rankChange)
+        }
+      }
     }
 
-    if (prevMatch) {
-      if (match.rank > prevMatch.rank) {
-        return 'win'
-      }
-
-      if (match.rank === prevMatch.rank) {
-        return 'draw'
-      }
-
-      return 'loss'
-    }
-
-    return null
+    return rankChanges
   }
 
   render() {
     const { matches, db } = this.props
+    const rankChanges = this.matchRankChangesByResult()
 
     return (
       <table className="width-full">
@@ -51,7 +53,7 @@ class MatchesTable extends Component {
               db={db}
               match={match}
               index={i}
-              result={this.matchResult(match, matches[i - 1])}
+              rankChanges={rankChanges[match.result] || []}
               isLast={i === matches.length - 1}
               onDelete={this.refreshMatches}
             />
