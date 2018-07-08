@@ -1,0 +1,31 @@
+.rank-image {
+  position: relative;
+}
+
+.rank-bronze {
+  height: 15px;
+}
+
+.rank-silver {
+  height: 18px;
+}
+
+.rank-gold {
+  height: 22px;
+}
+
+.rank-platinum {
+  height: 23px;
+}
+
+.rank-diamond {
+  height: 22px;
+}
+
+.rank-master {
+  height: 23px;
+}
+
+.rank-grandmaster {
+  height: 26px;
+}

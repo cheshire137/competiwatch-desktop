@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import MatchDeleteForm from './MatchDeleteForm'
 import ColorGradient from '../models/ColorGradient'
+import MatchRankImage from './MatchRankImage'
 import './MatchListItem.css'
 
 const winColors = [[178,212,132], [102,189,125]]
@@ -127,10 +128,10 @@ class MatchListItem extends Component {
   }
 
   render() {
-    const { db, onDelete, index, match } = this.props
+    const { db, onDelete, index, match, priorRank } = this.props
     const { rank, _id, group, heroes, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
-            rankChange } = match
+            rankChange, isPlacement } = match
 
     return (
       <tr className={this.outerClass()}>
@@ -144,9 +145,17 @@ class MatchListItem extends Component {
           style={this.rankChangeStyle()}
           className="position-relative match-cell sr-change-cell"
         >{rankChange ? rankChange : '--'}</td>
-        <td
-          className={this.rankClass()}
-        >{rank || '--'}</td>
+        <td className={this.rankClass()}>
+          <div className="d-flex flex-items-center flex-justify-center">
+            <MatchRankImage
+              rank={rank}
+              isPlacement={isPlacement}
+              priorRank={priorRank}
+              className="d-inline-block mr-1 hide-sm"
+            />
+            {rank || '--'}
+          </div>
+        </td>
         <td
           className="match-cell position-relative hide-sm"
         ></td>

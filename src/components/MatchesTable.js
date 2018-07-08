@@ -33,6 +33,13 @@ class MatchesTable extends Component {
     }
   }
 
+  priorRank = index => {
+    const priorMatch = this.props.matches[index - 1]
+    if (priorMatch) {
+      return priorMatch.rank
+    }
+  }
+
   render() {
     const { matches, db, onDelete } = this.props
     const rankChanges = this.matchRankChangesByResult()
@@ -68,6 +75,7 @@ class MatchesTable extends Component {
               rankChanges={rankChanges[match.result] || []}
               isLast={i === matches.length - 1}
               onDelete={onDelete}
+              priorRank={this.priorRank(i)}
               totalPlacementMatches={totalPlacementMatches}
             />
           ))}
