@@ -26,8 +26,11 @@ class MatchesPage extends Component {
 
   onMatchesLoad = totalMatches => {
     this.setState(prevState => ({ totalMatches }))
+
     const isPlacement = totalMatches < totalPlacementMatches
-    this.props.setIsPlacement(isPlacement)
+    const isLastPlacement = totalMatches === totalPlacementMatches - 1
+
+    this.props.setIsPlacement(isPlacement, isLastPlacement)
   }
 
   render() {

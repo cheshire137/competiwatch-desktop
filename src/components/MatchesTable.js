@@ -36,6 +36,7 @@ class MatchesTable extends Component {
   render() {
     const { matches, db, onDelete } = this.props
     const rankChanges = this.matchRankChangesByResult()
+    const totalPlacementMatches = matches.filter(match => match.isPlacement).length
 
     return (
       <table className="width-full">
@@ -67,6 +68,7 @@ class MatchesTable extends Component {
               rankChanges={rankChanges[match.result] || []}
               isLast={i === matches.length - 1}
               onDelete={onDelete}
+              totalPlacementMatches={totalPlacementMatches}
             />
           ))}
         </tbody>

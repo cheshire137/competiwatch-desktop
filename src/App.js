@@ -26,29 +26,34 @@ class App extends Component {
     this.setState(prevState => ({ activeAccountID: accountID, activePage: 'matches' }))
   }
 
-  setIsPlacement = isPlacement => {
-    this.setState(prevState => ({ isPlacement }))
+  setIsPlacement = (isPlacement, isLastPlacement) => {
+    this.setState(prevState => ({ isPlacement, isLastPlacement }))
   }
 
   changeActivePage = (activePage, latestRank) => {
     this.setState(prevState => {
       const newState = { activePage }
+
       if (typeof latestRank === 'number') {
         newState.latestRank = latestRank
         newState.isPlacement = false
+        newState.isLastPlacement = false
       }
+
       if (activePage === 'accounts') {
         newState.activeAccountID = null
         newState.latestRank = 2500
         newState.isPlacement = false
+        newState.isLastPlacement = false
       }
+
       return newState
     })
   }
 
   renderActivePage = () => {
-    const { activePage, activeAccountID, latestRank,
-            isPlacement } = this.state
+    const { activePage, activeAccountID, latestRank, isPlacement,
+            isLastPlacement } = this.state
 
     if (activePage === 'matches') {
       return (
@@ -71,6 +76,7 @@ class App extends Component {
           onPageChange={this.changeActivePage}
           latestRank={latestRank}
           isPlacement={isPlacement}
+          isLastPlacement={isLastPlacement}
         />
       )
     }

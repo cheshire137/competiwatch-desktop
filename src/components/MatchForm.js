@@ -52,7 +52,7 @@ class MatchForm extends Component {
             playOfTheGame, result } = this.state
     const { accountID, db, season, isPlacement } = this.props
     const data = {
-      rank: parseFloat(rank),
+      rank: rank && rank.length > 0 ? parseFloat(rank) : null,
       comment,
       map,
       group,
@@ -147,7 +147,7 @@ class MatchForm extends Component {
     const { rank, comment, map, group, heroes, playedAt,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
             playOfTheGame, result } = this.state
-    const { season, latestRank, isPlacement } = this.props
+    const { season, latestRank, isPlacement, isLastPlacement } = this.props
 
     return (
       <form
@@ -159,10 +159,15 @@ class MatchForm extends Component {
             <div className="d-flex-md mb-2 flex-items-center-md flex-justify-between-md">
               <dl className="form-group my-0">
                 <dt>
-                  {isPlacement ? (
+                  {isPlacement && !isLastPlacement ? (
                     <label
                       htmlFor="match-result"
                     >What was the outcome?</label>
+                  ) : isPlacement && isLastPlacement ? (
+                    <label
+                      htmlFor="match-rank"
+                      className="sr-field-label"
+                    >Where did you place?</label>
                   ) : (
                     <label
                       htmlFor="match-rank"
@@ -171,7 +176,7 @@ class MatchForm extends Component {
                   )}
                 </dt>
                 <dd>
-                  {isPlacement ? (
+                  {isPlacement && !isLastPlacement ? (
                     <select
                       className="form-select"
                       value={result}
