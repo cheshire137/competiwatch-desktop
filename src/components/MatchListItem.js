@@ -46,7 +46,7 @@ class MatchListItem extends Component {
   render() {
     const { rank, _id, db, map, group, heroes, comment, playedAt,
             onDelete, index, allyThrower, allyLeaver,
-            enemyThrower, enemyLeaver, playOfTheGame } = this.props
+            enemyThrower, enemyLeaver, playOfTheGame, result } = this.props
 
     return (
       <tr className={this.outerClass()}>
@@ -55,7 +55,7 @@ class MatchListItem extends Component {
         >{index + 1}</td>
         <td
           className="match-cell hide-sm result-cell"
-        ></td>
+        >{result}</td>
         <td
           className="position-relative match-cell sr-change-cell"
         ></td>
