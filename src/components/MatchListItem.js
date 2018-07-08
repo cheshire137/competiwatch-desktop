@@ -133,7 +133,7 @@ class MatchListItem extends Component {
   }
 
   render() {
-    const { db, onDelete, index, match, priorRank } = this.props
+    const { db, onDelete, index, match, priorRank, showThrowerLeaver } = this.props
     const { rank, _id, group, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
             rankChange, isPlacement } = match
@@ -192,22 +192,24 @@ class MatchListItem extends Component {
         <td
           className="match-cell hide-sm friends-cell"
         >{group}</td>
-        <td
-          className="match-cell hide-sm throwers-leavers-cell"
-        >
-          {allyThrower || enemyThrower ? (
-            <span
-              className="Counter tooltipped tooltipped-n text-white bg-red"
-              aria-label={this.throwerTooltip()}
-            >T</span>
-          ) : ''}
-          {allyLeaver || enemyLeaver ? (
-            <span
-              className="Counter tooltipped tooltipped-n text-white bg-red"
-              aria-label={this.leaverTooltip()}
-            >L</span>
-          ) : ''}
-        </td>
+        {showThrowerLeaver ? (
+          <td
+            className="match-cell hide-sm throwers-leavers-cell"
+          >
+            {allyThrower || enemyThrower ? (
+              <span
+                className="Counter tooltipped tooltipped-n text-white bg-red"
+                aria-label={this.throwerTooltip()}
+              >T</span>
+            ) : ''}
+            {allyLeaver || enemyLeaver ? (
+              <span
+                className="Counter tooltipped tooltipped-n text-white bg-red"
+                aria-label={this.leaverTooltip()}
+              >L</span>
+            ) : ''}
+          </td>
+        ) : ''}
         <td
           className="match-cell hide-sm potg-cell"
         >

@@ -40,28 +40,66 @@ class MatchesTable extends Component {
     }
   }
 
+  showshowThrowerLeaverColumn = () => {
+    const matches = this.props.matches.
+      filter(match => match.allyThrower || match.allyLeaver ||
+                      match.enemyThrower || match.enemyLeaver)
+    return matches.length > 0
+  }
+
   render() {
     const { matches, db, onDelete } = this.props
     const rankChanges = this.matchRankChangesByResult()
     const totalPlacementMatches = matches.filter(match => match.isPlacement).length
+    const showThrowerLeaver = this.showshowThrowerLeaverColumn()
 
     return (
       <table className="width-full">
         <thead>
           <tr>
-            <th className="match-header hide-sm">#</th>
-            <th className="match-header hide-sm">Win/Loss</th>
-            <th className="match-header no-wrap">+/- SR</th>
-            <th className="match-header">Rank</th>
-            <th className="match-header hide-sm no-wrap">Streak</th>
-            <th className="match-header">Map</th>
-            <th className="match-header hide-sm">Comment</th>
-            <th className="match-header hide-sm">Time Played</th>
-            <th className="match-header hide-sm">Heroes</th>
-            <th className="match-header hide-sm">Group</th>
-            <th className="match-header hide-sm tooltipped tooltipped-n" aria-label="Throwers and leavers">😢</th>
-            <th className="match-header hide-sm tooltipped tooltipped-n" aria-label="Play of the game">🎉</th>
-            <th className="match-header"><span className="ion-ios-cog ion"></span></th>
+            <th
+              className="match-header hide-sm"
+            >#</th>
+            <th
+              className="match-header hide-sm"
+            >Win/Loss</th>
+            <th
+              className="match-header no-wrap"
+            >+/- SR</th>
+            <th
+              className="match-header"
+            >Rank</th>
+            <th
+              className="match-header hide-sm no-wrap"
+            >Streak</th>
+            <th
+              className="match-header"
+            >Map</th>
+            <th
+              className="match-header hide-sm"
+            >Comment</th>
+            <th
+              className="match-header hide-sm"
+            >Time Played</th>
+            <th
+              className="match-header hide-sm"
+            >Heroes</th>
+            <th
+              className="match-header hide-sm"
+            >Group</th>
+            {showThrowerLeaver ? (
+              <th
+                className="match-header hide-sm tooltipped tooltipped-n"
+                aria-label="Throwers and leavers"
+              >😢</th>
+            ) : ''}
+            <th
+              className="match-header hide-sm tooltipped tooltipped-n"
+              aria-label="Play of the game"
+            >🎉</th>
+            <th
+              className="match-header"
+            ><span className="ion-ios-cog ion"></span></th>
           </tr>
         </thead>
         <tbody>
@@ -77,6 +115,7 @@ class MatchesTable extends Component {
               onDelete={onDelete}
               priorRank={this.priorRank(i)}
               totalPlacementMatches={totalPlacementMatches}
+              showThrowerLeaver={showThrowerLeaver}
             />
           ))}
         </tbody>
