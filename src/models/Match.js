@@ -28,10 +28,11 @@ const cleanupCommaList = str => {
   if (!str) {
     return ''
   }
+
   const items = str.split(',').map(str => str.trim()).
     filter(str => str && str.length > 0)
   items.sort()
-  return items.join(', ')
+  return items.join(',')
 }
 
 class Match {
@@ -73,7 +74,10 @@ class Match {
     this.result = data.result
     this.group = cleanupCommaList(data.group)
     this.heroes = cleanupCommaList(data.heroes)
-    this.heroList = this.heroes.split(', ')
+    this.heroList = []
+    if (this.heroes.length > 0) {
+      this.heroList = this.heroes.split(',')
+    }
     if (data.playedAt) {
       this.playedAt = new Date(data.playedAt)
     }
