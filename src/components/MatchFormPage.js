@@ -26,7 +26,7 @@ class MatchFormPage extends Component {
   }
 
   render() {
-    const { dbMatches, accountID, latestRank } = this.props
+    const { dbMatches, accountID, latestRank, isPlacement } = this.props
     const { account } = this.state
 
     return (
@@ -34,12 +34,14 @@ class MatchFormPage extends Component {
         <MatchesAccountHeader
           account={account}
           season={latestSeason}
+          isPlacement={isPlacement}
           activePage="log-match"
         />
         <MatchForm
           season={latestSeason}
           accountID={accountID}
           db={dbMatches}
+          isPlacement={isPlacement}
           latestRank={latestRank}
           onCreate={this.onMatchCreation}
         />

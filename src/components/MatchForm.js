@@ -31,6 +31,7 @@ class MatchForm extends Component {
     super(props)
     this.state = {
       rank: '',
+      result: '',
       comment: '',
       map: '',
       group: '',
@@ -48,7 +49,7 @@ class MatchForm extends Component {
     event.preventDefault()
     const { rank, comment, map, group, heroes, playedAt,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
-            playOfTheGame } = this.state
+            playOfTheGame, result } = this.state
     const { accountID, db, season } = this.props
     const data = {
       rank: parseFloat(rank),
@@ -63,7 +64,8 @@ class MatchForm extends Component {
       enemyThrower,
       enemyLeaver,
       playOfTheGame,
-      season
+      season,
+      result: result === '' ? null : result
     }
     const match = new Match(data)
     match.save(db).then(() => {
@@ -83,6 +85,11 @@ class MatchForm extends Component {
   onRankChange = event => {
     const rank = event.target.value
     this.setState(prevState => ({ rank }))
+  }
+
+  onResultChange = event => {
+    const result = event.target.value
+    this.setState(prevState => ({ result }))
   }
 
   onGroupChange = event => {
@@ -138,35 +145,54 @@ class MatchForm extends Component {
   render() {
     const { rank, comment, map, group, heroes, playedAt,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
-            playOfTheGame } = this.state
-    const { season, latestRank } = this.props
+            playOfTheGame, result } = this.state
+    const { season, latestRank, isPlacement } = this.props
 
     return (
       <form
         onSubmit={this.onSubmit}
         className="mb-4"
       >
-        <h2 className="h2 text-normal mb-2">Log a match</h2>
         <div className="clearfix">
           <div className="col-md-12 col-lg-5 float-left pr-3-md">
             <div className="d-flex-md mb-2 flex-items-center-md flex-justify-between-md">
               <dl className="form-group my-0">
                 <dt>
-                  <label
-                    htmlFor="match-rank"
-                    className="sr-field-label"
-                  >New SR:</label>
+                  {isPlacement ? (
+                    <label
+                      htmlFor="match-result"
+                    >What was the outcome?</label>
+                  ) : (
+                    <label
+                      htmlFor="match-rank"
+                      className="sr-field-label"
+                    >New SR:</label>
+                  )}
                 </dt>
                 <dd>
-                  <input
-                    id="match-rank"
-                    type="number"
-                    className="form-control sr-field"
-                    value={rank}
-                    onChange={this.onRankChange}
-                    placeholder={latestRank}
-                    autoFocus
-                  />
+                  {isPlacement ? (
+                    <select
+                      className="form-select"
+                      value={result}
+                      id="match-result"
+                      onChange={this.onResultChange}
+                    >
+                      <option value=""></option>
+                      <option value="win">Win</option>
+                      <option value="loss">Loss</option>
+                      <option value="draw">Draw</option>
+                    </select>
+                  ) : (
+                    <input
+                      id="match-rank"
+                      type="number"
+                      className="form-control sr-field"
+                      value={rank}
+                      onChange={this.onRankChange}
+                      placeholder={latestRank}
+                      autoFocus
+                    />
+                  )}
                 </dd>
               </dl>
               <dl className="form-group my-0">

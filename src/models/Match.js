@@ -42,6 +42,10 @@ class Match {
     this.playOfTheGame = data.playOfTheGame
   }
 
+  isPlacement() {
+    return typeof this.result === 'string'
+  }
+
   save(db) {
     const data = {
       rank: this.rank,

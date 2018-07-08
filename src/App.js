@@ -14,7 +14,8 @@ class App extends Component {
     super(props)
     this.state = {
       activePage: 'accounts',
-      latestRank: 2500
+      latestRank: 2500,
+      isPlacement: false
     }
     this.db = {}
     this.db.accounts = Account.setupDatabase()
@@ -25,22 +26,29 @@ class App extends Component {
     this.setState(prevState => ({ activeAccountID: accountID, activePage: 'matches' }))
   }
 
+  setIsPlacement = isPlacement => {
+    this.setState(prevState => ({ isPlacement }))
+  }
+
   changeActivePage = (activePage, latestRank) => {
     this.setState(prevState => {
       const newState = { activePage }
       if (typeof latestRank === 'number') {
         newState.latestRank = latestRank
+        newState.isPlacement = false
       }
       if (activePage === 'accounts') {
         newState.activeAccountID = null
         newState.latestRank = 2500
+        newState.isPlacement = false
       }
       return newState
     })
   }
 
   renderActivePage = () => {
-    const { activePage, activeAccountID, latestRank } = this.state
+    const { activePage, activeAccountID, latestRank,
+            isPlacement } = this.state
 
     if (activePage === 'matches') {
       return (
@@ -49,6 +57,7 @@ class App extends Component {
           dbAccounts={this.db.accounts}
           dbMatches={this.db.matches}
           onPageChange={this.changeActivePage}
+          setIsPlacement={this.setIsPlacement}
         />
       )
     }
@@ -61,6 +70,7 @@ class App extends Component {
           dbMatches={this.db.matches}
           onPageChange={this.changeActivePage}
           latestRank={latestRank}
+          isPlacement={isPlacement}
         />
       )
     }

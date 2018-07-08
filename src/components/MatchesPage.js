@@ -5,6 +5,7 @@ import Match from '../models/Match'
 import Account from '../models/Account'
 
 const latestSeason = 11
+const totalPlacementMatches = 10
 
 class MatchesPage extends Component {
   constructor(props) {
@@ -25,6 +26,8 @@ class MatchesPage extends Component {
 
   onMatchesLoad = totalMatches => {
     this.setState(prevState => ({ totalMatches }))
+    const isPlacement = totalMatches < totalPlacementMatches
+    this.props.setIsPlacement(isPlacement)
   }
 
   render() {
