@@ -13,11 +13,6 @@ class AccountListItem extends Component {
     this.props.loadMatchesForAccount(this.props._id)
   }
 
-  loadMatchFormForAccount = event => {
-    event.target.blur()
-    this.props.loadMatchFormForAccount(this.props._id)
-  }
-
   outerClass = () => {
     if (this.props.isLast) {
       return ''
@@ -45,11 +40,6 @@ class AccountListItem extends Component {
             className="btn-link f3"
             onClick={this.loadMatchesForAccount}
           >{battletag}</button>
-          <button
-            type="button"
-            className="btn-link ml-4 f4"
-            onClick={this.loadMatchFormForAccount}
-          >Log a match</button>
         </div>
         {latestMatch ? (
           <div className="text-gray">SR: {latestMatch.rank}</div>

@@ -25,10 +25,6 @@ class App extends Component {
     this.setState(prevState => ({ activeAccountID: accountID, activePage: 'matches' }))
   }
 
-  loadMatchFormForAccount = accountID => {
-    this.setState(prevState => ({ activeAccountID: accountID, activePage: 'log-match' }))
-  }
-
   changeActivePage = (activePage, latestRank) => {
     this.setState(prevState => {
       console.log('latestRank', latestRank)
@@ -71,7 +67,6 @@ class App extends Component {
         dbAccounts={this.db.accounts}
         dbMatches={this.db.matches}
         loadMatchesForAccount={this.loadMatchesForAccount}
-        loadMatchFormForAccount={this.loadMatchFormForAccount}
       />
     )
   }
