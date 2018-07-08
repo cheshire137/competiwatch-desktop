@@ -9,8 +9,8 @@ class MatchesList extends Component {
   }
 
   refreshMatches = () => {
-    const { db, onLoad } = this.props
-    Match.findAll(db).then(matches => {
+    const { db, onLoad, accountID } = this.props
+    Match.findAll(db, accountID).then(matches => {
       this.setState(prevState => ({ matches }))
       onLoad(matches.length)
     })

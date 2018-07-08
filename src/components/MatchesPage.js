@@ -41,6 +41,7 @@ class MatchesPage extends Component {
         <MatchesList
           totalMatches={totalMatches}
           db={dbMatches}
+          accountID={accountID}
           onLoad={this.onMatchesLoad}
           onPageChange={onPageChange}
         />

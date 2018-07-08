@@ -16,9 +16,10 @@ class Match {
     return db
   }
 
-  static findAll(db) {
+  static findAll(db, accountID) {
     const sort = { playedAt: 1, createdAt: 1 }
-    return Database.findAll(db, sort).
+    const conditions = { accountID }
+    return Database.findAll(db, sort, conditions).
       then(rows => rows.map(data => new Match(data)))
   }
 
