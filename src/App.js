@@ -27,7 +27,6 @@ class App extends Component {
 
   changeActivePage = (activePage, latestRank) => {
     this.setState(prevState => {
-      console.log('latestRank', latestRank)
       const newState = { activePage, latestRank }
       if (activePage === 'accounts') {
         newState.activeAccountID = null

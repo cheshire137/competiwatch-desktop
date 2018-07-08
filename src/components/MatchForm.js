@@ -140,7 +140,6 @@ class MatchForm extends Component {
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
             playOfTheGame } = this.state
     const { season, latestRank } = this.props
-    console.log('form latest rank', latestRank)
 
     return (
       <form
