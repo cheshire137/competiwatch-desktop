@@ -67,7 +67,7 @@ class SeasonSelect extends Component {
   }
 
   render() {
-    const { activeSeason, latestSeason } = this.props
+    const { activeSeason } = this.props
     const { seasons } = this.state
 
     return (

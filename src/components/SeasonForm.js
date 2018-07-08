@@ -33,7 +33,7 @@ class SeasonForm extends Component {
 
   render() {
     const { season, isValid } = this.state
-    const { onClose, latestSeason } = this.props
+    const { latestSeason } = this.props
 
     return (
       <form
