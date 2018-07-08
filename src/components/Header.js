@@ -10,7 +10,8 @@ class Header extends Component {
   }
 
   listItemClass = page => {
-    if (this.props.activePage === page) {
+    const { activePage } = this.props
+    if (activePage === page || page === 'accounts' && activePage === 'manage-seasons') {
       return 'breadcrumb-item breadcrumb-item-selected'
     }
     return 'breadcrumb-item'
@@ -18,7 +19,6 @@ class Header extends Component {
 
   renderMatchesButton = () => {
     const { activeAccountID, activePage } = this.props
-
     if (!activeAccountID) {
       return null
     }
@@ -36,11 +36,13 @@ class Header extends Component {
       )
     }
 
-    return (
-      <li className={this.listItemClass('matches')}>
-        Matches
-      </li>
-    )
+    if (activePage === 'matches') {
+      return (
+        <li className={this.listItemClass('matches')}>
+          Matches
+        </li>
+      )
+    }
   }
 
   renderLogMatchButton = () => {
