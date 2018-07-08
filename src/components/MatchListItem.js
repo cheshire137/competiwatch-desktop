@@ -132,6 +132,15 @@ class MatchListItem extends Component {
     return classes.join(' ')
   }
 
+  streakClass = () => {
+    const { match } = this.props
+    const classes = ['match-cell', 'position-relative', 'hide-sm']
+    if (match.isDraw()) {
+      classes.push('streak-empty')
+    }
+    return classes.join(' ')
+  }
+
   render() {
     const { db, onDelete, match, priorRank, showThrowerLeaver } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
@@ -161,8 +170,10 @@ class MatchListItem extends Component {
           </div>
         </td>
         <td
-          className="match-cell position-relative hide-sm"
-        ></td>
+          className={this.streakClass()}
+        >
+          {match.isWin() ? match.winStreak : match.isLoss() ? match.lossStreak : null}
+        </td>
         <td
           className={`match-cell no-wrap ${this.mapBackgroundClass()}`}
         >{map}</td>

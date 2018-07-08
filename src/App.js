@@ -115,8 +115,7 @@ class App extends Component {
       return (
         <MatchFormPage
           accountID={activeAccountID}
-          dbAccounts={this.db.accounts}
-          dbMatches={this.db.matches}
+          db={this.db.matches}
           onPageChange={this.changeActivePage}
           latestRank={latestRank}
           isPlacement={isPlacement}

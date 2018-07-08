@@ -35,6 +35,34 @@ const cleanupCommaList = str => {
   return items.join(',')
 }
 
+const getWinStreak = (index, matches, count) => {
+  const match = matches[index]
+  if (!match || !match.isWin()) {
+    return count
+  }
+
+  const prevMatch = matches[index - 1]
+  if (prevMatch && prevMatch.isWin()) {
+    return getWinStreak(index - 1, matches, count + 1)
+  }
+
+  return getWinStreak(index - 1, matches, count)
+}
+
+const getLossStreak = (index, matches, count) => {
+  const match = matches[index]
+  if (!match || !match.isLoss()) {
+    return count
+  }
+
+  const prevMatch = matches[index - 1]
+  if (prevMatch && prevMatch.isLoss()) {
+    return getLossStreak(index - 1, matches, count + 1)
+  }
+
+  return getLossStreak(index - 1, matches, count)
+}
+
 class Match {
   static setupDatabase() {
     const db = Database.load('matches')
@@ -56,6 +84,12 @@ class Match {
 
         if (!match.result) {
           match.result = matchResult(match, prevMatch)
+        }
+
+        if (match.isWin()) {
+          match.winStreak = getWinStreak(i, matches, 1)
+        } else if (match.isLoss()) {
+          match.lossStreak = getLossStreak(i, matches, 1)
         }
       }
 
@@ -100,6 +134,18 @@ class Match {
     }
 
     return this.playedAt.toLocaleDateString()
+  }
+
+  isWin() {
+    return this.result === 'win'
+  }
+
+  isDraw() {
+    return this.result === 'draw'
+  }
+
+  isLoss() {
+    return this.result === 'loss'
   }
 
   save(db) {
