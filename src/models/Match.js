@@ -30,6 +30,7 @@ class Match {
     this.comment = data.comment
     this.season = data.season
     this.map = data.map
+    this.isPlacement = data.isPlacement
     this.result = data.result
     this.group = cleanupCommaList(data.group)
     this.heroes = cleanupCommaList(data.heroes)
@@ -41,10 +42,6 @@ class Match {
     this.enemyLeaver = data.enemyLeaver
     this.allyLeaver = data.allyLeaver
     this.playOfTheGame = data.playOfTheGame
-  }
-
-  isPlacement() {
-    return typeof this.result === 'string'
   }
 
   prettyPlayedAt() {
