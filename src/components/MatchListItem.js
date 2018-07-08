@@ -111,6 +111,21 @@ class MatchListItem extends Component {
     return style
   }
 
+  rankClass = () => {
+    const { placementRank, match } = this.props
+    const classes = ['match-cell', 'rank-cell']
+
+    if (typeof placementRank === 'number') {
+      if (placementRank > match.rank) {
+        classes.push('worse-than-placement')
+      } else {
+        classes.push('better-than-placement')
+      }
+    }
+
+    return classes.join(' ')
+  }
+
   render() {
     const { db, onDelete, index, match } = this.props
     const { rank, _id, group, heroes, comment, playOfTheGame, result,
@@ -130,7 +145,7 @@ class MatchListItem extends Component {
           className="position-relative match-cell sr-change-cell"
         >{rankChange ? rankChange : '--'}</td>
         <td
-          className="match-cell rank-cell"
+          className={this.rankClass()}
         >{rank || '--'}</td>
         <td
           className="match-cell position-relative hide-sm"

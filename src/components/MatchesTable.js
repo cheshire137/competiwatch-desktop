@@ -23,6 +23,16 @@ class MatchesTable extends Component {
     return rankChanges
   }
 
+  placementRank = () => {
+    const { matches } = this.props
+    const placementMatches = matches.filter(match => match.isPlacement &&
+                                                     typeof match.rank === 'number')
+    const lastPlacement = placementMatches[placementMatches.length - 1]
+    if (lastPlacement) {
+      return lastPlacement.rank
+    }
+  }
+
   render() {
     const { matches, db } = this.props
     const rankChanges = this.matchRankChangesByResult()
@@ -53,6 +63,7 @@ class MatchesTable extends Component {
               db={db}
               match={match}
               index={i}
+              placementRank={this.placementRank()}
               rankChanges={rankChanges[match.result] || []}
               isLast={i === matches.length - 1}
               onDelete={this.refreshMatches}
