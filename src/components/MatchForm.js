@@ -159,15 +159,10 @@ class MatchForm extends Component {
             <div className="d-flex-md mb-2 flex-items-center-md flex-justify-between-md">
               <dl className="form-group my-0">
                 <dt>
-                  {isPlacement && !isLastPlacement ? (
+                  {isPlacement ? (
                     <label
                       htmlFor="match-result"
                     >What was the outcome?</label>
-                  ) : isPlacement && isLastPlacement ? (
-                    <label
-                      htmlFor="match-rank"
-                      className="sr-field-label"
-                    >Where did you place?</label>
                   ) : (
                     <label
                       htmlFor="match-rank"
@@ -176,11 +171,12 @@ class MatchForm extends Component {
                   )}
                 </dt>
                 <dd>
-                  {isPlacement && !isLastPlacement ? (
+                  {isPlacement ? (
                     <select
                       className="form-select"
                       value={result}
                       id="match-result"
+                      autoFocus
                       onChange={this.onResultChange}
                     >
                       <option value=""></option>
@@ -212,6 +208,26 @@ class MatchForm extends Component {
                 </dd>
               </dl>
             </div>
+            {isPlacement && isLastPlacement ? (
+              <dl className="form-group mt-0">
+                <dt>
+                  <label
+                    htmlFor="match-rank"
+                    className="sr-field-label"
+                  >Where did you place?</label>
+                </dt>
+                <dd>
+                  <input
+                    id="match-rank"
+                    type="number"
+                    className="form-control sr-field"
+                    value={rank}
+                    onChange={this.onRankChange}
+                    placeholder={latestRank}
+                  />
+                </dd>
+              </dl>
+            ) : ''}
             <dl className="form-group mt-0">
               <dt>
                 <label
