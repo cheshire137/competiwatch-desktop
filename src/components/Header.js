@@ -3,8 +3,9 @@ import SeasonSelect from './SeasonSelect'
 
 class Header extends Component {
   changeActivePage = event => {
-    event.target.blur()
-    const active = event.target.name
+    const button = event.currentTarget
+    button.blur()
+    const active = button.name
     this.props.onPageChange(active)
   }
 
@@ -55,8 +56,7 @@ class Header extends Component {
   }
 
   render() {
-    const { activeSeason, latestSeason, onSeasonChange, dbSeasons,
-            onSeasonCreate } = this.props
+    const { activeSeason, latestSeason, onSeasonChange } = this.props
 
     return (
       <div className="mb-4">
@@ -65,8 +65,7 @@ class Header extends Component {
             activeSeason={activeSeason}
             latestSeason={latestSeason}
             onChange={onSeasonChange}
-            onSeasonCreate={onSeasonCreate}
-            dbSeasons={dbSeasons}
+            onPageChange={this.changeActivePage}
           />
         </div>
         <nav aria-label="Breadcrumb">

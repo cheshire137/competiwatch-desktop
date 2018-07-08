@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import SeasonForm from './SeasonForm'
 
 const getSeasonsList = (latestSeason) => {
   const seasons = []
@@ -14,7 +13,6 @@ class SeasonSelect extends Component {
     super(props)
     this.state = {
       isOpen: false,
-      showSeasonForm: false,
       seasons: getSeasonsList(props.latestSeason)
     }
   }
@@ -63,22 +61,14 @@ class SeasonSelect extends Component {
     this.setState(prevState => ({ isOpen: false }))
   }
 
-  addSeason = event => {
-    this.setState(prevState => ({ showSeasonForm: true }))
-  }
-
-  hideSeasonForm = () => {
-    this.setState(prevState => ({ showSeasonForm: false }))
-  }
-
-  onSeasonCreate = newSeason => {
-    this.setState(prevState => ({ showSeasonForm: false, isOpen: false }))
-    this.props.onSeasonCreate(newSeason)
+  manageSeasons = event => {
+    this.setState(prevState => ({ isOpen: false }))
+    this.props.onPageChange(event)
   }
 
   render() {
-    const { activeSeason, latestSeason, dbSeasons } = this.props
-    const { showSeasonForm, seasons } = this.state
+    const { activeSeason, latestSeason } = this.props
+    const { seasons } = this.state
 
     return (
       <div>
@@ -108,23 +98,16 @@ class SeasonSelect extends Component {
                 <button
                   className="select-menu-item text-left width-full btn-link"
                   type="button"
-                  onClick={this.addSeason}
+                  name="manage-seasons"
+                  onClick={this.manageSeasons}
                 >
                   <span className="ion ion-ios-checkmark select-menu-item-icon" />
-                  <span className="select-menu-item-text">Add a season</span>
+                  <span className="select-menu-item-text">Manage seasons</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
-        {showSeasonForm ? (
-          <SeasonForm
-            onClose={this.hideSeasonForm}
-            onCreate={this.onSeasonCreate}
-            latestSeason={latestSeason}
-            db={dbSeasons}
-          />
-        ) : null}
       </div>
     )
   }

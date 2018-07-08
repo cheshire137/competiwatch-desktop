@@ -6,6 +6,7 @@ import Season from './models/Season'
 import AccountsPage from './components/AccountsPage'
 import MatchesPage from './components/MatchesPage'
 import MatchFormPage from './components/MatchFormPage'
+import SeasonsPage from './components/SeasonsPage'
 import './primer.css'
 import './ionicons.min.css'
 import './App.css'
@@ -82,7 +83,7 @@ class App extends Component {
 
   renderActivePage = () => {
     const { activePage, activeAccountID, latestRank, isPlacement,
-            isLastPlacement, activeSeason } = this.state
+            isLastPlacement, activeSeason, latestSeason } = this.state
 
     if (activePage === 'matches') {
       return (
@@ -112,6 +113,16 @@ class App extends Component {
       )
     }
 
+    if (activePage === 'manage-seasons') {
+      return (
+        <SeasonsPage
+          db={this.db.seasons}
+          latestSeason={latestSeason}
+          onCreate={this.setActiveSeason}
+        />
+      )
+    }
+
     return (
       <AccountsPage
         dbAccounts={this.db.accounts}
@@ -128,14 +139,12 @@ class App extends Component {
     return (
       <div className="layout-container">
         <Header
-          dbSeasons={this.db.seasons}
           activePage={activePage}
           activeAccountID={activeAccountID}
           onPageChange={this.changeActivePage}
           activeSeason={activeSeason}
           latestSeason={latestSeason}
           onSeasonChange={this.changeActiveSeason}
-          onSeasonCreate={this.setActiveSeason}
         />
         {this.renderActivePage()}
       </div>
