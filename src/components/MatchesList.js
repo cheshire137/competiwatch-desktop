@@ -41,6 +41,7 @@ class MatchesList extends Component {
   render() {
     const { matches } = this.state
     const { totalMatches, db } = this.props
+    const noMatches = matches.length < 1
 
     return (
       <div className="mb-4">
@@ -48,19 +49,29 @@ class MatchesList extends Component {
           <h2
             className="h2 text-normal mb-2 d-flex flex-items-center"
           >Matches <span className="Counter ml-2 h4 px-2">{totalMatches}</span></h2>
-          <button
-            type="button"
-            className="btn-link"
-            onClick={this.changeToMatchFormPage}
-          >Log a match</button>
+          {noMatches ? '' : (
+            <button
+              type="button"
+              className="btn-link"
+              onClick={this.changeToMatchFormPage}
+            >Log a match</button>
+          )}
         </div>
-        <MatchesTable
-          matches={matches}
-          db={db}
-        />
-        {matches.length < 1 ? (
-          <div className="mt-2">No matches have been added</div>
-        ) : ''}
+        {noMatches ? (
+          <div className="blankslate">
+            <h3 className="mb-2">No matches have been added</h3>
+            <button
+              type="button"
+              className="btn-large btn btn-primary"
+              onClick={this.changeToMatchFormPage}
+            >Log a match</button>
+          </div>
+        ) : (
+          <MatchesTable
+            matches={matches}
+            db={db}
+          />
+        )}
       </div>
     )
   }
