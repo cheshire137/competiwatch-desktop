@@ -59,6 +59,7 @@ class MatchesList extends Component {
         {anyMatches ? (
           <MatchesTable
             matches={matches}
+            onDelete={this.refreshMatches}
             db={db}
           />
         ) : (
