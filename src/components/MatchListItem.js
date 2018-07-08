@@ -57,6 +57,26 @@ class MatchListItem extends Component {
     return `background-${slug}`
   }
 
+  matchNumber = () => {
+    const { match, index } = this.props
+
+    if (match.isPlacement()) {
+      return `P${index + 1}`
+    }
+
+    return index + 1
+  }
+
+  matchNumberClass = () => {
+    const classes = ['match-cell', 'hide-sm', 'match-number-cell']
+
+    if (this.props.match.isPlacement()) {
+      classes.push('match-placement-number-cell')
+    }
+
+    return classes.join(' ')
+  }
+
   render() {
     const { db, onDelete, index, result, match } = this.props
     const { rank, _id, group, heroes, comment, playedAt, playOfTheGame,
@@ -65,8 +85,8 @@ class MatchListItem extends Component {
     return (
       <tr className={this.outerClass()}>
         <td
-          className="match-cell hide-sm match-number-cell"
-        >{index + 1}</td>
+          className={this.matchNumberClass()}
+        >{this.matchNumber()}</td>
         <td
           className="match-cell hide-sm result-cell"
         >{result}</td>
