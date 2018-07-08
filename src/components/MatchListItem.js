@@ -79,7 +79,7 @@ class MatchListItem extends Component {
 
   render() {
     const { db, onDelete, index, result, match } = this.props
-    const { rank, _id, group, heroes, comment, playedAt, playOfTheGame,
+    const { rank, _id, group, heroes, comment, playOfTheGame,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map } = match
 
     return (
@@ -107,7 +107,7 @@ class MatchListItem extends Component {
         >{comment}</td>
         <td
           className="match-cell text-center hide-sm time-cell no-wrap"
-        >{playedAt}</td>
+        >{match.prettyPlayedAt()}</td>
         <td
           className="match-cell hide-sm heroes-cell"
         >{heroes}</td>

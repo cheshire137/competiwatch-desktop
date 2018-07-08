@@ -4,7 +4,7 @@ import MatchListItem from './MatchListItem'
 class MatchesTable extends Component {
   matchResult = (match, prevMatch) => {
     if (match.result) {
-      return match.result
+      return match.result.charAt(0).toUpperCase()
     }
 
     if (prevMatch) {
@@ -36,7 +36,7 @@ class MatchesTable extends Component {
             <th className="match-header hide-sm no-wrap">Streak</th>
             <th className="match-header">Map</th>
             <th className="match-header hide-sm">Comment</th>
-            <th className="match-header hide-sm">Day/Time</th>
+            <th className="match-header hide-sm">Time Played</th>
             <th className="match-header hide-sm">Heroes</th>
             <th className="match-header hide-sm">Group</th>
             <th className="match-header hide-sm tooltipped tooltipped-n" aria-label="Throwers and leavers">😢</th>

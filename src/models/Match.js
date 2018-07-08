@@ -33,7 +33,9 @@ class Match {
     this.result = data.result
     this.group = cleanupCommaList(data.group)
     this.heroes = cleanupCommaList(data.heroes)
-    this.playedAt = data.playedAt
+    if (data.playedAt) {
+      this.playedAt = new Date(data.playedAt)
+    }
     this.enemyThrower = data.enemyThrower
     this.allyThrower = data.allyThrower
     this.enemyLeaver = data.enemyLeaver
@@ -43,6 +45,14 @@ class Match {
 
   isPlacement() {
     return typeof this.result === 'string'
+  }
+
+  prettyPlayedAt() {
+    if (!this.playedAt) {
+      return ''
+    }
+
+    return this.playedAt.toLocaleDateString()
   }
 
   save(db) {
