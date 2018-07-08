@@ -4,11 +4,17 @@ import './MatchListItem.css'
 
 class MatchListItem extends Component {
   outerClass = () => {
-    if (this.props.isLast) {
-      return ''
+    const { isLast, match } = this.props
+    let classes = []
+
+    if (!isLast) {
+      classes = classes.concat(['border-bottom', 'pb-2', 'mb-2'])
+    }
+    if (match.isPlacement()) {
+      classes.push('match-placement-row')
     }
 
-    return 'border-bottom pb-2 mb-2'
+    return classes.join(' ')
   }
 
   throwerTooltip = () => {
@@ -69,7 +75,7 @@ class MatchListItem extends Component {
         ></td>
         <td
           className="match-cell rank-cell"
-        >{rank}</td>
+        >{rank || '--'}</td>
         <td
           className="match-cell position-relative hide-sm"
         ></td>

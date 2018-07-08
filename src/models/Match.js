@@ -34,7 +34,6 @@ class Match {
     this.group = cleanupCommaList(data.group)
     this.heroes = cleanupCommaList(data.heroes)
     this.playedAt = data.playedAt
-    this.isPlacement = data.isPlacement
     this.enemyThrower = data.enemyThrower
     this.allyThrower = data.allyThrower
     this.enemyLeaver = data.enemyLeaver

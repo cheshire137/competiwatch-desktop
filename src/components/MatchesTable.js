@@ -3,15 +3,22 @@ import MatchListItem from './MatchListItem'
 
 class MatchesTable extends Component {
   matchResult = (match, prevMatch) => {
+    if (match.result) {
+      return match.result
+    }
+
     if (prevMatch) {
       if (match.rank > prevMatch.rank) {
         return 'W'
       }
+
       if (match.rank === prevMatch.rank) {
         return 'D'
       }
+
       return 'L'
     }
+
     return '--'
   }
 
@@ -44,7 +51,7 @@ class MatchesTable extends Component {
               db={db}
               match={match}
               index={i}
-              result={match.result || this.matchResult(match, matches[i - 1])}
+              result={this.matchResult(match, matches[i - 1])}
               isLast={i === matches.length - 1}
               onDelete={this.refreshMatches}
             />
