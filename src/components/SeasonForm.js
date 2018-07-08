@@ -4,13 +4,7 @@ import Season from '../models/Season'
 class SeasonForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { season: props.latestSeason + 1, isValid: true }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.latestSeason !== this.props.latestSeason) {
-      this.setState(prevState => ({ season: this.props.latestSeason + 1 }))
-    }
+    this.state = { season: '', isValid: false }
   }
 
   saveSeason = event => {
@@ -26,7 +20,13 @@ class SeasonForm extends Component {
   }
 
   onSeasonChange = event => {
-    const season = parseInt(event.target.value, 10)
+    const seasonStr = event.target.value
+    if (seasonStr.length < 1) {
+      this.setState(prevState => ({ isValid: false }))
+      return
+    }
+
+    const season = parseInt(seasonStr, 10)
     const isValid = season > this.props.latestSeason
     this.setState(prevState => ({ season, isValid }))
   }

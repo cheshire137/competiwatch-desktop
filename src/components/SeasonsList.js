@@ -9,7 +9,7 @@ class SeasonsList extends Component {
       <div className="mb-4">
         <h2
           className="h2 text-normal mb-2 d-flex flex-items-center"
-        >Competitive seasons <span className="Counter ml-2 h4 px-2">{latestSeason}</span></h2>
+        >Competitive seasons</h2>
         <ul className="list-style-none">
           {seasons.map((season, i) => (
             <li
