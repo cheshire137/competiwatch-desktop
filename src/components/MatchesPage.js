@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import MatchesAccountHeader from './MatchesAccountHeader'
 import MatchesList from './MatchesList'
 import Account from '../models/Account'
 
@@ -11,11 +10,21 @@ class MatchesPage extends Component {
     this.state = { totalMatches: 0 }
   }
 
-  componentDidMount() {
+  refreshAccount = () => {
     const { dbAccounts, accountID } = this.props
     Account.find(dbAccounts, accountID).then(account => {
       this.setState(prevState => ({ account }))
     })
+  }
+
+  componentDidMount() {
+    this.refreshAccount()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.accountID !== this.props.accountID) {
+      this.refreshAccount()
+    }
   }
 
   onMatchCreation = () => {
@@ -37,10 +46,6 @@ class MatchesPage extends Component {
 
     return (
       <div className="container layout-children-container">
-        <MatchesAccountHeader
-          account={account}
-          activePage="matches"
-        />
         <MatchesList
           totalMatches={totalMatches}
           db={dbMatches}

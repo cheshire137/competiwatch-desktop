@@ -1,25 +1,41 @@
 import React, { Component } from 'react'
+import Account from '../models/Account'
 
-const getSeasonsList = (latestSeason) => {
-  const seasons = []
-  for (let season = latestSeason; season >= 1; season--) {
-    seasons.push(season)
-  }
-  return seasons
-}
-
-class SeasonSelect extends Component {
+class AccountSelect extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      isOpen: false,
-      seasons: getSeasonsList(props.latestSeason)
+    this.state = { isOpen: false, accounts: [] }
+  }
+
+  refreshAccounts = () => {
+    const { db } = this.props
+    Account.findAll(db).then(accounts => {
+      this.setState(prevState => ({ accounts }))
+    })
+  }
+
+  refreshActiveAccount = () => {
+    const { db, activeAccountID } = this.props
+    if (!activeAccountID) {
+      return
     }
+
+    Account.find(db, activeAccountID).then(account => {
+      this.setState(prevState => ({ activeAccount: account }))
+    })
+  }
+
+  componentDidMount() {
+    this.refreshAccounts()
+    this.refreshActiveAccount()
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.latestSeason !== this.props.latestSeason) {
-      this.setState(prevState => ({ seasons: getSeasonsList(this.props.latestSeason) }))
+    if (prevProps.totalAccounts !== this.props.totalAccounts) {
+      this.refreshAccounts()
+    }
+    if (prevProps.activeAccountID !== this.props.activeAccountID) {
+      this.refreshActiveAccount()
     }
   }
 
@@ -44,9 +60,9 @@ class SeasonSelect extends Component {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }))
   }
 
-  seasonButtonClass = season => {
+  accountButtonClass = accountID => {
     const classes = ['select-menu-item', 'text-left', 'width-full', 'btn-link']
-    if (this.props.activeSeason === season) {
+    if (this.props.activeAccountID === accountID) {
       classes.push('selected')
     }
     return classes.join(' ')
@@ -54,24 +70,21 @@ class SeasonSelect extends Component {
 
   onChange = event => {
     const button = event.currentTarget
-    const season = parseInt(button.value, 10)
 
     button.blur()
-    this.props.onChange(season)
+    this.props.onChange(button.value)
     this.setState(prevState => ({ isOpen: false }))
-  }
-
-  manageSeasons = event => {
-    this.setState(prevState => ({ isOpen: false }))
-    this.props.onPageChange(event)
   }
 
   render() {
-    const { activeSeason } = this.props
-    const { seasons } = this.state
+    const { accounts, activeAccount } = this.state
+
+    if (accounts.length < 1) {
+      return null
+    }
 
     return (
-      <div className="mr-2">
+      <div>
         <div className={this.containerClass()}>
           <button
             className={this.toggleButtonClass()}
@@ -79,31 +92,24 @@ class SeasonSelect extends Component {
             onClick={this.toggleOpen}
             aria-haspopup="true"
             aria-expanded="false"
-          >Season {activeSeason}</button>
+          >
+            {activeAccount ? activeAccount.battletag : 'Select an account'}
+          </button>
           <div className="select-menu-modal-holder">
             <div className="select-menu-modal">
               <div className="select-menu-list">
-                {seasons.map(season => (
+                {accounts.map(account => (
                   <button
-                    className={this.seasonButtonClass(season)}
-                    key={season}
+                    className={this.accountButtonClass(account)}
+                    key={account._id}
                     type="button"
-                    value={season}
+                    value={account._id}
                     onClick={this.onChange}
                   >
                     <span className="ion ion-ios-checkmark select-menu-item-icon" />
-                    <span className="select-menu-item-text">Season {season}</span>
+                    <span className="select-menu-item-text">{account.battletag}</span>
                   </button>
                 ))}
-                <button
-                  className="select-menu-item text-left width-full btn-link"
-                  type="button"
-                  name="manage-seasons"
-                  onClick={this.manageSeasons}
-                >
-                  <span className="ion ion-ios-checkmark select-menu-item-icon" />
-                  <span className="select-menu-item-text">Manage seasons</span>
-                </button>
               </div>
             </div>
           </div>
@@ -113,4 +119,4 @@ class SeasonSelect extends Component {
   }
 }
 
-export default SeasonSelect
+export default AccountSelect

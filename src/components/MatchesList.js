@@ -22,7 +22,8 @@ class MatchesList extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.totalMatches !== this.props.totalMatches ||
-        prevProps.season !== this.props.season) {
+        prevProps.season !== this.props.season ||
+        prevProps.accountID !== this.props.accountID) {
       this.refreshMatches()
     }
   }

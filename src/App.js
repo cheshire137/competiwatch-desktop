@@ -159,7 +159,9 @@ class App extends Component {
           onPageChange={this.changeActivePage}
           activeSeason={activeSeason}
           latestSeason={latestSeason}
+          dbAccounts={this.db.accounts}
           onSeasonChange={this.changeActiveSeason}
+          loadMatchesForAccount={this.loadMatchesForAccount}
         />
         {this.renderActivePage()}
       </div>

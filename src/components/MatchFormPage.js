@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import MatchForm from './MatchForm'
-import MatchesAccountHeader from './MatchesAccountHeader'
 import Account from '../models/Account'
 
 class MatchFormPage extends Component {
@@ -28,11 +27,6 @@ class MatchFormPage extends Component {
 
     return (
       <div className="container layout-children-container">
-        <MatchesAccountHeader
-          account={account}
-          isPlacement={isPlacement}
-          activePage="log-match"
-        />
         <MatchForm
           season={season}
           accountID={accountID}

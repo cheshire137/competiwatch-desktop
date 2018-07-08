@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import SeasonSelect from './SeasonSelect'
+import AccountSelect from './AccountSelect'
 
 class Header extends Component {
   changeActivePage = event => {
@@ -11,7 +12,9 @@ class Header extends Component {
 
   listItemClass = page => {
     const { activePage } = this.props
-    if (activePage === page || page === 'accounts' && activePage === 'manage-seasons') {
+    const pageIsFirstInNav = page === 'accounts'
+    const activePageIsNotInNav = pageIsFirstInNav && activePage === 'manage-seasons'
+    if (activePage === page || activePageIsNotInNav) {
       return 'breadcrumb-item breadcrumb-item-selected'
     }
     return 'breadcrumb-item'
@@ -58,17 +61,25 @@ class Header extends Component {
   }
 
   render() {
-    const { activeSeason, latestSeason, onSeasonChange } = this.props
+    const { activeSeason, latestSeason, onSeasonChange,
+            dbAccounts, activeAccountID, loadMatchesForAccount } = this.props
 
     return (
       <div className="mb-4">
-        <div className="container mb-2 mt-4">
+        <div className="container mb-2 mt-4 d-flex flex-items-center">
           <SeasonSelect
             activeSeason={activeSeason}
             latestSeason={latestSeason}
             onChange={onSeasonChange}
             onPageChange={this.changeActivePage}
           />
+          {activeAccountID ? (
+            <AccountSelect
+              db={dbAccounts}
+              activeAccountID={activeAccountID}
+              onChange={loadMatchesForAccount}
+            />
+          ) : null}
         </div>
         <nav aria-label="Breadcrumb">
           <div className="container">
