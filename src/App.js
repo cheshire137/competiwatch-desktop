@@ -38,6 +38,19 @@ class App extends Component {
     })
   }
 
+  onSeasonDelete = deletedNumber => {
+    this.setState(prevState => {
+      const newState = {}
+      if (prevState.latestSeason === deletedNumber) {
+        newState.latestSeason = deletedNumber - 1
+      }
+      if (prevState.activeSeason === deletedNumber) {
+        newState.activeSeason = deletedNumber - 1
+      }
+      return newState
+    })
+  }
+
   componentDidMount() {
     Season.latest(this.db.seasons).then(number => {
       if (number) {
@@ -118,7 +131,9 @@ class App extends Component {
         <SeasonsPage
           db={this.db.seasons}
           latestSeason={latestSeason}
+          firstNonDeletableSeason={latestKnownSeason}
           onCreate={this.setActiveSeason}
+          onDelete={this.onSeasonDelete}
         />
       )
     }

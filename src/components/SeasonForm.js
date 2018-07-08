@@ -15,6 +15,7 @@ class SeasonForm extends Component {
 
     const season = new Season({ number: this.state.season })
     season.save(this.props.db).then(() => {
+      this.setState(prevState => ({ season: '' }))
       this.props.onCreate(season.number)
     })
   }
@@ -22,7 +23,7 @@ class SeasonForm extends Component {
   onSeasonChange = event => {
     const seasonStr = event.target.value
     if (seasonStr.length < 1) {
-      this.setState(prevState => ({ isValid: false }))
+      this.setState(prevState => ({ season: seasonStr, isValid: false }))
       return
     }
 

@@ -42,6 +42,21 @@ class Season {
     return Database.upsert(db, data, this._id, 'season')
                    .then(newSeason => { this._id = newSeason._id })
   }
+
+  delete(db) {
+    return new Promise((resolve, reject) => {
+      const options = {}
+      db.remove({ number: this.number }, options, (err, numRemoved) => {
+        if (err) {
+          console.error(`failed to delete season ${this.number}`)
+          reject()
+        } else {
+          console.log('deleted', numRemoved, 'season(s)', this.number)
+          resolve()
+        }
+      })
+    })
+  }
 }
 
 export default Season
