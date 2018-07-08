@@ -15,18 +15,28 @@ class Header extends Component {
   }
 
   renderMatchesButton = () => {
-    if (!this.props.activeAccountID) {
+    const { activeAccountID, activePage } = this.props
+
+    if (!activeAccountID) {
       return null
+    }
+
+    if (activePage === 'log-match') {
+      return (
+        <li className={this.listItemClass('matches')}>
+          <button
+            name="matches"
+            type="button"
+            className="btn-link"
+            onClick={this.changeActivePage}
+          >Matches</button>
+        </li>
+      )
     }
 
     return (
       <li className={this.listItemClass('matches')}>
-        <button
-          name="matches"
-          type="button"
-          className="btn-link"
-          onClick={this.changeActivePage}
-        >Matches</button>
+        Matches
       </li>
     )
   }
@@ -38,12 +48,7 @@ class Header extends Component {
 
     return (
       <li className={this.listItemClass('log-match')}>
-        <button
-          name="log-match"
-          type="button"
-          className="btn-link"
-          onClick={this.changeActivePage}
-        >Log a match</button>
+        Log a match
       </li>
     )
   }
