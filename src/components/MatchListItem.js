@@ -141,6 +141,38 @@ class MatchListItem extends Component {
     return classes.join(' ')
   }
 
+  streakStyle = () => {
+    const { match, longestWinStreak, longestLossStreak } = this.props
+    const style = {}
+    let colors = []
+    let stepCount = 0
+    const streakList = []
+    let streak = 0
+
+    if (match.isWin()) {
+      colors = winColors
+      stepCount = longestWinStreak
+      streak = match.winStreak
+    } else if (match.isLoss()) {
+      colors = lossColors
+      stepCount = longestLossStreak
+      streak = match.lossStreak
+    }
+
+    if (colors.length > 0) {
+      for (let i = 1; i <= stepCount; i++) {
+        streakList.push(i)
+      }
+      const gradient = new ColorGradient(colors, stepCount)
+      const rgbColors = gradient.rgb()
+      const index = streakList.indexOf(streak)
+      const color = rgbColors[index]
+      style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`
+    }
+
+    return style
+  }
+
   render() {
     const { db, onDelete, match, priorRank, showThrowerLeaver } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
@@ -171,6 +203,7 @@ class MatchListItem extends Component {
         </td>
         <td
           className={this.streakClass()}
+          style={this.streakStyle()}
         >
           {match.isWin() ? match.winStreak : match.isLoss() ? match.lossStreak : null}
         </td>

@@ -48,11 +48,31 @@ class MatchesTable extends Component {
     return matches.length > 0
   }
 
+  getLongestWinStreak = () => {
+    const winStreaks = this.props.matches.filter(match => typeof match.winStreak === 'number')
+      .map(match => match.winStreak)
+    if (winStreaks.length < 1) {
+      return 0
+    }
+    return Math.max(...winStreaks)
+  }
+
+  getLongestLossStreak = () => {
+    const lossStreaks = this.props.matches.filter(match => typeof match.lossStreak === 'number')
+      .map(match => match.lossStreak)
+    if (lossStreaks.length < 1) {
+      return 0
+    }
+    return Math.max(...lossStreaks)
+  }
+
   render() {
     const { matches, db, onDelete } = this.props
     const rankChanges = this.matchRankChangesByResult()
     const totalPlacementMatches = matches.filter(match => match.isPlacement).length
     const showThrowerLeaver = this.showshowThrowerLeaverColumn()
+    const longestWinStreak = this.getLongestWinStreak()
+    const longestLossStreak = this.getLongestLossStreak()
 
     return (
       <table className="width-full">
@@ -121,6 +141,8 @@ class MatchesTable extends Component {
               priorRank={this.priorRank(i)}
               totalPlacementMatches={totalPlacementMatches}
               showThrowerLeaver={showThrowerLeaver}
+              longestWinStreak={longestWinStreak}
+              longestLossStreak={longestLossStreak}
             />
           ))}
         </tbody>
