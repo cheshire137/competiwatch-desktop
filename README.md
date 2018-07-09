@@ -1,5 +1,7 @@
 # Competiwatch Desktop
 
+A desktop app to track and visualize your competitive match history in Overwatch.
+
 ## How to Develop
 
 ```bash
@@ -12,7 +14,7 @@ browser tab.
 
 ## How to Build Executables
 
-For macOS, run:
+For macOS, from a Mac run:
 
 ```bash
 npm run electron-build-macos
@@ -20,7 +22,7 @@ npm run electron-build-macos
 
 This will produce a new directory in dist/ that has a distributable .app file.
 
-For Windows, run:
+For Windows, from a Windows machine run:
 
 ```bash
 npm run electron-build-windows
