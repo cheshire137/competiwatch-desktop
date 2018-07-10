@@ -67,14 +67,17 @@ class Header extends Component {
   }
 
   renderLogMatchButton = () => {
-    if (this.props.activePage !== 'log-match') {
+    const { isPlacement, activePage } = this.props
+
+    if (activePage !== 'log-match') {
       return null
     }
 
+    const text = isPlacement ? 'Log a placement match' : 'Log a match'
     return (
-      <li className={this.listItemClass('log-match')}>
-        Log a match
-      </li>
+      <li
+        className={this.listItemClass('log-match')}
+      >{text}</li>
     )
   }
 

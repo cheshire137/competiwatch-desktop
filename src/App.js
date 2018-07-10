@@ -148,7 +148,8 @@ class App extends Component {
   }
 
   render() {
-    const { activePage, activeAccountID, activeSeason, latestSeason } = this.state
+    const { activePage, activeAccountID, activeSeason, latestSeason,
+            isPlacement } = this.state
 
     return (
       <div className="layout-container">
@@ -158,6 +159,7 @@ class App extends Component {
           onPageChange={this.changeActivePage}
           activeSeason={activeSeason}
           latestSeason={latestSeason}
+          isPlacement={isPlacement}
           dbAccounts={this.db.accounts}
           onSeasonChange={this.changeActiveSeason}
           loadMatchesForAccount={this.loadMatchesForAccount}
