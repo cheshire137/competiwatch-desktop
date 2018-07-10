@@ -42,7 +42,7 @@ class MatchesPage extends Component {
 
   render() {
     const { dbMatches, accountID, onPageChange, season } = this.props
-    const { totalMatches, account } = this.state
+    const { totalMatches } = this.state
 
     return (
       <div className="container layout-children-container">

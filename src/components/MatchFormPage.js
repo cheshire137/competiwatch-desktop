@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import MatchForm from './MatchForm'
-import Account from '../models/Account'
 
 class MatchFormPage extends Component {
   constructor(props) {
