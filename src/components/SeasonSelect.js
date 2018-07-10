@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import enhanceWithClickOutside from 'react-click-outside'
 
 const getSeasonsList = (latestSeason) => {
   const seasons = []
@@ -39,9 +40,19 @@ class SeasonSelect extends Component {
     return classes.join(' ')
   }
 
-  toggleOpen = event => {
-    event.target.blur()
+  toggleOpen = () => {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }))
+  }
+
+  onToggleButtonClick = event => {
+    event.target.blur()
+    this.toggleOpen()
+  }
+
+  handleClickOutside() {
+    if (this.state.isOpen) {
+      this.toggleOpen()
+    }
   }
 
   seasonButtonClass = season => {
@@ -76,7 +87,7 @@ class SeasonSelect extends Component {
           <button
             className={this.toggleButtonClass()}
             type="button"
-            onClick={this.toggleOpen}
+            onClick={this.onToggleButtonClick}
             aria-haspopup="true"
             aria-expanded="false"
           >Season {activeSeason}</button>
@@ -113,4 +124,4 @@ class SeasonSelect extends Component {
   }
 }
 
-export default SeasonSelect
+export default enhanceWithClickOutside(SeasonSelect)
