@@ -7,6 +7,7 @@ import AccountsPage from './components/AccountsPage'
 import MatchesPage from './components/MatchesPage'
 import MatchFormPage from './components/MatchFormPage'
 import SeasonsPage from './components/SeasonsPage'
+import ImportPage from './components/ImportPage'
 import './primer.css'
 import './ionicons.min.css'
 import './App.css'
@@ -133,6 +134,13 @@ class App extends Component {
           firstNonDeletableSeason={latestKnownSeason}
           onCreate={this.setActiveSeason}
           onDelete={this.onSeasonDelete}
+        />
+      )
+    }
+
+    if (activePage === 'import') {
+      return (
+        <ImportPage
         />
       )
     }

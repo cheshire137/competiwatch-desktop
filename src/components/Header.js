@@ -81,6 +81,20 @@ class Header extends Component {
     )
   }
 
+  renderImportButton = () => {
+    const { activePage } = this.props
+
+    if (activePage !== 'import') {
+      return null
+    }
+
+    return (
+      <li
+        className={this.listItemClass('import')}
+      >Import</li>
+    )
+  }
+
   render() {
     const { activeSeason, latestSeason, onSeasonChange,
             dbAccounts, activeAccountID, loadMatchesForAccount } = this.props
@@ -108,6 +122,7 @@ class Header extends Component {
               {this.renderAccountsButton()}
               {this.renderMatchesButton()}
               {this.renderLogMatchButton()}
+              {this.renderImportButton()}
             </ol>
           </div>
         </nav>

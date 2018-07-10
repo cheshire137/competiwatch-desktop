@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import MatchesTable from './MatchesTable'
 import Match from '../models/Match'
+import './MatchesList.css'
 
 class MatchesList extends Component {
   constructor(props) {
@@ -39,6 +40,11 @@ class MatchesList extends Component {
     }
   }
 
+  changeToImportPage = event => {
+    event.target.blur()
+    this.props.onPageChange('import')
+  }
+
   render() {
     const { matches } = this.state
     const { totalMatches, db, season } = this.props
@@ -67,11 +73,19 @@ class MatchesList extends Component {
         ) : (
           <div className="blankslate">
             <h3 className="mb-2">No matches have been logged in season {season}</h3>
-            <button
-              type="button"
-              className="btn-large btn btn-primary"
-              onClick={this.changeToMatchFormPage}
-            >Log a match</button>
+            <div className="d-flex flex-items-center flex-justify-between mx-auto populate-season-choices">
+              <button
+                type="button"
+                className="btn-large btn btn-primary"
+                onClick={this.changeToMatchFormPage}
+              >Log a match</button>
+              or
+              <button
+                type="button"
+                className="btn btn-sm"
+                onClick={this.changeToImportPage}
+              >Import matches</button>
+            </div>
           </div>
         )}
       </div>
