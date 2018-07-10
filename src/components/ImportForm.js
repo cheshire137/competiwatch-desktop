@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Importer from '../models/Importer'
+import CsvImporter from '../models/CsvImporter'
 
 class ImportForm extends Component {
   constructor(props) {
@@ -13,8 +13,8 @@ class ImportForm extends Component {
     if (path.length < 1) {
       return
     }
-    const importer = new Importer(path)
-    importer.import().then(thing => console.log(thing))
+    const importer = new CsvImporter(path)
+    importer.import().then(data => console.log(data))
   }
 
   onFileChange = event => {
