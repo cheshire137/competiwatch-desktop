@@ -163,18 +163,19 @@ class MatchForm extends Component {
                   {isPlacement ? (
                     <label
                       htmlFor="match-result"
+                      className="label-lg"
                     >What was the outcome?</label>
                   ) : (
                     <label
                       htmlFor="match-rank"
-                      className="sr-field-label"
+                      className="label-lg"
                     >New SR:</label>
                   )}
                 </dt>
                 <dd>
                   {isPlacement ? (
                     <select
-                      className="form-select"
+                      className="form-select select-lg"
                       value={result}
                       id="match-result"
                       autoFocus

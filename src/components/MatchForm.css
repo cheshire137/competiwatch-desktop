@@ -5,7 +5,15 @@
   line-height: 1;
 }
 
-.sr-field-label {
+.label-lg {
+  font-size: 20px;
+}
+
+.form-group .form-select.select-lg {
+  height: 40px;
+  min-height: 40px;
+  padding-top: 9px;
+  padding-bottom: 9px;
   font-size: 20px;
 }
 
