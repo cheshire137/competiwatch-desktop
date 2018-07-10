@@ -79,3 +79,7 @@
     justify-content: space-between !important;
   }
 }
+
+.breadcrumb-item::after {
+  padding-right: 0.8em;
+}

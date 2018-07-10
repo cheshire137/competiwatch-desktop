@@ -44,12 +44,19 @@ class AccountListItem extends Component {
 
     return (
       <li className={this.outerClass()}>
-        <div className="d-flex flex-items-center">
+        <div className="d-flex flex-items-center flex-justify-between">
           <button
             type="button"
             className="btn-link f3"
             onClick={this.loadMatchesForAccount}
           >{battletag}</button>
+          <AccountDeleteForm
+            _id={_id}
+            dbAccounts={dbAccounts}
+            onDelete={onDelete}
+            battletag={battletag}
+            dbMatches={dbMatches}
+          />
         </div>
         <div className="text-gray">
           {latestMatch ? (
@@ -64,13 +71,6 @@ class AccountListItem extends Component {
             <span>No matches</span>
           )}
         </div>
-        <AccountDeleteForm
-          _id={_id}
-          dbAccounts={dbAccounts}
-          onDelete={onDelete}
-          battletag={battletag}
-          dbMatches={dbMatches}
-        />
       </li>
     )
   }

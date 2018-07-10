@@ -36,7 +36,7 @@ class AccountForm extends Component {
           <dt>
             <label
               htmlFor="account-battletag"
-            >Battletag</label>
+            >Name or battletag</label>
           </dt>
           <dd>
             <input
