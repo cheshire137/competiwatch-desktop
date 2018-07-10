@@ -24,9 +24,10 @@ class App extends Component {
       latestSeason: latestKnownSeason
     }
     this.db = {}
-    this.db.accounts = Account.setupDatabase()
-    this.db.matches = Match.setupDatabase()
-    this.db.seasons = Season.setupDatabase()
+    const env = process.env.NODE_ENV
+    this.db.accounts = Account.setupDatabase(env)
+    this.db.matches = Match.setupDatabase(env)
+    this.db.seasons = Season.setupDatabase(env)
   }
 
   setActiveSeason = season => {

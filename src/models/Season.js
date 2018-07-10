@@ -1,8 +1,8 @@
 import Database from './Database'
 
 class Season {
-  static setupDatabase() {
-    const db = Database.load('seasons')
+  static setupDatabase(env) {
+    const db = Database.load(`seasons${env}`)
     db.ensureIndex({ fieldName: 'number', unique: true }, err => {
       if (err) {
         console.error('failed to add seasons.number index', err)

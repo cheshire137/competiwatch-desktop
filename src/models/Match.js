@@ -64,8 +64,8 @@ const getLossStreak = (index, matches, count) => {
 }
 
 class Match {
-  static setupDatabase() {
-    const db = Database.load('matches')
+  static setupDatabase(env) {
+    const db = Database.load(`matches${env}`)
     return db
   }
 
