@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Importer from '../models/Importer'
 
 class ImportForm extends Component {
   constructor(props) {
@@ -8,7 +9,12 @@ class ImportForm extends Component {
 
   onImport = event => {
     event.preventDefault()
-    console.log(this.state.path)
+    const { path } = this.state
+    if (path.length < 1) {
+      return
+    }
+    const importer = new Importer(path)
+    importer.import().then(thing => console.log(thing))
   }
 
   onFileChange = event => {
