@@ -20,6 +20,24 @@ class Header extends Component {
     return 'breadcrumb-item'
   }
 
+  renderAccountsButton = () => {
+    const { activePage } = this.props
+    if (activePage === 'accounts') {
+      return null
+    }
+
+    return (
+      <li className={this.listItemClass('accounts')}>
+        <button
+          name="accounts"
+          type="button"
+          className="btn-link"
+          onClick={this.changeActivePage}
+        >Accounts</button>
+      </li>
+    )
+  }
+
   renderMatchesButton = () => {
     const { activeAccountID, activePage } = this.props
     if (!activeAccountID) {
@@ -84,14 +102,7 @@ class Header extends Component {
         <nav aria-label="Breadcrumb">
           <div className="container">
             <ol>
-              <li className={this.listItemClass('accounts')}>
-                <button
-                  name="accounts"
-                  type="button"
-                  className="btn-link"
-                  onClick={this.changeActivePage}
-                >Accounts</button>
-              </li>
+              {this.renderAccountsButton()}
               {this.renderMatchesButton()}
               {this.renderLogMatchButton()}
             </ol>
