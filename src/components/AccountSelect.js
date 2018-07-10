@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Account from '../models/Account'
+import enhanceWithClickOutside from 'react-click-outside'
 
 class AccountSelect extends Component {
   constructor(props) {
@@ -55,9 +56,19 @@ class AccountSelect extends Component {
     return classes.join(' ')
   }
 
-  toggleOpen = event => {
-    event.target.blur()
+  toggleOpen = () => {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }))
+  }
+
+  onToggleButtonClick = event => {
+    event.target.blur()
+    this.toggleOpen()
+  }
+
+  handleClickOutside() {
+    if (this.state.isOpen) {
+      this.toggleOpen()
+    }
   }
 
   accountButtonClass = accountID => {
@@ -89,7 +100,7 @@ class AccountSelect extends Component {
           <button
             className={this.toggleButtonClass()}
             type="button"
-            onClick={this.toggleOpen}
+            onClick={this.onToggleButtonClick}
             aria-haspopup="true"
             aria-expanded="false"
           >
@@ -119,4 +130,4 @@ class AccountSelect extends Component {
   }
 }
 
-export default AccountSelect
+export default enhanceWithClickOutside(AccountSelect)
