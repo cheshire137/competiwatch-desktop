@@ -64,7 +64,9 @@ class MatchListItem extends Component {
       return ''
     }
 
-    const slug = map.toLowerCase().replace(/:/, '').replace(/\s/, '-')
+    const slug = map.toLowerCase()
+      .replace(/:/g, '')
+      .replace(/[\s']/g, '-')
     return `background-${slug}`
   }
 
