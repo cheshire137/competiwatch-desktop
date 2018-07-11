@@ -89,6 +89,7 @@ class CsvImporter {
   import(db) {
     return this.parseCsv().then(rows => {
       const promises = rows.map(row => this.importMatch(row, db))
+      console.log('promises', promises)
       return Promise.all(promises)
     })
   }

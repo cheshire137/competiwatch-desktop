@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CsvImporter from '../models/CsvImporter'
+import Match from '../models/Match'
 
 class ImportForm extends Component {
   constructor(props) {
@@ -16,11 +17,15 @@ class ImportForm extends Component {
     }
 
     const { season, accountID, db, onImport } = this.props
-    const importer = new CsvImporter(path, season, accountID)
 
-    importer.import(db).then(matches => {
-      this.setState(prevState => ({ path: '' }))
-      onImport(matches)
+    Match.wipeSeason(db, accountID, season).then(() => {
+      console.log('wiped season', season, 'for account', accountID)
+
+      const importer = new CsvImporter(path, season, accountID)
+      importer.import(db).then(matches => {
+        this.setState(prevState => ({ path: '' }))
+        onImport(matches)
+      })
     })
   }
 
