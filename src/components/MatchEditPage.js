@@ -11,11 +11,13 @@ class MatchEditPage extends Component {
 
     return (
       <div className="container layout-children-container">
-        <MatchDeleteForm
-          _id={id}
-          db={db}
-          onDelete={this.loadMatchesPage}
-        />
+        <div className="border-top pt-2 mt-4">
+          <MatchDeleteForm
+            _id={id}
+            db={db}
+            onDelete={this.loadMatchesPage}
+          />
+        </div>
       </div>
     )
   }
