@@ -98,7 +98,7 @@ class App extends Component {
 
   onMatchesImported = matches => {
     const { activeSeason, activeAccountID } = this.state
-    console.log('imported', matches.length, 'match(es) into season', activeSeason, 'and account',
+    console.log('imported', matches.length, 'match(es) into season', activeSeason, 'in account',
                 activeAccountID)
     this.changeActivePage('matches')
   }

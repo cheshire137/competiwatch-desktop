@@ -94,7 +94,6 @@ class Match {
   static wipeSeason(db, accountID, season) {
     return Match.findAll(db, accountID, season).then(matches => {
       const promises = matches.map(match => match.delete(db))
-      console.log('delete promises', promises)
       return Promise.all(promises)
     })
   }
