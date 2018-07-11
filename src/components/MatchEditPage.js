@@ -40,9 +40,10 @@ class MatchEditPage extends Component {
       return null
     }
 
-    const { db } = this.props
+    const { db, id } = this.props
     return (
       <MatchForm
+        id={id}
         season={match.season}
         accountID={match.accountID}
         db={db}
@@ -50,6 +51,18 @@ class MatchEditPage extends Component {
         isLastPlacement={isLastPlacement}
         latestRank={match.rank}
         onUpdate={this.loadMatchesPage}
+        rank={match.rank}
+        comment={match.comment}
+        map={match.map}
+        group={match.group}
+        heroes={match.heroes}
+        playedAt={match.playedAt}
+        allyThrower={match.allyThrower}
+        allyLeaver={match.allyLeaver}
+        enemyThrower={match.enemyThrower}
+        enemyLeaver={match.enemyLeaver}
+        playOfTheGame={match.playOfTheGame}
+        result={match.result}
       />
     )
   }

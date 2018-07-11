@@ -30,18 +30,57 @@ class MatchForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      rank: '',
-      result: '',
-      comment: '',
-      map: '',
-      group: '',
-      heroes: '',
-      playedAt: currentDatetime(),
-      playOfTheGame: false,
-      allyThrower: false,
-      allyLeaver: false,
-      enemyThrower: false,
-      enemyLeaver: false
+      rank: props.rank || '',
+      result: props.result || '',
+      comment: props.comment || '',
+      map: props.map || '',
+      group: props.group || '',
+      heroes: props.heroes || '',
+      playedAt: props.playedAt || currentDatetime(),
+      playOfTheGame: typeof props.playOfTheGame === 'boolean' ? props.playOfTheGame : false,
+      allyThrower: typeof props.allyThrower === 'boolean' ? props.allyThrower : false,
+      allyLeaver: typeof props.allyLeaver === 'boolean' ? props.allyLeaver : false,
+      enemyThrower: typeof props.enemyThrower === 'boolean' ? props.enemyThrower : false,
+      enemyLeaver: typeof props.enemyLeaver === 'boolean' ? props.enemyLeaver : false
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.rank !== this.props.rank) {
+      this.setState(prevState => ({ rank: this.props.rank }))
+    }
+    if (prevProps.result !== this.props.result) {
+      this.setState(prevState => ({ result: this.props.result }))
+    }
+    if (prevProps.comment !== this.props.comment) {
+      this.setState(prevState => ({ comment: this.props.comment }))
+    }
+    if (prevProps.map !== this.props.map) {
+      this.setState(prevState => ({ map: this.props.map }))
+    }
+    if (prevProps.group !== this.props.group) {
+      this.setState(prevState => ({ group: this.props.group }))
+    }
+    if (prevProps.heroes !== this.props.heroes) {
+      this.setState(prevState => ({ heroes: this.props.heroes }))
+    }
+    if (prevProps.playedAt !== this.props.playedAt) {
+      this.setState(prevState => ({ playedAt: this.props.playedAt }))
+    }
+    if (prevProps.playOfTheGame !== this.props.playOfTheGame) {
+      this.setState(prevState => ({ playOfTheGame: this.props.playOfTheGame }))
+    }
+    if (prevProps.allyThrower !== this.props.allyThrower) {
+      this.setState(prevState => ({ allyThrower: this.props.allyThrower }))
+    }
+    if (prevProps.allyLeaver !== this.props.allyLeaver) {
+      this.setState(prevState => ({ allyLeaver: this.props.allyLeaver }))
+    }
+    if (prevProps.enemyThrower !== this.props.enemyThrower) {
+      this.setState(prevState => ({ enemyThrower: this.props.enemyThrower }))
+    }
+    if (prevProps.enemyLeaver !== this.props.enemyLeaver) {
+      this.setState(prevState => ({ enemyLeaver: this.props.enemyLeaver }))
     }
   }
 
