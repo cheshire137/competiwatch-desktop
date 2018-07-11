@@ -65,11 +65,22 @@ class MatchesList extends Component {
           ) : ''}
         </div>
         {anyMatches ? (
-          <MatchesTable
-            matches={matches}
-            onDelete={this.refreshMatches}
-            db={db}
-          />
+          <div>
+            <MatchesTable
+              matches={matches}
+              onDelete={this.refreshMatches}
+              db={db}
+            />
+            <div className="mt-4 text-small">
+              <span>Replace your season {season} matches by </span>
+              <button
+                type="button"
+                className="btn-link"
+                onClick={this.changeToImportPage}
+              >importing them</button>
+              <span> from a CSV file.</span>
+            </div>
+          </div>
         ) : (
           <div className="blankslate">
             <h3 className="mb-2">No matches have been logged in season {season}</h3>
