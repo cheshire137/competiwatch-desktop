@@ -8,6 +8,7 @@ import MatchesPage from './components/MatchesPage'
 import MatchFormPage from './components/MatchFormPage'
 import SeasonsPage from './components/SeasonsPage'
 import ImportPage from './components/ImportPage'
+import MatchEditPage from './components/MatchEditPage'
 import './primer.css'
 import './ionicons.min.css'
 import './App.css'
@@ -72,17 +73,29 @@ class App extends Component {
   }
 
   changeActiveSeason = activeSeason => {
-    this.setState(prevState => ({ activeSeason }))
+    this.setState(prevState => {
+      const newState = { activeSeason }
+      if (prevState.activeMatchID) {
+        newState.activeMatchID = null
+      }
+      if (prevState.activePage === 'edit-match') {
+        newState.activePage = 'matches'
+      }
+      return newState
+    })
   }
 
-  changeActivePage = (activePage, latestRank) => {
+  changeActivePage = (activePage, val1) => {
     this.setState(prevState => {
       const newState = { activePage }
 
-      if (typeof latestRank === 'number') {
-        newState.latestRank = latestRank
-        newState.isPlacement = false
-        newState.isLastPlacement = false
+      if (activePage === 'log-match') {
+        if (typeof val1 === 'number') {
+          newState.latestRank = val1
+          newState.isPlacement = false
+          newState.isLastPlacement = false
+        }
+        newState.activeMatchID = null
       }
 
       if (activePage === 'accounts') {
@@ -90,6 +103,19 @@ class App extends Component {
         newState.latestRank = 2500
         newState.isPlacement = false
         newState.isLastPlacement = false
+        newState.activeMatchID = null
+      }
+
+      if (activePage === 'matches') {
+        newState.activeMatchID = null
+      }
+
+      if (activePage === 'import') {
+        newState.activeMatchID = null
+      }
+
+      if (activePage === 'edit-match') {
+        newState.activeMatchID = val1
       }
 
       return newState
@@ -105,7 +131,8 @@ class App extends Component {
 
   renderActivePage = () => {
     const { activePage, activeAccountID, latestRank, isPlacement,
-            isLastPlacement, activeSeason, latestSeason } = this.state
+            isLastPlacement, activeSeason, latestSeason,
+            activeMatchID } = this.state
 
     if (activePage === 'matches') {
       return (
@@ -153,6 +180,16 @@ class App extends Component {
           accountID={activeAccountID}
           db={this.db.matches}
           onImport={this.onMatchesImported}
+        />
+      )
+    }
+
+    if (activePage === 'edit-match') {
+      return (
+        <MatchEditPage
+          id={activeMatchID}
+          db={this.db.matches}
+          onPageChange={this.changeActivePage}
         />
       )
     }

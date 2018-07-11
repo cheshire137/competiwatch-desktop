@@ -44,7 +44,7 @@ class Header extends Component {
       return null
     }
 
-    if (activePage === 'log-match') {
+    if (activePage === 'log-match' || activePage === 'edit-match') {
       return (
         <li className={this.listItemClass('matches')}>
           <button
@@ -78,6 +78,20 @@ class Header extends Component {
       <li
         className={this.listItemClass('log-match')}
       >{text}</li>
+    )
+  }
+
+  renderEditMatchButton = () => {
+    const { activePage } = this.props
+
+    if (activePage !== 'edit-match') {
+      return null
+    }
+
+    return (
+      <li
+        className={this.listItemClass('edit-match')}
+      >Edit match</li>
     )
   }
 
@@ -122,6 +136,7 @@ class Header extends Component {
               {this.renderAccountsButton()}
               {this.renderMatchesButton()}
               {this.renderLogMatchButton()}
+              {this.renderEditMatchButton()}
               {this.renderImportButton()}
             </ol>
           </div>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import MatchDeleteForm from './MatchDeleteForm'
 import ColorGradient from '../models/ColorGradient'
 import MatchRankImage from './MatchRankImage'
 import HeroImage from './HeroImage'
@@ -181,6 +180,14 @@ class MatchListItem extends Component {
     return style
   }
 
+  editMatch = event => {
+    const button = event.currentTarget
+    const matchID = button.value
+
+    button.blur()
+    this.props.onEdit(matchID)
+  }
+
   render() {
     const { db, onDelete, match, priorRank, showThrowerLeaver } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
@@ -286,11 +293,15 @@ class MatchListItem extends Component {
           ) : null}
         </td>
         <td className="match-cell options-cell">
-          <MatchDeleteForm
-            _id={_id}
-            db={db}
-            onDelete={onDelete}
-          />
+          <button
+            type="button"
+            onClick={this.editMatch}
+            className="btn-link link-gray-dark tooltipped tooltipped-n"
+            aria-label="Edit this match"
+            value={_id}
+          >
+            <span className="ion ion-ios-settings" />
+          </button>
         </td>
       </tr>
     )

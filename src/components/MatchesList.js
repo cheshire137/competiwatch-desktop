@@ -45,6 +45,10 @@ class MatchesList extends Component {
     this.props.onPageChange('import')
   }
 
+  changeToEditPage = matchID => {
+    this.props.onPageChange('edit-match', matchID)
+  }
+
   render() {
     const { matches } = this.state
     const { totalMatches, db, season } = this.props
@@ -70,6 +74,7 @@ class MatchesList extends Component {
               matches={matches}
               onDelete={this.refreshMatches}
               db={db}
+              onEdit={this.changeToEditPage}
             />
             <div className="mt-4 text-small">
               <span>Replace your season {season} matches by </span>
