@@ -1,5 +1,7 @@
 import Database from './Database'
 
+const totalPlacementMatches = 10
+
 const matchRankChange = (match, prevMatch) => {
   if (prevMatch && typeof match.rank === 'number' && typeof prevMatch.rank === 'number') {
     return match.rank - prevMatch.rank
@@ -85,6 +87,8 @@ const timeOfDay = date => {
   return 'night'
 }
 
+const defaultSort = { playedAt: 1, createdAt: 1 }
+
 class Match {
   static setupDatabase(env) {
     const db = Database.load(`matches${env}`)
@@ -98,11 +102,14 @@ class Match {
     })
   }
 
+  static find(db, id) {
+    return Database.find(db, id).then(data => new Match(data))
+  }
+
   static findAll(db, accountID, season) {
-    const sort = { playedAt: 1, createdAt: 1 }
     const conditions = { accountID, season }
 
-    return Database.findAll(db, sort, conditions).then(rows => {
+    return Database.findAll(db, defaultSort, conditions).then(rows => {
       const matches = rows.map(data => new Match(data))
 
       for (let i = 0; i < matches.length; i++) {
@@ -177,6 +184,26 @@ class Match {
 
   isLoss() {
     return this.result === 'loss'
+  }
+
+  async isLastPlacement(db) {
+    if (!this.isPlacement) {
+      return false
+    }
+
+    const conditions = {
+      isPlacement: true,
+      season: this.season,
+      accountID: this.accountID
+    }
+    const placementRows = await Database.findAll(db, defaultSort, conditions)
+
+    if (placementRows.length < totalPlacementMatches) {
+      return false
+    }
+
+    const lastPlacement = placementRows[totalPlacementMatches - 1]
+    return lastPlacement && lastPlacement._id === this._id
   }
 
   save(db) {

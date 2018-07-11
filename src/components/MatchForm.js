@@ -50,7 +50,7 @@ class MatchForm extends Component {
     const { rank, comment, map, group, heroes, playedAt,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
             playOfTheGame, result } = this.state
-    const { accountID, db, season, isPlacement } = this.props
+    const { accountID, db, season, isPlacement, id } = this.props
     const data = {
       rank: rank && rank.length > 0 ? parseFloat(rank) : null,
       comment,
@@ -66,11 +66,16 @@ class MatchForm extends Component {
       playOfTheGame,
       season,
       isPlacement,
+      _id: id,
       result: result === '' ? null : result
     }
     const match = new Match(data)
     match.save(db).then(() => {
-      this.props.onCreate()
+      if (id) {
+        this.props.onUpdate()
+      } else {
+        this.props.onCreate()
+      }
     })
   }
 
