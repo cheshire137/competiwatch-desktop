@@ -8,7 +8,26 @@ class ImportForm extends Component {
     this.state = { path: '' }
   }
 
-  onImport = event => {
+  onImportComplete = matches => {
+    this.setState(prevState => ({ path: '' }))
+    this.props.onImport(matches)
+  }
+
+  importFromPath = () => {
+    const { path } = this.state
+    const { season, accountID, db } = this.props
+    const importer = new CsvImporter(path, season, accountID)
+
+    console.log('wiped season', season, 'for account', accountID)
+    importer.import(db).then(this.onImportComplete)
+  }
+
+  wipeSeasonAndImport = () => {
+    const { season, accountID, db } = this.props
+    Match.wipeSeason(db, accountID, season).then(this.importFromPath)
+  }
+
+  onFormSubmit = event => {
     event.preventDefault()
 
     const { path } = this.state
@@ -16,17 +35,7 @@ class ImportForm extends Component {
       return
     }
 
-    const { season, accountID, db, onImport } = this.props
-
-    Match.wipeSeason(db, accountID, season).then(() => {
-      console.log('wiped season', season, 'for account', accountID)
-
-      const importer = new CsvImporter(path, season, accountID)
-      importer.import(db).then(matches => {
-        this.setState(prevState => ({ path: '' }))
-        onImport(matches)
-      })
-    })
+    this.wipeSeasonAndImport()
   }
 
   onFileChange = event => {
@@ -40,7 +49,7 @@ class ImportForm extends Component {
   render() {
     return (
       <form
-        onSubmit={this.onImport}
+        onSubmit={this.onFormSubmit}
       >
         <dl className="form-group mt-0">
           <dt><label htmlFor="csv">Choose a CSV file:</label></dt>
