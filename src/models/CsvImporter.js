@@ -63,7 +63,7 @@ class CsvImporter {
     return hash
   }
 
-  importMatch = rawData => {
+  importMatch = (rawData, db) => {
     const data = this.normalizeData(rawData)
     const matchData = {
       accountID: this.accountID,
@@ -82,12 +82,14 @@ class CsvImporter {
       enemyLeaver: data['enemy leaver'],
       allyLeaver: data['ally leaver']
     }
-    return matchData
+    const match = new Match(matchData)
+    return match.save(db)
   }
 
-  import() {
+  import(db) {
     return this.parseCsv().then(rows => {
-      return rows.map(row => this.importMatch(row))
+      const promises = rows.map(row => this.importMatch(row, db))
+      return Promise.all(promises)
     })
   }
 }

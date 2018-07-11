@@ -9,14 +9,19 @@ class ImportForm extends Component {
 
   onImport = event => {
     event.preventDefault()
+
     const { path } = this.state
     if (path.length < 1) {
       return
     }
-    const { season, accountID } = this.props
+
+    const { season, accountID, db, onImport } = this.props
     const importer = new CsvImporter(path, season, accountID)
-    importer.import()
-      .then(matches => console.log(matches))
+
+    importer.import(db).then(matches => {
+      this.setState(prevState => ({ path: '' }))
+      onImport(matches)
+    })
   }
 
   onFileChange = event => {

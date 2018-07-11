@@ -96,6 +96,11 @@ class App extends Component {
     })
   }
 
+  onMatchesImported = matches => {
+    console.log('imported', matches.length, 'matches')
+    this.changeActivePage('matches')
+  }
+
   renderActivePage = () => {
     const { activePage, activeAccountID, latestRank, isPlacement,
             isLastPlacement, activeSeason, latestSeason } = this.state
@@ -144,6 +149,8 @@ class App extends Component {
         <ImportPage
           season={activeSeason}
           accountID={activeAccountID}
+          db={this.db.matches}
+          onImport={this.onMatchesImported}
         />
       )
     }
