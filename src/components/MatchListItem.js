@@ -3,11 +3,17 @@ import MatchDeleteForm from './MatchDeleteForm'
 import ColorGradient from '../models/ColorGradient'
 import MatchRankImage from './MatchRankImage'
 import HeroImage from './HeroImage'
+import TimeOfDayEmoji from './TimeOfDayEmoji'
+import DayOfWeekEmoji from './DayOfWeekEmoji'
 import './MatchListItem.css'
 
 const winColors = [[178,212,132], [102,189,125]]
 const lossColors = [[250,170,124], [246,106,110]]
 const neutralColor = [254,234,138]
+
+const capitalize = str => {
+  return str.charAt(0).toUpperCase() + str.substr(1)
+}
 
 class MatchListItem extends Component {
   outerClass = () => {
@@ -180,6 +186,7 @@ class MatchListItem extends Component {
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
             rankChange, dayOfWeek, timeOfDay } = match
+    const timeAndDayPresent = dayOfWeek && timeOfDay && dayOfWeek.length > 0 && timeOfDay.length > 0
 
     return (
       <tr className={this.outerClass()}>
@@ -218,12 +225,16 @@ class MatchListItem extends Component {
         <td
           className="match-cell text-center hide-sm time-cell no-wrap"
         >
-          <div
-            className="tooltipped tooltipped-n"
-            aria-label="{dayOfWeek} {timeOfDay}"
-          >
-            {dayOfWeek} {timeOfDay}
-          </div>
+          {timeAndDayPresent ? (
+            <div
+              className="tooltipped tooltipped-n"
+              aria-label={`${capitalize(dayOfWeek)} ${capitalize(timeOfDay)}`}
+            >
+              <DayOfWeekEmoji dayOfWeek={dayOfWeek} />
+              <span> </span>
+              <TimeOfDayEmoji timeOfDay={timeOfDay} />
+            </div>
+          ) : null}
         </td>
         <td
           className="match-cell hide-sm heroes-cell"
