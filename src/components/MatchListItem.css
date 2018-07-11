@@ -31,7 +31,8 @@
 .match-placement-row .match-cell.heroes-cell,
 .match-placement-row .match-cell.throwers-leavers-cell,
 .match-placement-row .match-cell.options-cell,
-.match-placement-row .match-cell.friends-cell {
+.match-placement-row .match-cell.friends-cell,
+.match-placement-row .match-cell.potg-cell {
   background-color: #efefef;
 }
 
