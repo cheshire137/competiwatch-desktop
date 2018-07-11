@@ -13,7 +13,7 @@ class CsvImporter {
   readFile = () => {
     return new Promise((resolve, reject) => {
       console.log('reading', this.path)
-      fs.readFile(this.path, 'latin1', (err, data) => {
+      fs.readFile(this.path, 'utf8', (err, data) => {
         if (err) {
           console.error('failed to read file', this.path, err)
           reject(err)
