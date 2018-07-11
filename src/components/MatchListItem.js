@@ -179,7 +179,7 @@ class MatchListItem extends Component {
     const { db, onDelete, match, priorRank, showThrowerLeaver } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
-            rankChange } = match
+            rankChange, dayOfWeek, timeOfDay } = match
 
     return (
       <tr className={this.outerClass()}>
@@ -217,7 +217,14 @@ class MatchListItem extends Component {
         >{comment}</td>
         <td
           className="match-cell text-center hide-sm time-cell no-wrap"
-        >{match.prettyPlayedAt()}</td>
+        >
+          <div
+            className="tooltipped tooltipped-n"
+            aria-label="{dayOfWeek} {timeOfDay}"
+          >
+            {dayOfWeek} {timeOfDay}
+          </div>
+        </td>
         <td
           className="match-cell hide-sm heroes-cell"
         >

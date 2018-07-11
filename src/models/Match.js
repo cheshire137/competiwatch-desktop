@@ -154,25 +154,17 @@ class Match {
       this.dayOfWeek = dayOfWeek(this.playedAt)
       this.timeOfDay = timeOfDay(this.playedAt)
     }
-    if (data.day) {
-      this.dayOfWeek = data.day
+    if (data.dayOfWeek) {
+      this.dayOfWeek = data.dayOfWeek
     }
-    if (data.time) {
-      this.timeOfDay = data.time
+    if (data.timeOfDay) {
+      this.timeOfDay = data.timeOfDay
     }
     this.enemyThrower = data.enemyThrower
     this.allyThrower = data.allyThrower
     this.enemyLeaver = data.enemyLeaver
     this.allyLeaver = data.allyLeaver
     this.playOfTheGame = data.playOfTheGame
-  }
-
-  prettyPlayedAt() {
-    if (!this.playedAt) {
-      return ''
-    }
-
-    return this.playedAt.toLocaleDateString()
   }
 
   isWin() {
@@ -196,6 +188,8 @@ class Match {
       heroes: this.heroes,
       accountID: this.accountID,
       playedAt: this.playedAt,
+      timeOfDay: this.timeOfDay,
+      dayOfWeek: this.dayOfWeek,
       isPlacement: this.isPlacement,
       enemyThrower: this.enemyThrower,
       allyThrower: this.allyThrower,

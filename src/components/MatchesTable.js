@@ -101,7 +101,7 @@ class MatchesTable extends Component {
             >Comment</th>
             <th
               className="match-header hide-sm"
-            >Time Played</th>
+            >Day/Time</th>
             <th
               className="match-header hide-sm"
             >Heroes</th>
