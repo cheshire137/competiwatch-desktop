@@ -91,6 +91,14 @@ class Match {
     return db
   }
 
+  static wipeSeason(db, accountID, season) {
+    return Match.findAll(db, accountID, season).then(matches => {
+      const promises = matches.map(match => match.delete(db))
+      console.log('delete promises', promises)
+      return Promise.all(promises)
+    })
+  }
+
   static findAll(db, accountID, season) {
     const sort = { playedAt: 1, createdAt: 1 }
     const conditions = { accountID, season }
