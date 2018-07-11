@@ -63,6 +63,28 @@ const getLossStreak = (index, matches, count) => {
   return getLossStreak(index - 1, matches, count)
 }
 
+const dayOfWeek = date => {
+  const day = date.getDay()
+  if (day === 0 || day === 6) { // Sunday and Saturday
+    return 'weekend'
+  }
+  return 'weekday'
+}
+
+const timeOfDay = date => {
+  const hours = date.getHours()
+  if (hours >= 5 && hours < 12) {
+    return 'morning'
+  }
+  if (hours >= 12 && hours < 17) {
+    return 'afternoon'
+  }
+  if (hours >= 17 && hours < 21) {
+    return 'evening'
+  }
+  return 'night'
+}
+
 class Match {
   static setupDatabase(env) {
     const db = Database.load(`matches${env}`)
@@ -120,6 +142,16 @@ class Match {
     }
     if (data.playedAt) {
       this.playedAt = new Date(data.playedAt)
+    }
+    if (this.playedAt) {
+      this.dayOfWeek = dayOfWeek(this.playedAt)
+      this.timeOfDay = timeOfDay(this.playedAt)
+    }
+    if (data.day) {
+      this.dayOfWeek = data.day
+    }
+    if (data.time) {
+      this.timeOfDay = data.time
     }
     this.enemyThrower = data.enemyThrower
     this.allyThrower = data.allyThrower
