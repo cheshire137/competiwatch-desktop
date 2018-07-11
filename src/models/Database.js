@@ -77,11 +77,11 @@ class Database {
         const options = {}
         db.update({ _id: id }, data, options, (err, numReplaced) => {
           if (err) {
-            console.error(`failed to update ${type}`, this._id, err)
+            console.error(`failed to update ${type}`, id, err)
             reject(err)
           } else {
-            console.log('updated', numReplaced, `${type}(s)`, this._id)
-            resolve()
+            console.log('updated', numReplaced, `${type}(s)`, id)
+            resolve({ _id: id })
           }
         })
       } else {

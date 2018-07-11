@@ -29,6 +29,10 @@ const currentDatetime = () => {
 class MatchForm extends Component {
   constructor(props) {
     super(props)
+    let playedAt = props.playedAt
+    if (!props.id && !playedAt) {
+      playedAt = currentDatetime()
+    }
     this.state = {
       rank: props.rank || '',
       result: props.result || '',
@@ -36,7 +40,7 @@ class MatchForm extends Component {
       map: props.map || '',
       group: props.group || '',
       heroes: props.heroes || '',
-      playedAt: props.playedAt || currentDatetime(),
+      playedAt,
       playOfTheGame: typeof props.playOfTheGame === 'boolean' ? props.playOfTheGame : false,
       allyThrower: typeof props.allyThrower === 'boolean' ? props.allyThrower : false,
       allyLeaver: typeof props.allyLeaver === 'boolean' ? props.allyLeaver : false,
