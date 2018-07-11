@@ -13,8 +13,10 @@ class ImportForm extends Component {
     if (path.length < 1) {
       return
     }
-    const importer = new CsvImporter(path)
-    importer.import().then(data => console.log(data))
+    const { season, accountID } = this.props
+    const importer = new CsvImporter(path, season, accountID)
+    importer.import()
+      .then(matches => console.log(matches))
   }
 
   onFileChange = event => {

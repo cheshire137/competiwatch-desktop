@@ -142,6 +142,8 @@ class App extends Component {
     if (activePage === 'import') {
       return (
         <ImportPage
+          season={activeSeason}
+          accountID={activeAccountID}
         />
       )
     }

@@ -2,8 +2,10 @@ import csv from 'csv'
 const fs = window.require('fs')
 
 class CsvImporter {
-  constructor(path) {
+  constructor(path, season, accountID) {
     this.path = path
+    this.season = season
+    this.accountID = accountID
   }
 
   readFile() {
