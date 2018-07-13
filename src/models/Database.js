@@ -74,7 +74,9 @@ class Database {
   static update(db, data, id) {
     return new Promise((resolve, reject) => {
       const options = {}
-      db.update({ _id: id }, data, options, (err, numReplaced) => {
+      const update = { $set: data }
+
+      db.update({ _id: id }, update, options, (err, numReplaced) => {
         if (err) {
           console.error('failed to update record', id, err)
           reject(err)
