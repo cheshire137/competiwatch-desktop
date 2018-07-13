@@ -54,7 +54,13 @@ class Account {
 
   save(db) {
     const data = { battletag: this.battletag }
-    return Database.upsert(db, data, this._id).then(newAccount => { this._id = newAccount._id })
+    return Database.upsert(db, data, this._id).then(newAccount => {
+      this._id = newAccount._id
+      if (newAccount.createdAt) {
+        this.createdAt = newAccount.createdAt
+      }
+      return this
+    })
   }
 
   delete(db) {

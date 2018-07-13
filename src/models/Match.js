@@ -226,7 +226,13 @@ class Match {
       season: this.season,
       result: this.result
     }
-    return Database.upsert(db, data, this._id).then(newMatch => { this._id = newMatch._id })
+    return Database.upsert(db, data, this._id).then(newMatch => {
+      this._id = newMatch._id
+      if (newMatch.createdAt) {
+        this.createdAt = newMatch.createdAt
+      }
+      return this
+    })
   }
 
   delete(db) {

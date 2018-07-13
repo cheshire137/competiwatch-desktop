@@ -39,7 +39,13 @@ class Season {
 
   save(db) {
     const data = { number: this.number }
-    return Database.upsert(db, data, this._id).then(newSeason => { this._id = newSeason._id })
+    return Database.upsert(db, data, this._id).then(newSeason => {
+      this._id = newSeason._id
+      if (newSeason.createdAt) {
+        this.createdAt = newSeason.createdAt
+      }
+      return this
+    })
   }
 
   delete(db) {

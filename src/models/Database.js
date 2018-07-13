@@ -88,13 +88,16 @@ class Database {
 
   static insert(db, data) {
     return new Promise((resolve, reject) => {
-      data.createdAt = new Date().toJSON()
+      const createdDate = new Date()
+      data.createdAt = createdDate.toJSON()
+
       db.insert([data], (err, newRecord) => {
         if (err) {
           console.error('failed to create record', data, err)
           reject(err)
         } else {
-          console.log('created', newRecord)
+          console.log('created record', newRecord._id, data.createdAt)
+          newRecord.createdAt = createdDate
           resolve(newRecord)
         }
       })
