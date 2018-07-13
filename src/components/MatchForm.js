@@ -95,7 +95,6 @@ class MatchForm extends Component {
             playOfTheGame, result } = this.state
     const { accountID, db, season, isPlacement, id } = this.props
     const data = {
-      rank: rank && rank.length > 0 ? parseFloat(rank) : null,
       comment,
       map,
       group,
@@ -111,6 +110,11 @@ class MatchForm extends Component {
       isPlacement,
       _id: id,
       result: result === '' ? null : result
+    }
+    if (typeof rank === 'string' && rank.length > 0) {
+      data.rank = parseFloat(rank)
+    } else if (typeof rank === 'number') {
+      data.rank = rank
     }
     const match = new Match(data)
     match.save(db).then(() => {

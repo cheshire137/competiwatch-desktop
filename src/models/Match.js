@@ -114,7 +114,7 @@ class Match {
 
       for (let i = 0; i < matches.length; i++) {
         const match = matches[i]
-        const prevMatch = matches[i-1]
+        const prevMatch = matches[i - 1]
 
         match.rankChange = matchRankChange(match, prevMatch)
 
