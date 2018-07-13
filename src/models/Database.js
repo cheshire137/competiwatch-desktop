@@ -71,13 +71,13 @@ class Database {
     })
   }
 
-  static upsert(db, data, id, type) {
+  static upsert(db, data, id) {
     return new Promise((resolve, reject) => {
       if (id) {
         const options = {}
         db.update({ _id: id }, data, options, (err, numReplaced) => {
           if (err) {
-            console.error(`failed to update ${type}`, id, err)
+            console.error('failed to update record', id, err)
             reject(err)
           } else {
             console.log('updated', numReplaced, `${type}(s)`, id)
@@ -86,13 +86,13 @@ class Database {
         })
       } else {
         data.createdAt = new Date().toJSON()
-        db.insert([data], (err, newAccount) => {
+        db.insert([data], (err, newRecord) => {
           if (err) {
-            console.error(`failed to create ${type}`, data, err)
+            console.error('failed to create record', data, err)
             reject(err)
           } else {
-            console.log(`created ${type}`, newAccount)
-            resolve(newAccount)
+            console.log('created', newRecord)
+            resolve(newRecord)
           }
         })
       }
