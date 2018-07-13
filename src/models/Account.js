@@ -25,6 +25,9 @@ class Account {
   constructor(data) {
     this.battletag = data.battletag
     this._id = data._id
+    if (data.createdAt) {
+      this.createdAt = new Date(data.createdAt)
+    }
   }
 
   latestMatch(dbMatches, season) {

@@ -35,6 +35,9 @@ class Season {
   constructor(data) {
     this._id = data._id
     this.number = parseInt(data.number, 10)
+    if (data.createdAt) {
+      this.createdAt = new Date(data.createdAt)
+    }
   }
 
   save(db) {

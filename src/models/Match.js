@@ -172,6 +172,9 @@ class Match {
     this.enemyLeaver = data.enemyLeaver
     this.allyLeaver = data.allyLeaver
     this.playOfTheGame = data.playOfTheGame
+    if (data.createdAt) {
+      this.createdAt = new Date(data.createdAt)
+    }
   }
 
   isWin() {
