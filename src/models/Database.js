@@ -71,30 +71,42 @@ class Database {
     })
   }
 
+  static update(db, data, id) {
+    return new Promise((resolve, reject) => {
+      const options = {}
+      db.update({ _id: id }, data, options, (err, numReplaced) => {
+        if (err) {
+          console.error('failed to update record', id, err)
+          reject(err)
+        } else {
+          console.log('updated', numReplaced, 'record', id)
+          resolve({ _id: id })
+        }
+      })
+    })
+  }
+
+  static insert(db, data) {
+    return new Promise((resolve, reject) => {
+      data.createdAt = new Date().toJSON()
+      db.insert([data], (err, newRecord) => {
+        if (err) {
+          console.error('failed to create record', data, err)
+          reject(err)
+        } else {
+          console.log('created', newRecord)
+          resolve(newRecord)
+        }
+      })
+    })
+  }
+
   static upsert(db, data, id) {
     return new Promise((resolve, reject) => {
       if (id) {
-        const options = {}
-        db.update({ _id: id }, data, options, (err, numReplaced) => {
-          if (err) {
-            console.error('failed to update record', id, err)
-            reject(err)
-          } else {
-            console.log('updated', numReplaced, `${type}(s)`, id)
-            resolve({ _id: id })
-          }
-        })
+        this.update(db, data, id).then(resolve, reject)
       } else {
-        data.createdAt = new Date().toJSON()
-        db.insert([data], (err, newRecord) => {
-          if (err) {
-            console.error('failed to create record', data, err)
-            reject(err)
-          } else {
-            console.log('created', newRecord)
-            resolve(newRecord)
-          }
-        })
+        this.insert(db, data).then(resolve, reject)
       }
     })
   }
