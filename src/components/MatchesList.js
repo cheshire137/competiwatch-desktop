@@ -51,7 +51,7 @@ class MatchesList extends Component {
 
   render() {
     const { matches } = this.state
-    const { totalMatches, db, season } = this.props
+    const { totalMatches, season } = this.props
     const anyMatches = matches.length > 0
 
     return (
@@ -72,8 +72,6 @@ class MatchesList extends Component {
           <div>
             <MatchesTable
               matches={matches}
-              onDelete={this.refreshMatches}
-              db={db}
               onEdit={this.changeToEditPage}
             />
             <div className="mt-4 text-small">

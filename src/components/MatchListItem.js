@@ -189,7 +189,7 @@ class MatchListItem extends Component {
   }
 
   render() {
-    const { db, onDelete, match, priorRank, showThrowerLeaver } = this.props
+    const { match, priorRank, showThrowerLeaver } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
             rankChange, dayOfWeek, timeOfDay } = match

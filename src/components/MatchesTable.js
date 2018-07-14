@@ -67,7 +67,7 @@ class MatchesTable extends Component {
   }
 
   render() {
-    const { matches, db, onDelete, onEdit } = this.props
+    const { matches, onEdit } = this.props
     const rankChanges = this.matchRankChangesByResult()
     const totalPlacementMatches = matches.filter(match => match.isPlacement).length
     const showThrowerLeaver = this.showshowThrowerLeaverColumn()
@@ -131,13 +131,11 @@ class MatchesTable extends Component {
           {matches.map((match, i) => (
             <MatchListItem
               key={match._id}
-              db={db}
               match={match}
               index={i}
               placementRank={this.placementRank()}
               rankChanges={rankChanges[match.result] || []}
               isLast={i === matches.length - 1}
-              onDelete={onDelete}
               onEdit={onEdit}
               priorRank={this.priorRank(i)}
               totalPlacementMatches={totalPlacementMatches}
