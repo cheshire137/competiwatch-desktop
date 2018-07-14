@@ -98,8 +98,8 @@ class Database {
           console.error('failed to create record', data, err)
           reject(err)
         } else {
-          console.log('created record', newRecord, data.createdAt)
           newRecord.createdAt = createdDate
+          console.log('created record', newRecord)
           resolve(newRecord)
         }
       })

@@ -4,7 +4,11 @@ import DayTimeApproximator from './DayTimeApproximator'
 const totalPlacementMatches = 10
 
 const matchRankChange = (match, prevMatch) => {
-  if (prevMatch && typeof match.rank === 'number' && typeof prevMatch.rank === 'number') {
+  if (!match || !prevMatch) {
+    return
+  }
+
+  if (typeof match.rank === 'number' && typeof prevMatch.rank === 'number') {
     return match.rank - prevMatch.rank
   }
 }
@@ -121,7 +125,10 @@ class Match {
     this.isPlacement = data.isPlacement
     this.result = data.result
 
-    if (typeof data.rank === 'number' || typeof data.rank === 'string') {
+    if (typeof data.rank === 'number' && !isNaN(data.rank)) {
+      this.rank = data.rank
+    }
+    if (typeof data.rank === 'string') {
       this.rank = parseInt(data.rank, 10)
     }
 
