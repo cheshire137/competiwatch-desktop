@@ -31,11 +31,19 @@ class App extends Component {
     this.db.seasons = Season.setupDatabase(env)
   }
 
-  setActiveSeason = season => {
+  changeActiveSeason = activeSeason => {
     this.setState(prevState => {
-      const newState = { activeSeason: season }
-      if (season > prevState.latestSeason) {
-        newState.latestSeason = season
+      const newState = { activeSeason }
+      if (prevState.activeMatchID) {
+        newState.activeMatchID = null
+      }
+      if (prevState.activePage === 'edit-match') {
+        newState.activePage = 'matches'
+      } else if (prevState.activePage === 'log-match') {
+        newState.activePage = 'matches'
+      }
+      if (activeSeason > prevState.latestSeason) {
+        newState.latestSeason = activeSeason
       }
       return newState
     })
@@ -57,7 +65,7 @@ class App extends Component {
   componentDidMount() {
     Season.latest(this.db.seasons).then(number => {
       if (number) {
-        this.setActiveSeason(number)
+        this.changeActiveSeason(number)
       } else {
         this.setState(prevState => ({ activeSeason: latestKnownSeason }))
       }
@@ -70,19 +78,6 @@ class App extends Component {
 
   setIsPlacement = (isPlacement, isLastPlacement) => {
     this.setState(prevState => ({ isPlacement, isLastPlacement }))
-  }
-
-  changeActiveSeason = activeSeason => {
-    this.setState(prevState => {
-      const newState = { activeSeason }
-      if (prevState.activeMatchID) {
-        newState.activeMatchID = null
-      }
-      if (prevState.activePage === 'edit-match') {
-        newState.activePage = 'matches'
-      }
-      return newState
-    })
   }
 
   changeActivePage = (activePage, val1) => {
@@ -167,7 +162,7 @@ class App extends Component {
           db={this.db.seasons}
           latestSeason={latestSeason}
           firstNonDeletableSeason={latestKnownSeason}
-          onCreate={this.setActiveSeason}
+          onCreate={this.changeActiveSeason}
           onDelete={this.onSeasonDelete}
         />
       )
