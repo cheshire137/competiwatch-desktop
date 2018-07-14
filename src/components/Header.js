@@ -127,6 +127,7 @@ class Header extends Component {
               db={dbAccounts}
               activeAccountID={activeAccountID}
               onChange={loadMatchesForAccount}
+              onPageChange={this.changeActivePage}
             />
           ) : null}
         </div>

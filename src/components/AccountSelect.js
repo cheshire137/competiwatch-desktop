@@ -87,6 +87,11 @@ class AccountSelect extends Component {
     this.setState(prevState => ({ isOpen: false }))
   }
 
+  manageAccounts = event => {
+    this.setState(prevState => ({ isOpen: false }))
+    this.props.onPageChange(event)
+  }
+
   render() {
     const { accounts, activeAccount } = this.state
 
@@ -121,6 +126,15 @@ class AccountSelect extends Component {
                     <span className="select-menu-item-text">{account.battletag}</span>
                   </button>
                 ))}
+                <button
+                  className="select-menu-item text-left width-full btn-link"
+                  type="button"
+                  name="accounts"
+                  onClick={this.manageAccounts}
+                >
+                  <span className="ion ion-ios-checkmark select-menu-item-icon" />
+                  <span className="select-menu-item-text">Manage accounts</span>
+                </button>
               </div>
             </div>
           </div>
