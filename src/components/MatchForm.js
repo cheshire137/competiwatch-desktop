@@ -210,7 +210,7 @@ class MatchForm extends Component {
         <div className="clearfix">
           <div className="col-md-12 col-lg-5 float-left pr-3-md">
             <div className="d-flex-md mb-2 flex-items-center-md flex-justify-between-md">
-              <dl className="form-group my-0 d-flex flex-items-center">
+              <div className="form-group my-0 d-flex flex-items-center">
                 {isPlacement ? (
                   <label
                     htmlFor="match-result"
@@ -246,7 +246,7 @@ class MatchForm extends Component {
                     autoFocus
                   />
                 )}
-              </dl>
+              </div>
               <dl className="form-group my-0">
                 <dt>
                   <label

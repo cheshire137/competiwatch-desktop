@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Account from '../models/Account'
+import './AccountForm.css'
 
 class AccountForm extends Component {
   constructor(props) {
@@ -22,23 +23,24 @@ class AccountForm extends Component {
   }
 
   render() {
+    const { totalAccounts } = this.props
     const { battletag } = this.state
 
     return (
       <form
-        className="Box p-3"
+        className="border-top mt-4 pt-3 mb-4"
         onSubmit={this.onSubmit}
       >
         <h2
-          className="h2 text-normal mb-2"
+          className="h2 text-normal mt-0 mb-2"
         >Add an account</h2>
-        <dl className="form-group mt-0">
-          <dt>
-            <label
-              htmlFor="account-battletag"
-            >Name or battletag</label>
-          </dt>
-          <dd>
+        <p>Add an account to log the competitive matches you've played on that account.</p>
+        <div className="d-flex flex-items-center mt-0">
+          <label
+            htmlFor="account-battletag"
+            className="mr-2"
+          >Battletag:</label>
+          <div className="input-group battletag-input-group">
             <input
               id="account-battletag"
               type="text"
@@ -46,12 +48,12 @@ class AccountForm extends Component {
               value={battletag}
               onChange={this.onBattletagChange}
               placeholder="ASampleAccount#1234"
-              autoFocus
+              autoFocus={totalAccounts < 1}
             />
-          </dd>
-        </dl>
-        <div className="form-actions">
-          <button type="submit" className="btn">Add account</button>
+            <span className="input-group-button">
+              <button type="submit" className="btn">Add account</button>
+            </span>
+          </div>
         </div>
       </form>
     )

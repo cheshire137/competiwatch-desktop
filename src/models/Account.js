@@ -31,15 +31,17 @@ class Account {
   }
 
   latestMatch(dbMatches, season) {
-    const conditions = { accountID: this._id, season: season }
-    const sort = { date: -1, createdAt: -1 }
     return new Promise((resolve, reject) => {
+      const conditions = { accountID: this._id, season: season }
+      const sort = { date: -1, createdAt: -1 }
+
       dbMatches.find(conditions).sort(sort).limit(1).exec((err, rows) => {
         if (err) {
           console.error('failed to load latest match', err)
           reject(err)
         } else {
           const data = rows[0]
+
           if (data) {
             resolve(new Match(data))
           } else {
@@ -50,9 +52,13 @@ class Account {
     })
   }
 
-  hasMatches(dbMatches) {
+  totalMatches(db) {
     const conditions = { accountID: this._id }
-    return Database.count(dbMatches, conditions).then(count => count > 0)
+    return Database.count(db, conditions)
+  }
+
+  hasMatches(db) {
+    return this.totalMatches(db).then(count => count > 0)
   }
 
   save(db) {
