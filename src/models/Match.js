@@ -1,4 +1,5 @@
 import Database from './Database'
+import DayTimeApproximator from './DayTimeApproximator'
 
 const totalPlacementMatches = 10
 
@@ -63,28 +64,6 @@ const getLossStreak = (index, matches, count) => {
   }
 
   return getLossStreak(index - 1, matches, count)
-}
-
-const dayOfWeek = date => {
-  const day = date.getDay()
-  if (day === 0 || day === 6) { // Sunday and Saturday
-    return 'weekend'
-  }
-  return 'weekday'
-}
-
-const timeOfDay = date => {
-  const hours = date.getHours()
-  if (hours >= 5 && hours < 12) {
-    return 'morning'
-  }
-  if (hours >= 12 && hours < 17) {
-    return 'afternoon'
-  }
-  if (hours >= 17 && hours < 21) {
-    return 'evening'
-  }
-  return 'night'
 }
 
 const defaultSort = { playedAt: 1, createdAt: 1 }
@@ -158,8 +137,8 @@ class Match {
       this.playedAt = new Date(data.playedAt)
     }
     if (this.playedAt) {
-      this.dayOfWeek = dayOfWeek(this.playedAt)
-      this.timeOfDay = timeOfDay(this.playedAt)
+      this.dayOfWeek = DayTimeApproximator.dayOfWeek(this.playedAt)
+      this.timeOfDay = DayTimeApproximator.timeOfDay(this.playedAt)
     }
     if (data.dayOfWeek) {
       this.dayOfWeek = data.dayOfWeek

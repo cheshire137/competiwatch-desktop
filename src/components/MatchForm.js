@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
 import Match from '../models/Match'
+import DayTimeApproximator from '../models/DayTimeApproximator'
 import MapSelect from './MapSelect'
 import HeroSelect from './HeroSelect'
+import TimeOfDayEmoji from './TimeOfDayEmoji'
+import DayOfWeekEmoji from './DayOfWeekEmoji'
 import './MatchForm.css'
+
+const capitalize = str => {
+  return str.charAt(0).toUpperCase() + str.substr(1)
+}
 
 const currentDatetime = () => {
   const date = new Date()
@@ -238,6 +245,12 @@ class MatchForm extends Component {
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
             playOfTheGame, result, isValid } = this.state
     const { season, latestRank, isPlacement, isLastPlacement } = this.props
+    let dayOfWeek = null
+    let timeOfDay = null
+    if (playedAt) {
+      dayOfWeek = DayTimeApproximator.dayOfWeek(playedAt)
+      timeOfDay = DayTimeApproximator.timeOfDay(playedAt)
+    }
 
     return (
       <form
@@ -369,6 +382,17 @@ class MatchForm extends Component {
                   onChange={this.onPlayedAtChange}
                 />
               </dd>
+              {playedAt ? (
+                <p className="note">
+                  <DayOfWeekEmoji dayOfWeek={dayOfWeek} />
+                  <span> </span>
+                  <TimeOfDayEmoji timeOfDay={timeOfDay} />
+                  <span> </span>
+                  {capitalize(dayOfWeek)}
+                  <span> </span>
+                  {timeOfDay}
+                </p>
+              ) : null}
             </dl>
             <div className="form-checkbox mr-4 my-1">
               <label>
