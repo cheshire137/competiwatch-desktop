@@ -1,6 +1,8 @@
 # Competiwatch Desktop
 
-A desktop app to track and visualize your competitive match history in Overwatch.
+This is a work in progress. It's a desktop app to track your competitive match history in Overwatch.
+
+![Screenshot of match history](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot.png)
 
 ## How to Develop
 
