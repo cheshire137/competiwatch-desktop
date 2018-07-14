@@ -26,13 +26,30 @@ const currentDatetime = () => {
   return `${year}-${month}-${day}T${hour}:${minute}`
 }
 
+const minRank = 0
+const maxRank = 5000
+
+const isMatchValid = data => {
+  if (typeof data.rank === 'number' && data.rank >= minRank && data.rank <= maxRank) {
+    return true
+  }
+
+  if (data.result && data.isPlacement) {
+    return true
+  }
+
+  return false
+}
+
 class MatchForm extends Component {
   constructor(props) {
     super(props)
+
     let playedAt = props.playedAt
     if (!props.id && !playedAt) {
       playedAt = currentDatetime()
     }
+
     this.state = {
       rank: props.rank || '',
       result: props.result || '',
@@ -45,46 +62,48 @@ class MatchForm extends Component {
       allyThrower: typeof props.allyThrower === 'boolean' ? props.allyThrower : false,
       allyLeaver: typeof props.allyLeaver === 'boolean' ? props.allyLeaver : false,
       enemyThrower: typeof props.enemyThrower === 'boolean' ? props.enemyThrower : false,
-      enemyLeaver: typeof props.enemyLeaver === 'boolean' ? props.enemyLeaver : false
+      enemyLeaver: typeof props.enemyLeaver === 'boolean' ? props.enemyLeaver : false,
+      isValid: isMatchValid(props)
     }
   }
 
   componentDidUpdate(prevProps) {
+    const isValid = isMatchValid(this.props)
     if (prevProps.rank !== this.props.rank) {
-      this.setState(prevState => ({ rank: this.props.rank }))
+      this.setState(prevState => ({ rank: this.props.rank, isValid }))
     }
     if (prevProps.result !== this.props.result) {
-      this.setState(prevState => ({ result: this.props.result }))
+      this.setState(prevState => ({ result: this.props.result, isValid }))
     }
     if (prevProps.comment !== this.props.comment) {
-      this.setState(prevState => ({ comment: this.props.comment }))
+      this.setState(prevState => ({ comment: this.props.comment, isValid }))
     }
     if (prevProps.map !== this.props.map) {
-      this.setState(prevState => ({ map: this.props.map }))
+      this.setState(prevState => ({ map: this.props.map, isValid }))
     }
     if (prevProps.group !== this.props.group) {
-      this.setState(prevState => ({ group: this.props.group }))
+      this.setState(prevState => ({ group: this.props.group, isValid }))
     }
     if (prevProps.heroes !== this.props.heroes) {
-      this.setState(prevState => ({ heroes: this.props.heroes }))
+      this.setState(prevState => ({ heroes: this.props.heroes, isValid }))
     }
     if (prevProps.playedAt !== this.props.playedAt) {
-      this.setState(prevState => ({ playedAt: this.props.playedAt }))
+      this.setState(prevState => ({ playedAt: this.props.playedAt, isValid }))
     }
     if (prevProps.playOfTheGame !== this.props.playOfTheGame) {
-      this.setState(prevState => ({ playOfTheGame: this.props.playOfTheGame }))
+      this.setState(prevState => ({ playOfTheGame: this.props.playOfTheGame, isValid }))
     }
     if (prevProps.allyThrower !== this.props.allyThrower) {
-      this.setState(prevState => ({ allyThrower: this.props.allyThrower }))
+      this.setState(prevState => ({ allyThrower: this.props.allyThrower, isValid }))
     }
     if (prevProps.allyLeaver !== this.props.allyLeaver) {
-      this.setState(prevState => ({ allyLeaver: this.props.allyLeaver }))
+      this.setState(prevState => ({ allyLeaver: this.props.allyLeaver, isValid }))
     }
     if (prevProps.enemyThrower !== this.props.enemyThrower) {
-      this.setState(prevState => ({ enemyThrower: this.props.enemyThrower }))
+      this.setState(prevState => ({ enemyThrower: this.props.enemyThrower, isValid }))
     }
     if (prevProps.enemyLeaver !== this.props.enemyLeaver) {
-      this.setState(prevState => ({ enemyLeaver: this.props.enemyLeaver }))
+      this.setState(prevState => ({ enemyLeaver: this.props.enemyLeaver, isValid }))
     }
   }
 
@@ -92,7 +111,11 @@ class MatchForm extends Component {
     event.preventDefault()
     const { rank, comment, map, group, heroes, playedAt,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
-            playOfTheGame, result } = this.state
+            playOfTheGame, result, isValid } = this.state
+    if (!isValid) {
+      return
+    }
+
     const { accountID, db, season, isPlacement, id } = this.props
     const data = {
       comment,
@@ -111,11 +134,13 @@ class MatchForm extends Component {
       _id: id,
       result: result === '' ? null : result
     }
+
     if (typeof rank === 'string' && rank.length > 0) {
       data.rank = parseFloat(rank)
     } else if (typeof rank === 'number') {
       data.rank = rank
     }
+
     const match = new Match(data)
     match.save(db).then(() => {
       if (id) {
@@ -126,33 +151,45 @@ class MatchForm extends Component {
     })
   }
 
+  onFormFieldUpdate = () => {
+    const data = Object.assign({}, this.props, this.state)
+    const isValid = isMatchValid(data)
+
+    if (isValid !== this.state.isValid) {
+      this.setState(prevState => ({ isValid }))
+    }
+  }
+
   onCommentChange = event => {
     const comment = event.target.value
-    this.setState(prevState => ({ comment }))
+    this.setState(prevState => ({ comment }), this.onFormFieldUpdate)
   }
 
   onMapChange = map => {
-    this.setState(prevState => ({ map }))
+    this.setState(prevState => ({ map }), this.onFormFieldUpdate)
   }
 
   onRankChange = event => {
-    const rank = event.target.value
-    this.setState(prevState => ({ rank }))
+    let rank = event.target.value
+    if (rank.length > 0) {
+      rank = parseInt(rank, 10)
+    }
+    this.setState(prevState => ({ rank }), this.onFormFieldUpdate)
   }
 
   onResultChange = event => {
     const result = event.target.value
-    this.setState(prevState => ({ result }))
+    this.setState(prevState => ({ result }), this.onFormFieldUpdate)
   }
 
   onGroupChange = event => {
     const group = event.target.value
-    this.setState(prevState => ({ group }))
+    this.setState(prevState => ({ group }), this.onFormFieldUpdate)
   }
 
   onPlayedAtChange = event => {
     const playedAt = event.target.value
-    this.setState(prevState => ({ playedAt }))
+    this.setState(prevState => ({ playedAt }), this.onFormFieldUpdate)
   }
 
   onHeroChange = (hero, isSelected) => {
@@ -168,38 +205,38 @@ class MatchForm extends Component {
         delete heroes[heroIndex]
       }
       return { heroes: heroes.join(', ') }
-    })
+    }, this.onFormFieldUpdate)
   }
 
   onAllyThrowerChange = event => {
     const allyThrower = event.target.checked
-    this.setState(prevState => ({ allyThrower }))
+    this.setState(prevState => ({ allyThrower }), this.onFormFieldUpdate)
   }
 
   onAllyLeaverChange = event => {
     const allyLeaver = event.target.checked
-    this.setState(prevState => ({ allyLeaver }))
+    this.setState(prevState => ({ allyLeaver }), this.onFormFieldUpdate)
   }
 
   onEnemyThrowerChange = event => {
     const enemyThrower = event.target.checked
-    this.setState(prevState => ({ enemyThrower }))
+    this.setState(prevState => ({ enemyThrower }), this.onFormFieldUpdate)
   }
 
   onEnemyLeaverChange = event => {
     const enemyLeaver = event.target.checked
-    this.setState(prevState => ({ enemyLeaver }))
+    this.setState(prevState => ({ enemyLeaver }), this.onFormFieldUpdate)
   }
 
   onPlayOfTheGameChange = event => {
     const playOfTheGame = event.target.checked
-    this.setState(prevState => ({ playOfTheGame }))
+    this.setState(prevState => ({ playOfTheGame }), this.onFormFieldUpdate)
   }
 
   render() {
     const { rank, comment, map, group, heroes, playedAt,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
-            playOfTheGame, result } = this.state
+            playOfTheGame, result, isValid } = this.state
     const { season, latestRank, isPlacement, isLastPlacement } = this.props
 
     return (
@@ -214,8 +251,8 @@ class MatchForm extends Component {
                 {isPlacement ? (
                   <label
                     htmlFor="match-result"
-                    className="label-lg mr-2"
-                  >What was the outcome?</label>
+                    className="label-lg mr-2 no-wrap"
+                  >Match result:</label>
                 ) : (
                   <label
                     htmlFor="match-rank"
@@ -226,6 +263,7 @@ class MatchForm extends Component {
                   <select
                     className="form-select select-lg"
                     value={result}
+                    required
                     id="match-result"
                     autoFocus
                     onChange={this.onResultChange}
@@ -239,6 +277,7 @@ class MatchForm extends Component {
                   <input
                     id="match-rank"
                     type="number"
+                    required
                     className="form-control sr-field"
                     value={rank}
                     onChange={this.onRankChange}
@@ -247,7 +286,7 @@ class MatchForm extends Component {
                   />
                 )}
               </div>
-              <dl className="form-group my-0">
+              <dl className="form-group my-0 ml-4">
                 <dt>
                   <label
                     htmlFor="match-map"
@@ -310,6 +349,9 @@ class MatchForm extends Component {
                   onChange={this.onGroupChange}
                   placeholder="Separate names with commas"
                 />
+                <p className="note">
+                  List friends you grouped with.
+                </p>
               </dd>
             </dl>
             <dl className="form-group">
@@ -405,7 +447,11 @@ class MatchForm extends Component {
           </div>
         </div>
         <div className="form-actions">
-          <button type="submit" className="btn btn-primary btn-large">Save match</button>
+          <button
+            type="submit"
+            className="btn btn-primary btn-large"
+            disabled={!isValid}
+          >Save match</button>
         </div>
       </form>
     )
