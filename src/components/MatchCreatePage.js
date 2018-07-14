@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import MatchForm from './MatchForm'
 
-class MatchFormPage extends Component {
+class MatchCreatePage extends Component {
   constructor(props) {
     super(props)
     this.state = { totalMatches: 0 }
@@ -32,4 +32,4 @@ class MatchFormPage extends Component {
   }
 }
 
-export default MatchFormPage
+export default MatchCreatePage

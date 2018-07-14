@@ -5,7 +5,7 @@ import Match from './models/Match'
 import Season from './models/Season'
 import AccountsPage from './components/AccountsPage'
 import MatchesPage from './components/MatchesPage'
-import MatchFormPage from './components/MatchFormPage'
+import MatchCreatePage from './components/MatchCreatePage'
 import SeasonsPage from './components/SeasonsPage'
 import ImportPage from './components/ImportPage'
 import MatchEditPage from './components/MatchEditPage'
@@ -149,7 +149,7 @@ class App extends Component {
 
     if (activePage === 'log-match') {
       return (
-        <MatchFormPage
+        <MatchCreatePage
           accountID={activeAccountID}
           db={this.db.matches}
           onPageChange={this.changeActivePage}
