@@ -202,7 +202,11 @@ class MatchListItem extends Component {
         >{this.matchNumber()}</td>
         <td
           className={`match-cell hide-sm result-cell result-${result}`}
-        >{result ? result.charAt(0).toUpperCase() : '--'}</td>
+        >
+          {result ? result.charAt(0).toUpperCase() : (
+            <span>&mdash;</span>
+          )}
+        </td>
         <td
           style={this.rankChangeStyle()}
           className="position-relative match-cell sr-change-cell"

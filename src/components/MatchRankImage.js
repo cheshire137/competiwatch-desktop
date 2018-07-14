@@ -20,7 +20,9 @@ const rankTierFor = rank => {
   if (rank < 4000) {
     return 'master'
   }
-  return 'grandmaster'
+  if (rank <= 5000) {
+    return 'grandmaster'
+  }
 }
 
 class MatchRankImage extends Component {
@@ -32,6 +34,10 @@ class MatchRankImage extends Component {
     }
 
     const rankTier = rankTierFor(rank)
+    if (!rankTier) {
+      return null
+    }
+
     if (priorRank && rankTier === rankTierFor(priorRank)) {
       return null
     }
