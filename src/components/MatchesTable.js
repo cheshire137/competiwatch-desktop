@@ -124,7 +124,7 @@ class MatchesTable extends Component {
             </th>
             <th
               className="match-header"
-            ><span className="ion-ios-cog ion"></span></th>
+            ></th>
           </tr>
         </thead>
         <tbody>

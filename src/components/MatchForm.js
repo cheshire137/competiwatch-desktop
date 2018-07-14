@@ -210,46 +210,42 @@ class MatchForm extends Component {
         <div className="clearfix">
           <div className="col-md-12 col-lg-5 float-left pr-3-md">
             <div className="d-flex-md mb-2 flex-items-center-md flex-justify-between-md">
-              <dl className="form-group my-0">
-                <dt>
-                  {isPlacement ? (
-                    <label
-                      htmlFor="match-result"
-                      className="label-lg"
-                    >What was the outcome?</label>
-                  ) : (
-                    <label
-                      htmlFor="match-rank"
-                      className="label-lg"
-                    >New SR:</label>
-                  )}
-                </dt>
-                <dd>
-                  {isPlacement ? (
-                    <select
-                      className="form-select select-lg"
-                      value={result}
-                      id="match-result"
-                      autoFocus
-                      onChange={this.onResultChange}
-                    >
-                      <option value=""></option>
-                      <option value="win">Win</option>
-                      <option value="loss">Loss</option>
-                      <option value="draw">Draw</option>
-                    </select>
-                  ) : (
-                    <input
-                      id="match-rank"
-                      type="number"
-                      className="form-control sr-field"
-                      value={rank}
-                      onChange={this.onRankChange}
-                      placeholder={latestRank}
-                      autoFocus
-                    />
-                  )}
-                </dd>
+              <dl className="form-group my-0 d-flex flex-items-center">
+                {isPlacement ? (
+                  <label
+                    htmlFor="match-result"
+                    className="label-lg mr-2"
+                  >What was the outcome?</label>
+                ) : (
+                  <label
+                    htmlFor="match-rank"
+                    className="label-lg mr-2"
+                  >New SR:</label>
+                )}
+                {isPlacement ? (
+                  <select
+                    className="form-select select-lg"
+                    value={result}
+                    id="match-result"
+                    autoFocus
+                    onChange={this.onResultChange}
+                  >
+                    <option value=""></option>
+                    <option value="win">Win</option>
+                    <option value="loss">Loss</option>
+                    <option value="draw">Draw</option>
+                  </select>
+                ) : (
+                  <input
+                    id="match-rank"
+                    type="number"
+                    className="form-control sr-field"
+                    value={rank}
+                    onChange={this.onRankChange}
+                    placeholder={latestRank}
+                    autoFocus
+                  />
+                )}
               </dl>
               <dl className="form-group my-0">
                 <dt>
@@ -333,7 +329,7 @@ class MatchForm extends Component {
               </dd>
             </dl>
             <div className="form-checkbox mr-4 my-1">
-              <label className="text-normal">
+              <label>
                 <input
                   type="checkbox"
                   checked={playOfTheGame}
@@ -341,6 +337,7 @@ class MatchForm extends Component {
                 />
                 Play of the game
               </label>
+              <p className="note">Did you get play of the game in this match?</p>
             </div>
           </div>
           <div className="col-md-12 col-lg-6 float-right">
@@ -356,49 +353,54 @@ class MatchForm extends Component {
             </dl>
           </div>
         </div>
-        <div className="d-flex flex-wrap mb-3">
-          <div className="rounded-2 border bg-gray-light d-flex mr-4 px-2">
-            <div className="form-checkbox mr-4 my-1">
-              <label className="text-normal text-ally">
-                <input
-                  type="checkbox"
-                  checked={allyThrower}
-                  onChange={this.onAllyThrowerChange}
-                />
-                Thrower on my team
-              </label>
-            </div>
-            <div className="form-checkbox my-1">
-              <label className="text-normal text-enemy">
-                <input
-                  type="checkbox"
-                  checked={enemyThrower}
-                  onChange={this.onEnemyThrowerChange}
-                />
-                Thrower on the enemy team
-              </label>
-            </div>
+        <div className="mb-3">
+          <div className="text-bold mb-2">
+            Did anyone try to lose or leave the game early?
           </div>
-          <div className="rounded-2 border bg-gray-light d-flex px-2">
-            <div className="form-checkbox mr-4 my-1">
-              <label className="text-normal text-ally">
-                <input
-                  type="checkbox"
-                  checked={allyLeaver}
-                  onChange={this.onAllyLeaverChange}
-                />
-                Leaver on my team
-              </label>
+          <div className="d-flex flex-wrap">
+            <div className="rounded-2 border bg-gray-light d-flex mr-4 px-2">
+              <div className="form-checkbox mr-4 my-1">
+                <label className="text-normal text-ally">
+                  <input
+                    type="checkbox"
+                    checked={allyThrower}
+                    onChange={this.onAllyThrowerChange}
+                  />
+                  Thrower on my team
+                </label>
+              </div>
+              <div className="form-checkbox my-1">
+                <label className="text-normal text-enemy">
+                  <input
+                    type="checkbox"
+                    checked={enemyThrower}
+                    onChange={this.onEnemyThrowerChange}
+                  />
+                  Thrower on the enemy team
+                </label>
+              </div>
             </div>
-            <div className="form-checkbox my-1">
-              <label className="text-normal text-enemy">
-                <input
-                  type="checkbox"
-                  checked={enemyLeaver}
-                  onChange={this.onEnemyLeaverChange}
-                />
-                Leaver on the enemy team
-              </label>
+            <div className="rounded-2 border bg-gray-light d-flex px-2">
+              <div className="form-checkbox mr-4 my-1">
+                <label className="text-normal text-ally">
+                  <input
+                    type="checkbox"
+                    checked={allyLeaver}
+                    onChange={this.onAllyLeaverChange}
+                  />
+                  Leaver on my team
+                </label>
+              </div>
+              <div className="form-checkbox my-1">
+                <label className="text-normal text-enemy">
+                  <input
+                    type="checkbox"
+                    checked={enemyLeaver}
+                    onChange={this.onEnemyLeaverChange}
+                  />
+                  Leaver on the enemy team
+                </label>
+              </div>
             </div>
           </div>
         </div>

@@ -206,7 +206,11 @@ class MatchListItem extends Component {
         <td
           style={this.rankChangeStyle()}
           className="position-relative match-cell sr-change-cell"
-        >{rankChange ? rankChange : '--'}</td>
+        >
+          {typeof rankChange === 'number' ? rankChange : (
+            <span>&mdash;</span>
+          )}
+        </td>
         <td className={this.rankClass()}>
           <div className="d-flex flex-items-center flex-justify-center">
             <MatchRankImage
@@ -214,7 +218,9 @@ class MatchListItem extends Component {
               priorRank={priorRank}
               className="d-inline-block mr-1 hide-sm"
             />
-            {rank || '--'}
+            {typeof rank === 'number' ? rank : (
+              <span>&mdash;</span>
+            )}
           </div>
         </td>
         <td
@@ -300,7 +306,7 @@ class MatchListItem extends Component {
             aria-label="Edit this match"
             value={_id}
           >
-            <span className="ion ion-ios-settings" />
+            <span className="ion ion-md-create" />
           </button>
         </td>
       </tr>
