@@ -1,4 +1,4 @@
-import parse from 'csv-parse'
+import parse from '../lib/csv-parse'
 import Match from './Match'
 
 const fs = window.require('fs')
