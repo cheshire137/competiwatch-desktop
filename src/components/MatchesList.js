@@ -53,21 +53,24 @@ class MatchesList extends Component {
     const { matches } = this.state
     const { totalMatches, season } = this.props
     const anyMatches = matches.length > 0
+    const isLoading = totalMatches < 0
 
     return (
       <div className="mb-4">
-        <div className="d-flex flex-items-center flex-justify-between">
-          <h2
-            className="h2 text-normal mb-2 d-flex flex-items-center"
-          >Matches <span className="Counter ml-2 h4 px-2">{totalMatches}</span></h2>
-          {anyMatches ? (
-            <button
-              type="button"
-              className="btn btn-primary btn-sm"
-              onClick={this.changeToMatchFormPage}
-            >Log a match</button>
-          ) : ''}
-        </div>
+        {isLoading ? null : (
+          <div className="d-flex flex-items-center flex-justify-between">
+            <h2
+              className="h2 text-normal mb-2 d-flex flex-items-center"
+            >Matches <span className="Counter ml-2 h4 px-2">{totalMatches}</span></h2>
+            {anyMatches ? (
+              <button
+                type="button"
+                className="btn btn-primary btn-sm"
+                onClick={this.changeToMatchFormPage}
+              >Log a match</button>
+            ) : ''}
+          </div>
+        )}
         {anyMatches ? (
           <div>
             <MatchesTable
@@ -84,7 +87,7 @@ class MatchesList extends Component {
               <span> from a CSV file.</span>
             </div>
           </div>
-        ) : (
+        ) : isLoading ? null : (
           <div className="blankslate">
             <h3 className="mb-2">No matches have been logged in season {season}</h3>
             <div className="d-flex flex-items-center flex-justify-between mx-auto populate-season-choices">

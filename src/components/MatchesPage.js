@@ -7,7 +7,7 @@ const totalPlacementMatches = 10
 class MatchesPage extends Component {
   constructor(props) {
     super(props)
-    this.state = { totalMatches: 0 }
+    this.state = { totalMatches: -1 }
   }
 
   refreshAccount = () => {
@@ -46,6 +46,14 @@ class MatchesPage extends Component {
 
     return (
       <div className="container layout-children-container">
+        {totalMatches < 0 ? (
+          <div className="blankslate">
+            <h1>
+              <span className="ion ion-md-refresh mr-3 ion-spin" />
+              Loading...
+            </h1>
+          </div>
+        ) : null}
         <MatchesList
           totalMatches={totalMatches}
           db={dbMatches}
