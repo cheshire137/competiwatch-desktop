@@ -115,27 +115,33 @@ class Match {
   constructor(data) {
     this.accountID = data.accountID
     this._id = data._id
-    if (typeof data.rank === 'number' || typeof data.rank === 'string') {
-      this.rank = parseInt(data.rank, 10)
-    }
     this.comment = data.comment
     this.season = parseInt(data.season, 10)
     this.map = data.map
     this.isPlacement = data.isPlacement
     this.result = data.result
+
+    if (typeof data.rank === 'number' || typeof data.rank === 'string') {
+      this.rank = parseInt(data.rank, 10)
+    }
+
     this.group = cleanupCommaList(data.group)
     this.groupList = []
     if (this.group.length > 0) {
       this.groupList = this.group.split(',')
     }
+
     this.heroes = cleanupCommaList(data.heroes)
     this.heroList = []
     if (this.heroes.length > 0) {
       this.heroList = this.heroes.split(',')
     }
-    if (data.playedAt) {
+
+    this.playedAt = data.playedAt
+    if (typeof data.playedAt === 'string') {
       this.playedAt = new Date(data.playedAt)
     }
+
     if (this.playedAt) {
       this.dayOfWeek = DayTimeApproximator.dayOfWeek(this.playedAt)
       this.timeOfDay = DayTimeApproximator.timeOfDay(this.playedAt)
@@ -146,12 +152,16 @@ class Match {
     if (data.timeOfDay) {
       this.timeOfDay = data.timeOfDay
     }
+
     this.enemyThrower = data.enemyThrower
     this.allyThrower = data.allyThrower
     this.enemyLeaver = data.enemyLeaver
     this.allyLeaver = data.allyLeaver
+
     this.playOfTheGame = data.playOfTheGame
-    if (data.createdAt) {
+
+    this.createdAt = data.createdAt
+    if (typeof data.createdAt === 'string') {
       this.createdAt = new Date(data.createdAt)
     }
   }

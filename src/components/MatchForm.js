@@ -11,8 +11,7 @@ const capitalize = str => {
   return str.charAt(0).toUpperCase() + str.substr(1)
 }
 
-const currentDatetime = () => {
-  const date = new Date()
+const dateTimeStrFrom = date => {
   const year = date.getFullYear()
   let month = date.getMonth() + 1
   if (month <= 9) {
@@ -54,7 +53,7 @@ class MatchForm extends Component {
 
     let playedAt = props.playedAt
     if (!props.id && !playedAt) {
-      playedAt = currentDatetime()
+      playedAt = new Date()
     }
 
     this.state = {
@@ -251,6 +250,10 @@ class MatchForm extends Component {
       dayOfWeek = DayTimeApproximator.dayOfWeek(playedAt)
       timeOfDay = DayTimeApproximator.timeOfDay(playedAt)
     }
+    let playedAtStr = playedAt
+    if (typeof playedAt === 'object') {
+      playedAtStr = dateTimeStrFrom(playedAt)
+    }
 
     return (
       <form
@@ -378,7 +381,7 @@ class MatchForm extends Component {
                   id="match-played-at"
                   type="datetime-local"
                   className="form-control"
-                  value={playedAt}
+                  value={playedAtStr}
                   onChange={this.onPlayedAtChange}
                 />
               </dd>
