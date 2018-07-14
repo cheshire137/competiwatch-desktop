@@ -1,4 +1,4 @@
-import csv from 'csv'
+import parse from 'csv-parse'
 import Match from './Match'
 
 const fs = window.require('fs')
@@ -28,7 +28,7 @@ class CsvImporter {
     return new Promise((resolve, reject) => {
       this.readFile().then(lines => {
         const options = { columns: true }
-        csv.parse(lines, options, (err, data) => {
+        parse(lines, options, (err, data) => {
           if (err) {
             console.error('failed to parse CSV file', this.path, err)
             reject(err)
