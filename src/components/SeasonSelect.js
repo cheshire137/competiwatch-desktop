@@ -107,7 +107,7 @@ class SeasonSelect extends Component {
                   </button>
                 ))}
                 <button
-                  className="select-menu-item text-left width-full btn-link"
+                  className="select-menu-item text-bold text-left width-full btn-link"
                   type="button"
                   name="manage-seasons"
                   onClick={this.manageSeasons}
