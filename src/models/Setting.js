@@ -16,6 +16,7 @@ class Setting {
   constructor(data) {
     this._id = data._id
     this.defaultAccountID = data.defaultAccountID
+    this.theme = data.theme || 'light'
     if (data.createdAt) {
       this.createdAt = new Date(data.createdAt)
     }
@@ -23,7 +24,8 @@ class Setting {
 
   save() {
     const data = {
-      defaultAccountID: this.defaultAccountID
+      defaultAccountID: this.defaultAccountID,
+      theme: this.theme
     }
     return Database.upsert('settings', data, this._id).then(newSetting => {
       this._id = newSetting._id

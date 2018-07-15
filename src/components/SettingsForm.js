@@ -4,8 +4,8 @@ import Setting from '../models/Setting'
 class SettingsForm extends Component {
   constructor(props) {
     super(props)
-    const { defaultAccountID } = props.settings
-    this.state = { defaultAccountID }
+    const { defaultAccountID, theme } = props.settings
+    this.state = { defaultAccountID, theme }
   }
 
   componentDidUpdate(prevProps) {
@@ -13,18 +13,21 @@ class SettingsForm extends Component {
     const currentSettings = this.props.settings
 
     if (prevSettings.defaultAccountID !== currentSettings.defaultAccountID) {
-      this.setState(prevState => ({
-        defaultAccountID: currentSettings.defaultAccountID
-      }))
+      this.setState(prevState => ({ defaultAccountID: currentSettings.defaultAccountID }))
+    }
+
+    if (prevSettings.theme !== currentSettings.theme) {
+      this.setState(prevState => ({ theme: currentSettings.theme }))
     }
   }
 
   onSubmit = event => {
     event.preventDefault()
     const { settings, onSave } = this.props
-    const { defaultAccountID } = this.state
+    const { defaultAccountID, theme } = this.state
 
     settings.defaultAccountID = defaultAccountID
+    settings.theme = theme
     settings.save().then(() => {
       onSave(settings)
     })
@@ -33,6 +36,11 @@ class SettingsForm extends Component {
   onDefaultAccountIDChange = event => {
     const defaultAccountID = event.target.value
     this.setState(prevState => ({ defaultAccountID }))
+  }
+
+  onThemeChange = event => {
+    const theme = event.target.value
+    this.setState(prevState => ({ theme }))
   }
 
   render() {
@@ -48,7 +56,7 @@ class SettingsForm extends Component {
       )
     }
 
-    const { defaultAccountID } = this.state
+    const { defaultAccountID, theme } = this.state
 
     return (
       <form
@@ -62,6 +70,7 @@ class SettingsForm extends Component {
           </dt>
           <dd>
             <select
+              id="default-account"
               className="form-select"
               value={defaultAccountID}
               disabled={accounts.length < 1}
@@ -74,6 +83,24 @@ class SettingsForm extends Component {
                   value={account._id}
                 >{account.battletag}</option>
               ))}
+            </select>
+          </dd>
+        </dl>
+        <dl className="form-group">
+          <dt>
+            <label
+              htmlFor="theme"
+            >App theme:</label>
+          </dt>
+          <dd>
+            <select
+              id="theme"
+              className="form-select"
+              value={theme}
+              onChange={this.onThemeChange}
+            >
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
             </select>
           </dd>
         </dl>
