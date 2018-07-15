@@ -61,9 +61,7 @@ class AppMenu {
     })
     menuItems.push({
       label: 'Tools',
-      submenu: [
-        this.developerToolsMenuItem()
-      ]
+      submenu: this.toolsSubmenu()
     })
     menuItems.push({
       label: 'Help',
@@ -93,9 +91,7 @@ class AppMenu {
     })
     menuItems.push({
       label: 'Tools',
-      submenu: [
-        this.developerToolsMenuItem()
-      ]
+      submenu: this.toolsSubmenu()
     })
     menuItems.push({
       label: 'Help',
@@ -176,6 +172,15 @@ class AppMenu {
     }
   }
 
+  importMatchesMenuItem() {
+    const self = this
+
+    return {
+      label: 'Import Matches',
+      click() { self.onPageChange('import') }
+    }
+  }
+
   manageSeasonsMenuItem() {
     const self = this
 
@@ -208,6 +213,16 @@ class AppMenu {
     for (const account of this.accounts) {
       submenu.push(this.accountMenuItem(account))
     }
+    return submenu
+  }
+
+  toolsSubmenu() {
+    const submenu = []
+    if (this.showLogMatchMenuItem) {
+      submenu.push(this.importMatchesMenuItem())
+      submenu.push({ type: 'separator' })
+    }
+    submenu.push(this.developerToolsMenuItem())
     return submenu
   }
 
