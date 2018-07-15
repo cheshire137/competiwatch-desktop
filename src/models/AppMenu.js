@@ -177,6 +177,7 @@ class AppMenu {
 
     return {
       label: 'Import Matches',
+      accelerator: `${this.altOrOption}+I`,
       click() { self.onPageChange('import') }
     }
   }
