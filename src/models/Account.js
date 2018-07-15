@@ -52,16 +52,16 @@ class Account {
     })
   }
 
-  totalMatches(db, season) {
+  totalMatches(dbMatches, season) {
     const conditions = { accountID: this._id }
     if (typeof season === 'number') {
       conditions.season = season
     }
-    return Database.count(db, conditions)
+    return Database.count(dbMatches, conditions)
   }
 
-  hasMatches(db) {
-    return this.totalMatches(db).then(count => count > 0)
+  hasMatches(dbMatches) {
+    return this.totalMatches(dbMatches).then(count => count > 0)
   }
 
   save(db) {
