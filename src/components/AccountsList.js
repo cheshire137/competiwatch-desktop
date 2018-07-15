@@ -6,6 +6,17 @@ class AccountsList extends Component {
   render() {
     const { onAccountChange, dbAccounts, onDelete,
             dbMatches, season, accounts } = this.props
+    if (typeof season !== 'number' || isNaN(season)) {
+      return (
+        <div className="blankslate">
+          <h1>
+            <span className="ion ion-md-refresh mr-3 ion-spin" />
+            Loading...
+          </h1>
+        </div>
+      )
+    }
+
     const totalAccounts = accounts.length
 
     return (
