@@ -432,6 +432,55 @@ class MatchForm extends Component {
               </label>
               <p className="note">Did you get play of the game in this match?</p>
             </div>
+            <div className="mb-3">
+              <div className="text-bold">
+                Did anyone try to lose or leave the game early?
+              </div>
+              <div className="d-flex">
+                <div className="form-checkbox mr-4 my-1">
+                  <label className="text-normal no-wrap text-ally">
+                    <input
+                      type="checkbox"
+                      checked={allyThrower}
+                      onChange={this.onAllyThrowerChange}
+                    />
+                    Thrower on my team
+                  </label>
+                </div>
+                <div className="form-checkbox my-1">
+                  <label className="text-normal no-wrap text-enemy">
+                    <input
+                      type="checkbox"
+                      checked={enemyThrower}
+                      onChange={this.onEnemyThrowerChange}
+                    />
+                    Thrower on the enemy team
+                  </label>
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="form-checkbox mr-4 my-1">
+                  <label className="text-normal no-wrap text-ally">
+                    <input
+                      type="checkbox"
+                      checked={allyLeaver}
+                      onChange={this.onAllyLeaverChange}
+                    />
+                    Leaver on my team
+                  </label>
+                </div>
+                <div className="form-checkbox my-1">
+                  <label className="text-normal no-wrap text-enemy">
+                    <input
+                      type="checkbox"
+                      checked={enemyLeaver}
+                      onChange={this.onEnemyLeaverChange}
+                    />
+                    Leaver on the enemy team
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="col-md-12 col-lg-6 float-right">
             <dl className="form-group my-0">
@@ -471,57 +520,6 @@ class MatchForm extends Component {
                 </p>
               ) : null}
             </dl>
-          </div>
-        </div>
-        <div className="mb-3">
-          <div className="text-bold mb-2">
-            Did anyone try to lose or leave the game early?
-          </div>
-          <div className="d-flex flex-wrap">
-            <div className="rounded-2 border bg-gray-light d-flex mr-4 px-2">
-              <div className="form-checkbox mr-4 my-1">
-                <label className="text-normal text-ally">
-                  <input
-                    type="checkbox"
-                    checked={allyThrower}
-                    onChange={this.onAllyThrowerChange}
-                  />
-                  Thrower on my team
-                </label>
-              </div>
-              <div className="form-checkbox my-1">
-                <label className="text-normal text-enemy">
-                  <input
-                    type="checkbox"
-                    checked={enemyThrower}
-                    onChange={this.onEnemyThrowerChange}
-                  />
-                  Thrower on the enemy team
-                </label>
-              </div>
-            </div>
-            <div className="rounded-2 border bg-gray-light d-flex px-2">
-              <div className="form-checkbox mr-4 my-1">
-                <label className="text-normal text-ally">
-                  <input
-                    type="checkbox"
-                    checked={allyLeaver}
-                    onChange={this.onAllyLeaverChange}
-                  />
-                  Leaver on my team
-                </label>
-              </div>
-              <div className="form-checkbox my-1">
-                <label className="text-normal text-enemy">
-                  <input
-                    type="checkbox"
-                    checked={enemyLeaver}
-                    onChange={this.onEnemyLeaverChange}
-                  />
-                  Leaver on the enemy team
-                </label>
-              </div>
-            </div>
           </div>
         </div>
         <div className="form-actions">
