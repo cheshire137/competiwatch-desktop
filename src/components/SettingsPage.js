@@ -8,7 +8,7 @@ class SettingsPage extends Component {
   }
 
   render() {
-    const { dbSettings, accounts } = this.props
+    const { dbSettings, accounts, settings, onSave } = this.props
 
     return (
       <div className="container layout-children-container">
@@ -25,6 +25,8 @@ class SettingsPage extends Component {
         <SettingsForm
           dbSettings={dbSettings}
           accounts={accounts}
+          settings={settings}
+          onSave={onSave}
         />
       </div>
     )

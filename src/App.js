@@ -23,11 +23,9 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      activePage: 'accounts',
       latestRank: 2500,
       isPlacement: false,
-      latestSeason: latestKnownSeason,
-      accounts: []
+      latestSeason: latestKnownSeason
     }
     this.db = {}
     const env = process.env.NODE_ENV
@@ -51,12 +49,17 @@ class App extends Component {
   }
 
   refreshAccounts = () => {
-    Account.findAll(this.db.accounts).then(accounts => {
-      this.setState(prevState => ({ accounts }), this.updateAppMenu)
+    return new Promise((resolve, reject) => {
+      Account.findAll(this.db.accounts).then(accounts => {
+        this.setState(prevState => ({ accounts }), () => {
+          this.updateAppMenu()
+          resolve()
+        })
+      })
     })
   }
 
-  componentDidMount() {
+  refreshLatestSeason = () => {
     Season.latest(this.db.seasons).then(number => {
       if (number) {
         this.changeActiveSeason(number)
@@ -64,7 +67,30 @@ class App extends Component {
         this.changeActiveSeason(latestKnownSeason)
       }
     })
-    this.refreshAccounts()
+  }
+
+  refreshSettings = () => {
+    Setting.load(this.db.settings).then(settings => {
+      this.setState(prevState => {
+        const newState = { settings }
+
+        if (!prevState.activeAccountID && settings.defaultAccountID) {
+          newState.activeAccountID = settings.defaultAccountID
+          newState.activePage = 'matches'
+        } else if (!newState.activePage) {
+          newState.activePage = 'accounts'
+        }
+
+        return newState
+      }, this.updateAppMenu)
+    })
+  }
+
+  componentDidMount() {
+    this.refreshLatestSeason()
+    this.refreshAccounts().then(() => {
+      this.refreshSettings()
+    })
   }
 
   setIsPlacement = (isPlacement, isLastPlacement) => {
@@ -155,12 +181,21 @@ class App extends Component {
                   this.updateAppMenu)
   }
 
+  onSettingsSaved = settings => {
+    this.setState(prevState => ({
+      settings,
+      activePage: 'matches',
+      activeAccountID: settings.defaultAccountID
+    }), this.updateAppMenu)
+  }
+
   renderActivePage = () => {
     const { activePage, activeAccountID, latestRank, isPlacement,
             isLastPlacement, activeSeason, latestSeason,
-            activeMatchID, accounts } = this.state
+            activeMatchID, accounts, settings } = this.state
+    const haveActiveSeason = typeof activeSeason === 'number' && !isNaN(activeSeason)
 
-    if (activePage === 'matches') {
+    if (activePage === 'matches' && haveActiveSeason && activeAccountID) {
       return (
         <MatchesPage
           accountID={activeAccountID}
@@ -173,7 +208,7 @@ class App extends Component {
       )
     }
 
-    if (activePage === 'log-match') {
+    if (activePage === 'log-match' && haveActiveSeason) {
       return (
         <MatchCreatePage
           accountID={activeAccountID}
@@ -199,7 +234,7 @@ class App extends Component {
       )
     }
 
-    if (activePage === 'import') {
+    if (activePage === 'import' && haveActiveSeason && activeAccountID) {
       return (
         <ImportPage
           season={activeSeason}
@@ -211,7 +246,7 @@ class App extends Component {
       )
     }
 
-    if (activePage === 'edit-match') {
+    if (activePage === 'edit-match' && activeMatchID) {
       return (
         <MatchEditPage
           id={activeMatchID}
@@ -235,32 +270,48 @@ class App extends Component {
           onPageChange={this.changeActivePage}
           dbSettings={this.db.settings}
           accounts={accounts}
+          settings={settings}
+          onSave={this.onSettingsSaved}
+        />
+      )
+    }
+
+    if (activePage === 'accounts' && haveActiveSeason) {
+      return (
+        <AccountsPage
+          accounts={accounts}
+          dbAccounts={this.db.accounts}
+          dbMatches={this.db.matches}
+          season={activeSeason}
+          onCreate={this.refreshAccounts}
+          onDelete={this.refreshAccounts}
+          onAccountChange={this.onAccountChange}
         />
       )
     }
 
     return (
-      <AccountsPage
-        accounts={accounts}
-        dbAccounts={this.db.accounts}
-        dbMatches={this.db.matches}
-        season={activeSeason}
-        onCreate={this.refreshAccounts}
-        onDelete={this.refreshAccounts}
-        onAccountChange={this.onAccountChange}
-      />
+      <div className="container layout-children-container">
+        <div className="blankslate">
+          <h1>
+            <span className="ion ion-md-refresh mr-3 ion-spin" />
+            Loading...
+          </h1>
+        </div>
+      </div>
     )
   }
 
   render() {
     const { activePage, activeAccountID, activeSeason, latestSeason,
-            isPlacement } = this.state
+            isPlacement, accounts } = this.state
     const showHeader = activePage !== 'about' && activePage !== 'settings'
 
     return (
       <div className="layout-container">
         {showHeader ? (
           <Header
+            accounts={accounts}
             activePage={activePage}
             activeAccountID={activeAccountID}
             onPageChange={this.changeActivePage}

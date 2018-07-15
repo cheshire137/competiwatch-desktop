@@ -4,35 +4,29 @@ import Setting from '../models/Setting'
 class SettingsForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { defaultAccountID: '' }
+    const { defaultAccountID } = props.settings
+    this.state = { defaultAccountID }
   }
 
-  refreshSettings = () => {
-    const { dbSettings } = this.props
+  componentDidUpdate(prevProps) {
+    const prevSettings = prevProps.settings
+    const currentSettings = this.props.settings
 
-    Setting.load(dbSettings).then(setting => {
+    if (prevSettings.defaultAccountID !== currentSettings.defaultAccountID) {
       this.setState(prevState => ({
-        setting,
-        defaultAccountID: setting.defaultAccountID
+        defaultAccountID: currentSettings.defaultAccountID
       }))
-    })
-  }
-
-  componentDidMount() {
-    this.refreshSettings()
+    }
   }
 
   onSubmit = event => {
     event.preventDefault()
-    const { dbSettings } = this.props
-    const { setting, defaultAccountID } = this.state
-    if (!setting) {
-      return
-    }
+    const { dbSettings, settings, onSave } = this.props
+    const { defaultAccountID } = this.state
 
-    setting.defaultAccountID = defaultAccountID
-    setting.save(dbSettings).then(newSetting => {
-      this.setState(prevState => ({ setting: newSetting }))
+    settings.defaultAccountID = defaultAccountID
+    settings.save(dbSettings).then(() => {
+      onSave(settings)
     })
   }
 
@@ -42,8 +36,8 @@ class SettingsForm extends Component {
   }
 
   render() {
-    const { setting } = this.state
-    if (!setting) {
+    const { accounts, settings } = this.props
+    if (!settings) {
       return (
         <div className="blankslate">
           <h1>
@@ -54,8 +48,7 @@ class SettingsForm extends Component {
       )
     }
 
-    const { accounts } = this.props
-    const { defaultAccountID } = setting
+    const { defaultAccountID } = this.state
 
     return (
       <form
