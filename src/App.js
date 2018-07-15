@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Account from './models/Account'
 import Match from './models/Match'
 import Season from './models/Season'
+import Setting from './models/Setting'
 import AppMenu from './models/AppMenu'
 import AccountsPage from './components/AccountsPage'
 import MatchesPage from './components/MatchesPage'
@@ -33,6 +34,7 @@ class App extends Component {
     this.db.accounts = Account.setupDatabase(env)
     this.db.matches = Match.setupDatabase(env)
     this.db.seasons = Season.setupDatabase(env)
+    this.db.settings = Setting.setupDatabase(env)
   }
 
   onSeasonDelete = deletedNumber => {
@@ -231,6 +233,7 @@ class App extends Component {
       return (
         <SettingsPage
           onPageChange={this.changeActivePage}
+          db={this.db.settings}
         />
       )
     }

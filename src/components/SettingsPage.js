@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import SettingsForm from './SettingsForm'
 
 class SettingsPage extends Component {
   returnToAccounts = event => {
@@ -7,6 +8,8 @@ class SettingsPage extends Component {
   }
 
   render() {
+    const { db } = this.props
+
     return (
       <div className="container layout-children-container">
         <div className="mt-4">
@@ -19,6 +22,9 @@ class SettingsPage extends Component {
         <h1
           className="h1 mb-2 mt-4"
         >Settings</h1>
+        <SettingsForm
+          db={db}
+        />
       </div>
     )
   }
