@@ -14,6 +14,16 @@ const capitalize = str => {
   return str.charAt(0).toUpperCase() + str.substr(1)
 }
 
+const groupSizeDescription = groupSize => {
+  if (groupSize === 1) {
+    return 'solo queue'
+  }
+  if (groupSize === 2) {
+    return 'duo queue'
+  }
+  return `${groupSize}-stack`
+}
+
 class MatchListItem extends Component {
   outerClass = () => {
     const { isLast, match, firstRankedMatchID } = this.props
@@ -198,7 +208,7 @@ class MatchListItem extends Component {
     const { match, priorRank, showThrowerLeaver } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
-            rankChange, dayOfWeek, timeOfDay } = match
+            rankChange, dayOfWeek, timeOfDay, groupSize } = match
     const timeAndDayPresent = dayOfWeek && timeOfDay && dayOfWeek.length > 0 && timeOfDay.length > 0
 
     return (
@@ -277,7 +287,12 @@ class MatchListItem extends Component {
         </td>
         <td
           className="match-cell hide-sm friends-cell"
-        >{groupList.join(', ')}</td>
+        >
+          {groupList.join(', ')}
+          {groupList.length + 1 !== groupSize ? (
+            <span> {groupSizeDescription(groupSize)}</span>
+          ) : null}
+        </td>
         {showThrowerLeaver ? (
           <td
             className="match-cell hide-sm throwers-leavers-cell"
