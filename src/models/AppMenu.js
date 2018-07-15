@@ -39,6 +39,12 @@ class AppMenu {
         ]
       },
       {
+        label: 'View',
+        submenu: [
+          this.accountsMenuItem()
+        ]
+      },
+      {
         label: 'Tools',
         submenu: [
           this.developerToolsMenuItem()
@@ -55,6 +61,12 @@ class AppMenu {
 
   getNonMacMenuTemplate() {
     return [
+      {
+        label: 'View',
+        submenu: [
+          this.accountsMenuItem()
+        ]
+      },
       {
         label: 'Tools',
         submenu: [
@@ -80,18 +92,27 @@ class AppMenu {
     }
   }
 
+  accountsMenuItem() {
+    const self = this
+
+    return {
+      label: 'Accounts',
+      click() { self.onPageChange('accounts') }
+    }
+  }
+
   bugReportMenuItem() {
     const self = this
 
     return {
-      label: 'Report a bug',
+      label: 'Report a Bug',
       click() { shell.openExternal(PackageInfo.bugs.url) }
     }
   }
 
   developerToolsMenuItem() {
     return {
-      label: 'Developer Tools',
+      label: 'Toggle Developer Tools',
       accelerator: `CmdOrCtrl+${this.altOrOption}+I`,
       click(item, win) {
         if (win) {
