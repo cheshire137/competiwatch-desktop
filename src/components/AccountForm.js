@@ -5,13 +5,19 @@ import './AccountForm.css'
 class AccountForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { battletag: '' }
+    this.state = { battletag: '', isValid: false }
   }
 
   onSubmit = event => {
     event.preventDefault()
-    const data = { battletag: this.state.battletag }
+    const { isValid, battletag } = this.state
+    if (!isValid) {
+      return
+    }
+
+    const data = { battletag }
     const account = new Account(data)
+
     account.save(this.props.db).then(() => {
       this.props.onCreate()
     })
@@ -19,12 +25,14 @@ class AccountForm extends Component {
 
   onBattletagChange = event => {
     const battletag = event.target.value
-    this.setState(prevState => ({ battletag }))
+    const isValid = battletag && battletag.trim().length > 0
+
+    this.setState(prevState => ({ battletag, isValid }))
   }
 
   render() {
     const { totalAccounts } = this.props
-    const { battletag } = this.state
+    const { battletag, isValid } = this.state
 
     return (
       <form
@@ -46,12 +54,17 @@ class AccountForm extends Component {
               type="text"
               className="form-control"
               value={battletag}
+              required
               onChange={this.onBattletagChange}
               placeholder="ASampleAccount#1234"
               autoFocus={totalAccounts < 1}
             />
             <span className="input-group-button">
-              <button type="submit" className="btn">Add account</button>
+              <button
+                type="submit"
+                className="btn"
+                disabled={!isValid}
+              >Add account</button>
             </span>
           </div>
         </div>
