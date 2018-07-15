@@ -201,7 +201,8 @@ class App extends Component {
         <ImportPage
           season={activeSeason}
           accountID={activeAccountID}
-          db={this.db.matches}
+          dbMatches={this.db.matches}
+          dbAccounts={this.db.accounts}
           onImport={this.onMatchesImported}
         />
       )

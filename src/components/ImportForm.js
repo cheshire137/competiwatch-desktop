@@ -30,34 +30,36 @@ class ImportForm extends Component {
         match.groupList.length > 0 ? `with ${match.groupList.join(', ')}` : null
       ]
       const message = messageParts.filter(part => part).join(' ')
+
       logEntries.unshift({ message, key: match._id })
+
       return { importLogEntries: logEntries }
     })
   }
 
   importFromPath = () => {
     const { path } = this.state
-    const { season, accountID, db } = this.props
-    const importer = new CsvImporter(path, season, accountID)
+    const { season, account, db } = this.props
+    const importer = new CsvImporter(path, season, account._id)
 
-    console.log('wiped season', season, 'for account', accountID)
+    console.log('wiped season', season, 'for account', account._id)
     importer.import(db, this.logMatchImport)
       .then(this.onImportComplete)
   }
 
   wipeSeasonAndImport = () => {
-    const { season, accountID, db } = this.props
+    const { season, account, db } = this.props
 
     this.setState(prevState => {
       const logEntries = prevState.importLogEntries.slice(0)
-      const message = `Deleting existing matches in season ${season}...`
+      const message = `Deleting ${account.battletag}'s existing matches in season ${season}...`
 
       logEntries.unshift({ message, key: 'wipe-notice' })
 
       return { isImporting: true, importLogEntries: logEntries }
     })
 
-    Match.wipeSeason(db, accountID, season).then(this.importFromPath)
+    Match.wipeSeason(db, account._id, season).then(this.importFromPath)
   }
 
   onFormSubmit = event => {
@@ -82,6 +84,7 @@ class ImportForm extends Component {
   }
 
   render() {
+    const { account, season } = this.props
     const { importLogEntries, isValid, isImporting } = this.state
 
     return (
@@ -110,7 +113,7 @@ class ImportForm extends Component {
             type="submit"
             disabled={!isValid}
             className="btn btn-primary"
-          >Import matches</button>
+          >Import {account.battletag}'s season {season} matches</button>
         )}
         {importLogEntries.length > 0 ? (
           <div className="border-top mt-4 pt-4">

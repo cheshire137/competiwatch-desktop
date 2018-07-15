@@ -8,20 +8,32 @@ class ImportPage extends Component {
     this.state = { totalMatches: -1 }
   }
 
+  refreshAccount = () => {
+    const { dbAccounts, accountID } = this.props
+
+    Account.find(dbAccounts, accountID).then(account => {
+      this.setState(prevState => ({ account }))
+    })
+  }
+
   refreshMatchCount = () => {
-    const { accountID, season, db } = this.props
+    const { accountID, season, dbMatches } = this.props
     const account = new Account({ _id: accountID })
 
-    account.totalMatches(db, season).then(totalMatches => {
+    account.totalMatches(dbMatches, season).then(totalMatches => {
       this.setState(prevState => ({ totalMatches }))
     })
   }
 
   componentDidMount() {
     this.refreshMatchCount()
+    this.refreshAccount()
   }
 
   componentDidUpdate(prevProps) {
+    if (prevProps.accountID !== this.props.accountID) {
+      this.refreshAccount()
+    }
     if (prevProps.accountID !== this.props.accountID ||
         prevProps.season !== this.props.season) {
       this.refreshMatchCount()
@@ -29,8 +41,8 @@ class ImportPage extends Component {
   }
 
   render() {
-    const { season, accountID, db, onImport } = this.props
-    const { totalMatches } = this.state
+    const { season, accountID, dbMatches, onImport } = this.props
+    const { totalMatches, account } = this.state
 
     return (
       <div className="container layout-children-container">
@@ -41,14 +53,14 @@ class ImportPage extends Component {
             in season {season}.
           </p>
         ) : null}
-        {totalMatches < 0 ? (
+        {totalMatches < 0 || !account ? (
           <p>Loading...</p>
         ) : (
           <ImportForm
             season={season}
-            accountID={accountID}
-            db={db}
+            db={dbMatches}
             onImport={onImport}
+            account={account}
           />
         )}
       </div>
