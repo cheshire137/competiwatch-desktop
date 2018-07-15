@@ -11,6 +11,7 @@ import SeasonsPage from './components/SeasonsPage'
 import AboutPage from './components/AboutPage'
 import ImportPage from './components/ImportPage'
 import MatchEditPage from './components/MatchEditPage'
+import SettingsPage from './components/SettingsPage'
 import './primer.css'
 import './ionicons.min.css'
 import './App.css'
@@ -226,6 +227,14 @@ class App extends Component {
       )
     }
 
+    if (activePage === 'settings') {
+      return (
+        <SettingsPage
+          onPageChange={this.changeActivePage}
+        />
+      )
+    }
+
     return (
       <AccountsPage
         accounts={accounts}
@@ -242,7 +251,7 @@ class App extends Component {
   render() {
     const { activePage, activeAccountID, activeSeason, latestSeason,
             isPlacement } = this.state
-    const showHeader = activePage !== 'about'
+    const showHeader = activePage !== 'about' && activePage !== 'settings'
 
     return (
       <div className="layout-container">

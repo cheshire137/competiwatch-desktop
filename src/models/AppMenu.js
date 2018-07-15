@@ -36,6 +36,7 @@ class AppMenu {
         label: app.getName(),
         submenu: [
           this.aboutMenuItem(),
+          this.settingsMenuItem(),
           { type: 'separator' },
           {
             label: 'Quit',
@@ -217,6 +218,16 @@ class AppMenu {
     }
   }
 
+  settingsMenuItem() {
+    const self = this
+
+    return {
+      label: this.isMac ? 'Preferences' : 'Settings',
+      accelerator: `CmdOrCtrl+,`,
+      click() { self.onPageChange('settings') }
+    }
+  }
+
   accountSubmenu() {
     const submenu = []
     for (const account of this.accounts) {
@@ -226,15 +237,19 @@ class AppMenu {
   }
 
   editSubmenu() {
-    return [
-      { role: 'undo' },
-      { role: 'redo' },
-      { type: 'separator' },
-      { role: 'cut' },
-      { role: 'copy' },
-      { role: 'paste' },
-      { role: 'selectall' }
-    ]
+    const submenu = []
+    if (!this.isMac) {
+      submenu.push(this.settingsMenuItem())
+      submenu.push({ type: 'separator' })
+    }
+    submenu.push({ role: 'undo' })
+    submenu.push({ role: 'redo' })
+    submenu.push({ type: 'separator' })
+    submenu.push({ role: 'cut' })
+    submenu.push({ role: 'copy' })
+    submenu.push({ role: 'paste' })
+    submenu.push({ role: 'selectall' })
+    return submenu
   }
 
   toolsSubmenu() {
