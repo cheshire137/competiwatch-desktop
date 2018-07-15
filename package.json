@@ -11,6 +11,9 @@
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4"
   },
+  "bugs": {
+    "url": "https://github.com/cheshire137/competiwatch-desktop/issues"
+  },
   "homepage": "./",
   "main": "src/electron-starter.js",
   "scripts": {
