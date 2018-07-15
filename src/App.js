@@ -43,7 +43,7 @@ class App extends Component {
         newState.activeSeason = deletedNumber - 1
       }
       return newState
-    })
+    }, this.updateAppMenu)
   }
 
   componentDidMount() {
@@ -98,11 +98,13 @@ class App extends Component {
   }
 
   updateAppMenu = () => {
-    const { activeAccountID, activeSeason } = this.state
+    const { activeAccountID, activeSeason, latestSeason } = this.state
 
     new AppMenu({
       onPageChange: this.changeActivePage,
+      onSeasonChange: this.changeActiveSeason,
       season: activeSeason,
+      latestSeason,
       accountID: activeAccountID
     })
   }

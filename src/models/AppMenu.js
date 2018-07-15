@@ -8,6 +8,8 @@ const { Menu, app } = remote
 class AppMenu {
   constructor(options) {
     this.onPageChange = options.onPageChange
+    this.onSeasonChange = options.onSeasonChange
+    this.latestSeason = options.latestSeason
     this.showMatchesMenuItem = options.season && options.accountID
     this.showLogMatchMenuItem = this.showMatchesMenuItem
     this.isMac = os.release().indexOf('Macintosh') > -1
@@ -45,6 +47,10 @@ class AppMenu {
         submenu: this.viewSubmenu()
       },
       {
+        label: 'Season',
+        submenu: this.seasonSubmenu()
+      },
+      {
         label: 'Tools',
         submenu: [
           this.developerToolsMenuItem()
@@ -64,6 +70,10 @@ class AppMenu {
       {
         label: 'View',
         submenu: this.viewSubmenu()
+      },
+      {
+        label: 'Season',
+        submenu: this.seasonSubmenu()
       },
       {
         label: 'Tools',
@@ -139,6 +149,33 @@ class AppMenu {
       accelerator: `CmdOrCtrl+L`,
       click() { self.onPageChange('log-match') }
     }
+  }
+
+  seasonMenuItem(season) {
+    const self = this
+
+    return {
+      label: `Season ${season}`,
+      click() { self.onSeasonChange(season) }
+    }
+  }
+
+  manageSeasonsMenuItem() {
+    const self = this
+
+    return {
+      label: 'Manage Seasons',
+      click() { self.onPageChange('manage-seasons') }
+    }
+  }
+
+  seasonSubmenu() {
+    const submenu = []
+    for (let season = this.latestSeason; season >= 1; season--) {
+      submenu.push(this.seasonMenuItem(season))
+    }
+    submenu.push(this.manageSeasonsMenuItem())
+    return submenu
   }
 
   viewSubmenu() {
