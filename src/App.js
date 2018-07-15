@@ -47,20 +47,13 @@ class App extends Component {
   }
 
   componentDidMount() {
-    new AppMenu({
-      onPageChange: this.changeActivePage
-    })
     Season.latest(this.db.seasons).then(number => {
       if (number) {
         this.changeActiveSeason(number)
       } else {
-        this.setState(prevState => ({ activeSeason: latestKnownSeason }))
+        this.changeActiveSeason(latestKnownSeason)
       }
     })
-  }
-
-  loadMatchesForAccount = accountID => {
-    this.setState(prevState => ({ activeAccountID: accountID, activePage: 'matches' }))
   }
 
   setIsPlacement = (isPlacement, isLastPlacement) => {
@@ -101,6 +94,16 @@ class App extends Component {
       }
 
       return newState
+    }, this.updateAppMenu)
+  }
+
+  updateAppMenu = () => {
+    const { activeAccountID, activeSeason } = this.state
+
+    new AppMenu({
+      onPageChange: this.changeActivePage,
+      season: activeSeason,
+      accountID: activeAccountID
     })
   }
 
@@ -122,7 +125,7 @@ class App extends Component {
       }
 
       return newState
-    })
+    }, this.updateAppMenu)
   }
 
   onMatchesImported = matches => {
@@ -130,6 +133,11 @@ class App extends Component {
     console.log('imported', matches.length, 'match(es) into season', activeSeason, 'in account',
                 activeAccountID)
     this.changeActivePage('matches')
+  }
+
+  loadMatchesForAccount = accountID => {
+    this.setState(prevState => ({ activeAccountID: accountID, activePage: 'matches' }),
+                  this.updateAppMenu)
   }
 
   renderActivePage = () => {

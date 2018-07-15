@@ -8,6 +8,8 @@ const { Menu, app } = remote
 class AppMenu {
   constructor(options) {
     this.onPageChange = options.onPageChange
+    this.showMatchesMenuItem = options.season && options.accountID
+    this.showLogMatchMenuItem = this.showMatchesMenuItem
     this.isMac = os.release().indexOf('Macintosh') > -1
     this.altOrOption = this.isMac ? 'Option' : 'Alt'
 
@@ -40,9 +42,7 @@ class AppMenu {
       },
       {
         label: 'View',
-        submenu: [
-          this.accountsMenuItem()
-        ]
+        submenu: this.viewSubmenu()
       },
       {
         label: 'Tools',
@@ -63,9 +63,7 @@ class AppMenu {
     return [
       {
         label: 'View',
-        submenu: [
-          this.accountsMenuItem()
-        ]
+        submenu: this.viewSubmenu()
       },
       {
         label: 'Tools',
@@ -120,6 +118,36 @@ class AppMenu {
         }
       }
     }
+  }
+
+  matchesMenuItem() {
+    const self = this
+
+    return {
+      label: 'Matches',
+      click() { self.onPageChange('matches') }
+    }
+  }
+
+  logMatchMenuItem() {
+    const self = this
+
+    return {
+      label: 'Log a Match',
+      accelerator: `CmdOrCtrl+L`,
+      click() { self.onPageChange('log-match') }
+    }
+  }
+
+  viewSubmenu() {
+    const submenu = [this.accountsMenuItem()]
+    if (this.showMatchesMenuItem) {
+      submenu.push(this.matchesMenuItem())
+    }
+    if (this.showLogMatchMenuItem) {
+      submenu.push(this.logMatchMenuItem())
+    }
+    return submenu
   }
 }
 
