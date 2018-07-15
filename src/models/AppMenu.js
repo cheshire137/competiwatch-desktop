@@ -121,7 +121,7 @@ class AppMenu {
 
     return {
       label: 'Accounts',
-      accelerator: `CmdOrCtrl+A`,
+      accelerator: `${this.altOrOption}+A`,
       click() { self.onPageChange('accounts') }
     }
   }
@@ -152,7 +152,7 @@ class AppMenu {
 
     return {
       label: 'Matches',
-      accelerator: `CmdOrCtrl+M`,
+      accelerator: `${this.altOrOption}+M`,
       click() { self.onPageChange('matches') }
     }
   }
@@ -162,7 +162,7 @@ class AppMenu {
 
     return {
       label: 'Log a Match',
-      accelerator: `CmdOrCtrl+L`,
+      accelerator: `${this.altOrOption}+L`,
       click() { self.onPageChange('log-match') }
     }
   }
