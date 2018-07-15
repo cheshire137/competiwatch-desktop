@@ -59,26 +59,6 @@ const loadSettingsDatabase = () => {
   databases.settings = db
 }
 
-ipcMain.on('load-accounts-db', event => {
-  loadAccountsDatabase()
-  event.sender.send('accounts-db-loaded')
-})
-
-ipcMain.on('load-settings-db', event => {
-  loadSettingsDatabase()
-  event.sender.send('settings-db-loaded')
-})
-
-ipcMain.on('load-seasons-db', event => {
-  loadSeasonsDatabase()
-  event.sender.send('seasons-db-loaded')
-})
-
-ipcMain.on('load-matches-db', event => {
-  loadMatchesDatabase()
-  event.sender.send('matches-db-loaded')
-})
-
 const databaseFor = name => {
   if (name === 'accounts') {
     if (!databases.accounts) {
