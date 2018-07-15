@@ -13,6 +13,7 @@ class Setting {
 
   constructor(data) {
     this._id = data._id
+    this.defaultAccountID = data.defaultAccountID
     if (data.createdAt) {
       this.createdAt = new Date(data.createdAt)
     }
@@ -20,6 +21,7 @@ class Setting {
 
   save(db) {
     const data = {
+      defaultAccountID: this.defaultAccountID
     }
     return Database.upsert(db, data, this._id).then(newSetting => {
       this._id = newSetting._id

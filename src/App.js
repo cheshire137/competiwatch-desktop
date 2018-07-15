@@ -233,7 +233,8 @@ class App extends Component {
       return (
         <SettingsPage
           onPageChange={this.changeActivePage}
-          db={this.db.settings}
+          dbSettings={this.db.settings}
+          accounts={accounts}
         />
       )
     }

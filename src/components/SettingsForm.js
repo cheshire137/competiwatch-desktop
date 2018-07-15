@@ -4,14 +4,19 @@ import Setting from '../models/Setting'
 class SettingsForm extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = { defaultAccountID: '' }
   }
 
   refreshSettings = () => {
-    const { db } = this.props
+    const { dbSettings } = this.props
 
-    Setting.findAll(db).then(settings => {
-      this.setState(prevState => ({ settings }))
+    Setting.findAll(dbSettings).then(settings => {
+      const setting = settings[0] || new Setting({})
+
+      this.setState(prevState => ({
+        setting,
+        defaultAccountID: setting.defaultAccountID
+      }))
     })
   }
 
@@ -19,22 +24,74 @@ class SettingsForm extends Component {
     this.refreshSettings()
   }
 
+  onSubmit = event => {
+    event.preventDefault()
+    const { dbSettings } = this.props
+    const { setting, defaultAccountID } = this.state
+    if (!setting) {
+      return
+    }
+
+    setting.defaultAccountID = defaultAccountID
+    setting.save(dbSettings).then(newSetting => {
+      this.setState(prevState => ({ setting: newSetting }))
+    })
+  }
+
+  onDefaultAccountIDChange = event => {
+    const defaultAccountID = event.target.value
+    this.setState(prevState => ({ defaultAccountID }))
+  }
+
   render() {
-    const { settings } = this.state
+    const { setting } = this.state
+    if (!setting) {
+      return (
+        <div className="blankslate">
+          <h1>
+            <span className="ion ion-md-refresh mr-3 ion-spin" />
+            Loading...
+          </h1>
+        </div>
+      )
+    }
+
+    const { accounts } = this.props
+    const { defaultAccountID } = setting
 
     return (
-      <form>
-        {settings ? (
-          <div>
-          </div>
-        ) : (
-          <div className="blankslate">
-            <h1>
-              <span className="ion ion-md-refresh mr-3 ion-spin" />
-              Loading...
-            </h1>
-          </div>
-        )}
+      <form
+        onSubmit={this.onSubmit}
+      >
+        <dl className="form-group">
+          <dt>
+            <label
+              htmlFor="default-account"
+            >Default Battle.net account:</label>
+          </dt>
+          <dd>
+            <select
+              className="form-select"
+              value={defaultAccountID}
+              disabled={accounts.length < 1}
+              onChange={this.onDefaultAccountIDChange}
+            >
+              <option value="">none</option>
+              {accounts.map(account => (
+                <option
+                  key={account._id}
+                  value={account._id}
+                >{account.battletag}</option>
+              ))}
+            </select>
+          </dd>
+        </dl>
+        <div className="mb-4">
+          <button
+            type="submit"
+            className="btn btn-primary"
+          >Save settings</button>
+        </div>
       </form>
     )
   }
