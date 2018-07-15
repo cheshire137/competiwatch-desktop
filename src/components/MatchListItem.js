@@ -16,7 +16,7 @@ const capitalize = str => {
 
 class MatchListItem extends Component {
   outerClass = () => {
-    const { isLast, match } = this.props
+    const { isLast, match, firstRankedMatchID } = this.props
     let classes = []
 
     if (!isLast) {
@@ -28,6 +28,8 @@ class MatchListItem extends Component {
       if (typeof match.rank === 'number') {
         classes.push('match-last-placement-row')
       }
+    } else if (firstRankedMatchID === match._id) {
+      classes.push('match-placement-log-row')
     }
 
     return classes.join(' ')

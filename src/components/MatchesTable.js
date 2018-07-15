@@ -24,13 +24,22 @@ class MatchesTable extends Component {
     return rankChanges
   }
 
-  placementRank = () => {
+  firstMatchWithRank = () => {
+    return this.props.matches.filter(match => typeof match.rank === 'number')[0]
+  }
+
+  placementRank = firstMatchWithRank => {
     const { matches } = this.props
-    const placementMatches = matches.filter(match => match.isPlacement &&
-                                                     typeof match.rank === 'number')
+    const placementMatches = matches
+      .filter(match => match.isPlacement && typeof match.rank === 'number')
     const lastPlacement = placementMatches[placementMatches.length - 1]
+
     if (lastPlacement) {
       return lastPlacement.rank
+    }
+
+    if (firstMatchWithRank) {
+      return firstMatchWithRank.rank
     }
   }
 
@@ -73,6 +82,8 @@ class MatchesTable extends Component {
     const showThrowerLeaver = this.showshowThrowerLeaverColumn()
     const longestWinStreak = this.getLongestWinStreak()
     const longestLossStreak = this.getLongestLossStreak()
+    const firstMatchWithRank = this.firstMatchWithRank()
+    const placementRank = this.placementRank(firstMatchWithRank)
 
     return (
       <table className="width-full">
@@ -133,7 +144,8 @@ class MatchesTable extends Component {
               key={match._id}
               match={match}
               index={i}
-              placementRank={this.placementRank()}
+              placementRank={placementRank}
+              firstRankedMatchID={firstMatchWithRank ? firstMatchWithRank._id : null}
               rankChanges={rankChanges[match.result] || []}
               isLast={i === matches.length - 1}
               onEdit={onEdit}
