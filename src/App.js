@@ -13,6 +13,7 @@ import AboutPage from './components/AboutPage'
 import ImportPage from './components/ImportPage'
 import MatchEditPage from './components/MatchEditPage'
 import SettingsPage from './components/SettingsPage'
+import LoadingPage from './components/LoadingPage'
 import './primer.css'
 import './ionicons.min.css'
 import './App.css'
@@ -290,16 +291,7 @@ class App extends Component {
       )
     }
 
-    return (
-      <div className="container layout-children-container">
-        <div className="blankslate">
-          <h1>
-            <span className="ion ion-md-refresh mr-3 ion-spin" />
-            Loading...
-          </h1>
-        </div>
-      </div>
-    )
+    return <LoadingPage />
   }
 
   render() {
