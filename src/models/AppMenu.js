@@ -45,6 +45,10 @@ class AppMenu {
         ]
       },
       {
+        label: 'Edit',
+        submenu: this.editSubmenu()
+      },
+      {
         label: 'View',
         submenu: this.viewSubmenu()
       }
@@ -74,6 +78,10 @@ class AppMenu {
 
   getNonMacMenuTemplate() {
     const menuItems = [
+      {
+        label: 'Edit',
+        submenu: this.editSubmenu()
+      },
       {
         label: 'View',
         submenu: this.viewSubmenu()
@@ -215,6 +223,18 @@ class AppMenu {
       submenu.push(this.accountMenuItem(account))
     }
     return submenu
+  }
+
+  editSubmenu() {
+    return [
+      { role: 'undo' },
+      { role: 'redo' },
+      { type: 'separator' },
+      { role: 'cut' },
+      { role: 'copy' },
+      { role: 'paste' },
+      { role: 'selectall' }
+    ]
   }
 
   toolsSubmenu() {
