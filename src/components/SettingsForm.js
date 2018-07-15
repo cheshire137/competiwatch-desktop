@@ -10,9 +10,7 @@ class SettingsForm extends Component {
   refreshSettings = () => {
     const { dbSettings } = this.props
 
-    Setting.findAll(dbSettings).then(settings => {
-      const setting = settings[0] || new Setting({})
-
+    Setting.load(dbSettings).then(setting => {
       this.setState(prevState => ({
         setting,
         defaultAccountID: setting.defaultAccountID

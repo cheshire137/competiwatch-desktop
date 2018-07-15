@@ -11,6 +11,12 @@ class Setting {
                    .then(rows => rows.map(data => new Setting(data)))
   }
 
+  static load(db) {
+    return this.findAll(db).then(settings => {
+      return settings[0] || new Setting({})
+    })
+  }
+
   constructor(data) {
     this._id = data._id
     this.defaultAccountID = data.defaultAccountID
