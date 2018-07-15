@@ -7,6 +7,7 @@ import AccountsPage from './components/AccountsPage'
 import MatchesPage from './components/MatchesPage'
 import MatchCreatePage from './components/MatchCreatePage'
 import SeasonsPage from './components/SeasonsPage'
+import AboutPage from './components/AboutPage'
 import ImportPage from './components/ImportPage'
 import MatchEditPage from './components/MatchEditPage'
 import './primer.css'
@@ -192,6 +193,14 @@ class App extends Component {
       )
     }
 
+    if (activePage === 'about') {
+      return (
+        <AboutPage
+          onPageChange={this.changeActivePage}
+        />
+      )
+    }
+
     return (
       <AccountsPage
         dbAccounts={this.db.accounts}
@@ -205,20 +214,23 @@ class App extends Component {
   render() {
     const { activePage, activeAccountID, activeSeason, latestSeason,
             isPlacement } = this.state
+    const showHeader = activePage !== 'about'
 
     return (
       <div className="layout-container">
-        <Header
-          activePage={activePage}
-          activeAccountID={activeAccountID}
-          onPageChange={this.changeActivePage}
-          activeSeason={activeSeason}
-          latestSeason={latestSeason}
-          isPlacement={isPlacement}
-          dbAccounts={this.db.accounts}
-          onSeasonChange={this.changeActiveSeason}
-          loadMatchesForAccount={this.loadMatchesForAccount}
-        />
+        {showHeader ? (
+          <Header
+            activePage={activePage}
+            activeAccountID={activeAccountID}
+            onPageChange={this.changeActivePage}
+            activeSeason={activeSeason}
+            latestSeason={latestSeason}
+            isPlacement={isPlacement}
+            dbAccounts={this.db.accounts}
+            onSeasonChange={this.changeActiveSeason}
+            loadMatchesForAccount={this.loadMatchesForAccount}
+          />
+        ) : null}
         {this.renderActivePage()}
       </div>
     )
