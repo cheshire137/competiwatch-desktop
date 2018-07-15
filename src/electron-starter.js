@@ -1,7 +1,7 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow } = require('electron')
 const url = require('url')
 const path = require('path')
-const Datastore = require('nedb')
+require('./electron-database')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -42,9 +42,4 @@ app.on('activate', function () {
   if (mainWindow === null) {
     createWindow()
   }
-})
-
-ipcMain.on('load-database', (event, filename) => {
-  const db = new Datastore({ filename })
-  event.sender.send('loaded-database', db)
 })

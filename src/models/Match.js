@@ -73,26 +73,21 @@ const getLossStreak = (index, matches, count) => {
 const defaultSort = { playedAt: 1, createdAt: 1 }
 
 class Match {
-  static async setupDatabase(env) {
-    const db = await Database.load(`matches-${env}`)
-    return db
-  }
-
-  static wipeSeason(db, accountID, season) {
-    return Match.findAll(db, accountID, season).then(matches => {
-      const promises = matches.map(match => match.delete(db))
+  static wipeSeason(accountID, season) {
+    return Match.findAll(accountID, season).then(matches => {
+      const promises = matches.map(match => match.delete())
       return Promise.all(promises)
     })
   }
 
-  static find(db, id) {
-    return Database.find(db, id).then(data => new Match(data))
+  static find(id) {
+    return Database.find('matches', id).then(data => new Match(data))
   }
 
-  static findAll(db, accountID, season) {
+  static findAll(accountID, season) {
     const conditions = { accountID, season }
 
-    return Database.findAll(db, defaultSort, conditions).then(rows => {
+    return Database.findAll('matches', defaultSort, conditions).then(rows => {
       const matches = rows.map(data => new Match(data))
 
       for (let i = 0; i < matches.length; i++) {
@@ -194,7 +189,7 @@ class Match {
     return this.result === 'loss'
   }
 
-  async isLastPlacement(db) {
+  async isLastPlacement() {
     if (!this.isPlacement) {
       return false
     }
@@ -204,7 +199,7 @@ class Match {
       season: this.season,
       accountID: this.accountID
     }
-    const placementRows = await Database.findAll(db, defaultSort, conditions)
+    const placementRows = await Database.findAll('matches', defaultSort, conditions)
 
     if (placementRows.length < totalPlacementMatches) {
       return false
@@ -214,7 +209,7 @@ class Match {
     return lastPlacement && lastPlacement._id === this._id
   }
 
-  save(db) {
+  save() {
     const data = {
       rank: this.rank,
       comment: this.comment,
@@ -235,7 +230,7 @@ class Match {
       season: this.season,
       result: this.result
     }
-    return Database.upsert(db, data, this._id).then(newMatch => {
+    return Database.upsert('matches', data, this._id).then(newMatch => {
       this._id = newMatch._id
       if (newMatch.createdAt) {
         this.createdAt = newMatch.createdAt
@@ -244,8 +239,8 @@ class Match {
     })
   }
 
-  delete(db) {
-    return Database.delete(db, this._id, 'match')
+  delete() {
+    return Database.delete('matches', this._id, 'match')
   }
 }
 

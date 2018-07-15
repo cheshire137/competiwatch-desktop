@@ -1,34 +1,13 @@
 import Database from './Database'
 
 class Season {
-  static async setupDatabase(env) {
-    const db = await Database.load(`seasons-${env}`)
-    db.ensureIndex({ fieldName: 'number', unique: true }, err => {
-      if (err) {
-        console.error('failed to add seasons.number index', err)
-      }
-    })
-    return db
-  }
-
-  static latest(db) {
+  static latest() {
     const conditions = {}
     const sort = { number: -1 }
-    return new Promise((resolve, reject) => {
-      db.find(conditions).sort(sort).limit(1).exec((err, rows) => {
-        if (err) {
-          console.error('failed to load latest season', err)
-          reject(err)
-        } else {
-          const data = rows[0]
-          if (data) {
-            const season = new Season(data)
-            resolve(season.number)
-          } else {
-            resolve()
-          }
-        }
-      })
+    return Database.latest('seasons', conditions, sort).then(data => {
+      if (data) {
+        return new Season(data)
+      }
     })
   }
 
@@ -40,9 +19,9 @@ class Season {
     }
   }
 
-  save(db) {
+  save() {
     const data = { number: this.number }
-    return Database.upsert(db, data, this._id).then(newSeason => {
+    return Database.upsert('season', data, this._id).then(newSeason => {
       this._id = newSeason._id
       if (newSeason.createdAt) {
         this.createdAt = newSeason.createdAt
@@ -51,19 +30,9 @@ class Season {
     })
   }
 
-  delete(db) {
-    return new Promise((resolve, reject) => {
-      const options = {}
-      db.remove({ number: this.number }, options, (err, numRemoved) => {
-        if (err) {
-          console.error(`failed to delete season ${this.number}`)
-          reject()
-        } else {
-          console.log('deleted', numRemoved, 'season(s)', this.number)
-          resolve()
-        }
-      })
-    })
+  delete() {
+    const conditions = { number: this.number }
+    return Database.deleteSome('seasons', conditions)
   }
 }
 

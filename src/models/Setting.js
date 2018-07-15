@@ -1,19 +1,14 @@
 import Database from './Database'
 
 class Setting {
-  static async setupDatabase(env) {
-    const db = await Database.load(`settings-${env}`)
-    return db
-  }
-
-  static findAll(db) {
+  static findAll() {
     const sort = {}
-    return Database.findAll(db, sort)
+    return Database.findAll('settings', sort)
                    .then(rows => rows.map(data => new Setting(data)))
   }
 
-  static load(db) {
-    return this.findAll(db).then(settings => {
+  static load() {
+    return this.findAll().then(settings => {
       return settings[0] || new Setting({})
     })
   }
@@ -26,11 +21,11 @@ class Setting {
     }
   }
 
-  save(db) {
+  save() {
     const data = {
       defaultAccountID: this.defaultAccountID
     }
-    return Database.upsert(db, data, this._id).then(newSetting => {
+    return Database.upsert('settings', data, this._id).then(newSetting => {
       this._id = newSetting._id
       if (newSetting.createdAt) {
         this.createdAt = newSetting.createdAt
@@ -39,8 +34,8 @@ class Setting {
     })
   }
 
-  delete(db) {
-    return Database.delete(db, this._id, 'setting')
+  delete() {
+    return Database.delete('settings', this._id, 'setting')
   }
 }
 

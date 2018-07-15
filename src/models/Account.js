@@ -2,24 +2,14 @@ import Database from './Database'
 import Match from './Match'
 
 class Account {
-  static async setupDatabase(env) {
-    const db = await Database.load(`accounts-${env}`)
-    db.ensureIndex({ fieldName: 'battletag', unique: true }, err => {
-      if (err) {
-        console.error('failed to add accounts.battletag index', err)
-      }
-    })
-    return db
-  }
-
-  static findAll(db) {
+  static findAll() {
     const sort = { battletag: 1 }
-    return Database.findAll(db, sort)
+    return Database.findAll('accounts', sort)
                    .then(rows => rows.map(data => new Account(data)))
   }
 
-  static find(db, id) {
-    return Database.find(db, id).then(data => new Account(data))
+  static find(id) {
+    return Database.find('accounts', id).then(data => new Account(data))
   }
 
   constructor(data) {
@@ -30,43 +20,32 @@ class Account {
     }
   }
 
-  latestMatch(dbMatches, season) {
-    return new Promise((resolve, reject) => {
-      const conditions = { accountID: this._id, season: season }
-      const sort = { date: -1, createdAt: -1 }
+  latestMatch(season) {
+    const conditions = { accountID: this._id, season: season }
+    const sort = { date: -1, createdAt: -1 }
 
-      dbMatches.find(conditions).sort(sort).limit(1).exec((err, rows) => {
-        if (err) {
-          console.error('failed to load latest match', err)
-          reject(err)
-        } else {
-          const data = rows[0]
-
-          if (data) {
-            resolve(new Match(data))
-          } else {
-            resolve()
-          }
-        }
-      })
+    return Database.latest(conditions, sort).then(data => {
+      if (data) {
+        return new Match(data)
+      }
     })
   }
 
-  totalMatches(dbMatches, season) {
+  totalMatches(season) {
     const conditions = { accountID: this._id }
     if (typeof season === 'number') {
       conditions.season = season
     }
-    return Database.count(dbMatches, conditions)
+    return Database.count('matches', conditions)
   }
 
-  hasMatches(dbMatches) {
-    return this.totalMatches(dbMatches).then(count => count > 0)
+  hasMatches() {
+    return this.totalMatches().then(count => count > 0)
   }
 
-  save(db) {
+  save() {
     const data = { battletag: this.battletag }
-    return Database.upsert(db, data, this._id).then(newAccount => {
+    return Database.upsert('accounts', data, this._id).then(newAccount => {
       this._id = newAccount._id
       if (newAccount.createdAt) {
         this.createdAt = newAccount.createdAt
@@ -75,8 +54,8 @@ class Account {
     })
   }
 
-  delete(db) {
-    return Database.delete(db, this._id, 'account')
+  delete() {
+    return Database.delete('accounts', this._id, 'account')
   }
 }
 

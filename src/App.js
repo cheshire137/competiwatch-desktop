@@ -19,6 +19,7 @@ import './ionicons.min.css'
 import './App.css'
 
 const latestKnownSeason = 11
+const { ipcRenderer } = window.require('electron')
 
 class App extends Component {
   constructor(props) {
@@ -26,7 +27,11 @@ class App extends Component {
     this.state = {
       latestRank: 2500,
       isPlacement: false,
-      latestSeason: latestKnownSeason
+      latestSeason: latestKnownSeason,
+      dbAccountsLoaded: false,
+      dbSettingsLoaded: false,
+      dbSeasonsLoaded: false,
+      dbMatchesLoaded: false
     }
   }
 
@@ -85,26 +90,33 @@ class App extends Component {
   }
 
   loadDatabases() {
-    return new Promise(async (resolve, reject) => {
-      const env = process.env.NODE_ENV
-      const dbAccounts = await Account.setupDatabase(env)
-      const dbMatches = await Match.setupDatabase(env)
-      const dbSeasons = await Season.setupDatabase(env)
-      const dbSettings = await Setting.setupDatabase(env)
-
-      this.setState(prevState => ({ dbAccounts, dbMatches, dbSeasons, dbSettings }), () => {
-        console.log('finished loading databases')
-        resolve()
-      })
+    ipcRenderer.once('accounts-db-loaded', () => {
+      this.setState(prevState => ({ dbAccountsLoaded: true }))
     })
+
+    ipcRenderer.once('settings-db-loaded', () => {
+      this.setState(prevState => ({ dbSettingsLoaded: true }))
+    })
+
+    ipcRenderer.once('seasons-db-loaded', () => {
+      this.setState(prevState => ({ dbSeasonsLoaded: true }))
+    })
+
+    ipcRenderer.once('matches-db-loaded', () => {
+      this.setState(prevState => ({ dbMatchesLoaded: true }))
+    })
+
+    ipcRenderer.send('load-accounts-db')
+    ipcRenderer.send('load-settings-db')
+    ipcRenderer.send('load-seasons-db')
+    ipcRenderer.send('load-matches-db')
   }
 
   componentDidMount() {
-    this.loadDatabases().then(() => {
-      this.refreshLatestSeason()
-      this.refreshAccounts().then(() => {
-        this.refreshSettings()
-      })
+    this.loadDatabases()
+    this.refreshLatestSeason()
+    this.refreshAccounts().then(() => {
+      this.refreshSettings()
     })
   }
 
@@ -206,28 +218,26 @@ class App extends Component {
 
   renderActivePage = () => {
     const { activePage, activeAccountID, latestRank, isPlacement,
-            isLastPlacement, activeSeason, latestSeason, dbSeasons, dbSettings,
-            activeMatchID, accounts, settings, dbAccounts, dbMatches } = this.state
+            isLastPlacement, activeSeason, latestSeason, dbMatchesLoaded,
+            activeMatchID, accounts, settings, dbAccountsLoaded,
+            dbSettingsLoaded, dbSeasonsLoaded } = this.state
     const haveActiveSeason = typeof activeSeason === 'number' && !isNaN(activeSeason)
 
-    if (activePage === 'matches' && dbAccounts && dbMatches && haveActiveSeason && activeAccountID) {
+    if (activePage === 'matches' && dbAccountsLoaded && dbMatchesLoaded && haveActiveSeason && activeAccountID) {
       return (
         <MatchesPage
           accountID={activeAccountID}
           season={activeSeason}
-          dbAccounts={dbAccounts}
-          dbMatches={dbMatches}
           onPageChange={this.changeActivePage}
           setIsPlacement={this.setIsPlacement}
         />
       )
     }
 
-    if (activePage === 'log-match' && dbMatches && haveActiveSeason) {
+    if (activePage === 'log-match' && dbMatchesLoaded && haveActiveSeason) {
       return (
         <MatchCreatePage
           accountID={activeAccountID}
-          db={dbMatches}
           onPageChange={this.changeActivePage}
           latestRank={latestRank}
           isPlacement={isPlacement}
@@ -237,10 +247,9 @@ class App extends Component {
       )
     }
 
-    if (activePage === 'manage-seasons' && dbSeasons) {
+    if (activePage === 'manage-seasons' && dbSeasonsLoaded) {
       return (
         <SeasonsPage
-          db={dbSeasons}
           latestSeason={latestSeason}
           firstNonDeletableSeason={latestKnownSeason}
           onCreate={this.changeActiveSeason}
@@ -249,23 +258,20 @@ class App extends Component {
       )
     }
 
-    if (activePage === 'import' && dbMatches && dbAccounts && haveActiveSeason && activeAccountID) {
+    if (activePage === 'import' && dbMatchesLoaded && dbAccountsLoaded && haveActiveSeason && activeAccountID) {
       return (
         <ImportPage
           season={activeSeason}
           accountID={activeAccountID}
-          dbMatches={dbMatches}
-          dbAccounts={dbAccounts}
           onImport={this.onMatchesImported}
         />
       )
     }
 
-    if (activePage === 'edit-match' && dbMatches && activeMatchID) {
+    if (activePage === 'edit-match' && dbMatchesLoaded && activeMatchID) {
       return (
         <MatchEditPage
           id={activeMatchID}
-          db={dbMatches}
           onPageChange={this.changeActivePage}
         />
       )
@@ -279,11 +285,10 @@ class App extends Component {
       )
     }
 
-    if (activePage === 'settings' && dbSettings) {
+    if (activePage === 'settings' && dbSettingsLoaded) {
       return (
         <SettingsPage
           onPageChange={this.changeActivePage}
-          dbSettings={dbSettings}
           accounts={accounts}
           settings={settings}
           onSave={this.onSettingsSaved}
@@ -291,12 +296,10 @@ class App extends Component {
       )
     }
 
-    if (activePage === 'accounts' && dbAccounts && dbMatches && haveActiveSeason) {
+    if (activePage === 'accounts' && dbAccountsLoaded && dbMatchesLoaded && haveActiveSeason) {
       return (
         <AccountsPage
           accounts={accounts}
-          dbAccounts={dbAccounts}
-          dbMatches={dbMatches}
           season={activeSeason}
           onCreate={this.refreshAccounts}
           onDelete={this.refreshAccounts}
@@ -310,8 +313,8 @@ class App extends Component {
 
   render() {
     const { activePage, activeAccountID, activeSeason, latestSeason,
-            isPlacement, accounts, dbAccounts } = this.state
-    const showHeader = dbAccounts && activePage !== 'about' && activePage !== 'settings'
+            isPlacement, accounts, dbAccountsLoaded } = this.state
+    const showHeader = dbAccountsLoaded && activePage !== 'about' && activePage !== 'settings'
 
     return (
       <div className="layout-container">
@@ -324,7 +327,6 @@ class App extends Component {
             activeSeason={activeSeason}
             latestSeason={latestSeason}
             isPlacement={isPlacement}
-            dbAccounts={dbAccounts}
             onSeasonChange={this.changeActiveSeason}
             onAccountChange={this.onAccountChange}
           />

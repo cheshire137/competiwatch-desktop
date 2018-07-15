@@ -4,28 +4,9 @@ import path from 'path'
 const { ipcRenderer, remote } = window.require('electron')
 
 class Database {
-  static load(name) {
+  static findOne(dbName, conditions) {
     return new Promise((resolve, reject) => {
-      const dbDir = remote.app.getPath('userData')
-      const dbName = `competiwatch-${name}`
-      const dbPath = path.join(dbDir, `${dbName}.db`)
-
-      console.log(`loading database ${dbName}...`)
-      ipcRenderer.send('load-database', dbPath)
-      ipcRenderer.on('loaded-database', (event, dbProps) => {
-        if (dbProps.filename === dbPath) {
-          const db = new Datastore(dbProps)
-          console.log('loaded database', db.filename)
-          db.loadDatabase()
-          resolve(db)
-        }
-      })
-    })
-  }
-
-  static findOne(db, conditions) {
-    return new Promise((resolve, reject) => {
-      db.findOne(conditions, (err, data) => {
+      ipcRenderer.once('found-one', (err, data) => {
         if (err) {
           console.error('failed to look up a record', conditions, err)
           reject(err)
@@ -33,29 +14,31 @@ class Database {
           resolve(data)
         }
       })
+      ipcRenderer.send('find-one', dbName, conditions)
     })
   }
 
-  static find(db, id) {
+  static find(dbName, id) {
     const conditions = { _id: id }
-    return Database.findOne(db, conditions)
+    return Database.findOne(dbName, conditions)
   }
 
-  static count(db, conditions) {
+  static count(dbName, conditions) {
     return new Promise((resolve, reject) => {
-      db.count(conditions, (err, count) => {
+      ipcRenderer.once('counted', (err, count) => {
         if (err) {
           console.error('failed to count records', err)
         } else {
           resolve(count)
         }
       })
+      ipcRenderer.send('count', dbName, conditions)
     })
   }
 
-  static findAll(db, sort, conditions) {
+  static findAll(dbName, sort, conditions) {
     return new Promise((resolve, reject) => {
-      db.find(conditions || {}).sort(sort).exec((err, rows) => {
+      ipcRenderer.once('found-all', (err, rows) => {
         if (err) {
           console.error('failed to look up records', err)
           reject(err)
@@ -63,30 +46,38 @@ class Database {
           resolve(rows)
         }
       })
+      ipcRenderer.send('find-all', dbName, sort, conditions)
     })
   }
 
-  static delete(db, id, type) {
+  static delete(dbName, id) {
+    const conditions = { _id: id }
+    return this.deleteSome(conditions)
+  }
+
+  static deleteSome(dbName, conditions) {
     return new Promise((resolve, reject) => {
       const options = {}
-      db.remove({ _id: id }, options, (err, numRemoved) => {
+      ipcRenderer.once('deleted', (err, numRemoved) => {
         if (err) {
-          console.error(`failed to delete ${type}`, id)
+          console.error('failed to delete record(s)', conditions)
           reject()
         } else {
-          console.log('deleted', numRemoved, `${type}(s)`, id)
+          console.log('deleted', numRemoved, 'record(s)', conditions)
           resolve()
         }
       })
+      ipcRenderer.send('delete', dbName, conditions, options)
     })
   }
 
-  static update(db, data, id) {
+  static update(dbName, data, id) {
     return new Promise((resolve, reject) => {
+      const conditions = { _id: id }
       const options = {}
       const update = { $set: data }
 
-      db.update({ _id: id }, update, options, (err, numReplaced) => {
+      ipcRenderer.once('updated', (err, numReplaced) => {
         if (err) {
           console.error('failed to update record', id, err)
           reject(err)
@@ -95,15 +86,17 @@ class Database {
           resolve({ _id: id })
         }
       })
+      ipcRenderer.send('update', dbName, conditions, update, options)
     })
   }
 
-  static insert(db, data) {
+  static insert(dbName, data) {
     return new Promise((resolve, reject) => {
       const createdDate = new Date()
       data.createdAt = createdDate.toJSON()
+      const rows = [data]
 
-      db.insert([data], (err, newRecords) => {
+      ipcRenderer.once('inserted', (err, newRecords) => {
         if (err) {
           console.error('failed to create record', data, err)
           reject(err)
@@ -114,16 +107,31 @@ class Database {
           resolve(newRecord)
         }
       })
+      ipcRenderer.send('insert', dbName, rows)
     })
   }
 
-  static upsert(db, data, id) {
+  static upsert(dbName, data, id) {
     return new Promise((resolve, reject) => {
       if (id) {
-        this.update(db, data, id).then(resolve, reject)
+        this.update(dbName, data, id).then(resolve, reject)
       } else {
-        this.insert(db, data).then(resolve, reject)
+        this.insert(dbName, data).then(resolve, reject)
       }
+    })
+  }
+
+  static latest(dbName, conditions, sort) {
+    return new Promise((resolve, reject) => {
+      ipcRenderer.once('found-latest', (err, rows) => {
+        if (err) {
+          console.error('failed to load latest record', err)
+          reject(err)
+        } else {
+          resolve(rows[0])
+        }
+      })
+      ipcRenderer.send('find-latest', dbName, conditions, sort)
     })
   }
 }
