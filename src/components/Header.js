@@ -109,6 +109,18 @@ class Header extends Component {
     )
   }
 
+  rightSideMessage = () => {
+    const { activePage } = this.props
+
+    if (activePage === 'log-match') {
+      return (
+        <div
+          className="text-gray float-right"
+        >* All fields optional except match result</div>
+      )
+    }
+  }
+
   render() {
     const { activeSeason, latestSeason, onSeasonChange,
             dbAccounts, activeAccountID, onAccountChange } = this.props
@@ -131,8 +143,9 @@ class Header extends Component {
             />
           ) : null}
         </div>
-        <nav aria-label="Breadcrumb">
-          <div className="container">
+        <div className="container clearfix">
+          {this.rightSideMessage()}
+          <nav aria-label="Breadcrumb">
             <ol>
               {this.renderAccountsButton()}
               {this.renderMatchesButton()}
@@ -140,8 +153,8 @@ class Header extends Component {
               {this.renderEditMatchButton()}
               {this.renderImportButton()}
             </ol>
-          </div>
-        </nav>
+          </nav>
+        </div>
       </div>
     )
   }
