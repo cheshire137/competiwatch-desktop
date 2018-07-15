@@ -95,6 +95,7 @@ class AppMenu {
 
     return {
       label: 'Accounts',
+      accelerator: `CmdOrCtrl+A`,
       click() { self.onPageChange('accounts') }
     }
   }
@@ -125,6 +126,7 @@ class AppMenu {
 
     return {
       label: 'Matches',
+      accelerator: `CmdOrCtrl+M`,
       click() { self.onPageChange('matches') }
     }
   }
