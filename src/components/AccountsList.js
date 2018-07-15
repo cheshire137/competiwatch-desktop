@@ -20,7 +20,7 @@ class AccountsList extends Component {
               dbAccounts={dbAccounts}
               dbMatches={dbMatches}
               season={season}
-              {...account}
+              account={account}
               onDelete={onDelete}
               onAccountChange={onAccountChange}
             />

@@ -1,6 +1,7 @@
 import stringify from '../lib/csv-stringify'
 import Match from './Match'
 
+const fs = window.require('fs')
 const headers = [
   'Rank', 'Map', 'Comment', 'Date', 'Day', 'Time', 'Heroes',
   'Ally Leaver', 'Ally Thrower', 'Enemy Leaver', 'Enemy Thrower',
@@ -8,7 +9,7 @@ const headers = [
   'Battletag'
 ]
 
-const charForBoolean(boolean) {
+const charForBoolean = boolean => {
   return boolean ? 'Y' : 'N'
 }
 
@@ -123,8 +124,8 @@ class CsvExporter {
     })
   }
 
-  async export(db) {
-    const matches = await this.getMatches(db)
+  async export(dbMatches) {
+    const matches = await this.getMatches(dbMatches)
 
     return this.generateCsv(matches)
       .then(csv => this.writeFile(csv))

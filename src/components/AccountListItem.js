@@ -1,8 +1,24 @@
 import React, { Component } from 'react'
 import AccountDeleteForm from './AccountDeleteForm'
 import Account from '../models/Account'
+import CsvExporter from '../models/CsvExporter'
 import MatchRankImage from './MatchRankImage'
 import './AccountListItem.css'
+
+const { dialog } = window.require('electron').remote
+
+const dateStrFrom = date => {
+  const year = date.getFullYear()
+  let month = date.getMonth() + 1
+  if (month <= 9) {
+    month = `0${month}`
+  }
+  let day = date.getDate()
+  if (day <= 9) {
+    day = `0${day}`
+  }
+  return `${year}-${month}-${day}`
+}
 
 class AccountListItem extends Component {
   constructor(props) {
@@ -10,14 +26,13 @@ class AccountListItem extends Component {
     this.state = { totalMatches: -1 }
   }
 
-  viewAccountMatches = event => {
+  onAccountClick = event => {
     event.target.blur()
-    this.props.onAccountChange(this.props._id)
+    this.props.onAccountChange(this.props.account._id)
   }
 
   refreshMatchData = () => {
-    const { _id, dbMatches, season } = this.props
-    const account = new Account({ _id })
+    const { account, dbMatches, season } = this.props
 
     account.latestMatch(dbMatches, season).then(match => {
       this.setState(prevState => ({ latestMatch: match }))
@@ -38,9 +53,34 @@ class AccountListItem extends Component {
     }
   }
 
+  exportSeasonTo = path => {
+    const { season, account, dbMatches } = this.props
+    const exporter = new CsvExporter(path, season, account)
+
+    exporter.export(dbMatches).then(() => {
+      console.log(`exported ${account.battletag}'s season ${season}`, path)
+    })
+  }
+
+  exportSeason = event => {
+    event.currentTarget.blur()
+    const { account, season } = this.props
+    const simpleBattletag = account.battletag.replace(/\s+/g, '-')
+      .replace(/#+/g, '-')
+    const dateStr = dateStrFrom(new Date())
+    const defaultPath = `${simpleBattletag}-season-${season}-${dateStr}.csv`
+    const options = { defaultPath }
+
+    dialog.showSaveDialog(options, path => {
+      if (path && path.length > 0) {
+        this.exportSeasonTo(path)
+      }
+    })
+  }
+
   render() {
-    const { battletag, _id, dbAccounts, dbMatches, onDelete,
-            season } = this.props
+    const { account, dbAccounts, dbMatches, onDelete, season } = this.props
+    const { battletag, _id } = account
     const { latestMatch, totalMatches } = this.state
 
     return (
@@ -49,7 +89,7 @@ class AccountListItem extends Component {
           <button
             type="button"
             className="btn-link h2 text-bold"
-            onClick={this.viewAccountMatches}
+            onClick={this.onAccountClick}
           >{battletag}</button>
           <AccountDeleteForm
             _id={_id}
@@ -81,6 +121,15 @@ class AccountListItem extends Component {
           ) : (
             <span>No matches in season {season}</span>
           )}
+          {totalMatches > 0 ? (
+            <span>
+              <button
+                type="button"
+                className="btn-link"
+                onClick={this.exportSeason}
+              >Export season {season}</button>
+            </span>
+          ) : null}
         </div>
       </li>
     )
