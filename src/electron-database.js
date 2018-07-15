@@ -110,7 +110,7 @@ ipcMain.on('find-one', (event, dbName, conditions) => {
   const db = databaseFor(dbName)
   if (!db) {
     log.error(dbName, 'database not loaded for find-one')
-    event.sender.send('found-all', 'database not loaded')
+    event.sender.send('found-one', 'database not loaded')
     return
   }
 
