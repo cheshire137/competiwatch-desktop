@@ -93,11 +93,12 @@ class Database {
       const createdDate = new Date()
       data.createdAt = createdDate.toJSON()
 
-      db.insert([data], (err, newRecord) => {
+      db.insert([data], (err, newRecords) => {
         if (err) {
           console.error('failed to create record', data, err)
           reject(err)
         } else {
+          const newRecord = newRecords[0]
           newRecord.createdAt = createdDate
           console.log('created record', newRecord)
           resolve(newRecord)
