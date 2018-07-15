@@ -4,10 +4,10 @@ import Season from '../models/Season'
 class SeasonDeleteForm extends Component {
   deleteSeason = event => {
     event.preventDefault()
-    const { db, onDelete, season } = this.props
+    const { onDelete, season } = this.props
     const message = `Are you sure you want to delete season ${season}? Matches logged in this season will NOT be deleted.`
     if (window.confirm(message)) {
-      new Season({ number: season }).delete(db).then(() => {
+      new Season({ number: season }).delete().then(() => {
         onDelete(season)
       })
     }

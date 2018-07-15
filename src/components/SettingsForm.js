@@ -21,11 +21,11 @@ class SettingsForm extends Component {
 
   onSubmit = event => {
     event.preventDefault()
-    const { dbSettings, settings, onSave } = this.props
+    const { settings, onSave } = this.props
     const { defaultAccountID } = this.state
 
     settings.defaultAccountID = defaultAccountID
-    settings.save(dbSettings).then(() => {
+    settings.save().then(() => {
       onSave(settings)
     })
   }

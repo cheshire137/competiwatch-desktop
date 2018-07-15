@@ -63,7 +63,7 @@ class CsvImporter {
     return hash
   }
 
-  importMatch = async (rawData, db) => {
+  importMatch = async (rawData) => {
     const data = this.normalizeData(rawData)
     const matchData = {
       accountID: this.accountID,
@@ -83,16 +83,16 @@ class CsvImporter {
       allyLeaver: data['ally leaver']
     }
     const match = new Match(matchData)
-    await match.save(db)
+    await match.save()
     return match
   }
 
-  import(db, onSave) {
+  import(onSave) {
     return this.parseCsv().then(async rows => {
       const matches = []
 
       for (const row of rows) {
-        const match = await this.importMatch(row, db)
+        const match = await this.importMatch(row)
         onSave(match)
         matches.push(match)
       }

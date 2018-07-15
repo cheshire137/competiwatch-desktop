@@ -9,18 +9,18 @@ class ImportPage extends Component {
   }
 
   refreshAccount = () => {
-    const { dbAccounts, accountID } = this.props
+    const { accountID } = this.props
 
-    Account.find(dbAccounts, accountID).then(account => {
+    Account.find(accountID).then(account => {
       this.setState(prevState => ({ account }))
     })
   }
 
   refreshMatchCount = () => {
-    const { accountID, season, dbMatches } = this.props
+    const { accountID, season } = this.props
     const account = new Account({ _id: accountID })
 
-    account.totalMatches(dbMatches, season).then(totalMatches => {
+    account.totalMatches(season).then(totalMatches => {
       this.setState(prevState => ({ totalMatches }))
     })
   }
@@ -41,7 +41,7 @@ class ImportPage extends Component {
   }
 
   render() {
-    const { season, accountID, dbMatches, onImport } = this.props
+    const { season, accountID, onImport } = this.props
     const { totalMatches, account } = this.state
 
     return (
@@ -58,7 +58,6 @@ class ImportPage extends Component {
         ) : (
           <ImportForm
             season={season}
-            db={dbMatches}
             onImport={onImport}
             account={account}
           />

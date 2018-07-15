@@ -4,7 +4,7 @@ import SeasonsList from './SeasonsList'
 
 class SeasonsPage extends Component {
   render() {
-    const { db, latestSeason, onCreate, firstNonDeletableSeason,
+    const { latestSeason, onCreate, firstNonDeletableSeason,
             onDelete } = this.props
 
     return (
@@ -13,7 +13,6 @@ class SeasonsPage extends Component {
           <div className="col-7 float-left">
             <SeasonsList
               latestSeason={latestSeason}
-              db={db}
               firstNonDeletableSeason={firstNonDeletableSeason}
               onDelete={onDelete}
             />
@@ -21,7 +20,6 @@ class SeasonsPage extends Component {
           <div className="col-4 float-right">
             <SeasonForm
               latestSeason={latestSeason}
-              db={db}
               onCreate={onCreate}
             />
           </div>

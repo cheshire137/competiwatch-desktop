@@ -123,7 +123,7 @@ class Header extends Component {
 
   render() {
     const { activeSeason, latestSeason, onSeasonChange, accounts,
-            dbAccounts, activeAccountID, onAccountChange } = this.props
+            activeAccountID, onAccountChange } = this.props
 
     return (
       <div className="mb-3">
@@ -136,7 +136,6 @@ class Header extends Component {
           />
           {activeAccountID ? (
             <AccountSelect
-              db={dbAccounts}
               accounts={accounts}
               activeAccountID={activeAccountID}
               onChange={onAccountChange}

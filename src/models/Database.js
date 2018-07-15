@@ -6,7 +6,7 @@ const { ipcRenderer, remote } = window.require('electron')
 class Database {
   static findOne(dbName, conditions) {
     return new Promise((resolve, reject) => {
-      ipcRenderer.once('found-one', (err, data) => {
+      ipcRenderer.once('found-one', (event, err, data) => {
         if (err) {
           console.error('failed to look up a record', conditions, err)
           reject(err)
@@ -25,7 +25,7 @@ class Database {
 
   static count(dbName, conditions) {
     return new Promise((resolve, reject) => {
-      ipcRenderer.once('counted', (err, count) => {
+      ipcRenderer.once('counted', (event, err, count) => {
         if (err) {
           console.error('failed to count records', err)
         } else {
@@ -38,9 +38,9 @@ class Database {
 
   static findAll(dbName, sort, conditions) {
     return new Promise((resolve, reject) => {
-      ipcRenderer.once('found-all', (err, rows) => {
+      ipcRenderer.once('found-all', (event, err, rows, val) => {
         if (err) {
-          console.error('failed to look up records', err)
+          console.error('failed to look up records', dbName, err)
           reject(err)
         } else {
           resolve(rows)
@@ -58,9 +58,9 @@ class Database {
   static deleteSome(dbName, conditions) {
     return new Promise((resolve, reject) => {
       const options = {}
-      ipcRenderer.once('deleted', (err, numRemoved) => {
+      ipcRenderer.once('deleted', (event, err, numRemoved) => {
         if (err) {
-          console.error('failed to delete record(s)', conditions)
+          console.error('failed to delete record(s)', dbName, conditions)
           reject()
         } else {
           console.log('deleted', numRemoved, 'record(s)', conditions)
@@ -77,12 +77,12 @@ class Database {
       const options = {}
       const update = { $set: data }
 
-      ipcRenderer.once('updated', (err, numReplaced) => {
+      ipcRenderer.once('updated', (event, err, numReplaced) => {
         if (err) {
-          console.error('failed to update record', id, err)
+          console.error('failed to update record', dbName, id, err)
           reject(err)
         } else {
-          console.log('updated', numReplaced, 'record', id)
+          console.log('updated', numReplaced, 'record', dbName, id)
           resolve({ _id: id })
         }
       })
@@ -96,14 +96,14 @@ class Database {
       data.createdAt = createdDate.toJSON()
       const rows = [data]
 
-      ipcRenderer.once('inserted', (err, newRecords) => {
+      ipcRenderer.once('inserted', (event, err, newRecords) => {
         if (err) {
-          console.error('failed to create record', data, err)
+          console.error('failed to create record', dbName, data, err)
           reject(err)
         } else {
           const newRecord = newRecords[0]
           newRecord.createdAt = createdDate
-          console.log('created record', newRecord)
+          console.log('created record', dbName, newRecord)
           resolve(newRecord)
         }
       })
@@ -123,9 +123,9 @@ class Database {
 
   static latest(dbName, conditions, sort) {
     return new Promise((resolve, reject) => {
-      ipcRenderer.once('found-latest', (err, rows) => {
+      ipcRenderer.once('found-latest', (event, err, rows) => {
         if (err) {
-          console.error('failed to load latest record', err)
+          console.error('failed to load latest record', dbName, err)
           reject(err)
         } else {
           resolve(rows[0])

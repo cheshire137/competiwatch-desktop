@@ -132,8 +132,6 @@ class AppMenu {
   }
 
   bugReportMenuItem() {
-    const self = this
-
     return {
       label: 'Report a Bug',
       click() { shell.openExternal(PackageInfo.bugs.url) }

@@ -11,9 +11,9 @@ class MatchesPage extends Component {
   }
 
   refreshAccount = () => {
-    const { dbAccounts, accountID } = this.props
+    const { accountID } = this.props
 
-    Account.find(dbAccounts, accountID).then(account => {
+    Account.find(accountID).then(account => {
       this.setState(prevState => ({ account }))
     })
   }
@@ -42,7 +42,7 @@ class MatchesPage extends Component {
   }
 
   render() {
-    const { dbMatches, onPageChange, season } = this.props
+    const { onPageChange, season } = this.props
     const { totalMatches, account } = this.state
 
     return (
@@ -58,7 +58,6 @@ class MatchesPage extends Component {
         {account ? (
           <MatchesList
             totalMatches={totalMatches}
-            db={dbMatches}
             season={season}
             account={account}
             onLoad={this.onMatchesLoad}

@@ -9,12 +9,12 @@ class AccountSelect extends Component {
   }
 
   refreshActiveAccount = () => {
-    const { db, activeAccountID } = this.props
+    const { activeAccountID } = this.props
     if (!activeAccountID) {
       return
     }
 
-    Account.find(db, activeAccountID).then(account => {
+    Account.find(activeAccountID).then(account => {
       this.setState(prevState => ({ activeAccount: account }))
     })
   }

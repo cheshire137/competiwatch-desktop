@@ -11,7 +11,7 @@ class SeasonsList extends Component {
   }
 
   render() {
-    const { latestSeason, db, firstNonDeletableSeason, onDelete } = this.props
+    const { latestSeason, firstNonDeletableSeason, onDelete } = this.props
     const seasons = Array.from({ length: latestSeason }, (v, k) => k + 1).reverse()
 
     return (
@@ -29,7 +29,6 @@ class SeasonsList extends Component {
               {season > firstNonDeletableSeason && i === 0 ? (
                 <SeasonDeleteForm
                   season={season}
-                  db={db}
                   onDelete={onDelete}
                 />
               ) : ''}

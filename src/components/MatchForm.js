@@ -136,7 +136,7 @@ class MatchForm extends Component {
       return
     }
 
-    const { accountID, db, season, isPlacement, id } = this.props
+    const { accountID, season, isPlacement, id } = this.props
     const data = {
       comment,
       map,
@@ -163,7 +163,7 @@ class MatchForm extends Component {
     }
 
     const match = new Match(data)
-    match.save(db).then(() => {
+    match.save().then(() => {
       if (id) {
         this.props.onUpdate()
       } else {

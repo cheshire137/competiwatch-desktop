@@ -32,13 +32,13 @@ class AccountListItem extends Component {
   }
 
   refreshMatchData = () => {
-    const { account, dbMatches, season } = this.props
+    const { account, season } = this.props
 
-    account.latestMatch(dbMatches, season).then(match => {
+    account.latestMatch(season).then(match => {
       this.setState(prevState => ({ latestMatch: match }))
     })
 
-    account.totalMatches(dbMatches, season).then(count => {
+    account.totalMatches(season).then(count => {
       this.setState(prevState => ({ totalMatches: count }))
     })
   }
@@ -54,10 +54,10 @@ class AccountListItem extends Component {
   }
 
   exportSeasonTo = path => {
-    const { season, account, dbMatches } = this.props
+    const { season, account } = this.props
     const exporter = new CsvExporter(path, season, account)
 
-    exporter.export(dbMatches).then(() => {
+    exporter.export().then(() => {
       console.log(`exported ${account.battletag}'s season ${season}`, path)
     })
   }
@@ -79,7 +79,7 @@ class AccountListItem extends Component {
   }
 
   render() {
-    const { account, dbAccounts, dbMatches, onDelete, season } = this.props
+    const { account, onDelete, season } = this.props
     const { battletag, _id } = account
     const { latestMatch, totalMatches } = this.state
 
@@ -93,10 +93,8 @@ class AccountListItem extends Component {
           >{battletag}</button>
           <AccountDeleteForm
             _id={_id}
-            dbAccounts={dbAccounts}
             onDelete={onDelete}
             battletag={battletag}
-            dbMatches={dbMatches}
           />
         </div>
         <div className="text-gray account-meta d-flex flex-items-center">

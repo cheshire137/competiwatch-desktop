@@ -39,16 +39,16 @@ class ImportForm extends Component {
 
   importFromPath = () => {
     const { path } = this.state
-    const { season, account, db } = this.props
+    const { season, account } = this.props
     const importer = new CsvImporter(path, season, account._id)
 
     console.log('wiped season', season, 'for account', account._id)
-    importer.import(db, this.logMatchImport)
+    importer.import(this.logMatchImport)
       .then(this.onImportComplete)
   }
 
   wipeSeasonAndImport = () => {
-    const { season, account, db } = this.props
+    const { season, account } = this.props
 
     this.setState(prevState => {
       const logEntries = prevState.importLogEntries.slice(0)
@@ -59,7 +59,7 @@ class ImportForm extends Component {
       return { isImporting: true, importLogEntries: logEntries }
     })
 
-    Match.wipeSeason(db, account._id, season).then(this.importFromPath)
+    Match.wipeSeason(account._id, season).then(this.importFromPath)
   }
 
   onFormSubmit = event => {

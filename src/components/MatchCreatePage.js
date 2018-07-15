@@ -13,7 +13,7 @@ class MatchCreatePage extends Component {
   }
 
   render() {
-    const { db, accountID, latestRank, isPlacement,
+    const { accountID, latestRank, isPlacement,
             isLastPlacement, season } = this.props
 
     return (
@@ -21,7 +21,6 @@ class MatchCreatePage extends Component {
         <MatchForm
           season={season}
           accountID={accountID}
-          db={db}
           isPlacement={isPlacement}
           isLastPlacement={isLastPlacement}
           latestRank={latestRank}

@@ -18,7 +18,7 @@ class AccountForm extends Component {
     const data = { battletag }
     const account = new Account(data)
 
-    account.save(this.props.db).then(() => {
+    account.save().then(() => {
       this.setState(prevState => ({ battletag: '', isValid: false }))
       this.props.onCreate()
     })

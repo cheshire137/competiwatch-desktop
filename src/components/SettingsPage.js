@@ -8,7 +8,7 @@ class SettingsPage extends Component {
   }
 
   render() {
-    const { dbSettings, accounts, settings, onSave } = this.props
+    const { accounts, settings, onSave } = this.props
 
     return (
       <div className="container layout-children-container">
@@ -23,7 +23,6 @@ class SettingsPage extends Component {
           className="h1 mb-2 mt-4"
         >Settings</h1>
         <SettingsForm
-          dbSettings={dbSettings}
           accounts={accounts}
           settings={settings}
           onSave={onSave}

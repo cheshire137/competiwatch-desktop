@@ -35,8 +35,8 @@ class CsvExporter {
     })
   }
 
-  getMatches = db => {
-    return Match.findAll(db, this.accountID, this.season)
+  getMatches = () => {
+    return Match.findAll(this.accountID, this.season)
   }
 
   getValueFor = (header, match) => {
@@ -136,8 +136,8 @@ class CsvExporter {
     })
   }
 
-  async export(dbMatches) {
-    const matches = await this.getMatches(dbMatches)
+  async export() {
+    const matches = await this.getMatches()
 
     return this.generateCsv(matches)
       .then(csv => this.writeFile(csv))

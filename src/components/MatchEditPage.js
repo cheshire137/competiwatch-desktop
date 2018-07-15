@@ -10,11 +10,11 @@ class MatchEditPage extends Component {
   }
 
   loadMatch = () => {
-    const { id, db } = this.props
-    Match.find(db, id).then(match => {
+    const { id } = this.props
+    Match.find(id).then(match => {
       this.setState(prevState => ({ match }))
 
-      match.isLastPlacement(db).then(isLastPlacement => {
+      match.isLastPlacement().then(isLastPlacement => {
         this.setState(prevState => ({ isLastPlacement }))
       })
     })
@@ -40,13 +40,12 @@ class MatchEditPage extends Component {
       return null
     }
 
-    const { db, id } = this.props
+    const { id } = this.props
     return (
       <MatchForm
         id={id}
         season={match.season}
         accountID={match.accountID}
-        db={db}
         isPlacement={match.isPlacement}
         isLastPlacement={isLastPlacement}
         latestRank={match.rank}
@@ -71,7 +70,7 @@ class MatchEditPage extends Component {
   }
 
   render() {
-    const { id, db } = this.props
+    const { id } = this.props
 
     return (
       <div className="container layout-children-container">
@@ -79,7 +78,6 @@ class MatchEditPage extends Component {
         <div className="border-top pt-2 mt-4">
           <MatchDeleteForm
             _id={id}
-            db={db}
             onDelete={this.loadMatchesPage}
           />
         </div>

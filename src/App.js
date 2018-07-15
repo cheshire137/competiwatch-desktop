@@ -27,11 +27,7 @@ class App extends Component {
     this.state = {
       latestRank: 2500,
       isPlacement: false,
-      latestSeason: latestKnownSeason,
-      dbAccountsLoaded: false,
-      dbSettingsLoaded: false,
-      dbSeasonsLoaded: false,
-      dbMatchesLoaded: false
+      latestSeason: latestKnownSeason
     }
   }
 
@@ -53,7 +49,7 @@ class App extends Component {
 
   refreshAccounts = () => {
     return new Promise((resolve, reject) => {
-      Account.findAll(this.state.dbAccounts).then(accounts => {
+      Account.findAll().then(accounts => {
         this.setState(prevState => ({ accounts }), () => {
           this.updateAppMenu()
           resolve()
@@ -63,7 +59,7 @@ class App extends Component {
   }
 
   refreshLatestSeason = () => {
-    Season.latest(this.state.dbSeasons).then(number => {
+    Season.latest().then(number => {
       if (number) {
         this.changeActiveSeason(number)
       } else {
@@ -73,7 +69,7 @@ class App extends Component {
   }
 
   refreshSettings = () => {
-    Setting.load(this.state.dbSettings).then(settings => {
+    Setting.load().then(settings => {
       this.setState(prevState => {
         const newState = { settings }
 
@@ -89,31 +85,7 @@ class App extends Component {
     })
   }
 
-  loadDatabases() {
-    ipcRenderer.once('accounts-db-loaded', () => {
-      this.setState(prevState => ({ dbAccountsLoaded: true }))
-    })
-
-    ipcRenderer.once('settings-db-loaded', () => {
-      this.setState(prevState => ({ dbSettingsLoaded: true }))
-    })
-
-    ipcRenderer.once('seasons-db-loaded', () => {
-      this.setState(prevState => ({ dbSeasonsLoaded: true }))
-    })
-
-    ipcRenderer.once('matches-db-loaded', () => {
-      this.setState(prevState => ({ dbMatchesLoaded: true }))
-    })
-
-    ipcRenderer.send('load-accounts-db')
-    ipcRenderer.send('load-settings-db')
-    ipcRenderer.send('load-seasons-db')
-    ipcRenderer.send('load-matches-db')
-  }
-
   componentDidMount() {
-    this.loadDatabases()
     this.refreshLatestSeason()
     this.refreshAccounts().then(() => {
       this.refreshSettings()
@@ -163,6 +135,9 @@ class App extends Component {
 
   updateAppMenu = () => {
     const { activeAccountID, activeSeason, latestSeason, accounts } = this.state
+    if (!accounts) {
+      return
+    }
 
     new AppMenu({
       onPageChange: this.changeActivePage,
@@ -218,12 +193,11 @@ class App extends Component {
 
   renderActivePage = () => {
     const { activePage, activeAccountID, latestRank, isPlacement,
-            isLastPlacement, activeSeason, latestSeason, dbMatchesLoaded,
-            activeMatchID, accounts, settings, dbAccountsLoaded,
-            dbSettingsLoaded, dbSeasonsLoaded } = this.state
+            isLastPlacement, activeSeason, latestSeason,
+            activeMatchID, accounts, settings } = this.state
     const haveActiveSeason = typeof activeSeason === 'number' && !isNaN(activeSeason)
 
-    if (activePage === 'matches' && dbAccountsLoaded && dbMatchesLoaded && haveActiveSeason && activeAccountID) {
+    if (activePage === 'matches' && haveActiveSeason && activeAccountID) {
       return (
         <MatchesPage
           accountID={activeAccountID}
@@ -234,7 +208,7 @@ class App extends Component {
       )
     }
 
-    if (activePage === 'log-match' && dbMatchesLoaded && haveActiveSeason) {
+    if (activePage === 'log-match' && haveActiveSeason) {
       return (
         <MatchCreatePage
           accountID={activeAccountID}
@@ -247,7 +221,7 @@ class App extends Component {
       )
     }
 
-    if (activePage === 'manage-seasons' && dbSeasonsLoaded) {
+    if (activePage === 'manage-seasons') {
       return (
         <SeasonsPage
           latestSeason={latestSeason}
@@ -258,7 +232,7 @@ class App extends Component {
       )
     }
 
-    if (activePage === 'import' && dbMatchesLoaded && dbAccountsLoaded && haveActiveSeason && activeAccountID) {
+    if (activePage === 'import' && haveActiveSeason && activeAccountID) {
       return (
         <ImportPage
           season={activeSeason}
@@ -268,7 +242,7 @@ class App extends Component {
       )
     }
 
-    if (activePage === 'edit-match' && dbMatchesLoaded && activeMatchID) {
+    if (activePage === 'edit-match' && activeMatchID) {
       return (
         <MatchEditPage
           id={activeMatchID}
@@ -285,7 +259,7 @@ class App extends Component {
       )
     }
 
-    if (activePage === 'settings' && dbSettingsLoaded) {
+    if (activePage === 'settings') {
       return (
         <SettingsPage
           onPageChange={this.changeActivePage}
@@ -296,7 +270,7 @@ class App extends Component {
       )
     }
 
-    if (activePage === 'accounts' && dbAccountsLoaded && dbMatchesLoaded && haveActiveSeason) {
+    if (activePage === 'accounts' && haveActiveSeason) {
       return (
         <AccountsPage
           accounts={accounts}
@@ -313,8 +287,8 @@ class App extends Component {
 
   render() {
     const { activePage, activeAccountID, activeSeason, latestSeason,
-            isPlacement, accounts, dbAccountsLoaded } = this.state
-    const showHeader = dbAccountsLoaded && activePage !== 'about' && activePage !== 'settings'
+            isPlacement, accounts } = this.state
+    const showHeader = activePage !== 'about' && activePage !== 'settings'
 
     return (
       <div className="layout-container">

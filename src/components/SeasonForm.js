@@ -14,7 +14,7 @@ class SeasonForm extends Component {
     }
 
     const season = new Season({ number: this.state.season })
-    season.save(this.props.db).then(() => {
+    season.save().then(() => {
       this.setState(prevState => ({ season: '' }))
       this.props.onCreate(season.number)
     })

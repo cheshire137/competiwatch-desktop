@@ -4,8 +4,7 @@ import AccountListItem from './AccountListItem'
 
 class AccountsList extends Component {
   render() {
-    const { onAccountChange, dbAccounts, onDelete,
-            dbMatches, season, accounts } = this.props
+    const { onAccountChange, onDelete, season, accounts } = this.props
     const totalAccounts = accounts.length
 
     return (
@@ -17,8 +16,6 @@ class AccountsList extends Component {
           {accounts.map(account => (
             <AccountListItem
               key={account._id}
-              dbAccounts={dbAccounts}
-              dbMatches={dbMatches}
               season={season}
               account={account}
               onDelete={onDelete}
