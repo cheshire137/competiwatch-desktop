@@ -7,10 +7,6 @@ import TimeOfDayEmoji from './TimeOfDayEmoji'
 import DayOfWeekEmoji from './DayOfWeekEmoji'
 import './MatchForm.css'
 
-const capitalize = str => {
-  return str.charAt(0).toUpperCase() + str.substr(1)
-}
-
 const dateTimeStrFrom = date => {
   const year = date.getFullYear()
   let month = date.getMonth() + 1
@@ -63,8 +59,12 @@ class MatchForm extends Component {
     super(props)
 
     let playedAt = props.playedAt
+    let dayOfWeek = props.dayOfWeek
+    let timeOfDay = props.timeOfDay
     if (!props.id && !playedAt) {
       playedAt = new Date()
+      dayOfWeek = DayTimeApproximator.dayOfWeek(playedAt)
+      timeOfDay = DayTimeApproximator.timeOfDay(playedAt)
     }
 
     this.state = {
@@ -76,8 +76,8 @@ class MatchForm extends Component {
       groupSize: props.groupSize || 1,
       heroes: props.heroes || '',
       playedAt,
-      dayOfWeek: props.dayOfWeek,
-      timeOfDay: props.timeOfDay,
+      dayOfWeek,
+      timeOfDay,
       playOfTheGame: typeof props.playOfTheGame === 'boolean' ? props.playOfTheGame : false,
       allyThrower: typeof props.allyThrower === 'boolean' ? props.allyThrower : false,
       allyLeaver: typeof props.allyLeaver === 'boolean' ? props.allyLeaver : false,
@@ -222,12 +222,37 @@ class MatchForm extends Component {
   }
 
   onPlayedAtChange = event => {
-    const playedAt = event.target.value
+    let playedAt = event.target.value
+    if (playedAt && playedAt.length > 0) {
+      playedAt = new Date(playedAt)
+    }
     const dayOfWeek = DayTimeApproximator.dayOfWeek(playedAt)
     const timeOfDay = DayTimeApproximator.timeOfDay(playedAt)
 
     this.setState(prevState => ({ playedAt, dayOfWeek, timeOfDay }),
                   this.onFormFieldUpdate)
+  }
+
+  onDayOfWeekTimeOfDayChange = event => {
+    const dayOfWeekTimeOfDay = event.target.value
+    if (dayOfWeekTimeOfDay.indexOf('-') < 0) {
+      this.setState(prevState => ({ dayOfWeek: null, timeOfDay: null }),
+                    this.onFormFieldUpdate)
+      return
+    }
+
+    const parts = dayOfWeekTimeOfDay.split('-')
+    const dayOfWeek = parts[0]
+    const timeOfDay = parts[1]
+
+    this.setState(prevState => {
+      const newState = { dayOfWeek, timeOfDay }
+      if (prevState.dayOfWeek !== dayOfWeek ||
+          prevState.timeOfDay !== timeOfDay) {
+        newState.playedAt = null
+      }
+      return newState
+    }, this.onFormFieldUpdate)
   }
 
   onHeroChange = (hero, isSelected) => {
@@ -277,9 +302,12 @@ class MatchForm extends Component {
             playOfTheGame, result, isValid, dayOfWeek, timeOfDay } = this.state
     const { season, latestRank, isPlacement, isLastPlacement } = this.props
     let playedAtStr = playedAt
-    if (typeof playedAt === 'object') {
+    if (playedAt && typeof playedAt === 'object') {
       playedAtStr = dateTimeStrFrom(playedAt)
+    } else {
+      playedAtStr = ''
     }
+    const dayOfWeekTimeOfDay = `${dayOfWeek}-${timeOfDay}`
 
     return (
       <form
@@ -497,7 +525,7 @@ class MatchForm extends Component {
               <dt>
                 <label
                   htmlFor="match-played-at"
-                >Date played:</label>
+                >When did you play?</label>
               </dt>
               <dd>
                 <input
@@ -509,15 +537,25 @@ class MatchForm extends Component {
                 />
                 {dayOfWeek && timeOfDay ? (
                   <span className="d-inline-block ml-2">
-                    <DayOfWeekEmoji dayOfWeek={dayOfWeek} />
-                    <span> </span>
-                    <TimeOfDayEmoji timeOfDay={timeOfDay} />
-                    <span> </span>
-                    {capitalize(dayOfWeek)}
-                    <span> </span>
-                    {timeOfDay}
+                    <DayOfWeekEmoji dayOfWeek={dayOfWeek} /> <TimeOfDayEmoji timeOfDay={timeOfDay} />
                   </span>
                 ) : null}
+                <select
+                  className="form-select ml-2"
+                  value={dayOfWeekTimeOfDay}
+                  aria-label="When did you generally play the game?"
+                  onChange={this.onDayOfWeekTimeOfDayChange}
+                >
+                  <option value="">Choose a day and time</option>
+                  <option value="weekday-morning">Weekday morning</option>
+                  <option value="weekday-afternoon">Weekday afternoon</option>
+                  <option value="weekday-evening">Weekday evening</option>
+                  <option value="weekday-night">Weekday night</option>
+                  <option value="weekend-morning">Weekend morning</option>
+                  <option value="weekend-afternoon">Weekend afternoon</option>
+                  <option value="weekend-evening">Weekend evening</option>
+                  <option value="weekend-night">Weekend night</option>
+                </select>
               </dd>
             </dl>
           </div>
