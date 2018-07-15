@@ -87,13 +87,16 @@ class CsvImporter {
     return match
   }
 
-  import(db) {
+  import(db, onSave) {
     return this.parseCsv().then(async rows => {
       const matches = []
+
       for (const row of rows) {
         const match = await this.importMatch(row, db)
+        onSave(match)
         matches.push(match)
       }
+
       return matches
     })
   }
