@@ -36,11 +36,12 @@ const isMatchValid = data => {
   if (typeof data.rank !== 'number' ||
       data.rank < minRank ||
       data.rank > maxRank) {
-    return false
-  }
-
-  if (data.isPlacement && !data.result) {
-    return false
+    if (data.isPlacement && !data.result) {
+      return false
+    }
+    if (!data.isPlacement) {
+      return false
+    }
   }
 
   if (data.groupSize && data.groupSize > maxGroupSize) {
