@@ -7,6 +7,7 @@
     "csv-generate": "^2.0.2",
     "csv-parse": "^2.5.0",
     "csv-stringify": "^3.1.1",
+    "electron-log": "^2.2.16",
     "nedb": "^1.8.0",
     "react": "^16.4.1",
     "react-click-outside": "^3.0.1",
