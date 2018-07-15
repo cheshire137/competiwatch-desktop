@@ -3,10 +3,10 @@ import Match from './Match'
 
 const fs = window.require('fs')
 const headers = [
-  'Rank', 'Map', 'Comment', 'Date', 'Day', 'Time', 'Heroes',
-  'Ally Leaver', 'Ally Thrower', 'Enemy Leaver', 'Enemy Thrower',
-  'Group', 'Placement', 'Result', 'Play of the Game', 'Season',
-  'Battletag'
+  'Battletag', 'Season', 'Rank', 'Rank Change', 'Result', 'Win Streak', 'Loss Streak',
+  'Placement', 'Map', 'Comment', 'Date', 'Day', 'Time', 'Heroes', 'Group', 'Play of the Game',
+  'Ally Leaver', 'Ally Thrower', 'Enemy Leaver', 'Enemy Thrower'
+
 ]
 
 const charForBoolean = boolean => {
@@ -43,6 +43,15 @@ class CsvExporter {
     if (header === 'Rank') {
       return match.rank
     }
+    if (header === 'Rank Change') {
+      return match.rankChange
+    }
+    if (header === 'Win Streak') {
+      return match.winStreak
+    }
+    if (header === 'Loss Streak') {
+      return match.lossStreak
+    }
     if (header === 'Map') {
       return match.map
     }
@@ -59,7 +68,7 @@ class CsvExporter {
       return match.timeOfDay
     }
     if (header === 'Heroes') {
-      return match.heroList
+      return match.heroList.join(', ')
     }
     if (header === 'Ally Leaver') {
       return charForBoolean(match.allyLeaver)
@@ -74,7 +83,7 @@ class CsvExporter {
       return charForBoolean(match.enemyThrower)
     }
     if (header === 'Group') {
-      return match.groupList
+      return match.groupList.join(', ')
     }
     if (header === 'Placement') {
       return charForBoolean(match.isPlacement)
