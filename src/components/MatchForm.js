@@ -421,7 +421,30 @@ class MatchForm extends Component {
                 </dd>
               </dl>
             </fieldset>
-            <dl className="form-group">
+            <div className="form-checkbox">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={playOfTheGame}
+                  onChange={this.onPlayOfTheGameChange}
+                />
+                Play of the game
+              </label>
+              <p className="note">Did you get play of the game in this match?</p>
+            </div>
+          </div>
+          <div className="col-md-12 col-lg-6 float-right">
+            <dl className="form-group my-0">
+              <dt className="text-bold">Heroes played:</dt>
+              <dd>
+                <HeroSelect
+                  heroes={heroes}
+                  season={season}
+                  onToggle={this.onHeroChange}
+                />
+              </dd>
+            </dl>
+            <dl className="form-group mt-0">
               <dt>
                 <label
                   htmlFor="match-played-at"
@@ -447,29 +470,6 @@ class MatchForm extends Component {
                   {timeOfDay}
                 </p>
               ) : null}
-            </dl>
-            <div className="form-checkbox mr-4 my-1">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={playOfTheGame}
-                  onChange={this.onPlayOfTheGameChange}
-                />
-                Play of the game
-              </label>
-              <p className="note">Did you get play of the game in this match?</p>
-            </div>
-          </div>
-          <div className="col-md-12 col-lg-6 float-right">
-            <dl className="form-group my-0">
-              <dt className="text-bold">Heroes played:</dt>
-              <dd>
-                <HeroSelect
-                  heroes={heroes}
-                  season={season}
-                  onToggle={this.onHeroChange}
-                />
-              </dd>
             </dl>
           </div>
         </div>
