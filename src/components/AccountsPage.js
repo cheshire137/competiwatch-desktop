@@ -4,8 +4,8 @@ import AccountsList from './AccountsList'
 
 class AccountsPage extends Component {
   render() {
-    const { dbAccounts, dbMatches, loadMatchesForAccount,
-            season, accounts } = this.props
+    const { dbAccounts, dbMatches, onAccountChange, season,
+            accounts } = this.props
 
     return (
       <div className="container layout-children-container">
@@ -15,7 +15,7 @@ class AccountsPage extends Component {
             dbMatches={dbMatches}
             season={season}
             accounts={accounts}
-            loadMatchesForAccount={loadMatchesForAccount}
+            onAccountChange={onAccountChange}
           />
           <AccountForm
             db={dbAccounts}

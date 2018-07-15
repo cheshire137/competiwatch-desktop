@@ -111,10 +111,10 @@ class Header extends Component {
 
   render() {
     const { activeSeason, latestSeason, onSeasonChange,
-            dbAccounts, activeAccountID, loadMatchesForAccount } = this.props
+            dbAccounts, activeAccountID, onAccountChange } = this.props
 
     return (
-      <div className="mb-4">
+      <div className="mb-3">
         <div className="container mb-2 mt-4 d-flex flex-items-center">
           <SeasonSelect
             activeSeason={activeSeason}
@@ -126,7 +126,7 @@ class Header extends Component {
             <AccountSelect
               db={dbAccounts}
               activeAccountID={activeAccountID}
-              onChange={loadMatchesForAccount}
+              onChange={onAccountChange}
               onPageChange={this.changeActivePage}
             />
           ) : null}

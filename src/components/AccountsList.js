@@ -4,7 +4,7 @@ import AccountListItem from './AccountListItem'
 
 class AccountsList extends Component {
   render() {
-    const { loadMatchesForAccount, dbAccounts,
+    const { onAccountChange, dbAccounts,
             dbMatches, season, accounts } = this.props
     const totalAccounts = accounts.length
 
@@ -22,7 +22,7 @@ class AccountsList extends Component {
               season={season}
               {...account}
               onDelete={this.refreshAccounts}
-              loadMatchesForAccount={loadMatchesForAccount}
+              onAccountChange={onAccountChange}
             />
           ))}
           {accounts.length < 1 ? (

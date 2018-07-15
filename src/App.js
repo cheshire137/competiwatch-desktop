@@ -111,7 +111,7 @@ class App extends Component {
     new AppMenu({
       onPageChange: this.changeActivePage,
       onSeasonChange: this.changeActiveSeason,
-      onAccountChange: this.loadMatchesForAccount,
+      onAccountChange: this.onAccountChange,
       season: activeSeason,
       latestSeason,
       accountID: activeAccountID,
@@ -147,7 +147,7 @@ class App extends Component {
     this.changeActivePage('matches')
   }
 
-  loadMatchesForAccount = accountID => {
+  onAccountChange = accountID => {
     this.setState(prevState => ({ activeAccountID: accountID, activePage: 'matches' }),
                   this.updateAppMenu)
   }
@@ -232,7 +232,7 @@ class App extends Component {
         dbMatches={this.db.matches}
         season={activeSeason}
         onCreate={this.refreshAccounts}
-        loadMatchesForAccount={this.loadMatchesForAccount}
+        onAccountChange={this.onAccountChange}
       />
     )
   }
@@ -254,7 +254,7 @@ class App extends Component {
             isPlacement={isPlacement}
             dbAccounts={this.db.accounts}
             onSeasonChange={this.changeActiveSeason}
-            loadMatchesForAccount={this.loadMatchesForAccount}
+            onAccountChange={this.onAccountChange}
           />
         ) : null}
         {this.renderActivePage()}

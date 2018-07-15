@@ -12,7 +12,7 @@ class AccountListItem extends Component {
 
   viewAccountMatches = event => {
     event.target.blur()
-    this.props.loadMatchesForAccount(this.props._id)
+    this.props.onAccountChange(this.props._id)
   }
 
   refreshMatchData = () => {
