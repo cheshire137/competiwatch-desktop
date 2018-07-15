@@ -10,9 +10,11 @@ class AccountDeleteForm extends Component {
   deleteAccount = event => {
     event.preventDefault()
     const message = `Are you sure you want to delete ${this.props.battletag}?`
+
     if (window.confirm(message)) {
       const { _id, dbAccounts, onDelete } = this.props
       const account = new Account({ _id })
+
       account.delete(dbAccounts).then(onDelete)
     }
   }

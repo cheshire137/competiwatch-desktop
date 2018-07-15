@@ -232,6 +232,7 @@ class App extends Component {
         dbMatches={this.db.matches}
         season={activeSeason}
         onCreate={this.refreshAccounts}
+        onDelete={this.refreshAccounts}
         onAccountChange={this.onAccountChange}
       />
     )
