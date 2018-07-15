@@ -122,7 +122,7 @@ class Header extends Component {
   }
 
   render() {
-    const { activeSeason, latestSeason, onSeasonChange,
+    const { activeSeason, latestSeason, onSeasonChange, accounts,
             dbAccounts, activeAccountID, onAccountChange } = this.props
 
     return (
@@ -137,6 +137,7 @@ class Header extends Component {
           {activeAccountID ? (
             <AccountSelect
               db={dbAccounts}
+              accounts={accounts}
               activeAccountID={activeAccountID}
               onChange={onAccountChange}
               onPageChange={this.changeActivePage}

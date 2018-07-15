@@ -5,14 +5,7 @@ import enhanceWithClickOutside from 'react-click-outside'
 class AccountSelect extends Component {
   constructor(props) {
     super(props)
-    this.state = { isOpen: false, accounts: [] }
-  }
-
-  refreshAccounts = () => {
-    const { db } = this.props
-    Account.findAll(db).then(accounts => {
-      this.setState(prevState => ({ accounts }))
-    })
+    this.state = { isOpen: false }
   }
 
   refreshActiveAccount = () => {
@@ -27,14 +20,10 @@ class AccountSelect extends Component {
   }
 
   componentDidMount() {
-    this.refreshAccounts()
     this.refreshActiveAccount()
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.totalAccounts !== this.props.totalAccounts) {
-      this.refreshAccounts()
-    }
     if (prevProps.activeAccountID !== this.props.activeAccountID) {
       this.refreshActiveAccount()
     }
@@ -93,12 +82,12 @@ class AccountSelect extends Component {
   }
 
   render() {
-    const { accounts, activeAccount } = this.state
-
+    const { accounts } = this.props
     if (accounts.length < 1) {
       return null
     }
 
+    const { activeAccount } = this.state
     return (
       <div>
         <div className={this.containerClass()}>
