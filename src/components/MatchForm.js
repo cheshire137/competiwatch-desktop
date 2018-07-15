@@ -76,6 +76,8 @@ class MatchForm extends Component {
       groupSize: props.groupSize || 1,
       heroes: props.heroes || '',
       playedAt,
+      dayOfWeek: props.dayOfWeek,
+      timeOfDay: props.timeOfDay,
       playOfTheGame: typeof props.playOfTheGame === 'boolean' ? props.playOfTheGame : false,
       allyThrower: typeof props.allyThrower === 'boolean' ? props.allyThrower : false,
       allyLeaver: typeof props.allyLeaver === 'boolean' ? props.allyLeaver : false,
@@ -221,7 +223,11 @@ class MatchForm extends Component {
 
   onPlayedAtChange = event => {
     const playedAt = event.target.value
-    this.setState(prevState => ({ playedAt }), this.onFormFieldUpdate)
+    const dayOfWeek = DayTimeApproximator.dayOfWeek(playedAt)
+    const timeOfDay = DayTimeApproximator.timeOfDay(playedAt)
+
+    this.setState(prevState => ({ playedAt, dayOfWeek, timeOfDay }),
+                  this.onFormFieldUpdate)
   }
 
   onHeroChange = (hero, isSelected) => {
@@ -268,14 +274,8 @@ class MatchForm extends Component {
   render() {
     const { rank, comment, map, group, heroes, playedAt, groupSize,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
-            playOfTheGame, result, isValid } = this.state
+            playOfTheGame, result, isValid, dayOfWeek, timeOfDay } = this.state
     const { season, latestRank, isPlacement, isLastPlacement } = this.props
-    let dayOfWeek = null
-    let timeOfDay = null
-    if (playedAt) {
-      dayOfWeek = DayTimeApproximator.dayOfWeek(playedAt)
-      timeOfDay = DayTimeApproximator.timeOfDay(playedAt)
-    }
     let playedAtStr = playedAt
     if (typeof playedAt === 'object') {
       playedAtStr = dateTimeStrFrom(playedAt)
@@ -287,7 +287,7 @@ class MatchForm extends Component {
         className="mb-4"
       >
         <div className="clearfix">
-          <div className="col-md-12 col-lg-5 float-left pr-3-md">
+          <div className="col-md-12 col-lg-6 float-left pr-3-lg">
             <div className="d-flex-md mb-2 flex-items-center-md flex-justify-between-md">
               <div className="form-group my-0 d-flex flex-items-center">
                 {isPlacement ? (
@@ -369,7 +369,7 @@ class MatchForm extends Component {
                 <input
                   id="match-comment"
                   type="text"
-                  className="form-control"
+                  className="form-control width-full"
                   value={comment}
                   onChange={this.onCommentChange}
                   placeholder="Notes about this game"
@@ -388,7 +388,7 @@ class MatchForm extends Component {
                   <input
                     id="match-group"
                     type="text"
-                    className="form-control"
+                    className="form-control width-full"
                     value={group}
                     onChange={this.onGroupChange}
                     placeholder="Separate names with commas"
@@ -482,7 +482,7 @@ class MatchForm extends Component {
               </div>
             </div>
           </div>
-          <div className="col-md-12 col-lg-6 float-right">
+          <div className="col-md-12 col-lg-6 float-right pl-3-lg">
             <dl className="form-group my-0">
               <dt className="text-bold">Heroes played:</dt>
               <dd>
@@ -503,22 +503,22 @@ class MatchForm extends Component {
                 <input
                   id="match-played-at"
                   type="datetime-local"
-                  className="form-control"
+                  className="form-control datetime-local-control"
                   value={playedAtStr}
                   onChange={this.onPlayedAtChange}
                 />
+                {dayOfWeek && timeOfDay ? (
+                  <span className="d-inline-block ml-2">
+                    <DayOfWeekEmoji dayOfWeek={dayOfWeek} />
+                    <span> </span>
+                    <TimeOfDayEmoji timeOfDay={timeOfDay} />
+                    <span> </span>
+                    {capitalize(dayOfWeek)}
+                    <span> </span>
+                    {timeOfDay}
+                  </span>
+                ) : null}
               </dd>
-              {playedAt ? (
-                <p className="note">
-                  <DayOfWeekEmoji dayOfWeek={dayOfWeek} />
-                  <span> </span>
-                  <TimeOfDayEmoji timeOfDay={timeOfDay} />
-                  <span> </span>
-                  {capitalize(dayOfWeek)}
-                  <span> </span>
-                  {timeOfDay}
-                </p>
-              ) : null}
             </dl>
           </div>
         </div>

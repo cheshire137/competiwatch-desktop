@@ -58,6 +58,8 @@ class MatchEditPage extends Component {
         groupSize={match.groupSize}
         heroes={match.heroes}
         playedAt={match.playedAt}
+        dayOfWeek={match.dayOfWeek}
+        timeOfDay={match.timeOfDay}
         allyThrower={match.allyThrower}
         allyLeaver={match.allyLeaver}
         enemyThrower={match.enemyThrower}

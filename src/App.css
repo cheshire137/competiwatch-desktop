@@ -80,6 +80,16 @@
   }
 }
 
+@media (min-width: 1012px) {
+  .pl-3-lg {
+    padding-left: 16px !important;
+  }
+
+  .pr-3-lg {
+    padding-right: 16px !important;
+  }
+}
+
 .breadcrumb-item::after {
   padding-right: 0.8em;
 }

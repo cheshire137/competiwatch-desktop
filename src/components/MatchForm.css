@@ -19,3 +19,7 @@
 
 .text-ally { color:#337ebe; }
 .text-enemy { color:#de2d43; }
+
+.form-group .datetime-local-control.form-control {
+  width: 17em;
+}
