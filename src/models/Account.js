@@ -2,8 +2,8 @@ import Database from './Database'
 import Match from './Match'
 
 class Account {
-  static setupDatabase(env) {
-    const db = Database.load(`accounts${env}`)
+  static async setupDatabase(env) {
+    const db = await Database.load(`accounts-${env}`)
     db.ensureIndex({ fieldName: 'battletag', unique: true }, err => {
       if (err) {
         console.error('failed to add accounts.battletag index', err)

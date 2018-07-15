@@ -1,8 +1,9 @@
 import Database from './Database'
 
 class Setting {
-  static setupDatabase(env) {
-    return Database.load(`settings${env}`)
+  static async setupDatabase(env) {
+    const db = await Database.load(`settings-${env}`)
+    return db
   }
 
   static findAll(db) {

@@ -1,16 +1,26 @@
 import Datastore from 'nedb'
 import path from 'path'
 
-const remote = window.require('electron').remote
+const { ipcRenderer, remote } = window.require('electron')
 
 class Database {
   static load(name) {
-    const dbDir = remote.app.getPath('userData')
-    const filename = path.join(dbDir, `competiwatch-${name}.db`)
-    const db = new Datastore({ filename, autoload: true })
-    console.log('loading database', filename)
-    db.loadDatabase()
-    return db
+    return new Promise((resolve, reject) => {
+      const dbDir = remote.app.getPath('userData')
+      const dbName = `competiwatch-${name}`
+      const dbPath = path.join(dbDir, `${dbName}.db`)
+
+      console.log(`loading database ${dbName}...`)
+      ipcRenderer.send('load-database', dbPath)
+      ipcRenderer.on('loaded-database', (event, dbProps) => {
+        if (dbProps.filename === dbPath) {
+          const db = new Datastore(dbProps)
+          console.log('loaded database', db.filename)
+          db.loadDatabase()
+          resolve(db)
+        }
+      })
+    })
   }
 
   static findOne(db, conditions) {

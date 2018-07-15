@@ -73,8 +73,8 @@ const getLossStreak = (index, matches, count) => {
 const defaultSort = { playedAt: 1, createdAt: 1 }
 
 class Match {
-  static setupDatabase(env) {
-    const db = Database.load(`matches${env}`)
+  static async setupDatabase(env) {
+    const db = await Database.load(`matches-${env}`)
     return db
   }
 
