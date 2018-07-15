@@ -44,7 +44,7 @@ class Header extends Component {
       return null
     }
 
-    if (activePage === 'log-match' || activePage === 'edit-match') {
+    if (['log-match', 'edit-match', 'import'].indexOf(activePage) > -1) {
       return (
         <li className={this.listItemClass('matches')}>
           <button
