@@ -34,17 +34,28 @@ const dateTimeStrFrom = date => {
 
 const minRank = 0
 const maxRank = 5000
+const maxGroupSize = 6
 
 const isMatchValid = data => {
-  if (typeof data.rank === 'number' && data.rank >= minRank && data.rank <= maxRank) {
-    return true
+  if (typeof data.rank !== 'number' ||
+      data.rank < minRank ||
+      data.rank > maxRank) {
+    return false
   }
 
-  if (data.result && data.isPlacement) {
-    return true
+  if (data.isPlacement && !data.result) {
+    return false
   }
 
-  return false
+  if (data.groupSize && data.groupSize > maxGroupSize) {
+    return false
+  }
+
+  if (data.group && data.group.split(',').length > maxGroupSize) {
+    return false
+  }
+
+  return true
 }
 
 class MatchForm extends Component {
@@ -62,6 +73,7 @@ class MatchForm extends Component {
       comment: props.comment || '',
       map: props.map || '',
       group: props.group || '',
+      groupSize: props.groupSize || 1,
       heroes: props.heroes || '',
       playedAt,
       playOfTheGame: typeof props.playOfTheGame === 'boolean' ? props.playOfTheGame : false,
@@ -117,7 +129,7 @@ class MatchForm extends Component {
     event.preventDefault()
     const { rank, comment, map, group, heroes, playedAt,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
-            playOfTheGame, result, isValid } = this.state
+            playOfTheGame, result, isValid, groupSize } = this.state
     if (!isValid) {
       return
     }
@@ -127,6 +139,7 @@ class MatchForm extends Component {
       comment,
       map,
       group,
+      groupSize,
       accountID,
       heroes,
       playedAt,
@@ -190,7 +203,20 @@ class MatchForm extends Component {
 
   onGroupChange = event => {
     const group = event.target.value
-    this.setState(prevState => ({ group }), this.onFormFieldUpdate)
+    let groupSize = 1
+    if (group) {
+      const validGroupMembers = group.split(',').filter(member => member.trim().length > 0)
+      groupSize = validGroupMembers.length + 1
+    }
+    this.setState(prevState => ({ group, groupSize }), this.onFormFieldUpdate)
+  }
+
+  onGroupSizeChange = event => {
+    let groupSize = event.target.value
+    if (groupSize && groupSize.length > 0) {
+      groupSize = parseInt(groupSize, 10)
+    }
+    this.setState(prevState => ({ groupSize }), this.onFormFieldUpdate)
   }
 
   onPlayedAtChange = event => {
@@ -240,7 +266,7 @@ class MatchForm extends Component {
   }
 
   render() {
-    const { rank, comment, map, group, heroes, playedAt,
+    const { rank, comment, map, group, heroes, playedAt, groupSize,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
             playOfTheGame, result, isValid } = this.state
     const { season, latestRank, isPlacement, isLastPlacement } = this.props
@@ -350,26 +376,51 @@ class MatchForm extends Component {
                 />
               </dd>
             </dl>
-            <dl className="form-group">
-              <dt>
-                <label
-                  htmlFor="match-group"
-                >Group members:</label>
-              </dt>
-              <dd>
-                <input
-                  id="match-group"
-                  type="text"
-                  className="form-control"
-                  value={group}
-                  onChange={this.onGroupChange}
-                  placeholder="Separate names with commas"
-                />
-                <p className="note">
-                  List friends you grouped with.
-                </p>
-              </dd>
-            </dl>
+            <fieldset className="Box pt-2 pb-3 px-3">
+              <legend className="h5">Your group</legend>
+              <dl className="form-group mt-0">
+                <dt>
+                  <label
+                    htmlFor="match-group"
+                  >Group members:</label>
+                </dt>
+                <dd>
+                  <input
+                    id="match-group"
+                    type="text"
+                    className="form-control"
+                    value={group}
+                    onChange={this.onGroupChange}
+                    placeholder="Separate names with commas"
+                  />
+                  <p className="note">
+                    List friends you grouped with.
+                  </p>
+                </dd>
+              </dl>
+              <dl className="form-group mb-0">
+                <dt>
+                  <label
+                    htmlFor="match-group-size"
+                  >How many people did you queue with?</label>
+                </dt>
+                <dd>
+                  <select
+                    id="match-group-size"
+                    className="form-select"
+                    value={groupSize}
+                    onChange={this.onGroupSizeChange}
+                  >
+                    <option value="1">Nobody (solo queue)</option>
+                    <option value="2">1 other person</option>
+                    <option value="3">2 other people</option>
+                    <option value="4">3 other people</option>
+                    <option value="5">4 other people</option>
+                    <option value="6">5 other people (6-stack)</option>
+                  </select>
+                </dd>
+              </dl>
+            </fieldset>
             <dl className="form-group">
               <dt>
                 <label

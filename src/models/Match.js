@@ -125,10 +125,15 @@ class Match {
     this.isPlacement = data.isPlacement
     this.result = data.result
 
+    if (typeof data.groupSize === 'number' && !isNaN(data.groupSize)) {
+      this.groupSize = data.groupSize
+    } else if (typeof data.groupSize === 'string') {
+      this.groupSize = parseInt(data.groupSize, 10)
+    }
+
     if (typeof data.rank === 'number' && !isNaN(data.rank)) {
       this.rank = data.rank
-    }
-    if (typeof data.rank === 'string') {
+    } else if (typeof data.rank === 'string') {
       this.rank = parseInt(data.rank, 10)
     }
 
@@ -136,6 +141,10 @@ class Match {
     this.groupList = []
     if (this.group.length > 0) {
       this.groupList = this.group.split(',')
+    }
+
+    if (typeof this.groupSize !== 'number') {
+      this.groupSize = this.groupList.length + 1
     }
 
     this.heroes = cleanupCommaList(data.heroes)
@@ -211,6 +220,7 @@ class Match {
       comment: this.comment,
       map: this.map,
       group: this.group,
+      groupSize: this.groupSize,
       heroes: this.heroes,
       accountID: this.accountID,
       playedAt: this.playedAt,

@@ -55,6 +55,7 @@ class MatchEditPage extends Component {
         comment={match.comment}
         map={match.map}
         group={match.group}
+        groupSize={match.groupSize}
         heroes={match.heroes}
         playedAt={match.playedAt}
         allyThrower={match.allyThrower}

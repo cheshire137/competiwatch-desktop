@@ -4,8 +4,8 @@ import Match from './Match'
 const fs = window.require('fs')
 const headers = [
   'Battletag', 'Season', 'Rank', 'Rank Change', 'Result', 'Win Streak', 'Loss Streak',
-  'Placement', 'Map', 'Comment', 'Date', 'Day', 'Time', 'Heroes', 'Group', 'Play of the Game',
-  'Ally Leaver', 'Ally Thrower', 'Enemy Leaver', 'Enemy Thrower'
+  'Placement', 'Map', 'Comment', 'Date', 'Day', 'Time', 'Heroes', 'Group', 'Group Size',
+  'Play of the Game', 'Ally Leaver', 'Ally Thrower', 'Enemy Leaver', 'Enemy Thrower'
 
 ]
 
@@ -84,6 +84,9 @@ class CsvExporter {
     }
     if (header === 'Group') {
       return match.groupList.join(', ')
+    }
+    if (header === 'Group Size') {
+      return match.groupSize
     }
     if (header === 'Placement') {
       return charForBoolean(match.isPlacement)
