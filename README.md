@@ -14,6 +14,16 @@ npm run dev
 The app should launch and also open in your browser. You can close the
 browser tab.
 
+### Log Files
+
+While you run the app, Electron logs will end up in the following places:
+
+- on macOS: `~/Library/Logs/Competiwatch/log.log`
+- on Windows: `%USERPROFILE%\AppData\Roaming\Competiwatch\log.log`
+- on Linux: `~/.config/Competiwatch/log.log`
+
+React logs will show in your terminal.
+
 ## How to Build Executables
 
 For macOS, from a Mac run:
