@@ -2,7 +2,7 @@
 
 This is a work in progress. It's a desktop app to track your competitive match history in Overwatch.
 
-![Screenshot of match history](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot.png)
+![Screenshot in Windows](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot-2.png)
 
 ## How to Develop
 
