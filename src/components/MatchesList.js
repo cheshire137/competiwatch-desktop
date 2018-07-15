@@ -10,8 +10,8 @@ class MatchesList extends Component {
   }
 
   refreshMatches = () => {
-    const { db, onLoad, accountID, season } = this.props
-    Match.findAll(db, accountID, season).then(matches => {
+    const { db, onLoad, account, season } = this.props
+    Match.findAll(db, account._id, season).then(matches => {
       this.setState(prevState => ({ matches }))
       onLoad(matches.length)
     })
@@ -24,7 +24,7 @@ class MatchesList extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.totalMatches !== this.props.totalMatches ||
         prevProps.season !== this.props.season ||
-        prevProps.accountID !== this.props.accountID) {
+        prevProps.account._id !== this.props.account._id) {
       this.refreshMatches()
     }
   }
@@ -32,6 +32,7 @@ class MatchesList extends Component {
   changeToMatchFormPage = event => {
     event.target.blur()
     const { matches } = this.state
+
     if (matches.length > 0) {
       const latestMatch = matches[matches.length - 1]
       this.props.onPageChange('log-match', latestMatch.rank)
@@ -51,7 +52,7 @@ class MatchesList extends Component {
 
   render() {
     const { matches } = this.state
-    const { totalMatches, season } = this.props
+    const { totalMatches, season, account } = this.props
     const anyMatches = matches.length > 0
     const isLoading = totalMatches < 0
 
@@ -89,7 +90,9 @@ class MatchesList extends Component {
           </div>
         ) : isLoading ? null : (
           <div className="blankslate">
-            <h3 className="mb-2">No matches have been logged in season {season}</h3>
+            <h3
+              className="mb-2"
+            >No matches have been logged in season {season} for {account.battletag}</h3>
             <div className="d-flex flex-items-center flex-justify-between mx-auto populate-season-choices">
               <button
                 type="button"

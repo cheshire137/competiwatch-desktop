@@ -12,6 +12,7 @@ class MatchesPage extends Component {
 
   refreshAccount = () => {
     const { dbAccounts, accountID } = this.props
+
     Account.find(dbAccounts, accountID).then(account => {
       this.setState(prevState => ({ account }))
     })
@@ -41,12 +42,12 @@ class MatchesPage extends Component {
   }
 
   render() {
-    const { dbMatches, accountID, onPageChange, season } = this.props
-    const { totalMatches } = this.state
+    const { dbMatches, onPageChange, season } = this.props
+    const { totalMatches, account } = this.state
 
     return (
       <div className="container layout-children-container">
-        {totalMatches < 0 ? (
+        {totalMatches < 0 || !account ? (
           <div className="blankslate">
             <h1>
               <span className="ion ion-md-refresh mr-3 ion-spin" />
@@ -54,14 +55,16 @@ class MatchesPage extends Component {
             </h1>
           </div>
         ) : null}
-        <MatchesList
-          totalMatches={totalMatches}
-          db={dbMatches}
-          season={season}
-          accountID={accountID}
-          onLoad={this.onMatchesLoad}
-          onPageChange={onPageChange}
-        />
+        {account ? (
+          <MatchesList
+            totalMatches={totalMatches}
+            db={dbMatches}
+            season={season}
+            account={account}
+            onLoad={this.onMatchesLoad}
+            onPageChange={onPageChange}
+          />
+        ) : null}
       </div>
     )
   }
