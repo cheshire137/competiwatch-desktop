@@ -23,7 +23,7 @@ class AccountListItem extends Component {
       this.setState(prevState => ({ latestMatch: match }))
     })
 
-    account.totalMatches(dbMatches).then(count => {
+    account.totalMatches(dbMatches, season).then(count => {
       this.setState(prevState => ({ totalMatches: count }))
     })
   }
@@ -39,7 +39,8 @@ class AccountListItem extends Component {
   }
 
   render() {
-    const { battletag, _id, dbAccounts, dbMatches, onDelete } = this.props
+    const { battletag, _id, dbAccounts, dbMatches, onDelete,
+            season } = this.props
     const { latestMatch, totalMatches } = this.state
 
     return (
@@ -78,7 +79,7 @@ class AccountListItem extends Component {
           {totalMatches > 0 ? (
             <span>{totalMatches} match{totalMatches === 1 ? null : 'es'}</span>
           ) : (
-            <span>No matches</span>
+            <span>No matches in season {season}</span>
           )}
         </div>
       </li>

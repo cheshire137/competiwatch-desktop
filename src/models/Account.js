@@ -52,8 +52,11 @@ class Account {
     })
   }
 
-  totalMatches(db) {
+  totalMatches(db, season) {
     const conditions = { accountID: this._id }
+    if (typeof season === 'number') {
+      conditions.season = season
+    }
     return Database.count(db, conditions)
   }
 
