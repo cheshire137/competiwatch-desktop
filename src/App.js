@@ -24,7 +24,8 @@ class App extends Component {
       activePage: 'accounts',
       latestRank: 2500,
       isPlacement: false,
-      latestSeason: latestKnownSeason
+      latestSeason: latestKnownSeason,
+      accounts: []
     }
     this.db = {}
     const env = process.env.NODE_ENV
@@ -46,6 +47,12 @@ class App extends Component {
     }, this.updateAppMenu)
   }
 
+  refreshAccounts = () => {
+    Account.findAll(this.db.accounts).then(accounts => {
+      this.setState(prevState => ({ accounts }), this.updateAppMenu)
+    })
+  }
+
   componentDidMount() {
     Season.latest(this.db.seasons).then(number => {
       if (number) {
@@ -54,6 +61,7 @@ class App extends Component {
         this.changeActiveSeason(latestKnownSeason)
       }
     })
+    this.refreshAccounts()
   }
 
   setIsPlacement = (isPlacement, isLastPlacement) => {
@@ -98,14 +106,16 @@ class App extends Component {
   }
 
   updateAppMenu = () => {
-    const { activeAccountID, activeSeason, latestSeason } = this.state
+    const { activeAccountID, activeSeason, latestSeason, accounts } = this.state
 
     new AppMenu({
       onPageChange: this.changeActivePage,
       onSeasonChange: this.changeActiveSeason,
+      onAccountChange: this.loadMatchesForAccount,
       season: activeSeason,
       latestSeason,
-      accountID: activeAccountID
+      accountID: activeAccountID,
+      accounts
     })
   }
 
@@ -145,7 +155,7 @@ class App extends Component {
   renderActivePage = () => {
     const { activePage, activeAccountID, latestRank, isPlacement,
             isLastPlacement, activeSeason, latestSeason,
-            activeMatchID } = this.state
+            activeMatchID, accounts } = this.state
 
     if (activePage === 'matches') {
       return (
@@ -217,9 +227,11 @@ class App extends Component {
 
     return (
       <AccountsPage
+        accounts={accounts}
         dbAccounts={this.db.accounts}
         dbMatches={this.db.matches}
         season={activeSeason}
+        onCreate={this.refreshAccounts}
         loadMatchesForAccount={this.loadMatchesForAccount}
       />
     )

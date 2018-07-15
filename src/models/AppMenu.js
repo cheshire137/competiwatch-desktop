@@ -9,7 +9,9 @@ class AppMenu {
   constructor(options) {
     this.onPageChange = options.onPageChange
     this.onSeasonChange = options.onSeasonChange
+    this.onAccountChange = options.onAccountChange
     this.latestSeason = options.latestSeason
+    this.accounts = options.accounts
     this.showMatchesMenuItem = options.season && options.accountID
     this.showLogMatchMenuItem = this.showMatchesMenuItem
     this.isMac = os.release().indexOf('Macintosh') > -1
@@ -29,7 +31,7 @@ class AppMenu {
   }
 
   getMacMenuTemplate() {
-    return [
+    const menuItems = [
       {
         label: app.getName(),
         submenu: [
@@ -45,50 +47,64 @@ class AppMenu {
       {
         label: 'View',
         submenu: this.viewSubmenu()
-      },
-      {
-        label: 'Season',
-        submenu: this.seasonSubmenu()
-      },
-      {
-        label: 'Tools',
-        submenu: [
-          this.developerToolsMenuItem()
-        ]
-      },
-      {
-        label: 'Help',
-        submenu: [
-          this.bugReportMenuItem()
-        ]
       }
     ]
+    if (this.accounts.length > 0) {
+      menuItems.push({
+        label: 'Account',
+        submenu: this.accountSubmenu()
+      })
+    }
+    menuItems.push({
+      label: 'Season',
+      submenu: this.seasonSubmenu()
+    })
+    menuItems.push({
+      label: 'Tools',
+      submenu: [
+        this.developerToolsMenuItem()
+      ]
+    })
+    menuItems.push({
+      label: 'Help',
+      submenu: [
+        this.bugReportMenuItem()
+      ]
+    })
+    return menuItems
   }
 
   getNonMacMenuTemplate() {
-    return [
+    const menuItems = [
       {
         label: 'View',
         submenu: this.viewSubmenu()
-      },
-      {
-        label: 'Season',
-        submenu: this.seasonSubmenu()
-      },
-      {
-        label: 'Tools',
-        submenu: [
-          this.developerToolsMenuItem()
-        ]
-      },
-      {
-        label: 'Help',
-        submenu: [
-          this.aboutMenuItem(),
-          this.bugReportMenuItem()
-        ]
       }
     ]
+    if (this.accounts.length > 0) {
+      menuItems.push({
+        label: 'Account',
+        submenu: this.accountSubmenu()
+      })
+    }
+    menuItems.push({
+      label: 'Season',
+      submenu: this.seasonSubmenu()
+    })
+    menuItems.push({
+      label: 'Tools',
+      submenu: [
+        this.developerToolsMenuItem()
+      ]
+    })
+    menuItems.push({
+      label: 'Help',
+      submenu: [
+        this.aboutMenuItem(),
+        this.bugReportMenuItem()
+      ]
+    })
+    return menuItems
   }
 
   aboutMenuItem() {
@@ -175,6 +191,23 @@ class AppMenu {
       submenu.push(this.seasonMenuItem(season))
     }
     submenu.push(this.manageSeasonsMenuItem())
+    return submenu
+  }
+
+  accountMenuItem(account) {
+    const self = this
+
+    return {
+      label: account.battletag,
+      click() { self.onAccountChange(account._id) }
+    }
+  }
+
+  accountSubmenu() {
+    const submenu = []
+    for (const account of this.accounts) {
+      submenu.push(this.accountMenuItem(account))
+    }
     return submenu
   }
 

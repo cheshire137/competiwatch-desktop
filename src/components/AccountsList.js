@@ -3,33 +3,10 @@ import Account from '../models/Account'
 import AccountListItem from './AccountListItem'
 
 class AccountsList extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { accounts: [] }
-  }
-
-  refreshAccounts = () => {
-    const { dbAccounts, onLoad } = this.props
-    Account.findAll(dbAccounts).then(accounts => {
-      this.setState(prevState => ({ accounts }))
-      onLoad(accounts.length)
-    })
-  }
-
-  componentDidMount() {
-    this.refreshAccounts()
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.totalAccounts !== this.props.totalAccounts) {
-      this.refreshAccounts()
-    }
-  }
-
   render() {
-    const { accounts } = this.state
-    const { totalAccounts, loadMatchesForAccount, dbAccounts,
-            dbMatches, season } = this.props
+    const { loadMatchesForAccount, dbAccounts,
+            dbMatches, season, accounts } = this.props
+    const totalAccounts = accounts.length
 
     return (
       <div className="mb-4">

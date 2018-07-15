@@ -3,23 +3,9 @@ import AccountForm from './AccountForm'
 import AccountsList from './AccountsList'
 
 class AccountsPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { totalAccounts: 0 }
-  }
-
-  onAccountCreation = () => {
-    this.setState(prevState => ({ totalAccounts: prevState.totalAccounts + 1 }))
-  }
-
-  onAccountsLoad = totalAccounts => {
-    this.setState(prevState => ({ totalAccounts }))
-  }
-
   render() {
     const { dbAccounts, dbMatches, loadMatchesForAccount,
-            season } = this.props
-    const { totalAccounts } = this.state
+            season, accounts } = this.props
 
     return (
       <div className="container layout-children-container">
@@ -27,15 +13,14 @@ class AccountsPage extends Component {
           <AccountsList
             dbAccounts={dbAccounts}
             dbMatches={dbMatches}
-            onLoad={this.onAccountsLoad}
-            totalAccounts={totalAccounts}
             season={season}
+            accounts={accounts}
             loadMatchesForAccount={loadMatchesForAccount}
           />
           <AccountForm
             db={dbAccounts}
-            onCreate={this.onAccountCreation}
-            totalAccounts={totalAccounts}
+            onCreate={this.props.onCreate}
+            totalAccounts={accounts.length}
           />
         </div>
       </div>
