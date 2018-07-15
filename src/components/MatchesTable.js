@@ -78,11 +78,14 @@ class MatchesTable extends Component {
   render() {
     const { matches, onEdit } = this.props
     const rankChanges = this.matchRankChangesByResult()
-    const totalPlacementMatches = matches.filter(match => match.isPlacement).length
+    const firstMatchWithRank = this.firstMatchWithRank()
+    let totalPlacementMatches = matches.filter(match => match.isPlacement).length
+    if (totalPlacementMatches < 1 && firstMatchWithRank) {
+      totalPlacementMatches = 1
+    }
     const showThrowerLeaver = this.showshowThrowerLeaverColumn()
     const longestWinStreak = this.getLongestWinStreak()
     const longestLossStreak = this.getLongestLossStreak()
-    const firstMatchWithRank = this.firstMatchWithRank()
     const placementRank = this.placementRank(firstMatchWithRank)
 
     return (

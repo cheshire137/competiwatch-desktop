@@ -78,10 +78,14 @@ class MatchListItem extends Component {
   }
 
   matchNumber = () => {
-    const { match, index, totalPlacementMatches } = this.props
+    const { match, index, totalPlacementMatches, firstRankedMatchID } = this.props
 
     if (match.isPlacement) {
       return `P${index + 1}`
+    }
+
+    if (firstRankedMatchID === match._id && totalPlacementMatches === 1) {
+      return 'P'
     }
 
     return (index - totalPlacementMatches) + 1
