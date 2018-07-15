@@ -3,6 +3,7 @@ import Header from './components/Header'
 import Account from './models/Account'
 import Match from './models/Match'
 import Season from './models/Season'
+import AppMenu from './models/AppMenu'
 import AccountsPage from './components/AccountsPage'
 import MatchesPage from './components/MatchesPage'
 import MatchCreatePage from './components/MatchCreatePage'
@@ -46,6 +47,9 @@ class App extends Component {
   }
 
   componentDidMount() {
+    new AppMenu({
+      onPageChange: this.changeActivePage
+    })
     Season.latest(this.db.seasons).then(number => {
       if (number) {
         this.changeActiveSeason(number)
