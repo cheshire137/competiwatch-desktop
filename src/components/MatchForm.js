@@ -272,7 +272,7 @@ class MatchForm extends Component {
                 ) : (
                   <label
                     htmlFor="match-rank"
-                    className="label-lg mr-2"
+                    className="label-lg mr-2 no-wrap"
                   >New SR:</label>
                 )}
                 {isPlacement ? (
