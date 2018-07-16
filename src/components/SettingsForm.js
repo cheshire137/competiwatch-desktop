@@ -85,6 +85,9 @@ class SettingsForm extends Component {
                 >{account.battletag}</option>
               ))}
             </select>
+            <p className="note">
+              Which account's match history should load when you open the app.
+            </p>
           </dd>
         </dl>
         <dl className="form-group">
@@ -104,6 +107,9 @@ class SettingsForm extends Component {
               <option value="light">Light</option>
               <option value="dark">Dark</option>
             </select>
+            <p className="note">
+              Choose an appearance for the app.
+            </p>
           </dd>
         </dl>
         <div className="mb-4">
