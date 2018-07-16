@@ -66,12 +66,13 @@ class SettingsForm extends Component {
           <dt>
             <label
               htmlFor="default-account"
+              className="label-lg"
             >Default Battle.net account:</label>
           </dt>
           <dd>
             <select
               id="default-account"
-              className="form-select"
+              className="form-select select-lg"
               value={defaultAccountID}
               disabled={accounts.length < 1}
               onChange={this.onDefaultAccountIDChange}
@@ -90,12 +91,13 @@ class SettingsForm extends Component {
           <dt>
             <label
               htmlFor="theme"
+              className="label-lg"
             >App theme:</label>
           </dt>
           <dd>
             <select
               id="theme"
-              className="form-select"
+              className="form-select select-lg"
               value={theme}
               onChange={this.onThemeChange}
             >
@@ -107,7 +109,7 @@ class SettingsForm extends Component {
         <div className="mb-4">
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-primary btn-large"
           >Save settings</button>
         </div>
       </form>
