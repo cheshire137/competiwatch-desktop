@@ -137,9 +137,17 @@
   color: #fff;
 }
 
+.theme-dark .btn:disabled {
+  color: #999;
+}
+
 .theme-dark .btn:hover {
   background-color: #444d56;
   background-image: none;
+}
+
+.theme-dark .btn:disabled:hover {
+  background-color: #586069;
 }
 
 .theme-dark .form-control,
