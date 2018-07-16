@@ -139,3 +139,143 @@
 .background-rialto {
   background-color: #87d0a4;
 }
+
+.theme-dark .background-junkertown {
+  background-color: #b57e0a;
+}
+
+.theme-dark .background-hanamura {
+  background-color: #86385c;
+}
+
+.theme-dark .background-temple-of-anubis {
+  background-color: #a76c40;
+}
+
+.theme-dark .background-volskaya-industries {
+  background-color: #7063b7;
+}
+
+.theme-dark .background-dorado {
+  background-color: #a15e31;
+}
+
+.theme-dark .background-route-66 {
+  background-color: #994e49;
+}
+
+.theme-dark .background-watchpoint-gibraltar {
+  background-color: #58423f;
+}
+
+.theme-dark .background-eichenwalde {
+  background-color: #546857;
+}
+
+.theme-dark .background-blizzard-world {
+  background-color: #0471bb;
+}
+
+.theme-dark .background-hollywood {
+  background-color: #c68664;
+}
+
+.theme-dark .background-king-s-row {
+  background-color: #425a5c;
+}
+
+.theme-dark .background-numbani {
+  background-color: #566036;
+}
+
+.theme-dark .background-ilios {
+  background-color: #788bce;
+}
+
+.theme-dark .background-lijiang-tower {
+  background-color: #b55f4e;
+}
+
+.theme-dark .background-nepal {
+  background-color: #5a7cc6;
+}
+
+.theme-dark .background-oasis {
+  background-color: #b37061;
+}
+
+.theme-dark .background-horizon-lunar-colony {
+  background-color: #3d3939;
+}
+
+.theme-dark .background-rialto {
+  background-color: #789c86;
+}
+
+.theme-dark .darken-change {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.theme-dark .darken-change-win {
+  background-color: rgba(35, 103, 0, 0.5);
+}
+
+.theme-dark .darken-change-loss {
+  background-color: rgba(175, 18, 27, 0.5);
+}
+
+.theme-dark .darken-change-draw {
+  background-color: #a88600;
+}
+
+
+.theme-dark .match-placement-row .match-cell.sr-change-cell,
+.theme-dark .match-placement-row .match-cell.rank-cell,
+.theme-dark .match-placement-row .match-cell.comment-cell,
+.theme-dark .match-placement-row .match-cell.time-cell,
+.theme-dark .match-placement-row .match-cell.heroes-cell,
+.theme-dark .match-placement-row .match-cell.throwers-leavers-cell,
+.theme-dark .match-placement-row .match-cell.options-cell,
+.theme-dark .match-placement-row .match-cell.friends-cell,
+.theme-dark .match-placement-row .match-cell.potg-cell {
+  background-color: #3a434b;
+}
+
+.theme-dark .match-number-cell.match-cell,
+.theme-dark .match-placement-log-row .match-number-cell.match-cell {
+  background-color: #444d56;
+  color: #d1d5da;
+}
+
+.theme-dark .rank-cell.better-than-placement,
+.theme-dark .result-win.result-cell {
+  background-color: #69a32a;
+  color: #f8f9f7;
+}
+
+.theme-dark .result-draw.result-cell,
+.theme-dark .streak-empty {
+  background-color: #a88600;
+}
+
+.theme-dark .match-placement-log-row .match-cell,
+.theme-dark .match-placement-log-row .match-cell.streak-empty {
+  background-color: #2f363d;
+}
+
+.theme-dark .match-placement-log-row .match-cell.rank-cell,
+.theme-dark
+  .match-placement-row.match-last-placement-row
+  .match-cell.rank-cell {
+  background-color: #a77d0a;
+}
+
+.theme-dark .rank-cell.worse-than-placement,
+.theme-dark .result-loss.result-cell {
+  background-color: #af121b;
+  color: #f9e3e4;
+}

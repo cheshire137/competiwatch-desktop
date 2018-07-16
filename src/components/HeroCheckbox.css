@@ -130,4 +130,70 @@
   color: #897f69;
 }
 
+.theme-dark .text-bastion {
+  color: #bac1c9;
+}
 
+.theme-dark .text-brigitte {
+  color: #d2947b;
+}
+
+.theme-dark .disabled .text-brigitte {
+  color: #cb8468;
+}
+
+.theme-dark .disabled .text-doomfist {
+  color: #e04e34;
+}
+
+.theme-dark .disabled .text-orisa {
+  color: #9fbc30;
+}
+
+.theme-dark .text-hanzo {
+  color: #b9a555;
+}
+
+.theme-dark .text-mccree {
+  color: #e0634b;
+}
+
+.theme-dark .text-mercy {
+  color: #ffe100;
+}
+
+.theme-dark .text-moira {
+  color: #9f67ea;
+}
+
+.theme-dark .disabled .text-moira {
+  color: #9150e7;
+}
+
+.theme-dark .text-reaper {
+  color: #b3b3b3;
+}
+
+.theme-dark .text-reinhardt {
+  color: #b1a7a1;
+}
+
+.theme-dark .text-soldier76 {
+  color: #fd4046;
+}
+
+.theme-dark .text-sombra {
+  color: #c186d0;
+}
+
+.theme-dark .disabled .text-sombra {
+  color: #b774c9;
+}
+
+.theme-dark .text-winston {
+  color: #6c80a3;
+}
+
+.theme-dark .text-zenyatta {
+  color: #b7b0a1;
+}

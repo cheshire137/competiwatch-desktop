@@ -12,6 +12,164 @@
   width: 95%;
 }
 
+.select-menu-modal {
+  font-size: 14px;
+}
+
+.theme-dark {
+  background-color: #24292e;
+  color: #e1e4e8;
+}
+
+.theme-dark .h1,
+.theme-dark .h2,
+.theme-dark .h3 {
+  color: #959da5;
+}
+
+.theme-dark .h4,
+.theme-dark .comment-cell {
+  color: #d1d5da;
+}
+
+.theme-dark a,
+.theme-dark .btn-link,
+.theme-dark a.h1,
+.theme-dark a.h2,
+.theme-dark a.h3,
+.theme-dark .blankslate a.h1,
+.theme-dark .Box a.h1,
+.theme-dark .dropdown-menu a.h1,
+.theme-dark .blankslate a.h2,
+.theme-dark .Box a.h2,
+.theme-dark .dropdown-menu a.h2,
+.theme-dark .blankslate a.h3,
+.theme-dark .Box a.h3,
+.theme-dark .dropdown-menu a.h3 {
+  color: #a6abee;
+}
+
+.theme-dark .match-header {
+  background-color: #212b49;
+}
+
+.theme-dark .border-top,
+.theme-dark .border-bottom,
+.theme-dark .border,
+.theme-dark .border-left,
+.theme-dark .border-right {
+  border-color: #464f59 !important;
+}
+
+.theme-dark .text-gray {
+  color: #d1d5da !important;
+}
+
+.theme-dark .text-gray-dark {
+  color: #e1e4e8 !important;
+}
+
+.theme-dark .text-orange {
+  color: #ffab70 !important;
+}
+
+.theme-dark .text-red {
+  color: #f97583 !important;
+}
+
+.theme-dark .note {
+  color: #d1d5da;
+}
+
+.theme-dark .match-cell,
+.theme-dark .match-header {
+  border-color: #2f363d;
+}
+
+.theme-dark .blankslate,
+.theme-dark .Box {
+  background-color: #2f363d;
+  border-color: #444d56;
+}
+
+.theme-dark .blankslate .h1,
+.theme-dark .blankslate .h2,
+.theme-dark .blankslate .h3,
+.theme-dark .Box .h1,
+.theme-dark .Box .h2,
+.theme-dark .Box .h3 {
+  color: #d1d5da;
+}
+
+.theme-dark .btn-outline {
+  background-color: #586069;
+}
+
+.theme-dark .btn-primary.btn-large {
+  background-color: #4271a0;
+}
+
+.theme-dark .btn-primary.btn-large:disabled {
+  color: #ccc;
+}
+
+.theme-dark .btn-primary.btn-large:disabled:hover {
+  background-color: #4271a0;
+}
+
+.theme-dark .btn-primary.btn-large:not(:disabled):hover {
+  background-color: #276aad;
+}
+
+.theme-dark .btn,
+.theme-dark .form-control,
+.theme-dark .form-select {
+  border-color: #4a5158;
+}
+
+.theme-dark .form-control::placeholder {
+  color: #999;
+}
+
+.theme-dark .btn {
+  background-color: #586069;
+  background-image: none;
+  color: #fff;
+}
+
+.theme-dark .btn:hover {
+  background-color: #444d56;
+  background-image: none;
+}
+
+.theme-dark .form-control,
+.theme-dark .form-select,
+.theme-dark .form-group .form-control:focus {
+  background-color: rgba(40, 40, 40, 0.4);
+  color: #fff;
+}
+
+.theme-dark .select-menu-modal {
+  background-color: #444d56;
+  color: #fff;
+}
+
+.theme-dark .select-menu-item {
+  border-color: #4f5d6d;
+}
+
+.theme-dark .select-menu-item.selected {
+  color: #fff;
+}
+
+@supports (position: sticky) {
+  @media (min-width: 768px) {
+    .theme-dark .sticky-nav {
+      background-color: #24292e;
+    }
+  }
+}
+
 @media (max-width: 1010px) {
   .d-inline-block-below-lg {
     display: inline-block !important;

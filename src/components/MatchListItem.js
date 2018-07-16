@@ -210,6 +210,8 @@ class MatchListItem extends Component {
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
             rankChange, dayOfWeek, timeOfDay, groupSize } = match
     const timeAndDayPresent = dayOfWeek && timeOfDay && dayOfWeek.length > 0 && timeOfDay.length > 0
+    const isWin = match.isWin()
+    const isLoss = match.isLoss()
 
     return (
       <tr className={this.outerClass()}>
@@ -227,7 +229,12 @@ class MatchListItem extends Component {
           style={this.rankChangeStyle()}
           className="position-relative match-cell sr-change-cell"
         >
-          {typeof rankChange === 'number' ? rankChange : (
+          {typeof rankChange === 'number' ? (
+            <span className={`darken-change darken-change-${result}`} />
+          ) : null}
+          {typeof rankChange === 'number' ? (
+            <span className="position-relative">{rankChange}</span>
+          ) : (
             <span>&mdash;</span>
           )}
         </td>
@@ -247,7 +254,14 @@ class MatchListItem extends Component {
           className={this.streakClass()}
           style={this.streakStyle()}
         >
-          {match.isWin() ? match.winStreak : match.isLoss() ? match.lossStreak : null}
+          {isWin || isLoss ? (
+            <span className={`darken-change darken-change-${result}`} />
+          ) : null}
+          {isWin ? (
+            <span className="position-relative">{match.winStreak}</span>
+          ) : isLoss ? (
+            <span className="position-relative">{match.lossStreak}</span>
+          ) : null}
         </td>
         <td
           className={`match-cell no-wrap ${this.mapBackgroundClass()}`}

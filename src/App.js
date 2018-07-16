@@ -285,13 +285,21 @@ class App extends Component {
     return <LoadingPage />
   }
 
+  outerClass = () => {
+    const { settings } = this.state
+    if (settings) {
+      return `layout-container theme-${settings.theme}`
+    }
+    return 'layout-container'
+  }
+
   render() {
     const { activePage, activeAccountID, activeSeason, latestSeason,
             isPlacement, accounts } = this.state
     const showHeader = activePage !== 'about' && activePage !== 'settings'
 
     return (
-      <div className="layout-container">
+      <div className={this.outerClass()}>
         {showHeader ? (
           <Header
             accounts={accounts}
