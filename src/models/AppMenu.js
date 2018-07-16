@@ -220,7 +220,7 @@ class AppMenu {
     const self = this
 
     return {
-      label: this.isMac ? 'Preferences' : 'Settings',
+      label: this.isMac ? 'Preferences' : 'Options',
       accelerator: `CmdOrCtrl+,`,
       click() { self.onPageChange('settings') }
     }
@@ -236,10 +236,6 @@ class AppMenu {
 
   editSubmenu() {
     const submenu = []
-    if (!this.isMac) {
-      submenu.push(this.settingsMenuItem())
-      submenu.push({ type: 'separator' })
-    }
     submenu.push({ role: 'undo' })
     submenu.push({ role: 'redo' })
     submenu.push({ type: 'separator' })
@@ -254,7 +250,12 @@ class AppMenu {
     const submenu = []
     if (this.showLogMatchMenuItem) {
       submenu.push(this.importMatchesMenuItem())
-      submenu.push({ type: 'separator' })
+    }
+    if (!this.isMac) {
+      submenu.push(this.settingsMenuItem())
+    }
+    if (!this.isMac || this.showLogMatchMenuItem) {
+      submenu.push({ type: 'separator' })      
     }
     submenu.push(this.developerToolsMenuItem())
     return submenu
