@@ -4,8 +4,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "csv-parse": "^2.5.0",
-    "csv-stringify": "^3.1.1",
     "electron-log": "^2.2.16",
     "nedb": "^1.8.0"
   },
@@ -26,6 +24,8 @@
     "electron-build-windows": "npm run build && node node_modules\\electron-packager\\cli.js . --out=dist --overwrite --platform=win32 --arch=all"
   },
   "devDependencies": {
+    "csv-parse": "^2.5.0",
+    "csv-stringify": "^3.1.1",
     "electron": "^2.0.4",
     "electron-packager": "^12.1.0",
     "foreman": "^3.0.1",
