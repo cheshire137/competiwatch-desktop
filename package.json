@@ -4,15 +4,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "csv-generate": "^2.0.2",
     "csv-parse": "^2.5.0",
     "csv-stringify": "^3.1.1",
     "electron-log": "^2.2.16",
-    "nedb": "^1.8.0",
-    "react": "^16.4.1",
-    "react-click-outside": "^3.0.1",
-    "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "nedb": "^1.8.0"
   },
   "bugs": {
     "url": "https://github.com/cheshire137/competiwatch-desktop/issues"
@@ -35,6 +30,10 @@
     "electron-packager": "^12.1.0",
     "foreman": "^3.0.1",
     "ionicons": "^4.2.4",
-    "primer": "^10.7.0"
+    "primer": "^10.7.0",
+    "react": "^16.4.1",
+    "react-click-outside": "^3.0.1",
+    "react-dom": "^16.4.1",
+    "react-scripts": "1.1.4"
   }
 }

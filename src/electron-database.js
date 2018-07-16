@@ -1,7 +1,7 @@
-const Datastore = require('nedb')
 const path = require('path')
 const { ipcMain, app } = require('electron')
 const log = require('electron-log')
+const Datastore = require('nedb')
 
 const databases = {}
 const env = process.env.ELECTRON_START_URL ? 'development' : 'production'
