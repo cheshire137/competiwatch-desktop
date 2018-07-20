@@ -279,3 +279,7 @@
   background-color: #af121b;
   color: #f9e3e4;
 }
+
+.css-truncate .css-truncate-target.comment-truncate-target {
+  max-width: 11em;
+}

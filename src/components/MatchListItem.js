@@ -204,6 +204,26 @@ class MatchListItem extends Component {
     this.props.onEdit(matchID)
   }
 
+  commentTooltip = () => {
+    const { comment } = this.props.match
+    if (!comment) {
+      return
+    }
+
+    return comment.trim().replace(/"/g, "'")
+  }
+
+  commentClass = () => {
+    const { comment } = this.props.match
+    let classes = ['match-cell', 'hide-sm', 'comment-cell', 'css-truncate']
+
+    if (comment && comment.trim().length > 0) {
+      classes = classes.concat(['tooltipped', 'tooltipped-multiline', 'tooltipped-n'])
+    }
+
+    return classes.join(' ')
+  }
+
   render() {
     const { match, priorRank, showThrowerLeaver } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
@@ -267,8 +287,11 @@ class MatchListItem extends Component {
           className={`match-cell no-wrap ${this.mapBackgroundClass()}`}
         >{map}</td>
         <td
-          className="match-cell hide-sm comment-cell"
-        >{comment}</td>
+          className={this.commentClass()}
+          aria-label={this.commentTooltip()}
+        >
+          <span className="css-truncate-target comment-truncate-target">{comment}</span>
+        </td>
         <td
           className="match-cell text-center hide-sm time-cell no-wrap"
         >
