@@ -4,6 +4,7 @@
 
 - Fixed 'delete match' not working [#11](https://github.com/cheshire137/competiwatch-desktop/issues/11)
 - Fixed match edit button not being visible in the dark theme
+- Added links to about page to view changes, view source, and report a bug
 
 ## Version 0.1.0
 

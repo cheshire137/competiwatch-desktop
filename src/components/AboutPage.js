@@ -78,9 +78,27 @@ class AboutPage extends Component {
           </div>
           <div className="col-md-6 float-left">
             <div className="pl-4">
-              <p>
-                Version {version}
-              </p>
+              <ul className="list-style-none">
+                <li>Version {version}</li>
+                <li>
+                  <a
+                    href="https://github.com/cheshire137/competiwatch-desktop/blob/master/CHANGELOG.md"
+                    onClick={this.openLink}
+                  >See what's new</a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/cheshire137/competiwatch-desktop/"
+                    onClick={this.openLink}
+                  >View source</a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/cheshire137/competiwatch-desktop/issues/"
+                    onClick={this.openLink}
+                  >Report a bug</a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
