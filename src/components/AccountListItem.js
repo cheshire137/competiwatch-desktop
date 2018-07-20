@@ -123,7 +123,8 @@ class AccountListItem extends Component {
             <span>
               <button
                 type="button"
-                className="btn-link"
+                aria-label="Save season as a CSV file"
+                className="btn-link tooltipped tooltipped-n"
                 onClick={this.exportSeason}
               >Export season {season}</button>
             </span>
