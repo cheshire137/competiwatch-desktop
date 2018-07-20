@@ -325,9 +325,9 @@ class MatchListItem extends Component {
         <td
           className="match-cell hide-sm friends-cell"
         >
-          {groupList.join(', ')}
+          <span>{groupList.join(', ')} </span>
           {groupList.length + 1 !== groupSize ? (
-            <span> {groupSizeDescription(groupSize)}</span>
+            <span className="Counter">{groupSizeDescription(groupSize)}</span>
           ) : null}
         </td>
         {showThrowerLeaver ? (

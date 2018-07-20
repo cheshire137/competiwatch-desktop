@@ -22,6 +22,7 @@
 }
 
 .theme-dark .Counter {
+  color: #e1e4e8;
   background-color: rgba(200,200,200,0.15);
 }
 
