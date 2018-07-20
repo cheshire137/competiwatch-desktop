@@ -32,6 +32,15 @@
   color: #d1d5da;
 }
 
+.theme-dark .link-gray-dark {
+  color: #ccc !important;
+}
+
+.theme-dark .link-gray-dark:hover,
+.theme-dark .link-gray-dark:focus {
+  color: #fff !important;
+}
+
 .theme-dark a,
 .theme-dark .btn-link,
 .theme-dark a.h1,
