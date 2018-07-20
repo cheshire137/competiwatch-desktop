@@ -37,7 +37,7 @@ class Setting {
   }
 
   delete() {
-    return Database.delete('settings', this._id, 'setting')
+    return Database.delete('settings', this._id)
   }
 }
 

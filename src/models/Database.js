@@ -51,21 +51,21 @@ class Database {
 
   static delete(dbName, id) {
     const conditions = { _id: id }
-    return this.deleteSome(conditions)
+    return this.deleteSome(dbName, conditions)
   }
 
   static deleteSome(dbName, conditions) {
     return new Promise((resolve, reject) => {
-      const options = {}
       ipcRenderer.once('deleted', (event, err, numRemoved) => {
         if (err) {
           console.error('failed to delete record(s)', dbName, conditions)
           reject()
         } else {
-          console.log('deleted', numRemoved, 'record(s)', conditions)
+          console.log('deleted', numRemoved, dbName, 'record(s)', conditions)
           resolve()
         }
       })
+      const options = {}
       ipcRenderer.send('delete', dbName, conditions, options)
     })
   }

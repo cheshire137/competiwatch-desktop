@@ -7,10 +7,10 @@ class MatchDeleteForm extends Component {
     const message = 'Are you sure you want to delete this match?'
 
     if (window.confirm(message)) {
-      const { _id, onDelete } = this.props
-      const account = new Match({ _id })
+      const { id, onDelete } = this.props
+      const match = new Match({ _id: id })
 
-      account.delete().then(onDelete)
+      match.delete().then(onDelete)
     }
   }
 

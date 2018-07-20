@@ -240,7 +240,7 @@ class Match {
   }
 
   delete() {
-    return Database.delete('matches', this._id, 'match')
+    return Database.delete('matches', this._id)
   }
 }
 

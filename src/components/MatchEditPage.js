@@ -77,7 +77,7 @@ class MatchEditPage extends Component {
         {this.renderMatchForm()}
         <div className="border-top pt-2 mt-4">
           <MatchDeleteForm
-            _id={id}
+            id={id}
             onDelete={this.loadMatchesPage}
           />
         </div>

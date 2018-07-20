@@ -55,7 +55,7 @@ class Account {
   }
 
   delete() {
-    return Database.delete('accounts', this._id, 'account')
+    return Database.delete('accounts', this._id)
   }
 }
 
