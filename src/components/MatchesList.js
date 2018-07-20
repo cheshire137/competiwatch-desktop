@@ -69,7 +69,7 @@ class MatchesList extends Component {
                 className="btn btn-primary btn-sm"
                 onClick={this.changeToMatchFormPage}
               >Log a match</button>
-            ) : ''}
+            ) : null}
           </div>
         )}
         {anyMatches ? (
@@ -78,14 +78,21 @@ class MatchesList extends Component {
               matches={matches}
               onEdit={this.changeToEditPage}
             />
-            <div className="mt-4 text-small">
-              <span>Replace your season {season} matches by </span>
+            <div className="d-flex mb-4 mt-2 flex-items-center flex-justify-between">
+              <div className="text-small">
+                <span>Replace your season {season} matches by </span>
+                <button
+                  type="button"
+                  className="btn-link"
+                  onClick={this.changeToImportPage}
+                >importing them</button>
+                <span> from a CSV file.</span>
+              </div>
               <button
                 type="button"
-                className="btn-link"
-                onClick={this.changeToImportPage}
-              >importing them</button>
-              <span> from a CSV file.</span>
+                className="btn btn-primary btn-sm"
+                onClick={this.changeToMatchFormPage}
+              >Log a match</button>
             </div>
           </div>
         ) : isLoading ? null : (
