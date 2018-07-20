@@ -1,6 +1,6 @@
 import path from 'path'
 
-const { ipcRenderer, remote } = window.require('electron')
+const { ipcRenderer } = window.require('electron')
 
 class Database {
   static findOne(dbName, conditions) {

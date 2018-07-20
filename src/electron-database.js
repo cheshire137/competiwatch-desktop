@@ -86,6 +86,11 @@ const databaseFor = name => {
   }
 }
 
+ipcMain.on('get-db-path', (event, dbName) => {
+  const dbPath = getDatabaseFilename(dbName)
+  event.sender.send('got-db-path', dbPath)
+})
+
 ipcMain.on('find-one', (event, dbName, conditions) => {
   const db = databaseFor(dbName)
   if (!db) {
