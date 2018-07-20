@@ -283,3 +283,7 @@
 .css-truncate .css-truncate-target.comment-truncate-target {
   max-width: 11em;
 }
+
+.throwers-leavers-cell .Counter + .Counter {
+  margin-left: 5px;
+}

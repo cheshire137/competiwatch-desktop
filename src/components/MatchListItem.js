@@ -332,7 +332,7 @@ class MatchListItem extends Component {
         </td>
         {showThrowerLeaver ? (
           <td
-            className="match-cell hide-sm throwers-leavers-cell"
+            className="match-cell no-wrap hide-sm throwers-leavers-cell"
           >
             {allyThrower || enemyThrower ? (
               <span
