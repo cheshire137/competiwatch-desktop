@@ -6,6 +6,8 @@ This is a work in progress. It's a desktop app to track your competitive match h
 
 ![Screenshot of settings page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot-settings.png)
 
+![Screenshot of log match form](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot-log-match.png)
+
 See [the changelog](./CHANGELOG.md) for what has changed each version.
 
 ## How to Develop
