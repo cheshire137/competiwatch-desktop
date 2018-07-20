@@ -10,6 +10,8 @@ See [the changelog](./CHANGELOG.md) for what has changed each version.
 
 ## How to Develop
 
+This app was built with node version 8.11.3 and npm version 3.10.8.
+
 ```bash
 npm install
 npm run dev
