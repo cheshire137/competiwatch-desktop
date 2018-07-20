@@ -11,6 +11,7 @@
     "url": "https://github.com/cheshire137/competiwatch-desktop/issues"
   },
   "homepage": "./",
+  "license": "MIT",
   "main": "src/electron-starter.js",
   "scripts": {
     "start": "react-scripts start",
