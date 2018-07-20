@@ -224,6 +224,26 @@ class MatchListItem extends Component {
     return classes.join(' ')
   }
 
+  groupClass = () => {
+    const { groupList } = this.props.match
+    let classes = ['match-cell', 'hide-sm', 'css-truncate', 'friends-cell']
+
+    if (groupList.length > 0) {
+      classes = classes.concat(['tooltipped', 'tooltipped-n', 'tooltipped-multiline'])
+    }
+
+    return classes.join(' ')
+  }
+
+  groupTooltip = () => {
+    const { groupList } = this.props.match
+    if (groupList.length < 1) {
+      return
+    }
+
+    return groupList.join(', ')
+  }
+
   render() {
     const { match, priorRank, showThrowerLeaver } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
@@ -323,9 +343,12 @@ class MatchListItem extends Component {
           ))}
         </td>
         <td
-          className="match-cell hide-sm friends-cell"
+          className={this.groupClass()}
+          aria-label={this.groupTooltip()}
         >
-          <span>{groupList.join(', ')} </span>
+          {groupList.length > 0 ? (
+            <span className="css-truncate-target group-truncate-target">{groupList.join(', ')} </span>
+          ) : null}
           {groupList.length + 1 !== groupSize ? (
             <span className="Counter">{groupSizeDescription(groupSize)}</span>
           ) : null}

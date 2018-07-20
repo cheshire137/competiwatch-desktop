@@ -284,6 +284,10 @@
   max-width: 11em;
 }
 
+.css-truncate .css-truncate-target.group-truncate-target {
+  max-width: 11em;
+}
+
 .throwers-leavers-cell .Counter + .Counter {
   margin-left: 5px;
 }
