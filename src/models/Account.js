@@ -24,7 +24,7 @@ class Account {
     const conditions = { accountID: this._id, season }
     const sort = { date: -1, createdAt: -1 }
 
-    return Database.latest('accounts', conditions, sort).then(data => {
+    return Database.latest('matches', conditions, sort).then(data => {
       if (data) {
         return new Match(data)
       }
