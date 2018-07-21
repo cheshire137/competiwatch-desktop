@@ -3,6 +3,9 @@
 ## Version 0.1.2
 
 - Added a 'Trends' page with charts about your match results [#12](https://github.com/cheshire137/competiwatch-desktop/issues/12)
+- Fixed bug causing the latest logged match for each account to not appear on the Accounts page
+- Fixed each account showing the same number of matches on the Accounts page [#15](https://github.com/cheshire137/competiwatch-desktop/issues/15)
+- Fixed the blank, black tooltip that appeared when hovering over a competitive rank image
 
 ## Version 0.1.1
 
