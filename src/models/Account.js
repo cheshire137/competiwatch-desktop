@@ -39,8 +39,8 @@ class Account {
     return Database.count('matches', conditions)
   }
 
-  hasMatches() {
-    return this.totalMatches().then(count => count > 0)
+  hasMatches(season) {
+    return this.totalMatches(season).then(count => count > 0)
   }
 
   save() {

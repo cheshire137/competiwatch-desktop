@@ -1,6 +1,12 @@
 import React, { Component } from 'react'
+import Account from '../models/Account'
 
 class MainNavigation extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasMatches: false }
+  }
+
   underlineNavItemClass = (page, isButton) => {
     const { activePage } = this.props
     const pageIsFirstInNav = page === 'accounts'
@@ -76,6 +82,11 @@ class MainNavigation extends Component {
       return null
     }
 
+    const { hasMatches } = this.state
+    if (!hasMatches) {
+      return null
+    }
+
     if (activePage === 'trends') {
       return (
         <span className={this.underlineNavItemClass('trends', false)}>
@@ -135,6 +146,26 @@ class MainNavigation extends Component {
         className={this.underlineNavItemClass('import', false)}
       >Import</span>
     )
+  }
+
+  checkIfHasMatches = () => {
+    const { activeAccountID, activeSeason } = this.props
+    const account = new Account({ _id: activeAccountID })
+
+    account.hasMatches(activeSeason).then(hasMatches => {
+      this.setState(prevState => ({ hasMatches }))
+    })
+  }
+
+  componentDidMount() {
+    this.checkIfHasMatches()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.activeAccountID !== this.props.activeAccountID ||
+        prevProps.activeSeason !== this.props.activeSeason) {
+      this.checkIfHasMatches()
+    }
   }
 
   render() {

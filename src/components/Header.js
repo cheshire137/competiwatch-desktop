@@ -38,6 +38,7 @@ class Header extends Component {
           <MainNavigation
             onPageChange={this.changeActivePage}
             activePage={activePage}
+            activeSeason={activeSeason}
             activeAccountID={activeAccountID}
           />
         </div>
