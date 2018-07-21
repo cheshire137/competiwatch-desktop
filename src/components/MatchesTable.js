@@ -50,7 +50,7 @@ class MatchesTable extends Component {
     }
   }
 
-  showshowThrowerLeaverColumn = () => {
+  showThrowerLeaverColumn = () => {
     const matches = this.props.matches
       .filter(match => match.allyThrower || match.allyLeaver ||
                        match.enemyThrower || match.enemyLeaver)
@@ -83,7 +83,7 @@ class MatchesTable extends Component {
     if (totalPlacementMatches < 1 && firstMatchWithRank) {
       totalPlacementMatches = 1
     }
-    const showThrowerLeaver = this.showshowThrowerLeaverColumn()
+    const showThrowerLeaver = this.showThrowerLeaverColumn()
     const longestWinStreak = this.getLongestWinStreak()
     const longestLossStreak = this.getLongestLossStreak()
     const placementRank = this.placementRank(firstMatchWithRank)
