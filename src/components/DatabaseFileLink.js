@@ -10,10 +10,13 @@ class DatabaseFileLink extends Component {
   }
 
   componentDidMount() {
-    ipcRenderer.once('got-db-path', (event, dbPath) => {
+    const { dbName } = this.props
+    const replyTo = `get-db-path-${dbName}`
+
+    ipcRenderer.once(replyTo, (event, dbPath) => {
       this.setState(prevState => ({ dbPath }))
     })
-    ipcRenderer.send('get-db-path', this.props.dbName)
+    ipcRenderer.send('get-db-path', replyTo, dbName)
   }
 
   openInExplorer = event => {

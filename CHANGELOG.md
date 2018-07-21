@@ -6,6 +6,7 @@
 - Fixed bug causing the latest logged match for each account to not appear on the Accounts page
 - Fixed each account showing the same number of matches on the Accounts page [#15](https://github.com/cheshire137/competiwatch-desktop/issues/15)
 - Fixed the blank, black tooltip that appeared when hovering over a competitive rank image
+- Fixed each database file path being the same on the Settings page [#14](https://github.com/cheshire137/competiwatch-desktop/issues/14)
 
 ## Version 0.1.1
 
