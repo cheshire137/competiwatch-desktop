@@ -2,7 +2,7 @@
 
 ## Version 0.1.2
 
-- Added a 'Trends' page with charts about your match results
+- Added a 'Trends' page with charts about your match results [#12](https://github.com/cheshire137/competiwatch-desktop/issues/12)
 
 ## Version 0.1.1
 
