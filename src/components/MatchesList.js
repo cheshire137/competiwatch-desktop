@@ -11,6 +11,7 @@ class MatchesList extends Component {
 
   refreshMatches = () => {
     const { onLoad, account, season } = this.props
+
     Match.findAll(account._id, season).then(matches => {
       this.setState(prevState => ({ matches }))
       onLoad(matches.length)

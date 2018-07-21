@@ -263,6 +263,8 @@ class App extends Component {
     if (activePage === 'trends') {
       return (
         <TrendsPage
+          accountID={activeAccountID}
+          season={activeSeason}
           onPageChange={this.changeActivePage}
         />
       )
