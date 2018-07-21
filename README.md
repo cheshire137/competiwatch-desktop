@@ -2,11 +2,17 @@
 
 This is a work in progress. It's a desktop app to track your competitive match history in Overwatch.
 
-![Screenshot in Windows](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot-2.png)
+![Screenshot of match history](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot-2.png)
+
+![Screenshot of settings page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot-settings.png)
+
+![Screenshot of log match form](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot-log-match.png)
 
 See [the changelog](./CHANGELOG.md) for what has changed each version.
 
 ## How to Develop
+
+This app was built with node version 8.11.3 and npm version 3.10.8.
 
 ```bash
 npm install
