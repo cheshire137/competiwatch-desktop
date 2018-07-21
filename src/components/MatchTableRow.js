@@ -4,7 +4,7 @@ import MatchRankImage from './MatchRankImage'
 import HeroImage from './HeroImage'
 import TimeOfDayEmoji from './TimeOfDayEmoji'
 import DayOfWeekEmoji from './DayOfWeekEmoji'
-import './MatchListItem.css'
+import './MatchTableRow.css'
 
 const winColors = [[178,212,132], [102,189,125]]
 const lossColors = [[250,170,124], [246,106,110]]
@@ -24,7 +24,7 @@ const groupSizeDescription = groupSize => {
   return `${groupSize}-stack`
 }
 
-class MatchListItem extends Component {
+class MatchTableRow extends Component {
   outerClass = () => {
     const { isLast, match, firstRankedMatchID } = this.props
     let classes = []
@@ -399,4 +399,4 @@ class MatchListItem extends Component {
   }
 }
 
-export default MatchListItem
+export default MatchTableRow

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import MatchListItem from './MatchListItem'
+import MatchTableRow from './MatchTableRow'
 
 class MatchesTable extends Component {
   matchRankChangesByResult = () => {
@@ -143,7 +143,7 @@ class MatchesTable extends Component {
         </thead>
         <tbody>
           {matches.map((match, i) => (
-            <MatchListItem
+            <MatchTableRow
               key={match._id}
               match={match}
               index={i}
