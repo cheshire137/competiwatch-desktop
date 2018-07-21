@@ -9,6 +9,7 @@ import AccountsPage from './components/AccountsPage'
 import MatchesPage from './components/MatchesPage'
 import MatchCreatePage from './components/MatchCreatePage'
 import SeasonsPage from './components/SeasonsPage'
+import TrendsPage from './components/TrendsPage'
 import AboutPage from './components/AboutPage'
 import ImportPage from './components/ImportPage'
 import MatchEditPage from './components/MatchEditPage'
@@ -254,6 +255,14 @@ class App extends Component {
     if (activePage === 'about') {
       return (
         <AboutPage
+          onPageChange={this.changeActivePage}
+        />
+      )
+    }
+
+    if (activePage === 'trends') {
+      return (
+        <TrendsPage
           onPageChange={this.changeActivePage}
         />
       )

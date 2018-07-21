@@ -52,17 +52,6 @@ class MainNavigation extends Component {
       return null
     }
 
-    if (['log-match', 'edit-match', 'import'].indexOf(activePage) > -1) {
-      return (
-        <button
-          name="matches"
-          type="button"
-          className={this.underlineNavItemClass('matches', true)}
-          onClick={this.props.onPageChange}
-        >Matches</button>
-      )
-    }
-
     if (activePage === 'matches') {
       return (
         <span className={this.underlineNavItemClass('matches', false)}>
@@ -70,6 +59,39 @@ class MainNavigation extends Component {
         </span>
       )
     }
+
+    return (
+      <button
+        name="matches"
+        type="button"
+        className={this.underlineNavItemClass('matches', true)}
+        onClick={this.props.onPageChange}
+      >Matches</button>
+    )
+  }
+
+  renderTrendsButton = () => {
+    const { activeAccountID, activePage } = this.props
+    if (!activeAccountID) {
+      return null
+    }
+
+    if (activePage === 'trends') {
+      return (
+        <span className={this.underlineNavItemClass('trends', false)}>
+          Trends
+        </span>
+      )
+    }
+
+    return (
+      <button
+        name="trends"
+        type="button"
+        className={this.underlineNavItemClass('trends', true)}
+        onClick={this.props.onPageChange}
+      >Trends</button>
+    )
   }
 
   renderLogMatchButton = () => {
@@ -124,6 +146,7 @@ class MainNavigation extends Component {
           {this.renderLogMatchButton()}
           {this.renderEditMatchButton()}
           {this.renderImportButton()}
+          {this.renderTrendsButton()}
         </div>
         {this.rightSideMessage()}
       </nav>
