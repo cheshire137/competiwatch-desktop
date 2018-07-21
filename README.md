@@ -20,12 +20,14 @@ See [the changelog](./CHANGELOG.md) for what has changed each version.
 - Export your match history as a CSV file (Comma-Separated Value)
 - Import your match history for past seasons
 - View charts summarizing your season
+- Log your placement matches and regular season games
+- See when you go on win streaks or loss streaks
 - Choose between a dark and light theme
 - Works in Windows and macOS
 
 ## How to Develop
 
-This app was built with node version 8.11.3 and npm version 3.10.8.
+This app was built with node version 8.11.3 and npm version 3.10.8. See [the contributing guidelines](./CONTRIBUTING.md).
 
 ```bash
 npm install
