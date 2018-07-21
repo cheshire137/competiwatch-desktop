@@ -25,6 +25,7 @@
     "electron-build-windows": "npm run build && node node_modules\\electron-packager\\cli.js . --out=dist --overwrite --platform=win32 --arch=all"
   },
   "devDependencies": {
+    "chart.js": "^2.7.2",
     "csv-parse": "^2.5.0",
     "csv-stringify": "^3.1.1",
     "electron": "^2.0.4",
@@ -33,6 +34,7 @@
     "ionicons": "^4.2.4",
     "primer": "^10.7.0",
     "react": "^16.4.1",
+    "react-chartjs-2": "^2.7.4",
     "react-click-outside": "^3.0.1",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4"
