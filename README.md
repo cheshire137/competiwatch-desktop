@@ -20,6 +20,8 @@ See [the changelog](./CHANGELOG.md) for what has changed each version.
 - Export your match history as a CSV file (Comma-Separated Value)
 - Import your match history for past seasons
 - View charts summarizing your season
+- Choose between a dark and light theme
+- Works in Windows and macOS
 
 ## How to Develop
 
