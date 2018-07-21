@@ -13,6 +13,14 @@ your competitive match history in Overwatch.
 
 See [the changelog](./CHANGELOG.md) for what has changed each version.
 
+## Features
+
+- Track matches across multiple Battle.net accounts and competitive seasons
+- Log details such as your new SR, which people you played with, whether you were in a 6-stack or solo queuing, what time you played, whether you got Play of the Game, which heroes you played, and what map you played
+- Export your match history as a CSV file (Comma-Separated Value)
+- Import your match history for past seasons
+- View charts summarizing your season
+
 ## How to Develop
 
 This app was built with node version 8.11.3 and npm version 3.10.8.
