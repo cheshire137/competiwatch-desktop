@@ -8,7 +8,7 @@ export default {
   darkThemeText: '#d1d5da',
   lightThemeText: '#666',
   ally: '#299FFD',
-  transparentAlly: 'rgba(41,159,253,0.7)',
   enemy: '#FD9629',
+  transparentAlly: 'rgba(41,159,253,0.7)',
   transparentEnemy: 'rgba(253,150,41,0.7)'
 }

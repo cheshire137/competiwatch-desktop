@@ -3,6 +3,7 @@ import { defaults } from 'react-chartjs-2'
 import LoadingPage from './LoadingPage'
 import WinLossChart from './WinLossChart'
 import ThrowerLeaverChart from './ThrowerLeaverChart'
+import StreaksChart from './StreaksChart'
 import Match from '../models/Match'
 import Color from '../models/Color'
 import './TrendsPage.css'
@@ -48,15 +49,18 @@ class TrendsPage extends Component {
     }
 
     const { season } = this.props
-
     return (
-      <div className="container layout-children-container">
-        <div className="col-md-5 float-md-left">
-          <WinLossChart season={season} matches={matches} />
+      <div className="container mb-4 layout-children-container">
+        <div className="clearfix">
+          <div className="col-md-5 float-md-left">
+            <WinLossChart season={season} matches={matches} />
+          </div>
+          <div className="col-md-5 offset-md-2 float-md-left">
+            <ThrowerLeaverChart season={season} matches={matches} />
+          </div>
         </div>
-        <div className="col-md-5 offset-md-2 float-md-left">
-          <ThrowerLeaverChart season={season} matches={matches} />
-        </div>
+        <hr className="mb-4 pt-4" />
+        <StreaksChart season={season} matches={matches} />
       </div>
     )
   }

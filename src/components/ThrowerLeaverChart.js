@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
 import { Bar } from 'react-chartjs-2'
 import Color from '../models/Color'
-
-const wholeTicks = value => {
-  if (Number.isInteger(value)) {
-    return value
-  }
-}
+import ChartUtils from '../models/ChartUtils'
 
 class ThrowerLeaverChart extends Component {
   getAllies = () => {
@@ -48,7 +43,7 @@ class ThrowerLeaverChart extends Component {
     const options = {
       responsive: true, maintainAspectRatio: false,
       scales: {
-        yAxes: [{ ticks: { callback: wholeTicks } }]
+        yAxes: [{ ticks: { callback: ChartUtils.wholeTicks } }]
       }
     }
     const data = {
