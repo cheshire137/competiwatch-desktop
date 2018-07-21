@@ -53,7 +53,7 @@ class MatchesList extends Component {
 
   render() {
     const { matches } = this.state
-    const { totalMatches, season, account } = this.props
+    const { totalMatches, season, account, scrollToLatestMatch } = this.props
     const anyMatches = matches.length > 0
     const isLoading = totalMatches < 0
 
@@ -78,6 +78,7 @@ class MatchesList extends Component {
             <MatchesTable
               matches={matches}
               onEdit={this.changeToEditPage}
+              scrollToLatestMatch={scrollToLatestMatch}
             />
             <div className="d-flex mb-4 mt-2 flex-items-center flex-justify-between">
               <div className="text-small">

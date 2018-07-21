@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import scrollToComponent from 'react-scroll-to-component'
 import MatchTableRow from './MatchTableRow'
 
 class MatchesTable extends Component {
@@ -75,6 +76,14 @@ class MatchesTable extends Component {
     return Math.max(...lossStreaks)
   }
 
+  componentDidMount() {
+    const { scrollToLatestMatch } = this.props
+
+    if (scrollToLatestMatch) {
+      scrollToComponent(this.lastMatchRow)
+    }
+  }
+
   render() {
     const { matches, onEdit } = this.props
     const rankChanges = this.matchRankChangesByResult()
@@ -142,23 +151,35 @@ class MatchesTable extends Component {
           </tr>
         </thead>
         <tbody>
-          {matches.map((match, i) => (
-            <MatchTableRow
-              key={match._id}
-              match={match}
-              index={i}
-              placementRank={placementRank}
-              firstRankedMatchID={firstMatchWithRank ? firstMatchWithRank._id : null}
-              rankChanges={rankChanges[match.result] || []}
-              isLast={i === matches.length - 1}
-              onEdit={onEdit}
-              priorRank={this.priorRank(i)}
-              totalPlacementMatches={totalPlacementMatches}
-              showThrowerLeaver={showThrowerLeaver}
-              longestWinStreak={longestWinStreak}
-              longestLossStreak={longestLossStreak}
-            />
-          ))}
+          {matches.map((match, i) => {
+            const isLast = i === matches.length - 1
+            const firstRankedMatchID = firstMatchWithRank ? firstMatchWithRank._id : null
+            const priorRank = this.priorRank(i)
+            const matchRankChanges = rankChanges[match.result] || []
+
+            return (
+              <MatchTableRow
+                key={match._id}
+                match={match}
+                index={i}
+                ref={row => {
+                  if (isLast) {
+                    this.lastMatchRow = row
+                  }
+                }}
+                placementRank={placementRank}
+                firstRankedMatchID={firstRankedMatchID}
+                rankChanges={matchRankChanges}
+                isLast={isLast}
+                onEdit={onEdit}
+                priorRank={priorRank}
+                totalPlacementMatches={totalPlacementMatches}
+                showThrowerLeaver={showThrowerLeaver}
+                longestWinStreak={longestWinStreak}
+                longestLossStreak={longestLossStreak}
+              />
+            )
+          })}
         </tbody>
       </table>
     )

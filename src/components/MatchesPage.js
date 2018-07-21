@@ -42,7 +42,7 @@ class MatchesPage extends Component {
   }
 
   render() {
-    const { onPageChange, season } = this.props
+    const { onPageChange, season, scrollToLatestMatch } = this.props
     const { totalMatches, account } = this.state
 
     return (
@@ -62,6 +62,7 @@ class MatchesPage extends Component {
             account={account}
             onLoad={this.onMatchesLoad}
             onPageChange={onPageChange}
+            scrollToLatestMatch={scrollToLatestMatch}
           />
         ) : null}
       </div>

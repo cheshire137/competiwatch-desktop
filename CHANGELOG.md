@@ -8,6 +8,7 @@
 - Fixed the blank, black tooltip that appeared when hovering over a competitive rank image
 - Fixed each database file path being the same on the Settings page [#14](https://github.com/cheshire137/competiwatch-desktop/issues/14)
 - Increased default window width to reduce horizontal scrolling on the Matches page [#13](https://github.com/cheshire137/competiwatch-desktop/issues/13)
+- Matches page now scrolls to the latest match after you log one [#9](https://github.com/cheshire137/competiwatch-desktop/issues/9)
 
 ## Version 0.1.1
 

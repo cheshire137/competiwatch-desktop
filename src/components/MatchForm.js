@@ -9,22 +9,27 @@ import './MatchForm.css'
 
 const dateTimeStrFrom = date => {
   const year = date.getFullYear()
+
   let month = date.getMonth() + 1
   if (month <= 9) {
     month = `0${month}`
   }
+
   let day = date.getDate()
   if (day <= 9) {
     day = `0${day}`
   }
+
   let hour = date.getHours()
   if (hour <= 9) {
     hour = `0${hour}`
   }
+
   let minute = date.getMinutes()
   if (minute <= 9) {
     minute = `0${minute}`
   }
+
   return `${year}-${month}-${day}T${hour}:${minute}`
 }
 
@@ -39,6 +44,7 @@ const isMatchValid = data => {
     if (data.isPlacement && !data.result) {
       return false
     }
+
     if (!data.isPlacement) {
       return false
     }
@@ -90,6 +96,7 @@ class MatchForm extends Component {
 
   componentDidUpdate(prevProps) {
     const isValid = isMatchValid(this.props)
+
     if (prevProps.rank !== this.props.rank) {
       this.setState(prevState => ({ rank: this.props.rank, isValid }))
     }
@@ -130,6 +137,7 @@ class MatchForm extends Component {
 
   onSubmit = event => {
     event.preventDefault()
+
     const { rank, comment, map, group, heroes, playedAt,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
             playOfTheGame, result, isValid, groupSize } = this.state

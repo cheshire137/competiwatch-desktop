@@ -28,7 +28,8 @@ class App extends Component {
     this.state = {
       latestRank: 2500,
       isPlacement: false,
-      latestSeason: latestKnownSeason
+      latestSeason: latestKnownSeason,
+      scrollToLatestMatch: false
     }
   }
 
@@ -99,7 +100,11 @@ class App extends Component {
 
   changeActivePage = (activePage, val1) => {
     this.setState(prevState => {
-      const newState = { activePage }
+      const newState = {
+        activePage,
+        scrollToLatestMatch: false,
+        activeMatchID: null
+      }
 
       if (activePage === 'log-match') {
         if (typeof val1 === 'number') {
@@ -107,7 +112,6 @@ class App extends Component {
           newState.isPlacement = false
           newState.isLastPlacement = false
         }
-        newState.activeMatchID = null
       }
 
       if (activePage === 'accounts') {
@@ -115,15 +119,12 @@ class App extends Component {
         newState.latestRank = 2500
         newState.isPlacement = false
         newState.isLastPlacement = false
-        newState.activeMatchID = null
       }
 
       if (activePage === 'matches') {
-        newState.activeMatchID = null
-      }
-
-      if (activePage === 'import') {
-        newState.activeMatchID = null
+        if (typeof val1 === 'boolean') {
+          newState.scrollToLatestMatch = val1
+        }
       }
 
       if (activePage === 'edit-match') {
@@ -195,7 +196,7 @@ class App extends Component {
   renderActivePage = () => {
     const { activePage, activeAccountID, latestRank, isPlacement,
             isLastPlacement, activeSeason, latestSeason,
-            activeMatchID, accounts, settings } = this.state
+            activeMatchID, accounts, settings, scrollToLatestMatch } = this.state
     const haveActiveSeason = typeof activeSeason === 'number' && !isNaN(activeSeason)
 
     if (activePage === 'matches' && haveActiveSeason && activeAccountID) {
@@ -205,6 +206,7 @@ class App extends Component {
           season={activeSeason}
           onPageChange={this.changeActivePage}
           setIsPlacement={this.setIsPlacement}
+          scrollToLatestMatch={scrollToLatestMatch}
         />
       )
     }

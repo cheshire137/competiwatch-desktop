@@ -9,7 +9,7 @@ class MatchCreatePage extends Component {
 
   onMatchCreation = () => {
     this.setState(prevState => ({ totalMatches: prevState.totalMatches + 1 }))
-    this.props.onPageChange('matches')
+    this.props.onPageChange('matches', true)
   }
 
   render() {
