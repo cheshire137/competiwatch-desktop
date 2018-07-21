@@ -1,5 +1,7 @@
 # Change log
 
+## Version 0.1.2
+
 ## Version 0.1.1
 
 - Fixed 'delete match' not working [#11](https://github.com/cheshire137/competiwatch-desktop/issues/11)
