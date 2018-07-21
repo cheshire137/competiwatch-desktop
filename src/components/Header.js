@@ -12,18 +12,6 @@ class Header extends Component {
     this.props.onPageChange(active)
   }
 
-  rightSideMessage = () => {
-    const { activePage } = this.props
-
-    if (activePage === 'log-match') {
-      return (
-        <div
-          className="text-gray float-right"
-        >* All fields optional except match result</div>
-      )
-    }
-  }
-
   render() {
     const { activeSeason, latestSeason, onSeasonChange, accounts,
             activeAccountID, onAccountChange, activePage } = this.props
@@ -47,10 +35,10 @@ class Header extends Component {
           ) : null}
         </div>
         <div className="container clearfix">
-          {this.rightSideMessage()}
           <MainNavigation
             onPageChange={this.changeActivePage}
             activePage={activePage}
+            activeAccountID={activeAccountID}
           />
         </div>
       </div>

@@ -1,17 +1,33 @@
 import React, { Component } from 'react'
 
 class MainNavigation extends Component {
-  underlineNavItemClass = page => {
+  underlineNavItemClass = (page, isButton) => {
     const { activePage } = this.props
     const pageIsFirstInNav = page === 'accounts'
     const activePageIsNotInNav = pageIsFirstInNav && activePage === 'manage-seasons'
-    const classes = ['btn-link', 'UnderlineNav-item']
+    const classes = ['UnderlineNav-item']
 
     if (activePage === page || activePageIsNotInNav) {
       classes.push('selected')
     }
 
+    if (isButton) {
+      classes.push('btn-link')
+    }
+
     return classes.join(' ')
+  }
+
+  rightSideMessage = () => {
+    const { activePage } = this.props
+
+    if (activePage === 'log-match') {
+      return (
+        <div
+          className="text-gray text-small"
+        >* All fields optional except match result</div>
+      )
+    }
   }
 
   renderAccountsButton = () => {
@@ -24,7 +40,7 @@ class MainNavigation extends Component {
       <button
         name="accounts"
         type="button"
-        className={this.underlineNavItemClass('accounts')}
+        className={this.underlineNavItemClass('accounts', true)}
         onClick={this.props.onPageChange}
       >Accounts</button>
     )
@@ -41,7 +57,7 @@ class MainNavigation extends Component {
         <button
           name="matches"
           type="button"
-          className={this.underlineNavItemClass('matches')}
+          className={this.underlineNavItemClass('matches', true)}
           onClick={this.props.onPageChange}
         >Matches</button>
       )
@@ -49,7 +65,7 @@ class MainNavigation extends Component {
 
     if (activePage === 'matches') {
       return (
-        <span className={this.underlineNavItemClass('matches')}>
+        <span className={this.underlineNavItemClass('matches', false)}>
           Matches
         </span>
       )
@@ -66,7 +82,7 @@ class MainNavigation extends Component {
     const text = isPlacement ? 'Log a placement match' : 'Log a match'
     return (
       <span
-        className={this.underlineNavItemClass('log-match')}
+        className={this.underlineNavItemClass('log-match', false)}
       >{text}</span>
     )
   }
@@ -80,7 +96,7 @@ class MainNavigation extends Component {
 
     return (
       <span
-        className={this.underlineNavItemClass('edit-match')}
+        className={this.underlineNavItemClass('edit-match', false)}
       >Edit match</span>
     )
   }
@@ -94,14 +110,14 @@ class MainNavigation extends Component {
 
     return (
       <span
-        className={this.underlineNavItemClass('import')}
+        className={this.underlineNavItemClass('import', false)}
       >Import</span>
     )
   }
 
   render() {
     return (
-      <nav className="UnderlineNav">
+      <nav className="UnderlineNav d-flex flex-justify-between flex-items-center">
         <div className="UnderlineNav-body">
           {this.renderAccountsButton()}
           {this.renderMatchesButton()}
@@ -109,6 +125,7 @@ class MainNavigation extends Component {
           {this.renderEditMatchButton()}
           {this.renderImportButton()}
         </div>
+        {this.rightSideMessage()}
       </nav>
     )
   }

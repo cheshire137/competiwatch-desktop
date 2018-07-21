@@ -21,6 +21,14 @@
   color: #e1e4e8;
 }
 
+.theme-dark .UnderlineNav-item {
+  color: #ccc;
+}
+
+.theme-dark .UnderlineNav-item.selected {
+  border-bottom-color: #a6abee;
+}
+
 .theme-dark .Counter {
   color: #e1e4e8;
   background-color: rgba(200,200,200,0.15);
@@ -72,7 +80,8 @@
 .theme-dark .border,
 .theme-dark .border-left,
 .theme-dark .border-right,
-.theme-dark hr {
+.theme-dark hr,
+.theme-dark .UnderlineNav {
   border-color: #464f59 !important;
 }
 
