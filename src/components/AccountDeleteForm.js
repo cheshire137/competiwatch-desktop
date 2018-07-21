@@ -12,16 +12,17 @@ class AccountDeleteForm extends Component {
     const message = `Are you sure you want to delete ${this.props.battletag}?`
 
     if (window.confirm(message)) {
-      const { _id, onDelete } = this.props
-      const account = new Account({ _id })
+      const { id, onDelete } = this.props
+      const account = new Account({ _id: id })
 
       account.delete().then(onDelete)
     }
   }
 
   componentDidMount() {
-    const { _id } = this.props
-    const account = new Account({ _id })
+    const { id } = this.props
+    const account = new Account({ _id: id })
+
     account.hasMatches().then(hasMatches => {
       if (!hasMatches) {
         this.setState(prevState => ({ showForm: true }))
@@ -33,6 +34,7 @@ class AccountDeleteForm extends Component {
     if (!this.state.showForm) {
       return null
     }
+
     return (
       <form onSubmit={this.deleteAccount}>
         <button

@@ -92,7 +92,7 @@ class AccountListItem extends Component {
             onClick={this.onAccountClick}
           >{battletag}</button>
           <AccountDeleteForm
-            _id={_id}
+            id={_id}
             onDelete={onDelete}
             battletag={battletag}
           />
