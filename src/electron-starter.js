@@ -8,7 +8,7 @@ require('./electron-database')
 let mainWindow
 
 function createWindow () {
-  mainWindow = new BrowserWindow({ width: 1082, height: 693 })
+  mainWindow = new BrowserWindow({ width: 1180, height: 693 })
 
   const startUrl = process.env.ELECTRON_START_URL || url.format({
     pathname: path.join(__dirname, '/../build/index.html'),
