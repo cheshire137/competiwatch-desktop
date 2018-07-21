@@ -30,7 +30,9 @@ While you run the app, Electron logs will end up in the following places:
 - on Windows: `%USERPROFILE%\AppData\Roaming\Competiwatch\log.log`
 - on Linux: `~/.config/Competiwatch/log.log`
 
-React logs will show in your terminal.
+React logs will show in your terminal. You can run
+`tail -f ~/Library/Logs/Competiwatch/log.log` in macOS in a separate
+terminal from `npm run dev` to monitor Electron logs while the app is running.
 
 ## How to Build Executables
 
