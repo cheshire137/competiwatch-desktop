@@ -1,12 +1,6 @@
 import React, { Component } from 'react'
 import { Pie } from 'react-chartjs-2'
-
-const transparentWinColor = 'rgba(41,253,47,0.7)'
-const transparentLossColor = 'rgba(202,8,19,0.7)'
-const transparentDrawColor = 'rgba(254,216,111,0.7)'
-const winColor = '#29fd2f'
-const lossColor = '#ca0813'
-const drawColor = '#fed86f'
+import Color from '../models/Color'
 
 class WinLossChart extends Component {
   render() {
@@ -22,8 +16,8 @@ class WinLossChart extends Component {
       labels: ['Wins', 'Losses', 'Draws'],
       datasets: [
         {
-          backgroundColor: [transparentWinColor, transparentLossColor, transparentDrawColor],
-          borderColor: [winColor, lossColor, drawColor],
+          backgroundColor: [Color.transparentWin, Color.transparentLoss, Color.transparentDraw],
+          borderColor: [Color.win, Color.loss, Color.draw],
           data: [wins, losses, draws]
         }
       ]
