@@ -4,5 +4,7 @@ export default {
   transparentDraw: 'rgba(254,216,111,0.7)',
   win: '#29fd2f',
   loss: '#ca0813',
-  draw: '#fed86f'
+  draw: '#fed86f',
+  darkThemeText: '#d1d5da',
+  lightThemeText: '#666'
 }

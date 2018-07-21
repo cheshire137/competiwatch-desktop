@@ -266,6 +266,7 @@ class App extends Component {
           accountID={activeAccountID}
           season={activeSeason}
           onPageChange={this.changeActivePage}
+          theme={settings.theme}
         />
       )
     }
@@ -301,6 +302,7 @@ class App extends Component {
     if (settings) {
       return `layout-container theme-${settings.theme}`
     }
+
     return 'layout-container'
   }
 

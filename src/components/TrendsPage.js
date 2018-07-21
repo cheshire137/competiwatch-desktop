@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { defaults } from 'react-chartjs-2'
 import LoadingPage from './LoadingPage'
 import WinLossChart from './WinLossChart'
 import Match from '../models/Match'
+import Color from '../models/Color'
 import './TrendsPage.css'
 
 class TrendsPage extends Component {
@@ -18,8 +20,17 @@ class TrendsPage extends Component {
     })
   }
 
+  chartFontColor = () => {
+    if (this.props.theme === 'dark') {
+      return Color.darkThemeText
+    }
+
+    return Color.lightThemeText
+  }
+
   componentDidMount() {
     this.refreshMatches()
+    defaults.global.defaultFontColor = this.chartFontColor()
   }
 
   componentDidUpdate(prevProps) {
