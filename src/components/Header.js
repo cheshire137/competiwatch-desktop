@@ -1,112 +1,15 @@
 import React, { Component } from 'react'
 import SeasonSelect from './SeasonSelect'
 import AccountSelect from './AccountSelect'
+import MainNavigation from './MainNavigation'
 
 class Header extends Component {
   changeActivePage = event => {
     const button = event.currentTarget
-    button.blur()
     const active = button.name
+
+    button.blur()
     this.props.onPageChange(active)
-  }
-
-  listItemClass = page => {
-    const { activePage } = this.props
-    const pageIsFirstInNav = page === 'accounts'
-    const activePageIsNotInNav = pageIsFirstInNav && activePage === 'manage-seasons'
-    if (activePage === page || activePageIsNotInNav) {
-      return 'breadcrumb-item breadcrumb-item-selected'
-    }
-    return 'breadcrumb-item'
-  }
-
-  renderAccountsButton = () => {
-    const { activePage } = this.props
-    if (activePage === 'accounts') {
-      return null
-    }
-
-    return (
-      <li className={this.listItemClass('accounts')}>
-        <button
-          name="accounts"
-          type="button"
-          className="btn-link"
-          onClick={this.changeActivePage}
-        >Accounts</button>
-      </li>
-    )
-  }
-
-  renderMatchesButton = () => {
-    const { activeAccountID, activePage } = this.props
-    if (!activeAccountID) {
-      return null
-    }
-
-    if (['log-match', 'edit-match', 'import'].indexOf(activePage) > -1) {
-      return (
-        <li className={this.listItemClass('matches')}>
-          <button
-            name="matches"
-            type="button"
-            className="btn-link"
-            onClick={this.changeActivePage}
-          >Matches</button>
-        </li>
-      )
-    }
-
-    if (activePage === 'matches') {
-      return (
-        <li className={this.listItemClass('matches')}>
-          Matches
-        </li>
-      )
-    }
-  }
-
-  renderLogMatchButton = () => {
-    const { isPlacement, activePage } = this.props
-
-    if (activePage !== 'log-match') {
-      return null
-    }
-
-    const text = isPlacement ? 'Log a placement match' : 'Log a match'
-    return (
-      <li
-        className={this.listItemClass('log-match')}
-      >{text}</li>
-    )
-  }
-
-  renderEditMatchButton = () => {
-    const { activePage } = this.props
-
-    if (activePage !== 'edit-match') {
-      return null
-    }
-
-    return (
-      <li
-        className={this.listItemClass('edit-match')}
-      >Edit match</li>
-    )
-  }
-
-  renderImportButton = () => {
-    const { activePage } = this.props
-
-    if (activePage !== 'import') {
-      return null
-    }
-
-    return (
-      <li
-        className={this.listItemClass('import')}
-      >Import</li>
-    )
   }
 
   rightSideMessage = () => {
@@ -123,7 +26,7 @@ class Header extends Component {
 
   render() {
     const { activeSeason, latestSeason, onSeasonChange, accounts,
-            activeAccountID, onAccountChange } = this.props
+            activeAccountID, onAccountChange, activePage } = this.props
 
     return (
       <div className="mb-3">
@@ -145,15 +48,10 @@ class Header extends Component {
         </div>
         <div className="container clearfix">
           {this.rightSideMessage()}
-          <nav aria-label="Breadcrumb">
-            <ol>
-              {this.renderAccountsButton()}
-              {this.renderMatchesButton()}
-              {this.renderLogMatchButton()}
-              {this.renderEditMatchButton()}
-              {this.renderImportButton()}
-            </ol>
-          </nav>
+          <MainNavigation
+            onPageChange={this.changeActivePage}
+            activePage={activePage}
+          />
         </div>
       </div>
     )
