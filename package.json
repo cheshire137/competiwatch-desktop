@@ -37,6 +37,7 @@
     "react-chartjs-2": "^2.7.4",
     "react-click-outside": "^3.0.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "react-scroll-to-component": "^1.0.2"
   }
 }
