@@ -9,7 +9,8 @@ const getSignature = prefix => {
 class Database {
   static findOne(dbName, conditions) {
     return new Promise((resolve, reject) => {
-      ipcRenderer.once('found-one', (event, err, data) => {
+      const replyTo = getSignature('find-one')
+      ipcRenderer.once(replyTo, (event, err, data) => {
         if (err) {
           console.error('failed to look up a record', conditions, err)
           reject(err)
@@ -17,7 +18,7 @@ class Database {
           resolve(data)
         }
       })
-      ipcRenderer.send('find-one', dbName, conditions)
+      ipcRenderer.send('find-one', replyTo, dbName, conditions)
     })
   }
 
@@ -42,7 +43,8 @@ class Database {
 
   static findAll(dbName, sort, conditions) {
     return new Promise((resolve, reject) => {
-      ipcRenderer.once('found-all', (event, err, rows, val) => {
+      const replyTo = getSignature('find-all')
+      ipcRenderer.once(replyTo, (event, err, rows, val) => {
         if (err) {
           console.error('failed to look up records', dbName, err)
           reject(err)
@@ -50,7 +52,7 @@ class Database {
           resolve(rows)
         }
       })
-      ipcRenderer.send('find-all', dbName, sort, conditions)
+      ipcRenderer.send('find-all', replyTo, dbName, sort, conditions)
     })
   }
 
@@ -61,7 +63,8 @@ class Database {
 
   static deleteSome(dbName, conditions) {
     return new Promise((resolve, reject) => {
-      ipcRenderer.once('deleted', (event, err, numRemoved) => {
+      const replyTo = getSignature('delete')
+      ipcRenderer.once(replyTo, (event, err, numRemoved) => {
         if (err) {
           console.error('failed to delete record(s)', dbName, conditions)
           reject()
@@ -71,7 +74,7 @@ class Database {
         }
       })
       const options = {}
-      ipcRenderer.send('delete', dbName, conditions, options)
+      ipcRenderer.send('delete', replyTo, dbName, conditions, options)
     })
   }
 
@@ -80,8 +83,9 @@ class Database {
       const conditions = { _id: id }
       const options = {}
       const update = { $set: data }
+      const replyTo = getSignature('update')
 
-      ipcRenderer.once('updated', (event, err, numReplaced) => {
+      ipcRenderer.once(replyTo, (event, err, numReplaced) => {
         if (err) {
           console.error('failed to update record', dbName, id, err)
           reject(err)
@@ -90,17 +94,18 @@ class Database {
           resolve({ _id: id })
         }
       })
-      ipcRenderer.send('update', dbName, conditions, update, options)
+      ipcRenderer.send('update', replyTo, dbName, conditions, update, options)
     })
   }
 
   static insert(dbName, data) {
     return new Promise((resolve, reject) => {
+      const replyTo = getSignature('insert')
       const createdDate = new Date()
       data.createdAt = createdDate.toJSON()
       const rows = [data]
 
-      ipcRenderer.once('inserted', (event, err, newRecords) => {
+      ipcRenderer.once(replyTo, (event, err, newRecords) => {
         if (err) {
           console.error('failed to create record', dbName, data, err)
           reject(err)
@@ -111,7 +116,7 @@ class Database {
           resolve(newRecord)
         }
       })
-      ipcRenderer.send('insert', dbName, rows)
+      ipcRenderer.send('insert', replyTo, dbName, rows)
     })
   }
 
@@ -127,7 +132,8 @@ class Database {
 
   static latest(dbName, conditions, sort) {
     return new Promise((resolve, reject) => {
-      ipcRenderer.once('found-latest', (event, err, rows) => {
+      const replyTo = getSignature('find-latest')
+      ipcRenderer.once(replyTo, (event, err, rows) => {
         if (err) {
           console.error('failed to load latest record', dbName, err)
           reject(err)
@@ -135,7 +141,7 @@ class Database {
           resolve(rows[0])
         }
       })
-      ipcRenderer.send('find-latest', dbName, conditions, sort)
+      ipcRenderer.send('find-latest', replyTo, dbName, conditions, sort)
     })
   }
 }

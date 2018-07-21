@@ -91,11 +91,11 @@ ipcMain.on('get-db-path', (event, dbName) => {
   event.sender.send('got-db-path', dbPath)
 })
 
-ipcMain.on('find-one', (event, dbName, conditions) => {
+ipcMain.on('find-one', (event, replyTo, dbName, conditions) => {
   const db = databaseFor(dbName)
   if (!db) {
     log.error(dbName, 'database not loaded for find-one')
-    event.sender.send('found-one', 'database not loaded')
+    event.sender.send(replyTo, 'database not loaded')
     return
   }
 
@@ -103,15 +103,15 @@ ipcMain.on('find-one', (event, dbName, conditions) => {
     if (err) {
       log.error('find-one error', err)
     }
-    event.sender.send('found-one', err, data)
+    event.sender.send(replyTo, err, data)
   })
 })
 
-ipcMain.on('find-all', (event, dbName, sort, conditions) => {
+ipcMain.on('find-all', (event, replyTo, dbName, sort, conditions) => {
   const db = databaseFor(dbName)
   if (!db) {
     log.error(dbName, 'database not loaded for find-all')
-    event.sender.send('found-all', 'database not loaded')
+    event.sender.send(replyTo, 'database not loaded')
     return
   }
 
@@ -119,7 +119,7 @@ ipcMain.on('find-all', (event, dbName, sort, conditions) => {
     if (err) {
       log.error('find-all error', err)
     }
-    event.sender.send('found-all', err, rows)
+    event.sender.send(replyTo, err, rows)
   })
 })
 
@@ -127,7 +127,7 @@ ipcMain.on('count', (event, replyTo, dbName, conditions) => {
   const db = databaseFor(dbName)
   if (!db) {
     log.error(dbName, 'database not loaded for count')
-    event.sender.send('counted', 'database not loaded')
+    event.sender.send(replyTo, 'database not loaded')
     return
   }
 
@@ -139,11 +139,11 @@ ipcMain.on('count', (event, replyTo, dbName, conditions) => {
   })
 })
 
-ipcMain.on('delete', (event, dbName, conditions, options) => {
+ipcMain.on('delete', (event, replyTo, dbName, conditions, options) => {
   const db = databaseFor(dbName)
   if (!db) {
     log.error(dbName, 'database not loaded for delete')
-    event.sender.send('deleted', 'database not loaded')
+    event.sender.send(replyTo, 'database not loaded')
     return
   }
 
@@ -151,15 +151,15 @@ ipcMain.on('delete', (event, dbName, conditions, options) => {
     if (err) {
       log.error('delete error', err)
     }
-    event.sender.send('deleted', err, numRemoved)
+    event.sender.send(replyTo, err, numRemoved)
   })
 })
 
-ipcMain.on('update', (event, dbName, conditions, update, options) => {
+ipcMain.on('update', (event, replyTo, dbName, conditions, update, options) => {
   const db = databaseFor(dbName)
   if (!db) {
     log.error(dbName, 'database not loaded for update')
-    event.sender.send('updated', 'database not loaded')
+    event.sender.send(replyTo, 'database not loaded')
     return
   }
 
@@ -167,15 +167,15 @@ ipcMain.on('update', (event, dbName, conditions, update, options) => {
     if (err) {
       log.error('update error', err)
     }
-    event.sender.send('updated', err, numReplaced)
+    event.sender.send(replyTo, err, numReplaced)
   })
 })
 
-ipcMain.on('insert', (event, dbName, rows) => {
+ipcMain.on('insert', (event, replyTo, dbName, rows) => {
   const db = databaseFor(dbName)
   if (!db) {
     log.error(dbName, 'database not loaded for insert')
-    event.sender.send('inserted', 'database not loaded')
+    event.sender.send(replyTo, 'database not loaded')
     return
   }
 
@@ -183,15 +183,15 @@ ipcMain.on('insert', (event, dbName, rows) => {
     if (err) {
       log.error('insert error', err)
     }
-    event.sender.send('inserted', err, newRecords)
+    event.sender.send(replyTo, err, newRecords)
   })
 })
 
-ipcMain.on('find-latest', (event, dbName, conditions, sort) => {
+ipcMain.on('find-latest', (event, replyTo, dbName, conditions, sort) => {
   const db = databaseFor(dbName)
   if (!db) {
     log.error(dbName, 'database not loaded for find-latest')
-    event.sender.send('found-latest', 'database not loaded')
+    event.sender.send(replyTo, 'database not loaded')
     return
   }
 
@@ -199,6 +199,6 @@ ipcMain.on('find-latest', (event, dbName, conditions, sort) => {
     if (err) {
       log.error('find-latest error', err)
     }
-    event.sender.send('found-latest', err, rows)
+    event.sender.send(replyTo, err, rows)
   })
 })
