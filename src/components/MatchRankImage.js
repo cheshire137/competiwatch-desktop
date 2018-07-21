@@ -45,11 +45,13 @@ class MatchRankImage extends Component {
     const src = require(`../images/ranks/${rankTier}.png`)
     const imgClass = `rank-image rank-${rankTier} ${className}`
     return (
-      <span className="d-inline-block tooltipped-n tooltipped">
+      <span
+        className="d-inline-block tooltipped-n tooltipped"
+        aria-label={`${rank} SR, ${rankTier}`}
+      >
         <img
           src={src}
           className={imgClass}
-          aria-label={rank}
           alt={`${rank} (${rankTier})`}
         />
       </span>
