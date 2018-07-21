@@ -123,7 +123,7 @@ ipcMain.on('find-all', (event, dbName, sort, conditions) => {
   })
 })
 
-ipcMain.on('count', (event, dbName, conditions) => {
+ipcMain.on('count', (event, replyTo, dbName, conditions) => {
   const db = databaseFor(dbName)
   if (!db) {
     log.error(dbName, 'database not loaded for count')
@@ -135,7 +135,7 @@ ipcMain.on('count', (event, dbName, conditions) => {
     if (err) {
       log.error('count error', err)
     }
-    event.sender.send('counted', err, count)
+    event.sender.send(replyTo, err, count)
   })
 })
 

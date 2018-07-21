@@ -2,6 +2,10 @@ import path from 'path'
 
 const { ipcRenderer } = window.require('electron')
 
+const getSignature = prefix => {
+  return prefix + Math.random().toString(36).substr(2, 9)
+}
+
 class Database {
   static findOne(dbName, conditions) {
     return new Promise((resolve, reject) => {
@@ -24,14 +28,15 @@ class Database {
 
   static count(dbName, conditions) {
     return new Promise((resolve, reject) => {
-      ipcRenderer.once('counted', (event, err, count) => {
+      const replyTo = getSignature('count')
+      ipcRenderer.once(replyTo, (event, err, count) => {
         if (err) {
           console.error('failed to count records', err)
         } else {
           resolve(count)
         }
       })
-      ipcRenderer.send('count', dbName, conditions)
+      ipcRenderer.send('count', replyTo, dbName, conditions)
     })
   }
 
