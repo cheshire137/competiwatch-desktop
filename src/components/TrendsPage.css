@@ -1,3 +1,7 @@
 .medium-chart-container {
   height: 250px;
 }
+
+.small-chart-container {
+  height: 200px;
+}
