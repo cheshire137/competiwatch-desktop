@@ -3,11 +3,17 @@ import { Pie } from 'react-chartjs-2'
 import Color from '../models/Color'
 
 class WinLossChart extends Component {
-  render() {
-    const { matches, season } = this.props
+  getData = () => {
+    const { matches } = this.props
     const wins = matches.filter(match => match.isWin()).length
     const losses = matches.filter(match => match.isLoss()).length
     const draws = matches.filter(match => match.isDraw()).length
+
+    return [wins, losses, draws]
+  }
+
+  render() {
+    const { season } = this.props
     const options = {
       responsive: true, maintainAspectRatio: false,
       legend: { position: 'left' }
@@ -18,7 +24,7 @@ class WinLossChart extends Component {
         {
           backgroundColor: [Color.transparentWin, Color.transparentLoss, Color.transparentDraw],
           borderColor: [Color.win, Color.loss, Color.draw],
-          data: [wins, losses, draws]
+          data: this.getData()
         }
       ]
     }
