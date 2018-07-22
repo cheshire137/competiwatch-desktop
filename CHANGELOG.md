@@ -7,6 +7,7 @@
 - A warning is now shown when trying to log a match in a past competitive season [#17](https://github.com/cheshire137/competiwatch-desktop/issues/17)
 - App title now updates to reflect the selected account, season, and page [#19](https://github.com/cheshire137/competiwatch-desktop/issues/19)
 - Fixed bug where new competitive seasons couldn't be added from the Manage Seasons page
+- Trends page is now accessible via Alt-T or Option-T and is in the 'View' menu
 
 ## Version 0.1.2
 

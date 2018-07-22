@@ -14,6 +14,7 @@ class AppMenu {
     this.accounts = options.accounts
     this.showMatchesMenuItem = options.season && options.accountID
     this.showLogMatchMenuItem = this.showMatchesMenuItem
+    this.showTrendsMenuItem = this.showMatchesMenuItem
     this.isMac = os.release().indexOf('Macintosh') > -1
     this.altOrOption = this.isMac ? 'Option' : 'Alt'
 
@@ -160,6 +161,16 @@ class AppMenu {
     }
   }
 
+  trendsMenuItem() {
+    const self = this
+
+    return {
+      label: 'Trends',
+      accelerator: `${this.altOrOption}+T`,
+      click() { self.onPageChange('trends') }
+    }
+  }
+
   logMatchMenuItem() {
     const self = this
 
@@ -255,7 +266,7 @@ class AppMenu {
       submenu.push(this.settingsMenuItem())
     }
     if (!this.isMac || this.showLogMatchMenuItem) {
-      submenu.push({ type: 'separator' })      
+      submenu.push({ type: 'separator' })
     }
     submenu.push(this.developerToolsMenuItem())
     return submenu
@@ -268,6 +279,9 @@ class AppMenu {
     }
     if (this.showLogMatchMenuItem) {
       submenu.push(this.logMatchMenuItem())
+    }
+    if (this.showTrendsMenuItem) {
+      submenu.push(this.trendsMenuItem())
     }
     return submenu
   }

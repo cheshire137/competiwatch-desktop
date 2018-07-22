@@ -52,7 +52,6 @@ class MatchesPage extends Component {
     }
 
     const { onPageChange, season, scrollToLatestMatch } = this.props
-
     return (
       <div className="container layout-children-container">
         <MatchesList
