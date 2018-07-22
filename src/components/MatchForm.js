@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Match from '../models/Match'
+import Account from '../models/Account'
 import DayTimeApproximator from '../models/DayTimeApproximator'
 import MapSelect from './MapSelect'
 import HeroSelect from './HeroSelect'
@@ -82,6 +83,7 @@ class MatchForm extends Component {
       map: props.map || '',
       group: props.group || '',
       groupSize: props.groupSize || 1,
+      groupMembers: [],
       heroes: props.heroes || '',
       playedAt,
       dayOfWeek,
@@ -95,9 +97,25 @@ class MatchForm extends Component {
     }
   }
 
+  refreshGroupMembers = () => {
+    const { accountID } = this.props
+    const account = new Account({ _id: accountID })
+
+    account.findAllGroupMembers().then(groupMembers => {
+      this.setState(prevState => ({ groupMembers }))
+    })
+  }
+
+  componentDidMount() {
+    this.refreshGroupMembers()
+  }
+
   componentDidUpdate(prevProps) {
     const isValid = isMatchValid(this.props)
 
+    if (prevProps.accountID !== this.props.accountID) {
+      this.refreshGroupMembers()
+    }
     if (prevProps.rank !== this.props.rank) {
       this.setState(prevState => ({ rank: this.props.rank, isValid }))
     }
@@ -302,7 +320,7 @@ class MatchForm extends Component {
 
   render() {
     const { rank, comment, map, group, heroes, playedAt, groupSize,
-            allyThrower, allyLeaver, enemyThrower, enemyLeaver,
+            allyThrower, allyLeaver, enemyThrower, enemyLeaver, groupMembers,
             playOfTheGame, result, isValid, dayOfWeek, timeOfDay } = this.state
     const { season, latestRank, isPlacement, isLastPlacement } = this.props
     let playedAtStr = playedAt
@@ -412,6 +430,7 @@ class MatchForm extends Component {
               <legend className="h5">Your group</legend>
               <GroupMembersField
                 group={group}
+                groupMembers={groupMembers}
                 onGroupChange={this.onGroupChange}
               />
               <dl className="form-group mb-0">
