@@ -233,6 +233,7 @@ class App extends Component {
           firstNonDeletableSeason={latestKnownSeason}
           onCreate={this.changeActiveSeason}
           onDelete={this.onSeasonDelete}
+          onPageChange={this.changeActivePage}
         />
       )
     }
@@ -313,7 +314,8 @@ class App extends Component {
   render() {
     const { activePage, activeAccountID, activeSeason, latestSeason,
             isPlacement, accounts } = this.state
-    const showHeader = activePage !== 'about' && activePage !== 'settings'
+    const showHeader = activePage !== 'about' && activePage !== 'settings' &&
+      activePage !== 'manage-seasons'
 
     return (
       <div className={this.outerClass()}>

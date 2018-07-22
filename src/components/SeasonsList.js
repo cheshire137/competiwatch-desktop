@@ -15,27 +15,22 @@ class SeasonsList extends Component {
     const seasons = Array.from({ length: latestSeason }, (v, k) => k + 1).reverse()
 
     return (
-      <div className="mb-4">
-        <h2
-          className="h2 text-normal mb-2 d-flex flex-items-center"
-        >Competitive seasons</h2>
-        <ul className="list-style-none">
-          {seasons.map((season, i) => (
-            <li
-              key={season}
-              className={this.listItemClass(i)}
-            >
-              Season {season}
-              {season > firstNonDeletableSeason && i === 0 ? (
-                <SeasonDeleteForm
-                  season={season}
-                  onDelete={onDelete}
-                />
-              ) : ''}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className="list-style-none mb-4">
+        {seasons.map((season, i) => (
+          <li
+            key={season}
+            className={this.listItemClass(i)}
+          >
+            Season {season}
+            {season > firstNonDeletableSeason && i === 0 ? (
+              <SeasonDeleteForm
+                season={season}
+                onDelete={onDelete}
+              />
+            ) : null}
+          </li>
+        ))}
+      </ul>
     )
   }
 }
