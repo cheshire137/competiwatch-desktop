@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import SeasonListItem from './SeasonListItem'
 import SeasonDeleteForm from './SeasonDeleteForm'
 
 class SeasonsList extends Component {
@@ -17,18 +18,13 @@ class SeasonsList extends Component {
     return (
       <ul className="list-style-none mb-4">
         {seasons.map((season, i) => (
-          <li
+          <SeasonListItem
             key={season}
-            className={this.listItemClass(i)}
-          >
-            Season {season}
-            {season > firstNonDeletableSeason && i === 0 ? (
-              <SeasonDeleteForm
-                season={season}
-                onDelete={onDelete}
-              />
-            ) : null}
-          </li>
+            firstNonDeletableSeason={firstNonDeletableSeason}
+            onDelete={onDelete}
+            seasonNumber={season}
+            index={i}
+          />
         ))}
       </ul>
     )
