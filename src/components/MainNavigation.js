@@ -170,7 +170,7 @@ class MainNavigation extends Component {
 
   render() {
     return (
-      <nav className="ml-3 border-0 UnderlineNav d-flex flex-justify-between flex-items-center">
+      <nav className="ml-3 border-0 UnderlineNav width-full d-flex flex-justify-between flex-items-center">
         <div className="UnderlineNav-body">
           {this.renderAccountsButton()}
           {this.renderMatchesButton()}
