@@ -19,6 +19,11 @@ class Season {
     }
   }
 
+  totalMatches() {
+    const conditions = { season: this.number }
+    return Database.count('matches', conditions)
+  }
+
   save() {
     const data = { number: this.number }
     return Database.upsert('season', data, this._id).then(newSeason => {
