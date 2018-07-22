@@ -2,6 +2,9 @@
 
 ## Version 0.1.3
 
+- More compact header so the selected account and season are always visible
+- Added chart showing wins and losses per map to the Trends page
+
 ## Version 0.1.2
 
 - Added a 'Trends' page with charts about your match results [#12](https://github.com/cheshire137/competiwatch-desktop/issues/12)

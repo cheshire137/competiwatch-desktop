@@ -4,6 +4,7 @@ import LoadingPage from './LoadingPage'
 import WinLossChart from './WinLossChart'
 import ThrowerLeaverChart from './ThrowerLeaverChart'
 import StreaksChart from './StreaksChart'
+import MapChart from './MapChart'
 import Match from '../models/Match'
 import Color from '../models/Color'
 import './TrendsPage.css'
@@ -61,6 +62,8 @@ class TrendsPage extends Component {
         </div>
         <hr className="mb-4 pt-4" />
         <StreaksChart season={season} matches={matches} />
+        <hr className="mb-4 pt-4" />
+        <MapChart season={season} matches={matches} />
       </div>
     )
   }

@@ -19,6 +19,13 @@ export default {
     'Volskaya Industries',
     'Watchpoint: Gibraltar'
   ],
+  shortNames: {
+    'Blizzard World': 'B. World',
+    'Horizon Lunar Colony': 'H. Lunar Colony',
+    'Temple of Anubis': 'Anubis',
+    'Volskaya Industries': 'Volskaya',
+    'Watchpoint: Gibraltar': 'WP: Gibraltar'
+  },
   byType: {
     Assault: [
       'Hanamura',
