@@ -225,8 +225,15 @@ class App extends Component {
   }
 
   changeActiveAccount = accountID => {
-    this.setState(prevState => ({ activeAccountID: accountID, activePage: 'matches' }),
-                  this.updateAppMenu)
+    this.setState(prevState => {
+      const newState = { activeAccountID: accountID }
+
+      if (prevState.activePage !== 'trends' && prevState.activePage !== 'matches') {
+        newState.activePage = 'matches'
+      }
+
+      return newState
+    }, this.updateAppMenu)
   }
 
   onSettingsSaved = settings => {
