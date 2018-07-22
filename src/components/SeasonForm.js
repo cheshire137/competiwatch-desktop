@@ -75,7 +75,7 @@ class SeasonForm extends Component {
           <dt>
             <label
               htmlFor="season-number"
-            >Season:</label>
+            >Season number:</label>
           </dt>
           <dd>
             <input
