@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import MatchesTable from './MatchesTable'
+import LoadingPage from './LoadingPage'
 import Match from '../models/Match'
 import './MatchesList.css'
 
@@ -52,27 +53,28 @@ class MatchesList extends Component {
   }
 
   render() {
-    const { matches } = this.state
     const { totalMatches, season, account, scrollToLatestMatch } = this.props
+    if (totalMatches < 0) {
+      return <LoadingPage />
+    }
+
+    const { matches } = this.state
     const anyMatches = matches.length > 0
-    const isLoading = totalMatches < 0
 
     return (
       <div className="mb-4">
-        {isLoading ? null : (
-          <div className="d-flex flex-items-center flex-justify-between">
-            <h2
-              className="h2 text-normal mb-2 d-flex flex-items-center"
-            >Matches <span className="Counter ml-2 h4 px-2">{totalMatches}</span></h2>
-            {anyMatches ? (
-              <button
-                type="button"
-                className="btn btn-primary btn-sm"
-                onClick={this.changeToMatchFormPage}
-              >Log a match</button>
-            ) : null}
-          </div>
-        )}
+        <div className="d-flex flex-items-center flex-justify-between">
+          <h2
+            className="h2 text-normal mb-2 d-flex flex-items-center"
+          >Matches <span className="Counter ml-2 h4 px-2">{totalMatches}</span></h2>
+          {anyMatches ? (
+            <button
+              type="button"
+              className="btn btn-primary btn-sm"
+              onClick={this.changeToMatchFormPage}
+            >Log a match</button>
+          ) : null}
+        </div>
         {anyMatches ? (
           <div>
             <MatchesTable
@@ -97,7 +99,7 @@ class MatchesList extends Component {
               >Log a match</button>
             </div>
           </div>
-        ) : isLoading ? null : (
+        ) : (
           <div className="blankslate">
             <h3
               className="mb-2"

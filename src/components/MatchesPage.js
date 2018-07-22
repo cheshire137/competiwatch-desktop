@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import MatchesList from './MatchesList'
+import LoadingPage from './LoadingPage'
 import Account from '../models/Account'
 
 const totalPlacementMatches = 10
@@ -42,29 +43,23 @@ class MatchesPage extends Component {
   }
 
   render() {
-    const { onPageChange, season, scrollToLatestMatch } = this.props
     const { totalMatches, account } = this.state
+    if (!account) {
+      return <LoadingPage />
+    }
+
+    const { onPageChange, season, scrollToLatestMatch } = this.props
 
     return (
       <div className="container layout-children-container">
-        {totalMatches < 0 || !account ? (
-          <div className="blankslate">
-            <h1>
-              <span className="ion ion-md-refresh mr-3 ion-spin" />
-              Loading...
-            </h1>
-          </div>
-        ) : null}
-        {account ? (
-          <MatchesList
-            totalMatches={totalMatches}
-            season={season}
-            account={account}
-            onLoad={this.onMatchesLoad}
-            onPageChange={onPageChange}
-            scrollToLatestMatch={scrollToLatestMatch}
-          />
-        ) : null}
+        <MatchesList
+          totalMatches={totalMatches}
+          season={season}
+          account={account}
+          onLoad={this.onMatchesLoad}
+          onPageChange={onPageChange}
+          scrollToLatestMatch={scrollToLatestMatch}
+        />
       </div>
     )
   }
