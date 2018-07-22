@@ -61,9 +61,9 @@ class App extends Component {
   }
 
   refreshLatestSeason = () => {
-    Season.latest().then(number => {
-      if (number) {
-        this.changeActiveSeason(number)
+    Season.latest().then(season => {
+      if (season) {
+        this.changeActiveSeason(season.number)
       } else {
         this.changeActiveSeason(latestKnownSeason)
       }

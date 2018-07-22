@@ -4,6 +4,7 @@ class Season {
   static latest() {
     const conditions = {}
     const sort = { number: -1 }
+
     return Database.latest('seasons', conditions, sort).then(data => {
       if (data) {
         return new Season(data)
