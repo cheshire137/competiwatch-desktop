@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SeasonSelect from './SeasonSelect'
 import AccountSelect from './AccountSelect'
 import MainNavigation from './MainNavigation'
+import './Header.css'
 
 class Header extends Component {
   changeActivePage = event => {
@@ -17,8 +18,8 @@ class Header extends Component {
             activeAccountID, onAccountChange, activePage } = this.props
 
     return (
-      <div className="mb-3">
-        <div className="container mb-2 mt-4 d-flex flex-items-center">
+      <div className="mb-3 sticky-bar border-bottom">
+        <div className="d-flex flex-items-center container">
           <SeasonSelect
             activeSeason={activeSeason}
             latestSeason={latestSeason}
@@ -33,8 +34,6 @@ class Header extends Component {
               onPageChange={this.changeActivePage}
             />
           ) : null}
-        </div>
-        <div className="container clearfix">
           <MainNavigation
             onPageChange={this.changeActivePage}
             activePage={activePage}
