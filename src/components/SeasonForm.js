@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import Season from '../models/Season'
+import PackageInfo from '../../package.json'
+
+const { remote, shell } = window.require('electron')
+const { app } = remote
 
 class SeasonForm extends Component {
   constructor(props) {
@@ -32,9 +36,20 @@ class SeasonForm extends Component {
     this.setState(prevState => ({ season, isValid }))
   }
 
+  openReleasesPage = event => {
+    event.target.blur()
+
+    const repoUrl = PackageInfo.repository.url
+    const joiner = repoUrl.substr(-1) === '/' ? '' : '/'
+    const releasesUrl = `${repoUrl}${joiner}releases`
+
+    shell.openExternal(releasesUrl)
+  }
+
   render() {
     const { season, isValid } = this.state
     const { latestSeason } = this.props
+    const appName = app.getName()
 
     return (
       <form
@@ -44,6 +59,18 @@ class SeasonForm extends Component {
         <h2
           className="h2 text-normal mb-2"
         >Add a season</h2>
+        <p>
+          <span>A </span>
+          <button
+            type="button"
+            className="btn-link"
+            onClick={this.openReleasesPage}
+          >new version</button>
+          <span> of </span>
+          {appName} may have the latest competitive
+          season. If you can't update for some reason, you can add
+          a season to continue logging matches.
+        </p>
         <dl className="form-group mt-0">
           <dt>
             <label
