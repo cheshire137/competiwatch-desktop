@@ -5,6 +5,7 @@
 - More compact header so the selected account and season are always visible
 - Added chart showing wins and losses per map to the Trends page
 - A warning is now shown when trying to log a match in a past competitive season [#17](https://github.com/cheshire137/competiwatch-desktop/issues/17)
+- App title now updates to reflect the selected account, season, and page [#19](https://github.com/cheshire137/competiwatch-desktop/issues/19)
 
 ## Version 0.1.2
 

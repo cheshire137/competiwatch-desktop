@@ -1,11 +1,19 @@
 const path = require('path')
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const url = require('url')
 require('./electron-database')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+
+function onTitleChange(event, suffix) {
+  let title = app.getName()
+  if (typeof suffix === 'string' && suffix.length > 0) {
+    title += ` - ${suffix}`
+  }
+  mainWindow.setTitle(title)
+}
 
 function createWindow () {
   mainWindow = new BrowserWindow({ width: 1180, height: 693 })
@@ -21,6 +29,10 @@ function createWindow () {
     // Open the DevTools when running app in development mode
     mainWindow.webContents.openDevTools()
   }
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    ipcMain.on('title', onTitleChange)
+  })
 
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows

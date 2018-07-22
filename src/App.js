@@ -141,6 +141,8 @@ class App extends Component {
       return
     }
 
+    this.updateAppTitle()
+
     new AppMenu({
       onPageChange: this.changeActivePage,
       onSeasonChange: this.changeActiveSeason,
@@ -150,6 +152,48 @@ class App extends Component {
       accountID: activeAccountID,
       accounts
     })
+  }
+
+  updateAppTitle = () => {
+    const { activeAccountID, accounts, activeSeason, activePage } = this.state
+    const haveActiveSeason = typeof activeSeason === 'number' && !isNaN(activeSeason)
+    const isSeasonRelevant = ['matches', 'log-match', 'trends', 'edit-match', 'import'].indexOf(activePage) > -1
+    const isAccountRelevant = ['matches', 'log-match', 'trends', 'edit-match', 'import'].indexOf(activePage) > -1
+    let titleParts = []
+
+    if (activePage === 'matches') {
+      titleParts.push('Matches')
+    } else if (activePage === 'log-match') {
+      titleParts.push('Log a Match')
+    } else if (activePage === 'trends') {
+      titleParts.push('Trends')
+    } else if (activePage === 'manage-seasons') {
+      titleParts.push('Manage Seasons')
+    } else if (activePage === 'edit-match') {
+      titleParts.push('Edit Match')
+    } else if (activePage === 'import') {
+      titleParts.push('Import Matches')
+    } else if (activePage === 'about') {
+      titleParts.push('About')
+    } else if (activePage === 'settings') {
+      titleParts.push('Settings')
+    } else if (activePage === 'accounts') {
+      titleParts.push('Accounts')
+    }
+
+    if (haveActiveSeason && isSeasonRelevant) {
+      titleParts.push(`Season ${activeSeason}`)
+    }
+
+    if (activeAccountID && isAccountRelevant && accounts && accounts.length > 0) {
+      const activeAccount = accounts.filter(account => account._id === activeAccountID)[0]
+
+      if (activeAccount) {
+        titleParts.push(activeAccount.battletag)
+      }
+    }
+
+    ipcRenderer.send('title', titleParts.join(' / '))
   }
 
   changeActiveSeason = activeSeason => {
