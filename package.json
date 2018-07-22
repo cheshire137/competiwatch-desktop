@@ -38,6 +38,7 @@
     "ionicons": "^4.2.4",
     "primer": "^10.7.0",
     "react": "^16.4.1",
+    "react-autocomplete": "^1.8.1",
     "react-chartjs-2": "^2.7.4",
     "react-click-outside": "^3.0.1",
     "react-dom": "^16.4.1",
