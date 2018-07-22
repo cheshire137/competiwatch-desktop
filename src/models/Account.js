@@ -20,6 +20,26 @@ class Account {
     }
   }
 
+  findAllGroupMembers() {
+    const sort = {}
+    const conditions = { accountID: this._id, group: { $ne: null, $ne: '' } }
+
+    return Database.findAll('matches', sort, conditions).then(matchRows => {
+      const matches = matchRows.map(data => new Match(data))
+      const groupMembers = {}
+
+      for (const match of matches) {
+        for (const groupMember of match.groupList) {
+          if (!(groupMember in groupMembers)) {
+            groupMembers[groupMember] = 1
+          }
+        }
+      }
+
+      return Object.keys(groupMembers).sort()
+    })
+  }
+
   latestMatch(season) {
     const conditions = { accountID: this._id, season }
     const sort = { date: -1, createdAt: -1 }
