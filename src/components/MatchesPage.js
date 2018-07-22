@@ -25,7 +25,10 @@ class MatchesPage extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.accountID !== this.props.accountID) {
+      this.setState(prevState => ({ totalMatches: -1 }))
       this.refreshAccount()
+    } else if (prevProps.season !== this.props.season) {
+      this.setState(prevState => ({ totalMatches: -1 }))
     }
   }
 
