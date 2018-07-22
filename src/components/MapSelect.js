@@ -21,7 +21,7 @@ class MapSelect extends Component {
         {mapTypes.map(mapType => (
           <optgroup label={mapType} key={mapType}>
             {Map.byType[mapType].map(mapName => (
-              <option value={mapName}>{mapName}</option>
+              <option key={mapName} value={mapName}>{mapName}</option>
             ))}
           </optgroup>
         ))}
