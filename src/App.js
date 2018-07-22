@@ -216,9 +216,11 @@ class App extends Component {
         <MatchCreatePage
           accountID={activeAccountID}
           onPageChange={this.changeActivePage}
+          onSeasonChange={this.changeActiveSeason}
           latestRank={latestRank}
           isPlacement={isPlacement}
           season={activeSeason}
+          latestSeason={latestSeason}
           isLastPlacement={isLastPlacement}
         />
       )
