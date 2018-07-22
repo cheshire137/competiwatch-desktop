@@ -82,7 +82,7 @@ class SeasonSelect extends Component {
     const { seasons } = this.state
 
     return (
-      <div className="mr-2">
+      <div className="mr-2 my-2">
         <div className={this.containerClass()}>
           <button
             className={this.toggleButtonClass()}
