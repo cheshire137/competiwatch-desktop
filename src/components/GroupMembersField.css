@@ -1,0 +1,17 @@
+.highlighted {
+  background-color: #f6f8fa;
+}
+
+.theme-dark .highlighted {
+  background-color: #34383d;
+}
+
+.autocomplete-menu {
+  overflow: auto;
+  max-height: 50%;
+  background-color: #fff;
+}
+
+.theme-dark .autocomplete-menu {
+  background-color: #24292e;
+}
