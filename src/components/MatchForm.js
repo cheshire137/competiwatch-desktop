@@ -5,6 +5,7 @@ import MapSelect from './MapSelect'
 import HeroSelect from './HeroSelect'
 import TimeOfDayEmoji from './TimeOfDayEmoji'
 import DayOfWeekEmoji from './DayOfWeekEmoji'
+import GroupMembersField from './GroupMembersField'
 import './MatchForm.css'
 
 const dateTimeStrFrom = date => {
@@ -212,13 +213,7 @@ class MatchForm extends Component {
     this.setState(prevState => ({ result }), this.onFormFieldUpdate)
   }
 
-  onGroupChange = event => {
-    const group = event.target.value
-    let groupSize = 1
-    if (group) {
-      const validGroupMembers = group.split(',').filter(member => member.trim().length > 0)
-      groupSize = validGroupMembers.length + 1
-    }
+  onGroupChange = (group, groupSize) => {
     this.setState(prevState => ({ group, groupSize }), this.onFormFieldUpdate)
   }
 
@@ -415,26 +410,10 @@ class MatchForm extends Component {
             </dl>
             <fieldset className="Box pt-2 pb-3 px-3">
               <legend className="h5">Your group</legend>
-              <dl className="form-group mt-0">
-                <dt>
-                  <label
-                    htmlFor="match-group"
-                  >Group members:</label>
-                </dt>
-                <dd>
-                  <input
-                    id="match-group"
-                    type="text"
-                    className="form-control width-full"
-                    value={group}
-                    onChange={this.onGroupChange}
-                    placeholder="Separate names with commas"
-                  />
-                  <p className="note">
-                    List friends you grouped with.
-                  </p>
-                </dd>
-              </dl>
+              <GroupMembersField
+                group={group}
+                onGroupChange={this.onGroupChange}
+              />
               <dl className="form-group mb-0">
                 <dt>
                   <label
