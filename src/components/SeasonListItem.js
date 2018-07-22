@@ -48,7 +48,7 @@ class SeasonListItem extends Component {
             />
           ) : null}
         </div>
-        {totalMatches > -1 ? (
+        {totalMatches > 0 ? (
           <div className="text-gray text-small">
             {totalMatches} match{totalMatches === 1 ? null : 'es'}
           </div>
