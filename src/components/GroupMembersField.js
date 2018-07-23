@@ -10,7 +10,9 @@ class GroupMembersField extends Component {
 
     if (lastMember.length > 0) {
       groupMembers = this.props.groupMembers.filter(groupMember => {
-        return groupMember.toLowerCase().indexOf(lastMember) === 0
+        const lowerGroupMember = groupMember.toLowerCase()
+        return lowerGroupMember !== lastMember &&
+          lowerGroupMember.indexOf(lastMember) === 0
       })
     }
 
