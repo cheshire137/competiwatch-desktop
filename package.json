@@ -35,6 +35,7 @@
     "electron": "^2.0.4",
     "electron-packager": "^12.1.0",
     "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "foreman": "^3.0.1",
     "ionicons": "^4.2.4",
     "jest-enzyme": "^6.0.2",
