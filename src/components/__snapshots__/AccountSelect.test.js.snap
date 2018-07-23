@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  className="select-menu d-inline-block"
+>
+  <button
+    aria-expanded="false"
+    aria-haspopup="true"
+    className="btn select-menu-button"
+    onClick={[Function]}
+    type="button"
+  >
+    Select an account
+  </button>
+  <div
+    className="select-menu-modal-holder"
+  >
+    <div
+      className="select-menu-modal"
+    >
+      <div
+        className="select-menu-list"
+      >
+        <button
+          className="select-menu-item text-left width-full btn-link"
+          onClick={[Function]}
+          type="button"
+          value="456"
+        >
+          <span
+            className="ion ion-ios-checkmark select-menu-item-icon"
+          />
+          <span
+            className="select-menu-item-text"
+          >
+            CheshireCat
+          </span>
+        </button>
+        <button
+          className="select-menu-item text-left width-full btn-link"
+          onClick={[Function]}
+          type="button"
+          value="123"
+        >
+          <span
+            className="ion ion-ios-checkmark select-menu-item-icon"
+          />
+          <span
+            className="select-menu-item-text"
+          >
+            MarchHare
+          </span>
+        </button>
+        <button
+          className="select-menu-item text-bold text-left width-full btn-link"
+          name="accounts"
+          onClick={[Function]}
+          type="button"
+        >
+          <span
+            className="ion ion-ios-checkmark select-menu-item-icon"
+          />
+          <span
+            className="select-menu-item-text"
+          >
+            Manage accounts
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
