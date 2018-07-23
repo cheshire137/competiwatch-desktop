@@ -1,12 +1,17 @@
 import stringify from '../lib/csv-stringify'
 import Match from './Match'
 
-const fs = window.require('fs')
+let fs = null
+if (typeof window.require === 'function') {
+  fs = window.require('fs')
+} else {
+  fs = require('fs')
+}
+
 const headers = [
   'Battletag', 'Season', 'Rank', 'Rank Change', 'Result', 'Win Streak', 'Loss Streak',
   'Placement', 'Map', 'Comment', 'Date', 'Day', 'Time', 'Heroes', 'Group', 'Group Size',
   'Play of the Game', 'Ally Leaver', 'Ally Thrower', 'Enemy Leaver', 'Enemy Thrower'
-
 ]
 
 const charForBoolean = boolean => {

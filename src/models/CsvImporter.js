@@ -1,7 +1,12 @@
 import parse from '../lib/csv-parse'
 import Match from './Match'
 
-const fs = window.require('fs')
+let fs = null
+if (typeof window.require === 'function') {
+  fs = window.require('fs')
+} else {
+  fs = require('fs')
+}
 
 class CsvImporter {
   constructor(path, season, accountID) {
