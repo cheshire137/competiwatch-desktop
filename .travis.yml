@@ -1,0 +1,16 @@
+notifications:
+  email: false
+language: javascript
+env:
+  - TRAVIS_NODE_VERSION="6"
+cache:
+  yarn: true
+  directories:
+    - "node_modules"
+install:
+  - nvm install 6
+  - npm install
+before_script:
+  - nvm use 6
+script:
+  - npm test
