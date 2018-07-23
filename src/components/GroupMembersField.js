@@ -66,7 +66,7 @@ class GroupMembersField extends Component {
   }
 
   renderAutocompleteMenu = items => {
-    const classes = ['position-fixed', 'border', 'rounded-1', 'box-shadow', 'autocomplete-menu']
+    const classes = ['position-absolute', 'border', 'rounded-1', 'box-shadow', 'autocomplete-menu']
     if (items.length < 1) {
       classes.push('d-none')
     }
