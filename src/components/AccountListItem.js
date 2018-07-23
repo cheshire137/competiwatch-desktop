@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import AccountDeleteForm from './AccountDeleteForm'
 import CsvExporter from '../models/CsvExporter'
+import ElectronUtils from '../models/ElectronUtils'
 import MatchRankImage from './MatchRankImage'
 import './AccountListItem.css'
 
-const { dialog } = window.require('electron').remote
+const { remote } = ElectronUtils
+const { dialog } = remote
 
 const dateStrFrom = date => {
   const year = date.getFullYear()

@@ -4,6 +4,7 @@ import Account from './models/Account'
 import Season from './models/Season'
 import Setting from './models/Setting'
 import AppMenu from './models/AppMenu'
+import ElectronUtils from './models/ElectronUtils'
 import AccountsPage from './components/AccountsPage'
 import MatchesPage from './components/MatchesPage'
 import MatchCreatePage from './components/MatchCreatePage'
@@ -19,7 +20,7 @@ import './ionicons.min.css'
 import './App.css'
 
 const latestKnownSeason = 11
-const { ipcRenderer } = window.require('electron')
+const { ipcRenderer } = ElectronUtils
 
 class App extends Component {
   constructor(props) {

@@ -1,4 +1,5 @@
-const { ipcRenderer } = window.require('electron')
+import ElectronUtils from './ElectronUtils'
+const { ipcRenderer } = ElectronUtils
 
 const getSignature = prefix => {
   return prefix + Math.random().toString(36).substr(2, 9)

@@ -1,8 +1,8 @@
 import os from 'os'
 import PackageInfo from '../../package.json'
+import ElectronUtils from '../models/ElectronUtils'
 
-const remote = window.require('electron').remote
-const shell = window.require('electron').shell
+const { remote, shell } = ElectronUtils
 const { Menu, app } = remote
 
 class AppMenu {

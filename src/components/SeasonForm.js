@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import Season from '../models/Season'
 import PackageInfo from '../../package.json'
+import ElectronUtils from '../models/ElectronUtils'
 
-const { remote, shell } = window.require('electron')
+const { remote, shell } = ElectronUtils
 const { app } = remote
 
 class SeasonForm extends Component {

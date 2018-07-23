@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PackageInfo from '../../package.json'
+import ElectronUtils from '../models/ElectronUtils'
 
-const { remote, shell } = window.require('electron')
+const { remote, shell } = ElectronUtils
 const { app } = remote
 
 class AboutPage extends Component {

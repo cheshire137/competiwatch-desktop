@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import ElectronUtils from '../models/ElectronUtils'
 
-const { ipcRenderer, shell } = window.require('electron')
+const { ipcRenderer, shell } = ElectronUtils
 
 class DatabaseFileLink extends Component {
   constructor(props) {
