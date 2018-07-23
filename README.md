@@ -1,5 +1,7 @@
 # Competiwatch Desktop
 
+[![Build Status](https://travis-ci.org/cheshire137/competiwatch-desktop.svg?branch=master)](https://travis-ci.org/cheshire137/competiwatch-desktop)
+
 **[Download the app](https://github.com/cheshire137/competiwatch-desktop/releases)**
 
 This is a work in progress. It's a desktop app for Windows and macOS to track
