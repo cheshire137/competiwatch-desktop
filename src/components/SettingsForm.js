@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Setting from '../models/Setting'
 
 class SettingsForm extends Component {
   constructor(props) {

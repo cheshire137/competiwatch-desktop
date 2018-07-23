@@ -1,5 +1,3 @@
-import path from 'path'
-
 const { ipcRenderer } = window.require('electron')
 
 const getSignature = prefix => {

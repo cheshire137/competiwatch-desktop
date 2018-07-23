@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Header from './components/Header'
 import Account from './models/Account'
-import Match from './models/Match'
 import Season from './models/Season'
 import Setting from './models/Setting'
 import AppMenu from './models/AppMenu'

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import AccountDeleteForm from './AccountDeleteForm'
-import Account from '../models/Account'
 import CsvExporter from '../models/CsvExporter'
 import MatchRankImage from './MatchRankImage'
 import './AccountListItem.css'

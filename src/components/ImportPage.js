@@ -41,7 +41,7 @@ class ImportPage extends Component {
   }
 
   render() {
-    const { season, accountID, onImport } = this.props
+    const { season, onImport } = this.props
     const { totalMatches, account } = this.state
 
     return (

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Account from '../models/Account'
 import AccountListItem from './AccountListItem'
 
 class AccountsList extends Component {

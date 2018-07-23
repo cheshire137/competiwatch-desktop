@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import SettingsForm from './SettingsForm'
 
 const { ipcRenderer, shell } = window.require('electron')
 

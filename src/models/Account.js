@@ -22,7 +22,7 @@ class Account {
 
   findAllGroupMembers(season) {
     const sort = {}
-    const conditions = { accountID: this._id, group: { $ne: null, $ne: '' } }
+    const conditions = { accountID: this._id, group: { $ne: '' } }
     if (typeof season === 'number' && !isNaN(season)) {
       conditions.season = season
     }

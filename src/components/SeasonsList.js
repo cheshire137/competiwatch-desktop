@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import SeasonListItem from './SeasonListItem'
-import SeasonDeleteForm from './SeasonDeleteForm'
 
 class SeasonsList extends Component {
   listItemClass = index => {
