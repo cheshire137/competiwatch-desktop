@@ -49,6 +49,13 @@ React logs will show in your terminal. You can run
 `tail -f ~/Library/Logs/Competiwatch/log.log` in macOS in a separate
 terminal from `npm run dev` to monitor Electron logs while the app is running.
 
+## How to Run Tests
+
+```bash
+npm install
+npm test
+```
+
 ## How to Build Executables
 
 For macOS, from a Mac run:
