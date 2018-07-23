@@ -39,7 +39,8 @@ class GroupMembersField extends Component {
     const chosenGroupMembers = group.split(',')
       .filter(groupMember => groupMember.trim().length > 0)
       .map(groupMember => groupMember.trim())
-    const newGroupMembers = chosenGroupMembers
+    const newGroupMembers = chosenGroupMembers.slice(0, chosenGroupMembers.length - 1)
+
 
     if (newGroupMembers.indexOf(groupMember) < 0) {
       newGroupMembers.push(groupMember)
