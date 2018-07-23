@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import scrollToComponent from 'react-scroll-to-component'
 import MatchTableRow from './MatchTableRow'
 
 class MatchesTable extends Component {
@@ -80,6 +79,7 @@ class MatchesTable extends Component {
     const { scrollToLatestMatch } = this.props
 
     if (scrollToLatestMatch) {
+      const scrollToComponent = require('react-scroll-to-component')
       scrollToComponent(this.lastMatchRow)
     }
   }
