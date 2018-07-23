@@ -8,6 +8,7 @@
 - App title now updates to reflect the selected account, season, and page [#19](https://github.com/cheshire137/competiwatch-desktop/issues/19)
 - Fixed bug where new competitive seasons couldn't be added from the Manage Seasons page
 - Trends page is now accessible via Alt-T or Option-T and is in the 'View' menu
+- Group members will be autocompleted based on your previous logged matches [#22](https://github.com/cheshire137/competiwatch-desktop/issues/22)
 
 ## Version 0.1.2
 

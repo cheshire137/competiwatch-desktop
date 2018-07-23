@@ -98,10 +98,10 @@ class MatchForm extends Component {
   }
 
   refreshGroupMembers = () => {
-    const { accountID } = this.props
+    const { accountID, season } = this.props
     const account = new Account({ _id: accountID })
 
-    account.findAllGroupMembers().then(groupMembers => {
+    account.findAllGroupMembers(season).then(groupMembers => {
       this.setState(prevState => ({ groupMembers }))
     })
   }

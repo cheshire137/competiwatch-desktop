@@ -20,9 +20,12 @@ class Account {
     }
   }
 
-  findAllGroupMembers() {
+  findAllGroupMembers(season) {
     const sort = {}
     const conditions = { accountID: this._id, group: { $ne: null, $ne: '' } }
+    if (typeof season === 'number' && !isNaN(season)) {
+      conditions.season = season
+    }
 
     return Database.findAll('matches', sort, conditions).then(matchRows => {
       const matches = matchRows.map(data => new Match(data))
