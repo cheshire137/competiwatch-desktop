@@ -89,42 +89,40 @@ class AccountSelect extends Component {
 
     const { activeAccount } = this.state
     return (
-      <div>
-        <div className={this.containerClass()}>
-          <button
-            className={this.toggleButtonClass()}
-            type="button"
-            onClick={this.onToggleButtonClick}
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            {activeAccount ? activeAccount.battletag : 'Select an account'}
-          </button>
-          <div className="select-menu-modal-holder">
-            <div className="select-menu-modal">
-              <div className="select-menu-list">
-                {accounts.map(account => (
-                  <button
-                    className={this.accountButtonClass(account)}
-                    key={account._id}
-                    type="button"
-                    value={account._id}
-                    onClick={this.onChange}
-                  >
-                    <span className="ion ion-ios-checkmark select-menu-item-icon" />
-                    <span className="select-menu-item-text">{account.battletag}</span>
-                  </button>
-                ))}
+      <div className={this.containerClass()}>
+        <button
+          className={this.toggleButtonClass()}
+          type="button"
+          onClick={this.onToggleButtonClick}
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          {activeAccount ? activeAccount.battletag : 'Select an account'}
+        </button>
+        <div className="select-menu-modal-holder">
+          <div className="select-menu-modal">
+            <div className="select-menu-list">
+              {accounts.map(account => (
                 <button
-                  className="select-menu-item text-bold text-left width-full btn-link"
+                  className={this.accountButtonClass(account)}
+                  key={account._id}
                   type="button"
-                  name="accounts"
-                  onClick={this.manageAccounts}
+                  value={account._id}
+                  onClick={this.onChange}
                 >
                   <span className="ion ion-ios-checkmark select-menu-item-icon" />
-                  <span className="select-menu-item-text">Manage accounts</span>
+                  <span className="select-menu-item-text">{account.battletag}</span>
                 </button>
-              </div>
+              ))}
+              <button
+                className="select-menu-item text-bold text-left width-full btn-link"
+                type="button"
+                name="accounts"
+                onClick={this.manageAccounts}
+              >
+                <span className="ion ion-ios-checkmark select-menu-item-icon" />
+                <span className="select-menu-item-text">Manage accounts</span>
+              </button>
             </div>
           </div>
         </div>
