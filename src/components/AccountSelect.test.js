@@ -26,6 +26,6 @@ it('matches snapshot', () => {
 it('renders', () => {
   const div = document.createElement('div')
   const wrapper = shallow(<AccountSelect accounts={accounts} activeAccountID="123" />)
-  const button = wrapper.find('.select-menu-button')
+  const button = wrapper.dive().find('.select-menu-button')
   expect(button.text()).toBe('MarchHare')
 })
