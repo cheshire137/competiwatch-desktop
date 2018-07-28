@@ -8,9 +8,9 @@ const env = process.env.ELECTRON_START_URL ? 'development' : 'production'
 
 const getDatabaseFilename = name => {
   const dbDir = app.getPath('userData')
-  const dbName = `competiwatch-${name}-${env}`
+  const dbFile = `competiwatch-${name}-${env}.json`
 
-  return path.join(dbDir, `${dbName}.json`)
+  return path.join(dbDir, dbFile)
 }
 
 const loadAccountsDatabase = () => {
