@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import HeroImage from './HeroImage'
+import TimeOfDayEmoji from '../components/TimeOfDayEmoji'
 
 it('renders', () => {
   const div = document.createElement('div')
-  ReactDOM.render(<HeroImage hero="Mercy" className="p-3" />, div)
+  ReactDOM.render(<TimeOfDayEmoji timeOfDay="morning" />, div)
   ReactDOM.unmountComponentAtNode(div)
 })

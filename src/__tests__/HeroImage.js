@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import DayOfWeekEmoji from './DayOfWeekEmoji'
+import HeroImage from '../components/HeroImage'
 
 it('renders', () => {
   const div = document.createElement('div')
-  ReactDOM.render(<DayOfWeekEmoji dayOfWeek="weekend" />, div)
+  ReactDOM.render(<HeroImage hero="Mercy" className="p-3" />, div)
   ReactDOM.unmountComponentAtNode(div)
 })

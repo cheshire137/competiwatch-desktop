@@ -8,7 +8,7 @@ jest.mock('electron', () => ({
   },
   remote: () => null
 }))
-import App from './App'
+import App from '../App'
 
 it('renders', () => {
   const div = document.createElement('div')

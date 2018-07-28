@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import SettingsForm from './SettingsForm'
+import SettingsForm from '../components/SettingsForm'
 
 it('renders', () => {
   const div = document.createElement('div')
