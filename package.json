@@ -25,8 +25,8 @@
     "dev": "nf start",
     "electron": "electron .",
     "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
-    "electron-build-macos": "if [ -d \"dist/Competiwatch-darwin-x64\" ]; then rm -r \"dist/Competiwatch-darwin-x64\"; fi && npm run build && node_modules/electron-packager/cli.js . \"Competiwatch\" --out=dist --platform=darwin --arch=all",
-    "electron-build-windows": "npm run build && node node_modules\\electron-packager\\cli.js . --out=dist --overwrite --platform=win32 --arch=all"
+    "electron-build-macos": "npm run build && node_modules/electron-packager/cli.js . \"Competiwatch\" --out=dist --overwrite --platform=darwin --arch=all --ignore=setupTests.js --ignore=__mocks__ --ignore=__tests__ --ignore=TestHelpers.js",
+    "electron-build-windows": "npm run build && node node_modules\\electron-packager\\cli.js . --out=dist --overwrite --platform=win32 --arch=all --ignore=setupTests.js --ignore=__mocks__ --ignore=__tests__ --ignore=TestHelpers.js"
   },
   "devDependencies": {
     "chart.js": "^2.7.2",
