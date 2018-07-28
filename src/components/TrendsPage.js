@@ -5,6 +5,7 @@ import WinLossChart from './WinLossChart'
 import ThrowerLeaverChart from './ThrowerLeaverChart'
 import StreaksChart from './StreaksChart'
 import MapChart from './MapChart'
+import CommentTagCloud from './CommentTagCloud'
 import Match from '../models/Match'
 import Color from '../models/Color'
 import './TrendsPage.css'
@@ -43,6 +44,13 @@ class TrendsPage extends Component {
     }
   }
 
+  getNonBlankComments = () => {
+    const { matches } = this.state
+
+    return matches.map(match => match.comment)
+      .filter(comment => comment && comment.trim().length > 0)
+  }
+
   render() {
     const { matches, hasLoaded } = this.state
     if (!hasLoaded) {
@@ -50,6 +58,8 @@ class TrendsPage extends Component {
     }
 
     const { season } = this.props
+    const comments = this.getNonBlankComments()
+
     return (
       <div className="container mb-4 layout-children-container">
         <div className="clearfix">
@@ -64,6 +74,16 @@ class TrendsPage extends Component {
         <StreaksChart season={season} matches={matches} />
         <hr className="mb-4 pt-4" />
         <MapChart season={season} matches={matches} />
+        {comments.length > 0 ? (
+          <div>
+            <hr className="mb-4 pt-4" />
+            <div className="clearfix">
+              <div className="col-md-5 float-md-left">
+                <CommentTagCloud season={season} comments={comments} />
+              </div>
+            </div>
+          </div>
+        ) : null}
       </div>
     )
   }
