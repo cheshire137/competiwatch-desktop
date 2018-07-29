@@ -9,3 +9,7 @@
 .small-chart-container {
   height: 200px;
 }
+
+.tall-chart-container {
+  height: 350px;
+}

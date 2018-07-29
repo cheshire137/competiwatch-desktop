@@ -10,5 +10,7 @@ export default {
   ally: '#299FFD',
   enemy: '#FD9629',
   transparentAlly: 'rgba(41,159,253,0.7)',
-  transparentEnemy: 'rgba(253,150,41,0.7)'
+  transparentEnemy: 'rgba(253,150,41,0.7)',
+  lossBorder: '#9B0E16',
+  winBorder: '#12E518'
 }

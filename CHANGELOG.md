@@ -6,6 +6,7 @@
 - Sort accounts alphabetically on the Accounts page, ignoring capital letters
 - Added a chart showing wins and losses by hero to the Trends page
 - Added a chart to the Trends page showing wins and losses by the general time of day and day of week played
+- Added a spider chart to the Trends page showing wins and losses by role played
 
 ## Version 0.1.3
 

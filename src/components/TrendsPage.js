@@ -7,6 +7,7 @@ import StreaksChart from './StreaksChart'
 import GroupSizeChart from './GroupSizeChart'
 import HeroesChart from './HeroesChart'
 import DayTimeChart from './DayTimeChart'
+import RoleChart from './RoleChart'
 import MapChart from './MapChart'
 import Match from '../models/Match'
 import Color from '../models/Color'
@@ -71,6 +72,10 @@ class TrendsPage extends Component {
         <GroupSizeChart season={season} matches={matches} />
         <hr className="mb-4 pt-4" />
         <HeroesChart season={season} matches={matches} />
+        <hr className="mb-4 pt-4" />
+        <div className="col-md-7 mx-auto">
+          <RoleChart season={season} matches={matches} />
+        </div>
         <hr className="mb-4 pt-4" />
         <DayTimeChart season={season} matches={matches} />
       </div>
