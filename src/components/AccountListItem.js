@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import AccountDeleteForm from './AccountDeleteForm'
+import AccountForm from './AccountForm'
 import CsvExporter from '../models/CsvExporter'
 import ElectronUtils from '../models/ElectronUtils'
 import MatchRankImage from './MatchRankImage'
@@ -24,7 +25,11 @@ const dateStrFrom = date => {
 class AccountListItem extends Component {
   constructor(props) {
     super(props)
-    this.state = { totalMatches: -1 }
+    this.state = {
+      totalMatches: -1,
+      showEditForm: false,
+      battletag: props.account.battletag
+    }
   }
 
   onAccountClick = event => {
@@ -51,6 +56,9 @@ class AccountListItem extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.season !== this.props.season) {
       this.refreshMatchData()
+    }
+    if (prevProps.account.battletag !== this.props.account.battletag) {
+      this.setState(prevState => ({ battletag: this.props.account.battletag }))
     }
   }
 
@@ -79,19 +87,39 @@ class AccountListItem extends Component {
     })
   }
 
+  toggleEditForm = event => {
+    event.target.blur()
+    this.setState(prevState => ({ showEditForm: !prevState.showEditForm }))
+  }
+
+  onAccountUpdate = newBattletag => {
+    this.setState(prevState => ({ battletag: newBattletag, showEditForm: false }))
+  }
+
   render() {
     const { account, onDelete, season } = this.props
-    const { battletag, _id } = account
-    const { latestMatch, totalMatches } = this.state
+    const { _id } = account
+    const { latestMatch, totalMatches, showEditForm, battletag } = this.state
+    const haveLatestRank = latestMatch && typeof latestMatch.rank === 'number'
+    const haveLatestResult = latestMatch && latestMatch.result
 
     return (
       <li className="Box mb-3 p-3">
         <div className="d-flex flex-items-center flex-justify-between">
-          <button
-            type="button"
-            className="btn-link h2 text-bold"
-            onClick={this.onAccountClick}
-          >{battletag}</button>
+          {showEditForm ? (
+            <AccountForm
+              _id={_id}
+              battletag={battletag}
+              totalAccounts="1"
+              onUpdate={this.onAccountUpdate}
+            />
+          ) : (
+            <button
+              type="button"
+              className="btn-link h2 text-bold"
+              onClick={this.onAccountClick}
+            >{battletag}</button>
+          )}
           <AccountDeleteForm
             id={_id}
             onDelete={onDelete}
@@ -99,7 +127,7 @@ class AccountListItem extends Component {
           />
         </div>
         <div className="text-gray account-meta d-flex flex-items-center">
-          {latestMatch && typeof latestMatch.rank === 'number' ? (
+          {haveLatestRank ? (
             <span className="d-flex flex-items-center">
               <MatchRankImage
                 rank={latestMatch.rank}
@@ -107,21 +135,31 @@ class AccountListItem extends Component {
               />
               {latestMatch.rank}
             </span>
-          ) : latestMatch && latestMatch.result ? (
+          ) : haveLatestResult ? (
             <span>Last match: {latestMatch.result}</span>
           ) : null}
           {latestMatch && latestMatch.playedAt ? (
-            <span>Last played {latestMatch.playedAt.toLocaleDateString()}</span>
+            <span>
+              <span className="separator" />
+              Last played {latestMatch.playedAt.toLocaleDateString()}
+            </span>
           ) : latestMatch && latestMatch.createdAt ? (
-            <span>Last logged {latestMatch.createdAt.toLocaleDateString()}</span>
+            <span>
+              <span className="separator" />
+              Last logged {latestMatch.createdAt.toLocaleDateString()}
+            </span>
           ) : null}
           {totalMatches > 0 ? (
-            <span>{totalMatches} match{totalMatches === 1 ? null : 'es'}</span>
+            <span>
+              <span className="separator" />
+              {totalMatches} match{totalMatches === 1 ? null : 'es'}
+            </span>
           ) : (
             <span>No matches in season {season}</span>
           )}
           {totalMatches > 0 ? (
             <span>
+              <span className="separator" />
               <button
                 type="button"
                 aria-label="Save season as a CSV file"
@@ -130,6 +168,12 @@ class AccountListItem extends Component {
               >Export season {season}</button>
             </span>
           ) : null}
+          <span className="separator" />
+          <button
+            className="btn-link"
+            type="button"
+            onClick={this.toggleEditForm}
+          >{showEditForm ? 'Cancel' : 'Edit'}</button>
         </div>
       </li>
     )

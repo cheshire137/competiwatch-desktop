@@ -2,6 +2,8 @@
 
 ## Version 0.1.4
 
+- Added an 'Edit' option to each account to allow renaming them
+
 ## Version 0.1.3
 
 - More compact header so the selected account and season are always visible

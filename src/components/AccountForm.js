@@ -2,10 +2,15 @@ import React, { Component } from 'react'
 import Account from '../models/Account'
 import './AccountForm.css'
 
+const isValidBattletag = battletag => {
+  return battletag && battletag.trim().length > 0
+}
+
 class AccountForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { battletag: '', isValid: false }
+    const battletag = props.battletag || ''
+    this.state = { battletag, isValid: isValidBattletag(battletag) }
   }
 
   onSubmit = event => {
@@ -15,43 +20,58 @@ class AccountForm extends Component {
       return
     }
 
+    const { onCreate, onUpdate, _id } = this.props
     const data = { battletag }
+    if (_id) {
+      data._id = _id
+    }
     const account = new Account(data)
 
     account.save().then(() => {
       this.setState(prevState => ({ battletag: '', isValid: false }))
-      this.props.onCreate()
+      if (_id) {
+        onUpdate(battletag)
+      } else {
+        onCreate()
+      }
     })
   }
 
   onBattletagChange = event => {
     const battletag = event.target.value
-    const isValid = battletag && battletag.trim().length > 0
+    const isValid = isValidBattletag(battletag)
 
     this.setState(prevState => ({ battletag, isValid }))
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.battletag !== this.props.battletag) {
+      this.setState(prevState => ({
+        battletag: this.props.battletag,
+        isValid: isValidBattletag(this.props.battletag)
+      }))
+    }
+  }
+
   render() {
-    const { totalAccounts } = this.props
+    const { totalAccounts, _id } = this.props
     const { battletag, isValid } = this.state
+    const buttonText = _id ? 'Save' : 'Add account'
+    const battletagDomID = _id ? `account-${_id}-battletag` : 'account-battletag'
 
     return (
       <form
-        className="border-top mt-4 pt-3 mb-4"
+        className="mb-2"
         onSubmit={this.onSubmit}
       >
-        <h2
-          className="h2 text-normal mt-0 mb-2"
-        >Add an account</h2>
-        <p>Add an account to log the competitive matches you've played on that account.</p>
         <div className="d-flex flex-items-center mt-0">
           <label
-            htmlFor="account-battletag"
+            htmlFor={battletagDomID}
             className="mr-2"
           >Battletag:</label>
           <div className="input-group battletag-input-group">
             <input
-              id="account-battletag"
+              id={battletagDomID}
               type="text"
               className="form-control"
               value={battletag}
@@ -65,7 +85,7 @@ class AccountForm extends Component {
                 type="submit"
                 className="btn"
                 disabled={!isValid}
-              >Add account</button>
+              >{buttonText}</button>
             </span>
           </div>
         </div>
