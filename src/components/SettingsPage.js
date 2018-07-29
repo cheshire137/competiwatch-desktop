@@ -43,21 +43,19 @@ class SettingsPage extends Component {
           <h2 className="h2 mb-2">Data files</h2>
           <p>
             Competiwatch stores your match history, accounts, settings,
-            and other data in JSON files. You can back up these files
-            if you like.
+            and other data in JSON files at these locations:
           </p>
           <ul className="list-style-none">
-            {dbNames.map((dbName, i) => (
-              <li key={dbName}>
+            {dbNames.map(dbName => (
+              <li className="mb-2" key={dbName}>
                 <DatabaseFileLink
                   label={`${dbLabels[dbName]}:`}
                   dbName={dbName}
-                  showDirectory={i === 0}
                 />
               </li>
             ))}
           </ul>
-          <p className="mt-2">
+          <p>
             <strong className="text-red">Warning:</strong> deleting, editing, or moving these
             files can result in losing your competitive match history.
           </p>

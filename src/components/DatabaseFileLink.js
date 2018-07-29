@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import path from 'path'
 import ElectronUtils from '../models/ElectronUtils'
 
 const { ipcRenderer, shell } = ElectronUtils
@@ -11,13 +10,11 @@ class DatabaseFileLink extends Component {
   }
 
   componentDidMount() {
-    const { dbName, showDirectory } = this.props
+    const { dbName } = this.props
     const replyTo = `get-db-path-${dbName}`
 
     ipcRenderer.once(replyTo, (event, dbPath) => {
-      const filename = path.basename(dbPath)
-      const dbDir = path.dirname(dbPath)
-      this.setState(prevState => ({ dbPath, dbFile: filename, dbDir }))
+      this.setState(prevState => ({ dbPath }))
     })
     ipcRenderer.send('get-db-path', replyTo, dbName)
   }
@@ -25,33 +22,26 @@ class DatabaseFileLink extends Component {
   openInExplorer = event => {
     event.currentTarget.blur()
 
-    const { dbDir } = this.state
-    if (!dbDir || dbDir.length < 1) {
+    const { dbPath } = this.state
+    if (!dbPath || dbPath.length < 1) {
       return
     }
 
-    shell.openItem(dbDir)
+    shell.showItemInFolder(dbPath)
   }
 
   render() {
-    const { label, showDirectory } = this.props
-    const { dbFile, dbDir } = this.state
+    const { label } = this.props
+    const { dbPath } = this.state
 
     return (
-      <div>
-        {showDirectory ? (
-          <p>
-            <button
-              type="button"
-              onClick={this.openInExplorer}
-              className="btn-link text-left ws-normal"
-            >{dbDir}</button>
-          </p>
-        ) : null}
-        <div className="d-flex">
-          <strong className="d-inline-block mr-2 no-wrap">{label}</strong>
-          <span>{dbFile}</span>
-        </div>
+      <div className="d-flex">
+        <span className="d-inline-block mr-2 no-wrap">{label}</span>
+        <button
+          type="button"
+          onClick={this.openInExplorer}
+          className="btn-link text-left ws-normal"
+        >{dbPath}</button>
       </div>
     )
   }
