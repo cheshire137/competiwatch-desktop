@@ -8,6 +8,11 @@
   flex: 1 0 auto;
 }
 
+pre,
+code {
+  font-size: 14px;
+}
+
 .container {
   width: 95%;
 }
