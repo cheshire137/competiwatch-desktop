@@ -3,6 +3,7 @@
 ## Version 0.1.5
 
 - Added an 'Auto' option to the theme choice on the Settings page, to use the dark theme at night and the light theme during the day
+- Fixed bug where the 'Date' column in exported CSV files was not readable
 
 ## Version 0.1.4
 

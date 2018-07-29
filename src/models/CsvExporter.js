@@ -64,7 +64,9 @@ class CsvExporter {
       return match.comment
     }
     if (header === 'Date') {
-      return match.playedAt
+      if (match.playedAt) {
+        return match.playedAt.toISOString()
+      }
     }
     if (header === 'Day') {
       return match.dayOfWeek
