@@ -4,6 +4,7 @@
 
 - Added an 'Edit' option to each account on the Accounts page to allow renaming them
 - Sort accounts alphabetically on the Accounts page, ignoring capital letters
+- Added a chart showing wins and losses by hero to the Trends page
 
 ## Version 0.1.3
 

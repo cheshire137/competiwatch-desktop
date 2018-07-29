@@ -5,6 +5,7 @@ import WinLossChart from './WinLossChart'
 import ThrowerLeaverChart from './ThrowerLeaverChart'
 import StreaksChart from './StreaksChart'
 import GroupSizeChart from './GroupSizeChart'
+import HeroesChart from './HeroesChart'
 import MapChart from './MapChart'
 import Match from '../models/Match'
 import Color from '../models/Color'
@@ -67,6 +68,8 @@ class TrendsPage extends Component {
         <MapChart season={season} matches={matches} />
         <hr className="mb-4 pt-4" />
         <GroupSizeChart season={season} matches={matches} />
+        <hr className="mb-4 pt-4" />
+        <HeroesChart season={season} matches={matches} />
       </div>
     )
   }
