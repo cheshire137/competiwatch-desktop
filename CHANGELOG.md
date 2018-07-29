@@ -9,6 +9,7 @@
 - Fixed bug where importing matches that didn't have a date would cause an error
 - Added confirmation dialog when importing matches
 - Split the hero roles on the Log a Match page into main and off-tanks and healers
+- Added top three heroes to accounts list for each account
 
 ## Version 0.1.4
 

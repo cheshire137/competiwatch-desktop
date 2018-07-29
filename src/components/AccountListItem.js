@@ -4,6 +4,7 @@ import AccountForm from './AccountForm'
 import CsvExporter from '../models/CsvExporter'
 import ElectronUtils from '../models/ElectronUtils'
 import MatchRankImage from './MatchRankImage'
+import HeroImage from './HeroImage'
 import './AccountListItem.css'
 
 const { remote } = ElectronUtils
@@ -46,6 +47,10 @@ class AccountListItem extends Component {
 
     account.totalMatches(season).then(count => {
       this.setState(prevState => ({ totalMatches: count }))
+    })
+
+    account.topHeroes(season).then(topHeroes => {
+      this.setState(prevState => ({ topHeroes }))
     })
   }
 
@@ -99,7 +104,8 @@ class AccountListItem extends Component {
   render() {
     const { account, onDelete, season } = this.props
     const { _id } = account
-    const { latestMatch, totalMatches, showEditForm, battletag } = this.state
+    const { latestMatch, totalMatches, showEditForm, battletag,
+            topHeroes } = this.state
     const haveLatestRank = latestMatch && typeof latestMatch.rank === 'number'
     const haveLatestResult = latestMatch && latestMatch.result
 
@@ -172,7 +178,7 @@ class AccountListItem extends Component {
               >{showEditForm ? 'Cancel' : 'Edit'}</button>
             </div>
           </div>
-          <div>
+          <div className="d-flex flex-items-center">
             {haveLatestRank ? (
               <button
                 type="button"
@@ -185,6 +191,20 @@ class AccountListItem extends Component {
                 />
                 <h3 className="h3 lh-condensed my-0">{latestMatch.rank}</h3>
               </button>
+            ) : null}
+            {topHeroes && topHeroes.length > 0 ? (
+              <div className={`ml-3 AvatarStack account-avatar-stack AvatarStack--right ${topHeroes.length >= 3 ? 'AvatarStack--three-plus' : 'AvatarStack--two'}`}>
+                <div className="AvatarStack-body tooltipped tooltipped-n" aria-label={topHeroes.join(', ')}>
+                  {topHeroes.map(hero => (
+                    <HeroImage
+                      key={hero}
+                      hero={hero}
+                      className="avatar account-hero-avatar"
+                      size="40"
+                    />
+                  ))}
+                </div>
+              </div>
             ) : null}
           </div>
         </div>

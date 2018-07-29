@@ -11,7 +11,7 @@ const knownHeroes = [
 
 class HeroImage extends Component {
   render() {
-    const { hero, className } = this.props
+    const { hero, className, size } = this.props
     const slug = HeroUtil.slugify(hero)
     if (knownHeroes.indexOf(slug) < 0) {
       return <span>{hero}</span>
@@ -24,8 +24,8 @@ class HeroImage extends Component {
         src={src}
         alt={hero}
         className={className}
-        width="20"
-        height="20"
+        width={size || 20}
+        height={size || 20}
       />
     )
   }
