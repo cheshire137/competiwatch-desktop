@@ -9,7 +9,7 @@ your competitive match history in Overwatch.
 
 ![Screenshot of match history](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/screenshot-matches-windows.png)
 
-![Screenshot of log match form](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/screenshot-log-match.png)
+![Screenshot of log match form](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/log-match.png)
 
 ![Screenshot of trends page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/screenshot-trends.png)
 
