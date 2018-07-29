@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ImportForm from './ImportForm'
+import LoadingPage from './LoadingPage'
 import Account from '../models/Account'
 
 class ImportPage extends Component {
@@ -43,6 +44,9 @@ class ImportPage extends Component {
   render() {
     const { season, onImport } = this.props
     const { totalMatches, account } = this.state
+    if (totalMatches < 0 || !account) {
+      return <LoadingPage />
+    }
 
     return (
       <div className="container layout-children-container">
@@ -53,15 +57,11 @@ class ImportPage extends Component {
             in season {season}.
           </p>
         ) : null}
-        {totalMatches < 0 || !account ? (
-          <p>Loading...</p>
-        ) : (
-          <ImportForm
-            season={season}
-            onImport={onImport}
-            account={account}
-          />
-        )}
+        <ImportForm
+          season={season}
+          onImport={onImport}
+          account={account}
+        />
       </div>
     )
   }
