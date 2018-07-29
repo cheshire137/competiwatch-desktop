@@ -1,4 +1,5 @@
 export default {
+  roles: ['DPS', 'Flanker', 'Hitscan', 'Defense', 'Off-tank', 'Main Tank', 'Main Healer', 'Off-healer'],
   names: [
     'Ana',
     'Bastion',
@@ -34,8 +35,12 @@ export default {
     Flanker: ['Genji', 'Sombra', 'Tracer'],
     Hitscan: ['McCree', 'Soldier: 76', 'Widowmaker'],
     Tank: ['D.Va', 'Orisa', 'Reinhardt', 'Roadhog', 'Winston', 'Wrecking Ball', 'Zarya'],
+    'Main Tank': ['Orisa', 'Reinhardt', 'Winston'],
+    'Off-tank': ['D.Va', 'Roadhog', 'Wrecking Ball', 'Zarya'],
     Defense: ['Bastion', 'Hanzo', 'Mei', 'Symmetra', 'Torbjörn'],
-    Healer: ['Ana', 'Brigitte', 'Lúcio', 'Mercy', 'Moira', 'Zenyatta']
+    Healer: ['Ana', 'Brigitte', 'Lúcio', 'Mercy', 'Moira', 'Zenyatta'],
+    'Main Healer': ['Ana', 'Mercy', 'Moira'],
+    'Off-healer': ['Brigitte', 'Lúcio', 'Zenyatta']
   },
   firstSeasons: {
     Moira: 7,
