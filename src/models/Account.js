@@ -56,6 +56,39 @@ class Account {
     })
   }
 
+  topHeroes(season) {
+    const sort = {}
+    const conditions = { accountID: this._id, heroes: { $ne: '' } }
+    if (typeof season === 'number' && !isNaN(season)) {
+      conditions.season = season
+    }
+
+    return Database.findAll('matches', sort, conditions).then(matchRows => {
+      const matches = matchRows.map(data => new Match(data))
+      const heroCounts = {}
+
+      for (const match of matches) {
+        for (const hero of match.heroList) {
+          if (!(hero in heroCounts)) {
+            heroCounts[hero] = 0
+          }
+
+          heroCounts[hero]++
+        }
+      }
+
+      const sortableHeroCounts = []
+      for (const hero in heroCounts) {
+        sortableHeroCounts.push([hero, heroCounts[hero]])
+      }
+      sortableHeroCounts.sort((a, b) => {
+        return b[1] - a[1]
+      })
+
+      return sortableHeroCounts.map(arr => arr[0]).slice(0, 3)
+    })
+  }
+
   latestMatch(season) {
     const conditions = { accountID: this._id, season }
     const sort = { date: -1, createdAt: -1 }
