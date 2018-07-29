@@ -7,13 +7,13 @@
 This is a work in progress. It's a desktop app for Windows and macOS to track
 your competitive match history in Overwatch.
 
-![Screenshot of match history](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot-matches-windows.png)
+![Screenshot of match history](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/screenshot-matches-windows.png)
 
-![Screenshot of settings page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot-settings.png)
+![Screenshot of settings page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/screenshot-settings.png)
 
-![Screenshot of log match form](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot-log-match.png)
+![Screenshot of log match form](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/screenshot-log-match.png)
 
-![Screenshot of trends page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot-trends.png)
+![Screenshot of trends page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/screenshot-trends.png)
 
 See [the changelog](./CHANGELOG.md) for what has changed each version.
 
