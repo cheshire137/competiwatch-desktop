@@ -1,28 +1,14 @@
 import React, { Component } from 'react'
+import Hero from '../models/Hero'
 import HeroCheckboxList from './HeroCheckboxList'
 import './HeroSelect.css'
 
-const dpsHeroes = ['Pharah', 'Reaper', 'Doomfist', 'Junkrat']
-const flankerHeroes = ['Genji', 'Sombra', 'Tracer']
-const hitscanHeroes = ['McCree', 'Soldier: 76', 'Widowmaker']
-const tankHeroes = ['D.Va', 'Orisa', 'Reinhardt', 'Roadhog', 'Winston', 'Wrecking Ball', 'Zarya']
-const defenseHeroes = ['Bastion', 'Hanzo', 'Mei', 'Symmetra', 'Torbjörn']
-const healerHeroes = ['Ana', 'Brigitte', 'Lúcio', 'Mercy', 'Moira', 'Zenyatta']
-const firstSeasons = {
-  Moira: 7,
-  Brigitte: 10,
-  Orisa: 4,
-  Doomfist: 5,
-  Sombra: 2,
-  'Wrecking Ball': 11
-}
-
 class HeroSelect extends Component {
   isAvailable = hero => {
-    if (!(hero in firstSeasons)) {
+    if (!(hero in Hero.firstSeasons)) {
       return true
     }
-    return firstSeasons[hero] <= this.props.season
+    return Hero.firstSeasons[hero] <= this.props.season
   }
 
   isChecked = hero => {
@@ -38,7 +24,7 @@ class HeroSelect extends Component {
         <div className="hero-box mb-4">
           <h5 className="h5 border-bottom pb-2 mb-2">DPS</h5>
           <HeroCheckboxList
-            heroes={dpsHeroes}
+            heroes={Hero.byType.DPS}
             isAvailable={this.isAvailable}
             isChecked={this.isChecked}
             onToggle={onToggle}
@@ -47,7 +33,7 @@ class HeroSelect extends Component {
         <div className="hero-box mb-4">
           <h5 className="h5 border-bottom pb-2 mb-2">Hitscan</h5>
           <HeroCheckboxList
-            heroes={hitscanHeroes}
+            heroes={Hero.byType.Hitscan}
             isAvailable={this.isAvailable}
             isChecked={this.isChecked}
             onToggle={onToggle}
@@ -56,7 +42,7 @@ class HeroSelect extends Component {
         <div className="hero-box mb-4">
           <h5 className="h5 border-bottom pb-2 mb-2">Flankers</h5>
           <HeroCheckboxList
-            heroes={flankerHeroes}
+            heroes={Hero.byType.Flanker}
             isAvailable={this.isAvailable}
             isChecked={this.isChecked}
             onToggle={onToggle}
@@ -65,7 +51,7 @@ class HeroSelect extends Component {
         <div className="hero-box mb-4">
           <h5 className="h5 border-bottom pb-2 mb-2">Tanks</h5>
           <HeroCheckboxList
-            heroes={tankHeroes}
+            heroes={Hero.byType.Tank}
             isAvailable={this.isAvailable}
             isChecked={this.isChecked}
             onToggle={onToggle}
@@ -74,7 +60,7 @@ class HeroSelect extends Component {
         <div className="hero-box mb-4">
           <h5 className="h5 border-bottom pb-2 mb-2">Healers</h5>
           <HeroCheckboxList
-            heroes={healerHeroes}
+            heroes={Hero.byType.Healer}
             isAvailable={this.isAvailable}
             isChecked={this.isChecked}
             onToggle={onToggle}
@@ -83,7 +69,7 @@ class HeroSelect extends Component {
         <div className="hero-box mb-4">
           <h5 className="h5 border-bottom pb-2 mb-2">Defense</h5>
           <HeroCheckboxList
-            heroes={defenseHeroes}
+            heroes={Hero.byType.Defense}
             isAvailable={this.isAvailable}
             isChecked={this.isChecked}
             onToggle={onToggle}
