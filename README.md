@@ -13,6 +13,8 @@ your competitive match history in Overwatch.
 
 ![Screenshot of log match form](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot-log-match.png)
 
+![Screenshot of trends page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshot-trends.png)
+
 See [the changelog](./CHANGELOG.md) for what has changed each version.
 
 ## Features
