@@ -10,20 +10,29 @@ import DayTimeChart from './DayTimeChart'
 import RoleChart from './RoleChart'
 import MapChart from './MapChart'
 import Match from '../models/Match'
+import Account from '../models/Account'
 import Color from '../models/Color'
 import './TrendsPage.css'
 
 class TrendsPage extends Component {
   constructor(props) {
     super(props)
-    this.state = { matches: [], hasLoaded: false }
+    this.state = {}
+  }
+
+  refreshAccount = () => {
+    const { accountID } = this.props
+
+    Account.find(accountID).then(account => {
+      this.setState(prevState => ({ account }))
+    })
   }
 
   refreshMatches = () => {
     const { accountID, season } = this.props
 
     Match.findAll(accountID, season).then(matches => {
-      this.setState(prevState => ({ matches, hasLoaded: true }))
+      this.setState(prevState => ({ matches }))
     })
   }
 
@@ -37,6 +46,7 @@ class TrendsPage extends Component {
 
   componentDidMount() {
     this.refreshMatches()
+    this.refreshAccount()
     defaults.global.defaultFontColor = this.chartFontColor()
   }
 
@@ -44,6 +54,9 @@ class TrendsPage extends Component {
     if (prevProps.season !== this.props.season ||
         prevProps.accountID !== this.props.accountID) {
       this.refreshMatches()
+    }
+    if (prevProps.accountID !== this.props.accountID) {
+      this.refreshAccount()
     }
   }
 
@@ -60,12 +73,24 @@ class TrendsPage extends Component {
   }
 
   render() {
-    const { matches, hasLoaded } = this.state
-    if (!hasLoaded) {
+    const { matches, account } = this.state
+    if (!matches || !account) {
       return <LoadingPage />
     }
 
     const { season, theme } = this.props
+
+    if (matches.length < 1) {
+      return (
+        <div className="container mb-4 layout-children-container">
+          <div className="blankslate">
+            <h3 className="mb-2 h3">No match history</h3>
+            <p>No matches have been logged in season {season} for {account.battletag}.</p>
+          </div>
+        </div>
+      )
+    }
+
     return (
       <div className="container mb-4 layout-children-container">
         <div className="clearfix">
