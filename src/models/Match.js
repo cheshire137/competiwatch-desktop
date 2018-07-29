@@ -148,9 +148,10 @@ class Match {
       this.heroList = this.heroes.split(',')
     }
 
-    this.playedAt = data.playedAt
     if (typeof data.playedAt === 'string') {
       this.playedAt = new Date(data.playedAt)
+    } else if (typeof data.playedAt === 'object' && data.playedAt.constructor.name === 'Date') {
+      this.playedAt = data.playedAt
     }
 
     if (this.playedAt) {
