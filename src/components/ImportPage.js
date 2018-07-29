@@ -57,7 +57,7 @@ class ImportPage extends Component {
     return (
       <div className="container layout-children-container">
         {totalMatches > 0 ? (
-          <p>
+          <p className="flash-warn p-3 f3">
             Importing matches will <strong>delete</strong> your
             <strong> {totalMatches} match{totalMatches === 1 ? null : 'es'} </strong>
             in season {season}.
