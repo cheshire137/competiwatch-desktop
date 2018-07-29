@@ -80,12 +80,14 @@ class CsvImporter {
       result: data.placement ? data.result : null,
       group: data.group,
       heroes: data.heroes,
+      playedAt: data.date,
       dayOfWeek: data.day,
       timeOfDay: data.time,
       enemyThrower: data['enemy thrower'],
       allyThrower: data['ally thrower'],
       enemyLeaver: data['enemy leaver'],
-      allyLeaver: data['ally leaver']
+      allyLeaver: data['ally leaver'],
+      playOfTheGame: data['play of the game']
     }
     const match = new Match(matchData)
     await match.save()
