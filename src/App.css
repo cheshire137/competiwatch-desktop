@@ -122,34 +122,10 @@
   color: #d1d5da;
 }
 
-.theme-dark .btn-outline {
-  background-color: #586069;
-}
-
-.theme-dark .btn-primary.btn-large {
-  background-color: #4271a0;
-}
-
-.theme-dark .btn-primary.btn-large:disabled {
-  color: #ccc;
-}
-
-.theme-dark .btn-primary.btn-large:disabled:hover {
-  background-color: #4271a0;
-}
-
-.theme-dark .btn-primary.btn-large:not(:disabled):hover {
-  background-color: #276aad;
-}
-
 .theme-dark .btn,
 .theme-dark .form-control,
 .theme-dark .form-select {
   border-color: #4a5158;
-}
-
-.theme-dark .form-control::placeholder {
-  color: #999;
 }
 
 .theme-dark .btn {
@@ -169,6 +145,30 @@
 
 .theme-dark .btn:disabled:hover {
   background-color: #586069;
+}
+
+.theme-dark .btn-outline {
+  background-color: #586069;
+}
+
+.theme-dark .btn-primary {
+  background-color: #4271a0;
+}
+
+.theme-dark .btn-primary:disabled {
+  color: #ccc;
+}
+
+.theme-dark .btn-primary:disabled:hover {
+  background-color: #4271a0;
+}
+
+.theme-dark .btn-primary:not(:disabled):hover {
+  background-color: #276aad;
+}
+
+.theme-dark .form-control::placeholder {
+  color: #999;
 }
 
 .theme-dark .form-control,
