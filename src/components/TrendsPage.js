@@ -47,7 +47,7 @@ class TrendsPage extends Component {
     }
   }
 
-  showRoleChart = () => {
+  anyMatchesWithHeroes = () => {
     return this.state.matches.filter(match => match.heroList.length > 0).length > 0
   }
 
@@ -78,10 +78,10 @@ class TrendsPage extends Component {
         <MapChart season={season} matches={matches} />
         <hr className="mb-4 pt-4" />
         <GroupSizeChart season={season} matches={matches} />
-        <hr className="mb-4 pt-4" />
-        <HeroesChart season={season} matches={matches} />
-        {this.showRoleChart() ? (
+        {this.anyMatchesWithHeroes() ? (
           <div>
+            <hr className="mb-4 pt-4" />
+            <HeroesChart season={season} matches={matches} />
             <hr className="mb-4 pt-4" />
             <div className="col-md-7 mx-auto">
               <RoleChart season={season} theme={theme} matches={matches} />
