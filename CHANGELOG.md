@@ -7,6 +7,7 @@
 - Added ability to import 'Play of the Game', 'Group Size', and 'Date' fields when importing match history
 - Added formatting requirements to the Import page, as well as sample CSV files
 - Fixed bug where importing matches that didn't have a date would cause an error
+- Add confirmation dialog when importing matches
 
 ## Version 0.1.4
 

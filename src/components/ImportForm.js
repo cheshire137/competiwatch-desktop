@@ -64,6 +64,12 @@ class ImportForm extends Component {
 
   onFormSubmit = event => {
     event.preventDefault()
+    const { account, season } = this.props
+
+    const message = `Are you sure you want to replace match history for ${account.battletag} in season ${season} with this file?`
+    if (!window.confirm(message)) {
+      return
+    }
 
     const { isValid, isImporting } = this.state
     if (!isValid || isImporting) {
