@@ -245,7 +245,8 @@ class MatchTableRow extends Component {
   }
 
   render() {
-    const { match, priorRank, showThrowerLeaver, showPlayOfTheGame } = this.props
+    const { match, priorRank, showThrowerLeaver, showPlayOfTheGame,
+            showComment } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
             rankChange, dayOfWeek, timeOfDay, groupSize } = match
@@ -306,12 +307,14 @@ class MatchTableRow extends Component {
         <td
           className={`match-cell no-wrap ${this.mapBackgroundClass()}`}
         >{map}</td>
-        <td
-          className={this.commentClass()}
-          aria-label={this.commentTooltip()}
-        >
-          <span className="css-truncate-target comment-truncate-target">{comment}</span>
-        </td>
+        {showComment ? (
+          <td
+            className={this.commentClass()}
+            aria-label={this.commentTooltip()}
+          >
+            <span className="css-truncate-target comment-truncate-target">{comment}</span>
+          </td>
+        ) : null}
         <td
           className="match-cell text-center hide-sm time-cell no-wrap"
         >
