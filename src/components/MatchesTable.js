@@ -74,6 +74,11 @@ class MatchesTable extends Component {
     return this.props.matches.filter(match => match.heroList.length > 0).length > 0
   }
 
+  showGroupColumn = () => {
+    return this.props.matches
+      .filter(match => match.groupList.length > 0 || match.groupSize > 1).length > 0
+  }
+
   getLongestWinStreak = () => {
     const winStreaks = this.props.matches.filter(match => typeof match.winStreak === 'number')
       .map(match => match.winStreak)
@@ -114,6 +119,7 @@ class MatchesTable extends Component {
     const showComment = this.showCommentColumn()
     const showDayTime = this.showDayTimeColumn()
     const showHeroes = this.showHeroesColumn()
+    const showGroup = this.showGroupColumn()
     const longestWinStreak = this.getLongestWinStreak()
     const longestLossStreak = this.getLongestLossStreak()
     const placementRank = this.placementRank(firstMatchWithRank)
@@ -155,9 +161,11 @@ class MatchesTable extends Component {
                 className="match-header hide-sm"
               >Heroes</th>
             ) : null}
-            <th
-              className="match-header hide-sm"
-            >Group</th>
+            {showGroup ? (
+              <th
+                className="match-header hide-sm"
+              >Group</th>
+            ) : null}
             {showThrowerLeaver ? (
               <th
                 className="match-header hide-sm tooltipped tooltipped-n"
@@ -208,6 +216,7 @@ class MatchesTable extends Component {
                 showDayTime={showDayTime}
                 showComment={showComment}
                 showHeroes={showHeroes}
+                showGroup={showGroup}
                 longestWinStreak={longestWinStreak}
                 longestLossStreak={longestLossStreak}
               />

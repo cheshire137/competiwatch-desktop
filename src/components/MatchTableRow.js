@@ -246,7 +246,7 @@ class MatchTableRow extends Component {
 
   render() {
     const { match, priorRank, showThrowerLeaver, showPlayOfTheGame,
-            showComment, showDayTime, showHeroes } = this.props
+            showComment, showDayTime, showHeroes, showGroup } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
             rankChange, dayOfWeek, timeOfDay, groupSize } = match
@@ -349,17 +349,19 @@ class MatchTableRow extends Component {
             ))}
           </td>
         ) : null}
-        <td
-          className={this.groupClass()}
-          aria-label={this.groupTooltip()}
-        >
-          {groupList.length > 0 ? (
-            <span className="css-truncate-target group-truncate-target">{groupList.join(', ')} </span>
-          ) : null}
-          {groupList.length + 1 !== groupSize ? (
-            <span className="Counter">{groupSizeDescription(groupSize)}</span>
-          ) : null}
-        </td>
+        {showGroup ? (
+          <td
+            className={this.groupClass()}
+            aria-label={this.groupTooltip()}
+          >
+            {groupList.length > 0 ? (
+              <span className="css-truncate-target group-truncate-target">{groupList.join(', ')} </span>
+            ) : null}
+            {groupList.length + 1 !== groupSize ? (
+              <span className="Counter">{groupSizeDescription(groupSize)}</span>
+            ) : null}
+          </td>
+        ) : null}
         {showThrowerLeaver ? (
           <td
             className="match-cell no-wrap hide-sm throwers-leavers-cell"

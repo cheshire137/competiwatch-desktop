@@ -10,7 +10,7 @@
 - Fixed a bug where 'Trends' would not show as the active tab when on the Trends page for a season with no logged matches
 - Added a message to the Trends page when viewing a season with no logged matches
 - Added percentages to the Win/Loss % pie chart on the Trends page
-- Play of the Game, Day/Time, Heroes, and Comment columns will no longer show on the Matches page when no data has been logged for those fields in that season
+- Play of the Game, Day/Time, Heroes, Group, and Comment columns will no longer show on the Matches page when no data has been logged for those fields in that season
 
 ## Version 0.1.3
 
