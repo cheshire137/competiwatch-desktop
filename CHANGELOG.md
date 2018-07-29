@@ -1,5 +1,7 @@
 # Change log
 
+## Version 0.1.4
+
 ## Version 0.1.3
 
 - More compact header so the selected account and season are always visible
