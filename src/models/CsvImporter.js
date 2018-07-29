@@ -79,6 +79,7 @@ class CsvImporter {
       isPlacement: data.placement,
       result: data.placement ? data.result : null,
       group: data.group,
+      groupSize: data['group size'],
       heroes: data.heroes,
       playedAt: data.date,
       dayOfWeek: data.day,
