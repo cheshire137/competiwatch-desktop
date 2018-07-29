@@ -105,75 +105,88 @@ class AccountListItem extends Component {
 
     return (
       <li className="Box mb-3 p-3">
-        <div className="d-flex flex-items-center flex-justify-between">
-          {showEditForm ? (
-            <AccountForm
-              _id={_id}
-              battletag={battletag}
-              totalAccounts="1"
-              onUpdate={this.onAccountUpdate}
-            />
-          ) : (
-            <button
-              type="button"
-              className="btn-link h2 text-bold"
-              onClick={this.onAccountClick}
-            >{battletag}</button>
-          )}
-          <AccountDeleteForm
-            id={_id}
-            onDelete={onDelete}
-            battletag={battletag}
-          />
-        </div>
-        <div className="text-gray account-meta d-flex flex-items-center">
-          {haveLatestRank ? (
-            <span className="d-flex flex-items-center">
-              <MatchRankImage
-                rank={latestMatch.rank}
-                className="d-inline-block mr-1 hide-sm"
+        <div className="d-flex flex-justify-between flex-items-center">
+          <div className="width-full">
+            <div className="d-flex flex-items-center flex-justify-between">
+              {showEditForm ? (
+                <AccountForm
+                  _id={_id}
+                  battletag={battletag}
+                  totalAccounts="1"
+                  onUpdate={this.onAccountUpdate}
+                />
+              ) : (
+                <button
+                  type="button"
+                  className="btn-link h2 text-bold width-full text-left d-block"
+                  onClick={this.onAccountClick}
+                >{battletag}</button>
+              )}
+              <AccountDeleteForm
+                id={_id}
+                onDelete={onDelete}
+                battletag={battletag}
               />
-              {latestMatch.rank}
-            </span>
-          ) : haveLatestResult ? (
-            <span>Last match: {latestMatch.result}</span>
-          ) : null}
-          {latestMatch && latestMatch.playedAt ? (
-            <span>
-              <span className="separator" />
-              Last played {latestMatch.playedAt.toLocaleDateString()}
-            </span>
-          ) : latestMatch && latestMatch.createdAt ? (
-            <span>
-              <span className="separator" />
-              Last logged {latestMatch.createdAt.toLocaleDateString()}
-            </span>
-          ) : null}
-          {totalMatches > 0 ? (
-            <span>
-              <span className="separator" />
-              {totalMatches} match{totalMatches === 1 ? null : 'es'}
-            </span>
-          ) : (
-            <span>No matches in season {season}</span>
-          )}
-          {totalMatches > 0 ? (
-            <span>
+            </div>
+            <div className="text-gray account-meta d-flex flex-items-center">
+              {haveLatestResult && !haveLatestRank ? (
+                <span>Last match: {latestMatch.result}</span>
+              ) : null}
+              {latestMatch && latestMatch.playedAt ? (
+                <span>
+                  {haveLatestResult && !haveLatestRank ? (
+                    <span className="separator" />
+                  ) : null}
+                  Last played {latestMatch.playedAt.toLocaleDateString()}
+                </span>
+              ) : latestMatch && latestMatch.createdAt ? (
+                <span>
+                  <span className="separator" />
+                  Last logged {latestMatch.createdAt.toLocaleDateString()}
+                </span>
+              ) : null}
+              {totalMatches > 0 ? (
+                <span>
+                  <span className="separator" />
+                  {totalMatches} match{totalMatches === 1 ? null : 'es'}
+                </span>
+              ) : (
+                <span>No matches in season {season}</span>
+              )}
+              {totalMatches > 0 ? (
+                <span>
+                  <span className="separator" />
+                  <button
+                    type="button"
+                    aria-label="Save season as a CSV file"
+                    className="btn-link tooltipped tooltipped-n"
+                    onClick={this.exportSeason}
+                  >Export season {season}</button>
+                </span>
+              ) : null}
               <span className="separator" />
               <button
+                className="btn-link"
                 type="button"
-                aria-label="Save season as a CSV file"
-                className="btn-link tooltipped tooltipped-n"
-                onClick={this.exportSeason}
-              >Export season {season}</button>
-            </span>
-          ) : null}
-          <span className="separator" />
-          <button
-            className="btn-link"
-            type="button"
-            onClick={this.toggleEditForm}
-          >{showEditForm ? 'Cancel' : 'Edit'}</button>
+                onClick={this.toggleEditForm}
+              >{showEditForm ? 'Cancel' : 'Edit'}</button>
+            </div>
+          </div>
+          <div>
+            {haveLatestRank ? (
+              <button
+                type="button"
+                className="text-center btn-link btn-rank"
+                onClick={this.onAccountClick}
+              >
+                <MatchRankImage
+                  rank={latestMatch.rank}
+                  className="d-inline-block"
+                />
+                <h3 className="h3 lh-condensed my-0">{latestMatch.rank}</h3>
+              </button>
+            ) : null}
+          </div>
         </div>
       </li>
     )
