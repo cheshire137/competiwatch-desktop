@@ -53,7 +53,7 @@ class TrendsPage extends Component {
       return <LoadingPage />
     }
 
-    const { season } = this.props
+    const { season, theme } = this.props
     return (
       <div className="container mb-4 layout-children-container">
         <div className="clearfix">
@@ -74,7 +74,7 @@ class TrendsPage extends Component {
         <HeroesChart season={season} matches={matches} />
         <hr className="mb-4 pt-4" />
         <div className="col-md-7 mx-auto">
-          <RoleChart season={season} matches={matches} />
+          <RoleChart season={season} theme={theme} matches={matches} />
         </div>
         <hr className="mb-4 pt-4" />
         <DayTimeChart season={season} matches={matches} />
