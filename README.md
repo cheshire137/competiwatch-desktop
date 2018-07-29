@@ -15,7 +15,7 @@ your competitive match history in Overwatch.
 
 ![Screenshot of settings page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/screenshot-settings.png)
 
-![Screenshot of accounts page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/screenshot-accounts-list.png)
+![Screenshot of accounts page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/accounts-list.png)
 
 See [the changelog](./CHANGELOG.md) for what has changed each version.
 
