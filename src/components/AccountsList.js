@@ -4,30 +4,24 @@ import AccountListItem from './AccountListItem'
 class AccountsList extends Component {
   render() {
     const { onAccountChange, onDelete, season, accounts } = this.props
-    const totalAccounts = accounts.length
 
     return (
-      <div className="mb-4">
-        <h2
-          className="h2 text-normal mb-2 d-flex flex-items-center"
-        >Battle.net accounts <span className="Counter ml-2 h4 px-2">{totalAccounts}</span></h2>
-        <ul className="list-style-none">
-          {accounts.map(account => (
-            <AccountListItem
-              key={account._id}
-              season={season}
-              account={account}
-              onDelete={onDelete}
-              onAccountChange={onAccountChange}
-            />
-          ))}
-          {accounts.length < 1 ? (
-            <li>
-              No accounts have been added
-            </li>
-          ) : ''}
-        </ul>
-      </div>
+      <ul className="list-style-none mb-4">
+        {accounts.map(account => (
+          <AccountListItem
+            key={account._id}
+            season={season}
+            account={account}
+            onDelete={onDelete}
+            onAccountChange={onAccountChange}
+          />
+        ))}
+        {accounts.length < 1 ? (
+          <li>
+            No accounts have been added
+          </li>
+        ) : ''}
+      </ul>
     )
   }
 }

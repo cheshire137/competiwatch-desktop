@@ -7,9 +7,9 @@
 - Added a chart showing wins and losses by hero to the Trends page
 - Added a chart to the Trends page showing wins and losses by the general time of day and day of week played
 - Added a spider chart to the Trends page showing wins and losses by role played
-- Fixed a bug where 'Trends' would not show as the active tab when on the Trends page for a season with no logged matches
-- Added a message to the Trends page when viewing a season with no logged matches
-- Added percentages to the Win/Loss % pie chart on the Trends page
+- Fixed a bug where 'Trends' would not show as the active tab when viewing the Trends page for a season with no logged matches
+- Added a message to the Trends page about no match history when viewing a season with no logged matches
+- Added percentages to the 'Win/Loss %' pie chart on the Trends page
 - Play of the Game, Day/Time, Heroes, Group, and Comment columns will no longer show on the Matches page when no data has been logged for those fields in that season
 
 ## Version 0.1.3

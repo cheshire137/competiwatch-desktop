@@ -9,6 +9,10 @@ class AccountsPage extends Component {
     return (
       <div className="container layout-children-container">
         <div className="col-8 mb-4">
+          <h2
+            className="h2 text-normal mb-2 d-flex flex-items-center"
+          >Battle.net accounts <span className="Counter ml-2 h4 px-2">{accounts.length}</span></h2>
+          <p>Choose an account to view and log competitive matches.</p>
           <AccountsList
             season={season}
             accounts={accounts}
