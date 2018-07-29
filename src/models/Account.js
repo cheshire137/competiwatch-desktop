@@ -1,11 +1,24 @@
 import Database from './Database'
 import Match from './Match'
 
+const accountSort = (a, b) => {
+  if (!a.battletag) {
+    return -1
+  }
+  if (!b.battletag) {
+    return 1
+  }
+  const battletagA = a.battletag.toLowerCase()
+  const battletagB = b.battletag.toLowerCase()
+  return battletagA.localeCompare(battletagB)
+}
+
 class Account {
   static findAll() {
-    const sort = { battletag: 1 }
+    const sort = { battletag: 1 } // not case-insensitive
     return Database.findAll('accounts', sort)
                    .then(rows => rows.map(data => new Account(data)))
+                   .then(accounts => accounts.sort(accountSort))
   }
 
   static find(id) {

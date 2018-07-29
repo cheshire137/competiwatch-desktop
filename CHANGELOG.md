@@ -2,7 +2,8 @@
 
 ## Version 0.1.4
 
-- Added an 'Edit' option to each account to allow renaming them
+- Added an 'Edit' option to each account on the Accounts page to allow renaming them
+- Sort accounts alphabetically on the Accounts page, ignoring capital letters
 
 ## Version 0.1.3
 
