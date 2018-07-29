@@ -3,7 +3,7 @@ import { Pie } from 'react-chartjs-2'
 import Color from '../models/Color'
 
 class WinLossChart extends Component {
-  getData = () => {
+  getCounts = () => {
     const { matches } = this.props
     const wins = matches.filter(match => match.isWin()).length
     const losses = matches.filter(match => match.isLoss()).length
@@ -12,19 +12,33 @@ class WinLossChart extends Component {
     return [wins, losses, draws]
   }
 
+  getLabels = (totalMatches, data) => {
+    const winPct = Math.round((data[0] / totalMatches) * 100)
+    const lossPct = Math.round((data[1] / totalMatches) * 100)
+    const drawPct = Math.round((data[2] / totalMatches) * 100)
+    const winLabel = `${winPct}% Wins`
+    const lossLabel = `${lossPct}% Losses`
+    const drawLabel = `${drawPct}% Draws`
+
+    return [winLabel, lossLabel, drawLabel]
+  }
+
   render() {
-    const { season } = this.props
+    const { season, matches } = this.props
+    const totalMatches = matches
+      .filter(match => match.isWin() || match.isLoss() || match.isDraw()).length
+    const counts = this.getCounts()
     const options = {
       responsive: true, maintainAspectRatio: false,
       legend: { position: 'left' }
     }
     const data = {
-      labels: ['Wins', 'Losses', 'Draws'],
+      labels: this.getLabels(totalMatches, counts),
       datasets: [
         {
           backgroundColor: [Color.transparentWin, Color.transparentLoss, Color.transparentDraw],
           borderColor: [Color.win, Color.loss, Color.draw],
-          data: this.getData()
+          data: counts
         }
       ]
     }
