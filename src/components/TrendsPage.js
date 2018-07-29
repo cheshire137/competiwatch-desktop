@@ -55,6 +55,10 @@ class TrendsPage extends Component {
     return this.state.matches.filter(match => match.dayOfWeek && match.timeOfDay).length > 0
   }
 
+  showMapChart = () => {
+    return this.state.matches.filter(match => match.map).length > 0
+  }
+
   render() {
     const { matches, hasLoaded } = this.state
     if (!hasLoaded) {
@@ -74,8 +78,12 @@ class TrendsPage extends Component {
         </div>
         <hr className="mb-4 pt-4" />
         <StreaksChart season={season} matches={matches} />
-        <hr className="mb-4 pt-4" />
-        <MapChart season={season} matches={matches} />
+        {this.showMapChart() ? (
+          <div>
+            <hr className="mb-4 pt-4" />
+            <MapChart season={season} matches={matches} />
+          </div>
+        ) : null}
         <hr className="mb-4 pt-4" />
         <GroupSizeChart season={season} matches={matches} />
         {this.anyMatchesWithHeroes() ? (
