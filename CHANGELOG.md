@@ -1,5 +1,7 @@
 # Change log
 
+## Version 0.1.5
+
 ## Version 0.1.4
 
 - Added an 'Edit' option to each account on the Accounts page to allow renaming them
