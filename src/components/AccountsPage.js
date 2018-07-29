@@ -8,7 +8,7 @@ class AccountsPage extends Component {
 
     return (
       <div className="container layout-children-container">
-        <div className="col-lg-6 col-md-8 col-sm-12 mb-4">
+        <div className="col-lg-7 col-md-10 col-sm-12 mb-4">
           <h2
             className="h2 text-normal mb-2 d-flex flex-items-center"
           >Battle.net accounts <span className="Counter ml-2 h4 px-2">{accounts.length}</span></h2>

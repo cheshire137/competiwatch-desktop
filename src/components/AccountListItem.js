@@ -147,7 +147,9 @@ class AccountListItem extends Component {
                 </span>
               ) : latestMatch && latestMatch.createdAt ? (
                 <span>
-                  <span className="separator" />
+                  {haveLatestResult && !haveLatestRank ? (
+                    <span className="separator" />
+                  ) : null}
                   Last logged {latestMatch.createdAt.toLocaleDateString()}
                 </span>
               ) : null}
