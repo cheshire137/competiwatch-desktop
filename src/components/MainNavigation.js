@@ -82,17 +82,17 @@ class MainNavigation extends Component {
       return null
     }
 
-    const { hasMatches } = this.state
-    if (!hasMatches) {
-      return null
-    }
-
     if (activePage === 'trends') {
       return (
         <span className={this.underlineNavItemClass('trends', false)}>
           Trends
         </span>
       )
+    }
+
+    const { hasMatches } = this.state
+    if (!hasMatches) {
+      return null
     }
 
     return (
