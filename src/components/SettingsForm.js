@@ -27,9 +27,7 @@ class SettingsForm extends Component {
 
     settings.defaultAccountID = defaultAccountID
     settings.theme = theme
-    settings.save().then(() => {
-      onSave(settings)
-    })
+    settings.save().then(() => onSave(settings))
   }
 
   onDefaultAccountIDChange = event => {
@@ -105,9 +103,10 @@ class SettingsForm extends Component {
             >
               <option value="light">Light</option>
               <option value="dark">Dark</option>
+              <option value="auto">Auto</option>
             </select>
             <p className="note">
-              Choose an appearance for the app.
+              Choose an appearance for the app. 'Auto' will use the dark theme at night and the light theme during the day.
             </p>
           </dd>
         </dl>

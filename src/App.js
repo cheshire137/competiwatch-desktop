@@ -29,7 +29,8 @@ class App extends Component {
       latestRank: 2500,
       isPlacement: false,
       latestSeason: latestKnownSeason,
-      scrollToLatestMatch: false
+      scrollToLatestMatch: false,
+      themeClass: 'theme-light'
     }
   }
 
@@ -87,11 +88,34 @@ class App extends Component {
     })
   }
 
+  updateThemeClass = () => {
+    const { settings } = this.state
+    if (!settings) {
+      return
+    }
+
+    let themeClass = 'theme-light'
+    if (settings.theme === 'dark') {
+      themeClass = 'theme-dark'
+    } else if (settings.theme === 'auto' && this.isNighttime()) {
+      themeClass = 'theme-dark'
+    }
+
+    this.setState(prevState => ({ themeClass }))
+  }
+
   componentDidMount() {
     this.refreshLatestSeason()
     this.refreshAccounts().then(() => {
       this.refreshSettings()
     })
+
+    const millisecondsInHour = 3600000
+    this.themeClassInterval = setInterval(() => this.updateThemeClass(), millisecondsInHour)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.themeClassInterval)
   }
 
   setIsPlacement = (isPlacement, isLastPlacement) => {
@@ -142,6 +166,7 @@ class App extends Component {
     }
 
     this.updateAppTitle()
+    this.updateThemeClass()
 
     new AppMenu({
       onPageChange: this.changeActivePage,
@@ -353,23 +378,21 @@ class App extends Component {
     return <LoadingPage />
   }
 
-  outerClass = () => {
-    const { settings } = this.state
-    if (settings) {
-      return `layout-container theme-${settings.theme}`
-    }
+  isNighttime = () => {
+    const currentTime = new Date()
+    const hours = currentTime.getHours()
 
-    return 'layout-container'
+    return hours >= 20 || hours <= 5
   }
 
   render() {
     const { activePage, activeAccountID, activeSeason, latestSeason,
-            isPlacement, accounts } = this.state
+            isPlacement, accounts, themeClass } = this.state
     const showHeader = activePage !== 'about' && activePage !== 'settings' &&
       activePage !== 'manage-seasons'
 
     return (
-      <div className={this.outerClass()}>
+      <div className={`layout-container ${themeClass}`}>
         {showHeader ? (
           <Header
             accounts={accounts}

@@ -2,6 +2,8 @@
 
 ## Version 0.1.5
 
+- Added an 'Auto' option to the theme choice on the Settings page, to use the dark theme at night and the light theme during the day
+
 ## Version 0.1.4
 
 - Added an 'Edit' option to each account on the Accounts page to allow renaming them

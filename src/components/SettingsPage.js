@@ -39,7 +39,7 @@ class SettingsPage extends Component {
           />
         </div>
         <hr />
-        <div className="col-md-6 mb-4">
+        <div className="mb-4">
           <h2 className="h2 mb-2">Data files</h2>
           <p>
             Competiwatch stores your match history, accounts, settings,
