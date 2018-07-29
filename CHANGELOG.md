@@ -8,6 +8,7 @@
 - Added a chart to the Trends page showing wins and losses by the general time of day and day of week played
 - Added a spider chart to the Trends page showing wins and losses by role played
 - Fixed a bug where 'Trends' would not show as the active tab when on the Trends page for a season with no logged matches
+- Added a message to the Trends page when viewing a season with no logged matches
 
 ## Version 0.1.3
 
