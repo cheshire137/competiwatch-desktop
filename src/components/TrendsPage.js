@@ -47,6 +47,10 @@ class TrendsPage extends Component {
     }
   }
 
+  showRoleChart = () => {
+    return this.state.matches.filter(match => match.heroList.length > 0).length > 0
+  }
+
   showDayTimeChart = () => {
     return this.state.matches.filter(match => match.dayOfWeek && match.timeOfDay).length > 0
   }
@@ -76,10 +80,14 @@ class TrendsPage extends Component {
         <GroupSizeChart season={season} matches={matches} />
         <hr className="mb-4 pt-4" />
         <HeroesChart season={season} matches={matches} />
-        <hr className="mb-4 pt-4" />
-        <div className="col-md-7 mx-auto">
-          <RoleChart season={season} theme={theme} matches={matches} />
-        </div>
+        {this.showRoleChart() ? (
+          <div>
+            <hr className="mb-4 pt-4" />
+            <div className="col-md-7 mx-auto">
+              <RoleChart season={season} theme={theme} matches={matches} />
+            </div>
+          </div>
+        ) : null}
         {this.showDayTimeChart() ? (
           <div>
             <hr className="mb-4 pt-4" />
