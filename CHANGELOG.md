@@ -5,6 +5,7 @@
 - Added an 'Auto' option to the theme choice on the Settings page, to use the dark theme at night and the light theme during the day
 - Fixed bug where the 'Date' column in exported CSV files was not readable
 - Added ability to import 'Play of the Game' and 'Date' fields when importing match history
+- Added formatting requirements to the Import page
 
 ## Version 0.1.4
 
