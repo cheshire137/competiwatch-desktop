@@ -31,9 +31,13 @@
 .match-placement-row .match-cell.heroes-cell,
 .match-placement-row .match-cell.throwers-leavers-cell,
 .match-placement-row .match-cell.options-cell,
-.match-placement-row .match-cell.friends-cell,
+.match-placement-row .match-cell.group-cell,
 .match-placement-row .match-cell.potg-cell {
   background-color: #efefef;
+}
+
+.match-cell.group-cell span + span {
+  margin-left: 0.5em;
 }
 
 .match-placement-log-row .match-cell.rank-cell,
@@ -240,7 +244,7 @@
 .theme-dark .match-placement-row .match-cell.heroes-cell,
 .theme-dark .match-placement-row .match-cell.throwers-leavers-cell,
 .theme-dark .match-placement-row .match-cell.options-cell,
-.theme-dark .match-placement-row .match-cell.friends-cell,
+.theme-dark .match-placement-row .match-cell.group-cell,
 .theme-dark .match-placement-row .match-cell.potg-cell {
   background-color: #3a434b;
 }

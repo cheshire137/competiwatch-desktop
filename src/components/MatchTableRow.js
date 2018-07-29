@@ -226,7 +226,7 @@ class MatchTableRow extends Component {
 
   groupClass = () => {
     const { groupList } = this.props.match
-    let classes = ['match-cell', 'hide-sm', 'css-truncate', 'friends-cell']
+    let classes = ['match-cell', 'hide-sm', 'css-truncate', 'group-cell']
 
     if (groupList.length > 0) {
       classes = classes.concat(['tooltipped', 'tooltipped-n', 'tooltipped-multiline'])
