@@ -246,7 +246,7 @@ class MatchTableRow extends Component {
 
   render() {
     const { match, priorRank, showThrowerLeaver, showPlayOfTheGame,
-            showComment } = this.props
+            showComment, showDayTime } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
             rankChange, dayOfWeek, timeOfDay, groupSize } = match
@@ -315,20 +315,22 @@ class MatchTableRow extends Component {
             <span className="css-truncate-target comment-truncate-target">{comment}</span>
           </td>
         ) : null}
-        <td
-          className="match-cell text-center hide-sm time-cell no-wrap"
-        >
-          {timeAndDayPresent ? (
-            <div
-              className="tooltipped tooltipped-n"
-              aria-label={`${capitalize(dayOfWeek)} ${capitalize(timeOfDay)}`}
-            >
-              <DayOfWeekEmoji dayOfWeek={dayOfWeek} />
-              <span> </span>
-              <TimeOfDayEmoji timeOfDay={timeOfDay} />
-            </div>
-          ) : null}
-        </td>
+        {showDayTime ? (
+          <td
+            className="match-cell text-center hide-sm time-cell no-wrap"
+          >
+            {timeAndDayPresent ? (
+              <div
+                className="tooltipped tooltipped-n"
+                aria-label={`${capitalize(dayOfWeek)} ${capitalize(timeOfDay)}`}
+              >
+                <DayOfWeekEmoji dayOfWeek={dayOfWeek} />
+                <span> </span>
+                <TimeOfDayEmoji timeOfDay={timeOfDay} />
+              </div>
+            ) : null}
+          </td>
+        ) : null}
         <td
           className="match-cell hide-sm heroes-cell"
         >
