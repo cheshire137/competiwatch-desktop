@@ -47,6 +47,10 @@ class TrendsPage extends Component {
     }
   }
 
+  showDayTimeChart = () => {
+    return this.state.matches.filter(match => match.dayOfWeek && match.timeOfDay).length > 0
+  }
+
   render() {
     const { matches, hasLoaded } = this.state
     if (!hasLoaded) {
@@ -76,8 +80,12 @@ class TrendsPage extends Component {
         <div className="col-md-7 mx-auto">
           <RoleChart season={season} theme={theme} matches={matches} />
         </div>
-        <hr className="mb-4 pt-4" />
-        <DayTimeChart season={season} matches={matches} />
+        {this.showDayTimeChart() ? (
+          <div>
+            <hr className="mb-4 pt-4" />
+            <DayTimeChart season={season} matches={matches} />
+          </div>
+        ) : null}
       </div>
     )
   }
