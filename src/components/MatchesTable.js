@@ -57,6 +57,10 @@ class MatchesTable extends Component {
     return matches.length > 0
   }
 
+  showPlayOfTheGameColumn = () => {
+    return this.props.matches.filter(match => match.playOfTheGame).length > 0
+  }
+
   getLongestWinStreak = () => {
     const winStreaks = this.props.matches.filter(match => typeof match.winStreak === 'number')
       .map(match => match.winStreak)
@@ -93,6 +97,7 @@ class MatchesTable extends Component {
       totalPlacementMatches = 1
     }
     const showThrowerLeaver = this.showThrowerLeaverColumn()
+    const showPlayOfTheGame = this.showPlayOfTheGameColumn()
     const longestWinStreak = this.getLongestWinStreak()
     const longestLossStreak = this.getLongestLossStreak()
     const placementRank = this.placementRank(firstMatchWithRank)
@@ -139,12 +144,14 @@ class MatchesTable extends Component {
                 <span role="img" aria-label="Sad face">😢</span>
               </th>
             ) : null}
-            <th
-              className="match-header hide-sm tooltipped tooltipped-n"
-              aria-label="Play of the game"
-            >
-              <span role="img" aria-label="Party">🎉</span>
-            </th>
+            {showPlayOfTheGame ? (
+              <th
+                className="match-header hide-sm tooltipped tooltipped-n"
+                aria-label="Play of the game"
+              >
+                <span role="img" aria-label="Party">🎉</span>
+              </th>
+            ) : null}
             <th
               className="match-header"
             ></th>
@@ -175,6 +182,7 @@ class MatchesTable extends Component {
                 priorRank={priorRank}
                 totalPlacementMatches={totalPlacementMatches}
                 showThrowerLeaver={showThrowerLeaver}
+                showPlayOfTheGame={showPlayOfTheGame}
                 longestWinStreak={longestWinStreak}
                 longestLossStreak={longestLossStreak}
               />

@@ -245,7 +245,7 @@ class MatchTableRow extends Component {
   }
 
   render() {
-    const { match, priorRank, showThrowerLeaver } = this.props
+    const { match, priorRank, showThrowerLeaver, showPlayOfTheGame } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
             rankChange, dayOfWeek, timeOfDay, groupSize } = match
@@ -371,18 +371,20 @@ class MatchTableRow extends Component {
             ) : null}
           </td>
         ) : null}
-        <td
-          className="match-cell hide-sm potg-cell"
-        >
-          {playOfTheGame ? (
-            <span
-              className="tooltipped tooltipped-n"
-              aria-label="Play of the game"
-            >
-              <span className="text-green ion ion-ios-checkmark-circle"></span>
-            </span>
-          ) : null}
-        </td>
+        {showPlayOfTheGame ? (
+          <td
+            className="match-cell hide-sm potg-cell"
+          >
+            {playOfTheGame ? (
+              <span
+                className="tooltipped tooltipped-n"
+                aria-label="Play of the game"
+              >
+                <span className="text-green ion ion-ios-checkmark-circle"></span>
+              </span>
+            ) : null}
+          </td>
+        ) : null}
         <td className="match-cell options-cell">
           <button
             type="button"
