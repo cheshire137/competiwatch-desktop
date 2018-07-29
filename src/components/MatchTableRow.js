@@ -246,7 +246,7 @@ class MatchTableRow extends Component {
 
   render() {
     const { match, priorRank, showThrowerLeaver, showPlayOfTheGame,
-            showComment, showDayTime } = this.props
+            showComment, showDayTime, showHeroes } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
             rankChange, dayOfWeek, timeOfDay, groupSize } = match
@@ -331,22 +331,24 @@ class MatchTableRow extends Component {
             ) : null}
           </td>
         ) : null}
-        <td
-          className="match-cell hide-sm heroes-cell"
-        >
-          {heroList.map(hero => (
-            <span
-              key={hero}
-              className="tooltipped tooltipped-n d-inline-block hero-portrait-container"
-              aria-label={hero}
-            >
-              <HeroImage
-                hero={hero}
-                className="rounded-1 d-inline-block"
-              />
-            </span>
-          ))}
-        </td>
+        {showHeroes ? (
+          <td
+            className="match-cell hide-sm heroes-cell"
+          >
+            {heroList.map(hero => (
+              <span
+                key={hero}
+                className="tooltipped tooltipped-n d-inline-block hero-portrait-container"
+                aria-label={hero}
+              >
+                <HeroImage
+                  hero={hero}
+                  className="rounded-1 d-inline-block"
+                />
+              </span>
+            ))}
+          </td>
+        ) : null}
         <td
           className={this.groupClass()}
           aria-label={this.groupTooltip()}
