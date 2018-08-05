@@ -62,7 +62,9 @@ npm install
 npm test
 ```
 
-To see test coverage, run `npm test -- --coverage`.
+To see test coverage, run `npm test -- --coverage`. A coverage report will
+display in your terminal or you can open coverage/lcov-report/index.html in
+your browser.
 
 ## How to Build Executables
 
