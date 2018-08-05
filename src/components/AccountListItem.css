@@ -53,3 +53,7 @@
 .account-avatar-stack.AvatarStack--right .AvatarStack-body:hover .avatar {
   margin-left: -5px;
 }
+
+.theme-dark .Box .AvatarStack-body .avatar.account-hero-avatar {
+  background-color: #2f363d;
+}
