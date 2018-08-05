@@ -71,6 +71,7 @@ class AppMenu {
     })
     menuItems.push({
       label: 'Help',
+      role: 'help',
       submenu: [
         this.bugReportMenuItem()
       ]
@@ -105,6 +106,7 @@ class AppMenu {
     })
     menuItems.push({
       label: 'Help',
+      role: 'help',
       submenu: [
         this.aboutMenuItem(),
         this.bugReportMenuItem()
