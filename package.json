@@ -47,5 +47,15 @@
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4",
     "react-scroll-to-component": "^1.0.2"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!node_modules/**",
+      "!src/lib/**",
+      "!dist/**",
+      "!build/**",
+      "!coverage/**"
+    ]
   }
 }

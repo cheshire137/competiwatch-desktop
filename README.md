@@ -62,6 +62,8 @@ npm install
 npm test
 ```
 
+To see test coverage, run `npm test -- --coverage`.
+
 ## How to Build Executables
 
 For macOS, from a Mac run:
