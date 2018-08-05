@@ -10,7 +10,7 @@ jest.mock('electron', () => ({
     }
   }
 }))
-import AboutPage from '../components/AboutPage'
+import AboutPage from '../../components/AboutPage'
 
 it('matches snapshot', () => {
   const tree = renderer.create(<AboutPage />).toJSON()

@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import DayOfWeekEmoji from '../components/DayOfWeekEmoji'
+import TimeOfDayEmoji from '../../components/TimeOfDayEmoji'
 
 it('renders', () => {
   const div = document.createElement('div')
-  ReactDOM.render(<DayOfWeekEmoji dayOfWeek="weekend" />, div)
+  ReactDOM.render(<TimeOfDayEmoji timeOfDay="morning" />, div)
   ReactDOM.unmountComponentAtNode(div)
 })

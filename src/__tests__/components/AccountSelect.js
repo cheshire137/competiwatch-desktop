@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
-import TestHelpers from '../TestHelpers'
+import TestHelpers from '../../TestHelpers'
 
 const accounts = [
   { _id: '456', battletag: 'CheshireCat' },
@@ -17,7 +17,7 @@ jest.mock('electron', () => ({
     send: () => null
   }
 }))
-import AccountSelect from '../components/AccountSelect'
+import AccountSelect from '../../components/AccountSelect'
 
 it('matches snapshot', () => {
   const tree = renderer.create(<AccountSelect accounts={accounts} activeAccountID="123" />).toJSON()

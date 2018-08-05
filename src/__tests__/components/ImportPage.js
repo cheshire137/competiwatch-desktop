@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { shallow } from 'enzyme'
-import TestHelpers from '../TestHelpers'
+import TestHelpers from '../../TestHelpers'
 
 jest.mock('electron', () => ({
   ipcRenderer: {
@@ -16,7 +16,7 @@ jest.mock('electron', () => ({
     send: () => null
   }
 }))
-import ImportPage from '../components/ImportPage'
+import ImportPage from '../../components/ImportPage'
 
 it('displays warning when account has matches in that season', async () => {
   const wrapper = shallow(<ImportPage accountID="123" season="3" />)

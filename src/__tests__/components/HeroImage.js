@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import HeroImage from '../components/HeroImage'
+import HeroImage from '../../components/HeroImage'
 
 it('renders', () => {
   const div = document.createElement('div')
