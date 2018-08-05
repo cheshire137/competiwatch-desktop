@@ -3,6 +3,7 @@
 ## Version 0.1.6
 
 - Fixed hero avatars having a light background on the Accounts page when the dark theme was active
+- Fixed bug where selecting a group member suggestion didn't update the group size field on the Log a Match page [#30](https://github.com/cheshire137/competiwatch-desktop/issues/30)
 
 ## Version 0.1.5
 

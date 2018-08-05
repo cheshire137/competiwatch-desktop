@@ -43,13 +43,13 @@ class GroupMembersField extends Component {
       .map(groupMember => groupMember.trim())
     const newGroupMembers = chosenGroupMembers.slice(0, chosenGroupMembers.length - 1)
 
-
     if (newGroupMembers.indexOf(groupMember) < 0) {
       newGroupMembers.push(groupMember)
     }
 
     const newGroup = newGroupMembers.join(', ')
-    onGroupChange(newGroup)
+    const newGroupSize = newGroupMembers.length + 1
+    onGroupChange(newGroup, newGroupSize)
   }
 
   renderGroupMember = (groupMember, isHighlighted) => {
