@@ -1,5 +1,9 @@
 # Change log
 
+## Version 0.1.6
+
+- Fixed hero avatars having a light background on the Accounts page when the dark theme was active
+
 ## Version 0.1.5
 
 - Added an 'Auto' option to the theme choice on the Settings page, to use the dark theme at night and the light theme during the day
