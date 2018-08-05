@@ -1,7 +1,3 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import renderer from 'react-test-renderer'
-import { shallow } from 'enzyme'
 import ColorGradient from '../../models/ColorGradient'
 
 it('returns an array of RGB colors between given color range', () => {
