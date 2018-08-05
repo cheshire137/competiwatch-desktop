@@ -1,3 +1,7 @@
 .battletag-input-group {
   max-width: 26em;
 }
+
+.battletag-error {
+  left: 6em;
+}
