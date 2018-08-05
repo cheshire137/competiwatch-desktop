@@ -7,6 +7,7 @@
 - An error message is now shown when you try to add an account that already exists on the Accounts page [#29](https://github.com/cheshire137/competiwatch-desktop/issues/29)
 - Fixed display bug where hero avatars would appear on top of the main navigation when scrolling the Accounts page
 - Added search option to Help menu in macOS
+- Added a Help page [#20](https://github.com/cheshire137/competiwatch-desktop/issues/20)
 
 ## Version 0.1.5
 

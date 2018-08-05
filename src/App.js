@@ -7,6 +7,7 @@ import AppMenu from './models/AppMenu'
 import ElectronUtils from './models/ElectronUtils'
 import AccountsPage from './components/AccountsPage'
 import MatchesPage from './components/MatchesPage'
+import HelpPage from './components/HelpPage'
 import MatchCreatePage from './components/MatchCreatePage'
 import SeasonsPage from './components/SeasonsPage'
 import TrendsPage from './components/TrendsPage'
@@ -204,6 +205,8 @@ class App extends Component {
       titleParts.push('Settings')
     } else if (activePage === 'accounts') {
       titleParts.push('Accounts')
+    } else if (activePage === 'help') {
+      titleParts.push('Help')
     }
 
     if (haveActiveSeason && isSeasonRelevant) {
@@ -341,6 +344,14 @@ class App extends Component {
       )
     }
 
+    if (activePage === 'help') {
+      return (
+        <HelpPage
+          onPageChange={this.changeActivePage}
+        />
+      )
+    }
+
     if (activePage === 'trends') {
       return (
         <TrendsPage
@@ -389,7 +400,7 @@ class App extends Component {
     const { activePage, activeAccountID, activeSeason, latestSeason,
             isPlacement, accounts, themeClass } = this.state
     const showHeader = activePage !== 'about' && activePage !== 'settings' &&
-      activePage !== 'manage-seasons'
+      activePage !== 'manage-seasons' && activePage !== 'help'
 
     return (
       <div className={`layout-container ${themeClass}`}>

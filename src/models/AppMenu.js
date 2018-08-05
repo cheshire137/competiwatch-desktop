@@ -73,7 +73,8 @@ class AppMenu {
       label: 'Help',
       role: 'help',
       submenu: [
-        this.bugReportMenuItem()
+        this.bugReportMenuItem(),
+        this.helpDocsMenuItem()
       ]
     })
     return menuItems
@@ -109,7 +110,8 @@ class AppMenu {
       role: 'help',
       submenu: [
         this.aboutMenuItem(),
-        this.bugReportMenuItem()
+        this.bugReportMenuItem(),
+        this.helpDocsMenuItem()
       ]
     })
     return menuItems
@@ -138,6 +140,15 @@ class AppMenu {
     return {
       label: 'Report a Bug',
       click() { shell.openExternal(PackageInfo.bugs.url) }
+    }
+  }
+
+  helpDocsMenuItem() {
+    const self = this
+
+    return {
+      label: `${app.getName()} Help`,
+      click() { self.onPageChange('help') }
     }
   }
 
