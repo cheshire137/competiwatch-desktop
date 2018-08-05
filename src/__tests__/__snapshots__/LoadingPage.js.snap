@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  className="container layout-children-container"
+>
+  <div
+    className="blankslate"
+  >
+    <h1>
+      <span
+        className="ion ion-md-refresh mr-3 ion-spin"
+      />
+      Loading...
+    </h1>
+  </div>
+</div>
+`;
