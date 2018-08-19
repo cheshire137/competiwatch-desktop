@@ -164,9 +164,9 @@ class MainNavigation extends Component {
     return (
       <button
         type="button"
-        className="btn-link UnderlineNav-item"
+        className="btn-link text-small"
         onClick={this.exportSeason}
-      >Export</button>
+      >Export matches</button>
     )
   }
 
@@ -237,9 +237,9 @@ class MainNavigation extends Component {
           {this.renderLogMatchButton()}
           {this.renderEditMatchButton()}
           {this.renderImportButton()}
-          {this.renderExportButton()}
           {this.renderTrendsButton()}
         </div>
+        {this.renderExportButton()}
         {this.rightSideMessage()}
       </nav>
     )
