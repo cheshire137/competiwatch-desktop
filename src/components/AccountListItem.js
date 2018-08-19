@@ -3,7 +3,7 @@ import AccountDeleteForm from './AccountDeleteForm'
 import AccountForm from './AccountForm'
 import CsvExporter from '../models/CsvExporter'
 import ElectronUtils from '../models/ElectronUtils'
-import DateUtil from '../models/DateUtil'
+import FileUtil from '../models/FileUtil'
 import MatchRankImage from './MatchRankImage'
 import HeroImage from './HeroImage'
 import './AccountListItem.css'
@@ -67,10 +67,7 @@ class AccountListItem extends Component {
   exportSeason = event => {
     event.currentTarget.blur()
     const { account, season } = this.props
-    const simpleBattletag = account.battletag.replace(/\s+/g, '-')
-      .replace(/#+/g, '-')
-    const dateStr = DateUtil.dateStrFrom(new Date())
-    const defaultPath = `${simpleBattletag}-season-${season}-${dateStr}.csv`
+    const defaultPath = FileUtil.defaultCsvExportFilename(account.battletag, season)
     const options = { defaultPath }
 
     dialog.showSaveDialog(options, path => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Account from '../models/Account'
 import CsvExporter from '../models/CsvExporter'
-import DateUtil from '../models/DateUtil'
+import FileUtil from '../models/FileUtil'
 import ElectronUtils from '../models/ElectronUtils'
 
 const { remote } = ElectronUtils
@@ -184,10 +184,7 @@ class MainNavigation extends Component {
     event.currentTarget.blur()
     const { activeSeason } = this.props
     const { account } = this.state
-    const simpleBattletag = account.battletag.replace(/\s+/g, '-')
-      .replace(/#+/g, '-')
-    const dateStr = DateUtil.dateStrFrom(new Date())
-    const defaultPath = `${simpleBattletag}-season-${activeSeason}-${dateStr}.csv`
+    const defaultPath = FileUtil.defaultCsvExportFilename(account.battletag, activeSeason)
     const options = { defaultPath }
 
     dialog.showSaveDialog(options, path => {
