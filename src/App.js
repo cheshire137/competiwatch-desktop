@@ -30,7 +30,7 @@ class App extends Component {
       latestRank: 2500,
       isPlacement: false,
       latestSeason: latestKnownSeason,
-      scrollToLatestMatch: false,
+      scrollToMatch: false,
       themeClass: 'theme-light'
     }
   }
@@ -123,12 +123,13 @@ class App extends Component {
     this.setState(prevState => ({ isPlacement, isLastPlacement }))
   }
 
-  changeActivePage = (activePage, val1) => {
+  changeActivePage = (activePage, val1, val2) => {
     this.setState(prevState => {
       const newState = {
         activePage,
-        scrollToLatestMatch: false,
-        activeMatchID: null
+        scrollToMatch: false,
+        activeMatchID: null,
+        scrollToMatchID: null
       }
 
       if (activePage === 'log-match') {
@@ -148,7 +149,10 @@ class App extends Component {
 
       if (activePage === 'matches') {
         if (typeof val1 === 'boolean') {
-          newState.scrollToLatestMatch = val1
+          newState.scrollToMatch = val1
+        }
+        if (typeof val2 === 'string') {
+          newState.scrollToMatchID = val2
         }
       }
 
@@ -274,8 +278,8 @@ class App extends Component {
 
   renderActivePage = () => {
     const { activePage, activeAccountID, latestRank, isPlacement,
-            isLastPlacement, activeSeason, latestSeason,
-            activeMatchID, accounts, settings, scrollToLatestMatch } = this.state
+            isLastPlacement, activeSeason, latestSeason, scrollToMatchID,
+            activeMatchID, accounts, settings, scrollToMatch } = this.state
     const haveActiveSeason = typeof activeSeason === 'number' && !isNaN(activeSeason)
 
     if (activePage === 'matches' && haveActiveSeason && activeAccountID) {
@@ -285,7 +289,8 @@ class App extends Component {
           season={activeSeason}
           onPageChange={this.changeActivePage}
           setIsPlacement={this.setIsPlacement}
-          scrollToLatestMatch={scrollToLatestMatch}
+          scrollToMatch={scrollToMatch}
+          scrollToMatchID={scrollToMatchID}
         />
       )
     }

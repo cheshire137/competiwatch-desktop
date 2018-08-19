@@ -30,6 +30,11 @@ class MatchEditPage extends Component {
     }
   }
 
+  onMatchUpdate = () => {
+    const { id, onPageChange } = this.props
+    onPageChange('matches', true, id)
+  }
+
   loadMatchesPage = () => {
     this.props.onPageChange('matches')
   }
@@ -49,7 +54,7 @@ class MatchEditPage extends Component {
         isPlacement={match.isPlacement}
         isLastPlacement={isLastPlacement}
         latestRank={match.rank}
-        onUpdate={this.loadMatchesPage}
+        onUpdate={this.onMatchUpdate}
         rank={match.rank}
         comment={match.comment}
         map={match.map}

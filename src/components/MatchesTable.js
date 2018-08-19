@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import MatchTableRow from './MatchTableRow'
 
 class MatchesTable extends Component {
+  constructor(props) {
+    super(props)
+    this.matchRowsByID = {}
+  }
+
   matchRankChangesByResult = () => {
     const results = ['win', 'loss']
     const rankChanges = { draw: [] }
@@ -98,10 +103,17 @@ class MatchesTable extends Component {
   }
 
   componentDidMount() {
-    const { scrollToLatestMatch } = this.props
+    const { scrollToMatch, scrollToMatchID } = this.props
 
-    if (scrollToLatestMatch) {
-      const scrollToComponent = require('react-scroll-to-component')
+    if (!scrollToMatch) {
+      return
+    }
+
+    const scrollToComponent = require('react-scroll-to-component')
+
+    if (scrollToMatchID) {
+      scrollToComponent(this.matchRowsByID[scrollToMatchID])
+    } else {
       scrollToComponent(this.lastMatchRow)
     }
   }
@@ -200,6 +212,7 @@ class MatchesTable extends Component {
                 match={match}
                 index={i}
                 ref={row => {
+                  this.matchRowsByID[match._id] = row
                   if (isLast) {
                     this.lastMatchRow = row
                   }

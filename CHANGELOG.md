@@ -2,6 +2,8 @@
 
 ## Version 0.1.7
 
+- After editing a match, view will scroll down to that match on the Matches page
+
 ## Version 0.1.6
 
 - Fixed hero avatars having a light background on the Accounts page when the dark theme was active
