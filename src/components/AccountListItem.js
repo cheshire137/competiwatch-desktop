@@ -3,25 +3,13 @@ import AccountDeleteForm from './AccountDeleteForm'
 import AccountForm from './AccountForm'
 import CsvExporter from '../models/CsvExporter'
 import ElectronUtils from '../models/ElectronUtils'
+import DateUtil from '../models/DateUtil'
 import MatchRankImage from './MatchRankImage'
 import HeroImage from './HeroImage'
 import './AccountListItem.css'
 
 const { remote } = ElectronUtils
 const { dialog } = remote
-
-const dateStrFrom = date => {
-  const year = date.getFullYear()
-  let month = date.getMonth() + 1
-  if (month <= 9) {
-    month = `0${month}`
-  }
-  let day = date.getDate()
-  if (day <= 9) {
-    day = `0${day}`
-  }
-  return `${year}-${month}-${day}`
-}
 
 class AccountListItem extends Component {
   constructor(props) {
@@ -81,7 +69,7 @@ class AccountListItem extends Component {
     const { account, season } = this.props
     const simpleBattletag = account.battletag.replace(/\s+/g, '-')
       .replace(/#+/g, '-')
-    const dateStr = dateStrFrom(new Date())
+    const dateStr = DateUtil.dateStrFrom(new Date())
     const defaultPath = `${simpleBattletag}-season-${season}-${dateStr}.csv`
     const options = { defaultPath }
 
