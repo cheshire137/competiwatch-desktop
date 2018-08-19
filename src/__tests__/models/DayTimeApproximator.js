@@ -43,13 +43,13 @@ it('returns "weekday" for Friday date', () => {
 })
 
 it('returns "morning" for morning time', () => {
-  const date = new Date('2000-01-01T16:00:00')
+  const date = new Date(Date.UTC(2000, 1, 1, 16, 0, 0))
   const actual = DayTimeApproximator.timeOfDay(date)
   expect(actual).toBe('morning')
 })
 
 it('returns "afternoon" for afternoon time', () => {
-  const date = new Date('2000-01-01T18:00:00')
+  const date = new Date(Date.UTC(2000, 1, 1, 18, 0, 0))
   const actual = DayTimeApproximator.timeOfDay(date)
   expect(actual).toBe('afternoon')
 })
