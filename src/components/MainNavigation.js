@@ -157,7 +157,7 @@ class MainNavigation extends Component {
   renderExportButton = () => {
     const { activePage } = this.props
 
-    if (activePage !== 'matches') {
+    if (['matches', 'import', 'trends'].indexOf(activePage) < 0) {
       return null
     }
 
@@ -240,8 +240,8 @@ class MainNavigation extends Component {
           {this.renderLogMatchButton()}
           {this.renderEditMatchButton()}
           {this.renderImportButton()}
-          {this.renderTrendsButton()}
           {this.renderExportButton()}
+          {this.renderTrendsButton()}
         </div>
         {this.rightSideMessage()}
       </nav>
