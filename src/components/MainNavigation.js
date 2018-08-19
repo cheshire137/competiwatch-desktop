@@ -1,5 +1,11 @@
 import React, { Component } from 'react'
 import Account from '../models/Account'
+import CsvExporter from '../models/CsvExporter'
+import DateUtil from '../models/DateUtil'
+import ElectronUtils from '../models/ElectronUtils'
+
+const { remote } = ElectronUtils
+const { dialog } = remote
 
 class MainNavigation extends Component {
   constructor(props) {
@@ -148,6 +154,49 @@ class MainNavigation extends Component {
     )
   }
 
+  renderExportButton = () => {
+    const { activePage } = this.props
+
+    if (activePage !== 'matches') {
+      return null
+    }
+
+    return (
+      <button
+        type="button"
+        className="btn-link UnderlineNav-item"
+        onClick={this.exportSeason}
+      >Export</button>
+    )
+  }
+
+  exportSeasonTo = path => {
+    const { activeSeason } = this.props
+    const { account } = this.state
+    const exporter = new CsvExporter(path, activeSeason, account)
+
+    exporter.export().then(() => {
+      console.log(`exported ${account.battletag}'s season ${activeSeason}`, path)
+    })
+  }
+
+  exportSeason = event => {
+    event.currentTarget.blur()
+    const { activeSeason } = this.props
+    const { account } = this.state
+    const simpleBattletag = account.battletag.replace(/\s+/g, '-')
+      .replace(/#+/g, '-')
+    const dateStr = DateUtil.dateStrFrom(new Date())
+    const defaultPath = `${simpleBattletag}-season-${activeSeason}-${dateStr}.csv`
+    const options = { defaultPath }
+
+    dialog.showSaveDialog(options, path => {
+      if (path && path.length > 0) {
+        this.exportSeasonTo(path)
+      }
+    })
+  }
+
   checkIfHasMatches = () => {
     const { activeAccountID, activeSeason } = this.props
     const account = new Account({ _id: activeAccountID })
@@ -157,14 +206,24 @@ class MainNavigation extends Component {
     })
   }
 
+  loadAccount = () => {
+    const { activeAccountID } = this.props
+
+    Account.find(activeAccountID).then(account => {
+      this.setState(prevState => ({ account }))
+    })
+  }
+
   componentDidMount() {
     this.checkIfHasMatches()
+    this.loadAccount()
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.activeAccountID !== this.props.activeAccountID ||
         prevProps.activeSeason !== this.props.activeSeason) {
       this.checkIfHasMatches()
+      this.loadAccount()
     }
   }
 
@@ -178,6 +237,7 @@ class MainNavigation extends Component {
           {this.renderEditMatchButton()}
           {this.renderImportButton()}
           {this.renderTrendsButton()}
+          {this.renderExportButton()}
         </div>
         {this.rightSideMessage()}
       </nav>

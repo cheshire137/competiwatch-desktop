@@ -2,8 +2,9 @@
 
 ## Version 0.1.7
 
-- After editing a match, view will scroll down to that match on the Matches page
-- Add link to About page to let you check for a newer version of the app [#18](https://github.com/cheshire137/competiwatch-desktop/issues/18)
+- After editing a match, view will now scroll to that match on the Matches page
+- Added link to About page to let you check for a newer version of the app [#18](https://github.com/cheshire137/competiwatch-desktop/issues/18)
+- Added Export tab to the Matches page to allow downloading your match history for that account and season [#32](https://github.com/cheshire137/competiwatch-desktop/issues/32)
 
 ## Version 0.1.6
 
