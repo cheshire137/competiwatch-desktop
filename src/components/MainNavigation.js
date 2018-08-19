@@ -209,9 +209,13 @@ class MainNavigation extends Component {
   loadAccount = () => {
     const { activeAccountID } = this.props
 
-    Account.find(activeAccountID).then(account => {
-      this.setState(prevState => ({ account }))
-    })
+    if (activeAccountID) {
+      Account.find(activeAccountID).then(account => {
+        this.setState(prevState => ({ account }))
+      })
+    } else {
+      this.setState(prevState => ({ account: null }))
+    }
   }
 
   componentDidMount() {
