@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import PackageInfo from '../../package.json'
 import ElectronUtils from '../models/ElectronUtils'
+import GithubApi from '../models/GithubApi'
 
 const { remote, shell } = ElectronUtils
 const { app } = remote
 
 class AboutPage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
   openLink = event => {
     event.preventDefault()
     const link = event.currentTarget
@@ -17,9 +23,26 @@ class AboutPage extends Component {
     this.props.onPageChange('accounts')
   }
 
+  checkLatestVersion = event => {
+    event.target.blur()
+    GithubApi.latestVersion().then(latestVersion => {
+      this.setState(prevState => ({ latestVersion }))
+    })
+  }
+
+  openLatestVersion = event => {
+    event.target.blur()
+    const { latestVersion } = this.state
+
+    if (latestVersion && latestVersion.url) {
+      shell.openExternal(latestVersion.url)
+    }
+  }
+
   render() {
     const appName = app.getName()
     const version = PackageInfo.version
+    const { latestVersion } = this.state
 
     return (
       <div className="container layout-children-container">
@@ -80,6 +103,27 @@ class AboutPage extends Component {
             <div className="pl-4">
               <ul className="list-style-none">
                 <li>Version {version}</li>
+                <li>
+                  {latestVersion ? (
+                    <span>
+                      {latestVersion.version === version ? (
+                        <span>You have the latest version</span>
+                      ) : (
+                        <button
+                          type="button"
+                          className="btn-link"
+                          onClick={this.openLatestVersion}
+                        >Version {latestVersion.version} is available</button>
+                      )}
+                    </span>
+                  ) : (
+                    <button
+                      type="button"
+                      className="btn-link"
+                      onClick={this.checkLatestVersion}
+                    >Check for new version</button>
+                  )}
+                </li>
                 <li>
                   <a
                     href="https://github.com/cheshire137/competiwatch-desktop/blob/master/CHANGELOG.md"

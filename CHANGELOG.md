@@ -3,6 +3,7 @@
 ## Version 0.1.7
 
 - After editing a match, view will scroll down to that match on the Matches page
+- Add link to About page to let you check for a newer version of the app [#18](https://github.com/cheshire137/competiwatch-desktop/issues/18)
 
 ## Version 0.1.6
 

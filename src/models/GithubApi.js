@@ -3,7 +3,7 @@ import PackageInfo from '../../package.json'
 const baseUrl = 'https://api.github.com'
 
 class GithubApi {
-  async latestVersion() {
+  static async latestVersion() {
     const repoName = new URL(PackageInfo.repository.url).pathname.replace(/^\//, '')
     const releasesUrl = `${baseUrl}/repos/${repoName}/releases/latest`
     const response = await window.fetch(releasesUrl)
@@ -15,3 +15,5 @@ class GithubApi {
     return { version: name, url: html_url }
   }
 }
+
+export default GithubApi
