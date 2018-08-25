@@ -17,6 +17,11 @@
     "type": "git",
     "url": "https://github.com/cheshire137/competiwatch-desktop"
   },
+  "author": {
+    "name": "Sarah Vessels",
+    "email": "cheshire137@gmail.com",
+    "url": "https://github.com/cheshire137"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
