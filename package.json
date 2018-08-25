@@ -33,6 +33,7 @@
     "csv-parse": "^2.5.0",
     "csv-stringify": "^3.1.1",
     "electron": "^2.0.4",
+    "electron-installer-windows": "^1.1.0",
     "electron-packager": "^12.1.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
