@@ -10,11 +10,14 @@ class AppMenu {
     this.onPageChange = options.onPageChange
     this.onSeasonChange = options.onSeasonChange
     this.onAccountChange = options.onAccountChange
+    this.onExport = options.onExport
     this.latestSeason = options.latestSeason
     this.accounts = options.accounts
     this.showMatchesMenuItem = options.season && options.accountID
     this.showLogMatchMenuItem = this.showMatchesMenuItem
     this.showTrendsMenuItem = this.showMatchesMenuItem
+    this.showImportMatchesMenuItem = this.showMatchesMenuItem
+    this.showExportMatchesMenuItem = this.showMatchesMenuItem
     this.isMac = os.release().indexOf('Macintosh') > -1
     this.altOrOption = this.isMac ? 'Option' : 'Alt'
 
@@ -213,6 +216,16 @@ class AppMenu {
     }
   }
 
+  exportMatchesMenuItem() {
+    const self = this
+
+    return {
+      label: 'Export Matches',
+      accelerator: `${this.altOrOption}+E`,
+      click() { self.onExport() }
+    }
+  }
+
   manageSeasonsMenuItem() {
     const self = this
 
@@ -272,8 +285,11 @@ class AppMenu {
 
   toolsSubmenu() {
     const submenu = []
-    if (this.showLogMatchMenuItem) {
+    if (this.showImportMatchesMenuItem) {
       submenu.push(this.importMatchesMenuItem())
+    }
+    if (this.showExportMatchesMenuItem) {
+      submenu.push(this.exportMatchesMenuItem())
     }
     if (!this.isMac) {
       submenu.push(this.settingsMenuItem())

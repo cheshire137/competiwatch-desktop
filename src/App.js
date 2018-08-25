@@ -210,6 +210,7 @@ class App extends Component {
       onPageChange: this.changeActivePage,
       onSeasonChange: this.changeActiveSeason,
       onAccountChange: this.changeActiveAccount,
+      onExport: this.exportSeason,
       season: activeSeason,
       latestSeason,
       accountID: activeAccountID,
