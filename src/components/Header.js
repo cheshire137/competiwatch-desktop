@@ -15,7 +15,7 @@ class Header extends Component {
 
   render() {
     const { activeSeason, latestSeason, onSeasonChange, accounts,
-            activeAccountID, onAccountChange, activePage } = this.props
+            activeAccountID, onAccountChange, activePage, onExport } = this.props
 
     return (
       <div className="mb-3 sticky-bar border-bottom">
@@ -39,6 +39,7 @@ class Header extends Component {
             activePage={activePage}
             activeSeason={activeSeason}
             activeAccountID={activeAccountID}
+            onExport={onExport}
           />
         </div>
       </div>

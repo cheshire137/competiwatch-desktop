@@ -1,11 +1,5 @@
 import React, { Component } from 'react'
 import Account from '../models/Account'
-import CsvExporter from '../models/CsvExporter'
-import FileUtil from '../models/FileUtil'
-import ElectronUtils from '../models/ElectronUtils'
-
-const { remote } = ElectronUtils
-const { dialog } = remote
 
 class MainNavigation extends Component {
   constructor(props) {
@@ -154,6 +148,11 @@ class MainNavigation extends Component {
     )
   }
 
+  exportSeason = event => {
+    event.currentTarget.blur()
+    this.props.onExport()
+  }
+
   renderExportButton = () => {
     const { activePage } = this.props
 
@@ -168,30 +167,6 @@ class MainNavigation extends Component {
         onClick={this.exportSeason}
       >Export matches</button>
     )
-  }
-
-  exportSeasonTo = path => {
-    const { activeSeason } = this.props
-    const { account } = this.state
-    const exporter = new CsvExporter(path, activeSeason, account)
-
-    exporter.export().then(() => {
-      console.log(`exported ${account.battletag}'s season ${activeSeason}`, path)
-    })
-  }
-
-  exportSeason = event => {
-    event.currentTarget.blur()
-    const { activeSeason } = this.props
-    const { account } = this.state
-    const defaultPath = FileUtil.defaultCsvExportFilename(account.battletag, activeSeason)
-    const options = { defaultPath }
-
-    dialog.showSaveDialog(options, path => {
-      if (path && path.length > 0) {
-        this.exportSeasonTo(path)
-      }
-    })
   }
 
   checkIfHasMatches = () => {

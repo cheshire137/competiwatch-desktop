@@ -4,6 +4,8 @@ import Account from './models/Account'
 import Season from './models/Season'
 import Setting from './models/Setting'
 import AppMenu from './models/AppMenu'
+import CsvExporter from './models/CsvExporter'
+import FileUtil from './models/FileUtil'
 import ElectronUtils from './models/ElectronUtils'
 import AccountsPage from './components/AccountsPage'
 import MatchesPage from './components/MatchesPage'
@@ -21,7 +23,8 @@ import './ionicons.min.css'
 import './App.css'
 
 const latestKnownSeason = 11
-const { ipcRenderer } = ElectronUtils
+const { ipcRenderer, remote } = ElectronUtils
+const { dialog } = remote
 
 class App extends Component {
   constructor(props) {
@@ -117,6 +120,36 @@ class App extends Component {
 
   componentWillUnmount() {
     clearInterval(this.themeClassInterval)
+  }
+
+  exportSeasonTo = path => {
+    const { activeAccountID, accounts, activeSeason } = this.state
+    const account = accounts.filter(acct => acct._id == activeAccountID)[0]
+    if (!account) {
+      return
+    }
+
+    const exporter = new CsvExporter(path, activeSeason, account)
+    exporter.export().then(() => {
+      console.log(`exported ${account.battletag}'s season ${activeSeason}`, path)
+    })
+  }
+
+  exportSeason = () => {
+    const { accounts, activeAccountID, activeSeason } = this.state
+    const account = accounts.filter(acct => acct._id == activeAccountID)[0]
+    if (!account) {
+      return
+    }
+
+    const defaultPath = FileUtil.defaultCsvExportFilename(account.battletag, activeSeason)
+    const options = { defaultPath }
+
+    dialog.showSaveDialog(options, path => {
+      if (path && path.length > 0) {
+        this.exportSeasonTo(path)
+      }
+    })
   }
 
   setIsPlacement = (isPlacement, isLastPlacement) => {
@@ -420,6 +453,7 @@ class App extends Component {
             isPlacement={isPlacement}
             onSeasonChange={this.changeActiveSeason}
             onAccountChange={this.changeActiveAccount}
+            onExport={this.exportSeason}
           />
         ) : null}
         {this.renderActivePage()}
