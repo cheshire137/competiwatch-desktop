@@ -13,7 +13,9 @@ class AppMenu {
     this.onExport = options.onExport
     this.latestSeason = options.latestSeason
     this.accounts = options.accounts
-    this.showMatchesMenuItem = options.season && options.accountID
+    this.accountID = options.accountID
+    this.season = options.season
+    this.showMatchesMenuItem = this.season && this.accountID
     this.showLogMatchMenuItem = this.showMatchesMenuItem
     this.showTrendsMenuItem = this.showMatchesMenuItem
     this.showImportMatchesMenuItem = this.showMatchesMenuItem
@@ -193,7 +195,20 @@ class AppMenu {
     return {
       label: 'Log a Match',
       accelerator: `${this.altOrOption}+L`,
-      click() { self.onPageChange('log-match') }
+      click() {
+        const account = self.accounts.filter(acct => acct._id === self.accountID)[0]
+        if (account) {
+          account.latestMatch(self.season).then(match => {
+            if (match) {
+              self.onPageChange('log-match', match.rank)
+            } else {
+              self.onPageChange('log-match')
+            }
+          })
+        } else {
+          self.onPageChange('log-match')
+        }
+      }
     }
   }
 
