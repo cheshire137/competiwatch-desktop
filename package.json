@@ -17,6 +17,11 @@
     "type": "git",
     "url": "https://github.com/cheshire137/competiwatch-desktop"
   },
+  "author": {
+    "name": "Sarah Vessels",
+    "email": "cheshire137@gmail.com",
+    "url": "https://github.com/cheshire137"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -26,13 +31,15 @@
     "electron": "electron .",
     "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
     "electron-build-macos": "npm run build && node_modules/electron-packager/cli.js . \"Competiwatch\" --out=dist --overwrite --platform=darwin --arch=all --ignore=setupTests.js --ignore=__mocks__ --ignore=__tests__ --ignore=TestHelpers.js --ignore=screenshots",
-    "electron-build-windows": "npm run build && node node_modules\\electron-packager\\cli.js . --out=dist --overwrite --platform=win32 --arch=all --ignore=setupTests.js --ignore=__mocks__ --ignore=__tests__ --ignore=TestHelpers.js --ignore=screenshots"
+    "electron-build-windows": "npm run build && node node_modules\\electron-packager\\cli.js . --out=dist --overwrite --platform=win32 --arch=all --ignore=setupTests.js --ignore=__mocks__ --ignore=__tests__ --ignore=TestHelpers.js --ignore=screenshots",
+    "electron-build-windows-installer": "node_modules/.bin/electron-installer-windows --src dist/Competiwatch-win32-x64 --dest dist/installers/"
   },
   "devDependencies": {
     "chart.js": "^2.7.2",
     "csv-parse": "^2.5.0",
     "csv-stringify": "^3.1.1",
     "electron": "^2.0.4",
+    "electron-installer-windows": "^1.1.0",
     "electron-packager": "^12.1.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
