@@ -22,3 +22,7 @@ yarn-error.log*
 
 dist/*
 !dist/installers
+dist/installers/*.nupkg
+dist/installers/*.msi
+dist/installers/*.exe
+dist/installers/RELEASES
