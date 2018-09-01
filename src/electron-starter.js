@@ -1,3 +1,9 @@
+const setupEvents = require('./setup-squirrel-events')
+if (setupEvents.handleSquirrelEvent()) {
+  // squirrel event handled and app will exit in 1000ms, so don't do anything else
+  return
+}
+
 const path = require('path')
 const { app, BrowserWindow, ipcMain } = require('electron')
 const url = require('url')
