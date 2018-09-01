@@ -1,5 +1,9 @@
 # Change log
 
+## Version 0.1.8
+
+- Added competitive season 12 [#36](https://github.com/cheshire137/competiwatch-desktop/issues/36)
+
 ## Version 0.1.7
 
 - After editing a match, the view will now scroll to that match on the Matches page
