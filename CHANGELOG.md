@@ -3,6 +3,7 @@
 ## Version 0.1.8
 
 - Added competitive season 12 [#36](https://github.com/cheshire137/competiwatch-desktop/issues/36)
+- Added an app icon [#21](https://github.com/cheshire137/competiwatch-desktop/issues/21)
 
 ## Version 0.1.7
 
