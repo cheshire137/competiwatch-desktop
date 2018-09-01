@@ -31,9 +31,9 @@
     "dev": "nf start",
     "electron": "electron .",
     "electron-dev": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
-    "electron-build-macos": "npm run build && node_modules/.bin/electron-packager . \"Competiwatch\" --out=dist --overwrite --prune=true --platform=darwin --arch=x64 --ignore=setupTests.js --ignore=__mocks__ --ignore=__tests__ --ignore=icon-files --ignore=TestHelpers.js --ignore=win-installer-config.json --ignore=screenshots --icon=icon-files/mac/icon.icns",
-    "electron-build-windows": "npm run build && node node_modules\\electron-packager\\cli.js . --out=dist --overwrite --asar=true --icon=icon-files/win/icon.ico --prune=true --version-string.CompanyName=SV --version-string.FileDescription=SV --version-string.ProductName=Competiwatch --platform=win32 --arch=x64 --ignore=setupTests.js --ignore=__mocks__ --ignore=win-installer-config.json --ignore=__tests__ --ignore=TestHelpers.js --ignore=icon-files --ignore=screenshots",
-    "electron-build-windows-installer": "node_modules\\.bin\\electron-installer-windows --src dist\\Competiwatch-win32-x64 --config win-installer-config.json"
+    "electron-build-macos": "npm run build && node_modules/.bin/electron-packager . \"Competiwatch\" --out=dist --overwrite --prune=true --platform=darwin --arch=x64 --ignore=setupTests.js --ignore=__mocks__ --ignore=__tests__ --ignore=icon-files --ignore=TestHelpers.js --ignore=win-installer-config.json --ignore=create-windows-installer.js --ignore=screenshots --icon=icon-files/mac/icon.icns",
+    "electron-build-windows": "npm run build && node node_modules\\electron-packager\\cli.js . --out=dist --overwrite --asar=true --icon=icon-files/win/icon.ico --prune=true --version-string.CompanyName=SV --version-string.FileDescription=SV --version-string.ProductName=Competiwatch --platform=win32 --arch=x64 --ignore=setupTests.js --ignore=__mocks__ --ignore=win-installer-config.json --ignore=__tests__ --ignore=TestHelpers.js --ignore=create-windows-installer.js --ignore=icon-files --ignore=screenshots",
+    "electron-build-windows-installer": "node create-windows-installer.js"
   },
   "devDependencies": {
     "chart.js": "^2.7.2",

@@ -1,7 +1,0 @@
-{
-	"dest": "dist/installers/",
-	"icon": "icon-files/win/icon.ico",
-	"homepage": "https://github.com/cheshire137/competiwatch-desktop",
-	"iconUrl": "https://github.com/cheshire137/competiwatch-desktop/raw/master/icon-files/win/icon.ico",
-	"licenseUrl": "https://github.com/cheshire137/competiwatch-desktop/blob/master/LICENSE.txt"
-}
