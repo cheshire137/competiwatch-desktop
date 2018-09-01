@@ -1,6 +1,6 @@
 const createWindowsInstaller = require('electron-winstaller').createWindowsInstaller
 const path = require('path')
-const PackageInfo = require('./package.json')
+const PackageInfo = require('../../package.json')
 
 function getInstallerConfig() {
   console.log('creating Windows installer')
