@@ -1,0 +1,6 @@
+{
+	"dest": "dist/installers/",
+	"icon": "icon-files/win/icon.icns",
+	"homepage": "https://github.com/cheshire137/competiwatch-desktop",
+	"iconUrl": "https://github.com/cheshire137/competiwatch-desktop/raw/master/icon-files/win/icon.ico"
+}
