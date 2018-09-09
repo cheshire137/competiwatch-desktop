@@ -69,7 +69,7 @@ class AccountForm extends Component {
   }
 
   render() {
-    const { totalAccounts, _id } = this.props
+    const { totalAccounts, _id, buttonClass } = this.props
     const { battletag, isValid, error } = this.state
     const buttonText = _id ? 'Save' : 'Add account'
     const battletagDomID = _id ? `account-${_id}-battletag` : 'account-battletag'
@@ -99,7 +99,7 @@ class AccountForm extends Component {
               <span className="input-group-button">
                 <button
                   type="submit"
-                  className="btn"
+                  className={`btn ${buttonClass || ''}`}
                   disabled={!isValid}
                 >{buttonText}</button>
               </span>

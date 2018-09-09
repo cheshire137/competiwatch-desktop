@@ -18,8 +18,8 @@ class AccountsList extends Component {
           />
         ))}
         {accounts.length < 1 ? (
-          <li>
-            No accounts have been added
+          <li className="text-gray text-italic">
+            No accounts have been added.
           </li>
         ) : ''}
       </ul>

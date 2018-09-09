@@ -8,21 +8,23 @@ class AccountsPage extends Component {
 
     return (
       <div className="container clearfix layout-children-container">
-        <div className="float-left col-lg-7 col-md-12 col-sm-12 mb-4">
-          <div className="mr-4 pr-4">
-            <h2
-              className="h2 text-normal mb-2 d-flex flex-items-center"
-            >Battle.net accounts <span className="Counter ml-2 h4 px-2">{accounts.length}</span></h2>
-            <p>Choose an account to view and log competitive matches.</p>
-            <AccountsList
-              season={season}
-              accounts={accounts}
-              onDelete={onDelete}
-              onAccountChange={onAccountChange}
-              onAccountUpdate={onAccountUpdate}
-            />
+        {accounts.length > 0 ? (
+          <div className="float-left col-lg-7 col-md-12 col-sm-12 mb-4">
+            <div className="mr-4 pr-4">
+              <h2
+                className="h2 text-normal mb-2 d-flex flex-items-center"
+              >Battle.net accounts <span className="Counter ml-2 h4 px-2">{accounts.length}</span></h2>
+              <p>Choose an account to view and log competitive matches.</p>
+              <AccountsList
+                season={season}
+                accounts={accounts}
+                onDelete={onDelete}
+                onAccountChange={onAccountChange}
+                onAccountUpdate={onAccountUpdate}
+              />
+            </div>
           </div>
-        </div>
+        ) : null}
         <div className="float-left col-lg-5 col-md-12 col-sm-12 mb-4">
           <h2
             className="h2 text-normal mb-2"
@@ -32,6 +34,7 @@ class AccountsPage extends Component {
             <AccountForm
               onCreate={this.props.onCreate}
               totalAccounts={accounts.length}
+              buttonClass={accounts.length > 0 ? '' : 'btn-primary'}
             />
           </div>
         </div>
