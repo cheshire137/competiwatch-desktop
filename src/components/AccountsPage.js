@@ -47,12 +47,17 @@ class AccountsPage extends Component {
             {accounts.length < 1 ? (
               <p>Add an account to begin logging competitive matches.</p>
             ) : null}
+            <AccountForm
+              onCreate={this.props.onCreate}
+              totalAccounts={accounts.length}
+              buttonClass={accounts.length > 0 ? '' : 'btn-primary'}
+            />
             <div className="pb-3">
-              <AccountForm
-                onCreate={this.props.onCreate}
-                totalAccounts={accounts.length}
-                buttonClass={accounts.length > 0 ? '' : 'btn-primary'}
-              />
+              {accounts.length > 0 ? (
+                <p className="note">
+                  <strong>Tip:</strong> the numbers at the end aren't required.
+                </p>
+              ) : null}
             </div>
           </div>
         </div>

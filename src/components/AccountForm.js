@@ -76,10 +76,9 @@ class AccountForm extends Component {
 
     return (
       <form
-        className="mb-2"
         onSubmit={this.onSubmit}
       >
-        <dl className={`form-group position-relative mt-0 ${error ? 'errored' : null}`}>
+        <dl className={`form-group position-relative mb-0 mt-0 ${error ? 'errored' : null}`}>
           <dd className="d-flex flex-items-center">
             <label
               htmlFor={battletagDomID}

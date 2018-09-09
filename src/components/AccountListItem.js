@@ -101,12 +101,14 @@ class AccountListItem extends Component {
           <div className="width-full">
             <div className="d-flex flex-items-center flex-justify-between">
               {showEditForm ? (
-                <AccountForm
-                  _id={_id}
-                  battletag={battletag}
-                  totalAccounts="1"
-                  onUpdate={this.onAccountUpdate}
-                />
+                <div className="mb-2">
+                  <AccountForm
+                    _id={_id}
+                    battletag={battletag}
+                    totalAccounts="1"
+                    onUpdate={this.onAccountUpdate}
+                  />
+                </div>
               ) : (
                 <button
                   type="button"
