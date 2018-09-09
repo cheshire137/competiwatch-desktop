@@ -3,7 +3,7 @@ import AccountListItem from './AccountListItem'
 
 class AccountsList extends Component {
   render() {
-    const { onAccountChange, onDelete, season, accounts } = this.props
+    const { onAccountChange, onAccountUpdate, onDelete, season, accounts } = this.props
 
     return (
       <ul className="list-style-none mb-4">
@@ -14,6 +14,7 @@ class AccountsList extends Component {
             account={account}
             onDelete={onDelete}
             onAccountChange={onAccountChange}
+            onAccountUpdate={onAccountUpdate}
           />
         ))}
         {accounts.length < 1 ? (

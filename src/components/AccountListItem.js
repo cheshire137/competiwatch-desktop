@@ -83,6 +83,7 @@ class AccountListItem extends Component {
   }
 
   onAccountUpdate = newBattletag => {
+    this.props.onAccountUpdate()
     this.setState(prevState => ({ battletag: newBattletag, showEditForm: false }))
   }
 

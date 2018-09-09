@@ -421,6 +421,7 @@ class App extends Component {
           onCreate={this.refreshAccounts}
           onDelete={this.refreshAccounts}
           onAccountChange={this.changeActiveAccount}
+          onAccountUpdate={this.refreshAccounts}
         />
       )
     }

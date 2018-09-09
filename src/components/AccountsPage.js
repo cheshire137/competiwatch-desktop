@@ -4,7 +4,7 @@ import AccountsList from './AccountsList'
 
 class AccountsPage extends Component {
   render() {
-    const { onAccountChange, season, accounts, onDelete } = this.props
+    const { onAccountChange, onAccountUpdate, season, accounts, onDelete } = this.props
 
     return (
       <div className="container layout-children-container">
@@ -18,6 +18,7 @@ class AccountsPage extends Component {
             accounts={accounts}
             onDelete={onDelete}
             onAccountChange={onAccountChange}
+            onAccountUpdate={onAccountUpdate}
           />
           <h2
             className="h2 text-normal mb-2 border-top mt-4 pt-3"
