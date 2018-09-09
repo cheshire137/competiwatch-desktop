@@ -20,12 +20,14 @@ class Header extends Component {
     return (
       <div className="mb-3 sticky-bar border-bottom">
         <div className="d-flex flex-items-center container">
-          <SeasonSelect
-            activeSeason={activeSeason}
-            latestSeason={latestSeason}
-            onChange={onSeasonChange}
-            onPageChange={this.changeActivePage}
-          />
+          {accounts && accounts.length > 0 ? (
+            <SeasonSelect
+              activeSeason={activeSeason}
+              latestSeason={latestSeason}
+              onChange={onSeasonChange}
+              onPageChange={this.changeActivePage}
+            />
+          ) : null}
           {activeAccountID ? (
             <AccountSelect
               accounts={accounts}
