@@ -3,6 +3,7 @@
 ## Version 0.1.9
 
 - Added installer for Windows
+- Improved appearance of import page
 
 ## Version 0.1.8
 
