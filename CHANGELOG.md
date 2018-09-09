@@ -3,7 +3,7 @@
 ## Version 0.1.9
 
 - Added installer for Windows
-- Improved appearance of import page
+- Improved appearance of Import and Accounts pages
 - Fixed bug where a renamed account would still show with the old name until the app was restarted [#37](https://github.com/cheshire137/competiwatch-desktop/issues/37)
 
 ## Version 0.1.8
