@@ -104,6 +104,10 @@
   background-color: #a1ad7b;
 }
 
+.background-busan {
+  background-color: #f19554;
+}
+
 .background-blizzard-world {
   background-color: #2aa6fb;
 }
@@ -142,6 +146,10 @@
 
 .background-rialto {
   background-color: #87d0a4;
+}
+
+.theme-dark .background-busan {
+  background-color: #d56c43;
 }
 
 .theme-dark .background-junkertown {

@@ -1,6 +1,7 @@
 export default {
   names: [
     'Blizzard World',
+    'Busan',
     'Dorado',
     'Eichenwalde',
     'Hanamura',
@@ -48,6 +49,7 @@ export default {
       'Numbani'
     ],
     Control: [
+      'Busan',
       'Ilios',
       'Lijiang Tower',
       'Nepal',
