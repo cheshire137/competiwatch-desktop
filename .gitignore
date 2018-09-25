@@ -26,3 +26,4 @@ dist/installers/*.nupkg
 dist/installers/*.msi
 dist/installers/*.exe
 dist/installers/RELEASES
+dist/installers/*.tmp
