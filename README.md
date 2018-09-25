@@ -97,3 +97,5 @@ npm run electron-build-windows
 ```
 
 This will produce new directories in dist/ with .exe files.
+
+Then you can run `npm run electron-build-windows-installer` to generate an installer in dist/installers/.
