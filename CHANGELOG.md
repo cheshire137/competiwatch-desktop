@@ -1,18 +1,18 @@
 # Change log
 
-## Version 0.1.9
+## [Version 0.1.9](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.1.9)
 
 - Added installer for Windows
 - Improved appearance of Import and Accounts pages
 - Fixed bug where a renamed account would still show with the old name until the app was restarted [#37](https://github.com/cheshire137/competiwatch-desktop/issues/37)
 - Added Busan map [#40](https://github.com/cheshire137/competiwatch-desktop/issues/40)
 
-## Version 0.1.8
+## [Version 0.1.8](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.1.8)
 
 - Added competitive season 12 [#36](https://github.com/cheshire137/competiwatch-desktop/issues/36)
 - Added an app icon [#21](https://github.com/cheshire137/competiwatch-desktop/issues/21)
 
-## Version 0.1.7
+## [Version 0.1.7](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.1.7)
 
 - After editing a match, the view will now scroll to that match on the Matches page
 - Added link on the About page to let you check for a newer version of the app [#18](https://github.com/cheshire137/competiwatch-desktop/issues/18)
@@ -20,7 +20,7 @@
 - Added "Export Matches" menu item to the Tools menu when viewing a particular account's match history
 - Fixed bug where the the "New SR" field wouldn't have your latest SR when you used the "Log a Match" menu option/hit Option-L [#10](https://github.com/cheshire137/competiwatch-desktop/issues/10)
 
-## Version 0.1.6
+## [Version 0.1.6](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.1.6)
 
 - Fixed hero avatars having a light background on the Accounts page when the dark theme was active
 - Fixed bug where selecting a group member suggestion didn't update the group size field on the Log a Match page [#30](https://github.com/cheshire137/competiwatch-desktop/issues/30)
@@ -29,7 +29,7 @@
 - Added search option to Help menu in macOS
 - Added a Help page [#20](https://github.com/cheshire137/competiwatch-desktop/issues/20)
 
-## Version 0.1.5
+## [Version 0.1.5](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.1.5)
 
 - Added an 'Auto' option to the theme choice on the Settings page, to use the dark theme at night and the light theme during the day
 - Fixed bug where the 'Date' column in exported CSV files was not readable
@@ -40,7 +40,7 @@
 - Split the hero roles on the Log a Match page into main and off-tanks and healers
 - Added top three heroes to accounts list for each account
 
-## Version 0.1.4
+## [Version 0.1.4](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.1.4)
 
 - Added an 'Edit' option to each account on the Accounts page to allow renaming them
 - Sort accounts alphabetically on the Accounts page, ignoring capital letters
@@ -54,7 +54,7 @@
 - Improved Accounts page appearance
 - Added Wrecking Ball image
 
-## Version 0.1.3
+## [Version 0.1.3](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.1.3)
 
 - More compact header so the selected account and season are always visible
 - Added charts showing wins and losses per map and per group size to the Trends page
@@ -64,7 +64,7 @@
 - Trends page is now accessible via Alt-T or Option-T and is in the 'View' menu
 - Group members will be autocompleted based on your previous logged matches [#22](https://github.com/cheshire137/competiwatch-desktop/issues/22)
 
-## Version 0.1.2
+## [Version 0.1.2](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.1.2)
 
 - Added a 'Trends' page with charts about your match results [#12](https://github.com/cheshire137/competiwatch-desktop/issues/12)
 - Fixed bug causing the latest logged match for each account to not appear on the Accounts page
@@ -74,7 +74,7 @@
 - Increased default window width to reduce horizontal scrolling on the Matches page [#13](https://github.com/cheshire137/competiwatch-desktop/issues/13)
 - Matches page now scrolls to the latest match after you log one [#9](https://github.com/cheshire137/competiwatch-desktop/issues/9)
 
-## Version 0.1.1
+## [Version 0.1.1](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.1.1)
 
 - Fixed 'delete match' not working [#11](https://github.com/cheshire137/competiwatch-desktop/issues/11)
 - Fixed match edit button not being visible in the dark theme
@@ -82,7 +82,7 @@
 - Added file paths to the settings page for where Competiwatch stores your data
 - Improved appearance of match history
 
-## Version 0.1.0
+## [Version 0.1.0](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.1.0)
 
 A pre-release to get feedback and find bugs. Features included:
 
