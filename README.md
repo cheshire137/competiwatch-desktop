@@ -31,6 +31,20 @@ See [the changelog](./CHANGELOG.md) for what has changed each version.
 - Choose between a dark and light theme
 - Works in Windows and macOS
 
+## How to Install
+
+For version 1.9 and later, download the Windows installer from the [latest release](https://github.com/cheshire137/competiwatch-desktop/releases/latest). I've tested this on Windows 7 and Windows 10. Just run the installer and a Competiwatch shortcut will be added to your desktop.
+
+You can also download the non-installer version and unzip the folder wherever you'd like. Run the app via the Competiwatch.exe executable in that folder.
+
+You will probably be prompted by Windows that the app is unrecognized; the message in Windows 10 reads "Windows SmartScreen prevented an unrecognized app from starting." Sorry about that, it's [being worked on](https://github.com/cheshire137/competiwatch-desktop/issues/34). You can choose to run the app anyway (hit "more info" in Windows 10) and it shouldn't prompt you again for that version.
+
+## How to Uninstall
+
+If you installed via the installer in Windows, just use the Control Panel and Add/Remove Programs to uninstall Competiwatch. The shortcut should be removed from your desktop.
+
+If you did not use the installer, you can just delete the folder that has Competiwatch.exe in it, wherever you unzipped that folder.
+
 ## How to Develop
 
 This app was built with node version 8.11.3 and npm version 3.10.8. See [the contributing guidelines](./CONTRIBUTING.md).
