@@ -88,6 +88,7 @@ class MatchForm extends Component {
       playedAt,
       dayOfWeek,
       timeOfDay,
+      joinedVoice: typeof props.joinedVoice === 'boolean' ? props.joinedVoice : false,
       playOfTheGame: typeof props.playOfTheGame === 'boolean' ? props.playOfTheGame : false,
       allyThrower: typeof props.allyThrower === 'boolean' ? props.allyThrower : false,
       allyLeaver: typeof props.allyLeaver === 'boolean' ? props.allyLeaver : false,
@@ -140,6 +141,9 @@ class MatchForm extends Component {
     if (prevProps.playOfTheGame !== this.props.playOfTheGame) {
       this.setState(prevState => ({ playOfTheGame: this.props.playOfTheGame, isValid }))
     }
+    if (prevProps.joinedVoice !== this.props.joinedVoice) {
+      this.setState(prevState => ({ joinedVoice: this.props.joinedVoice, isValid }))
+    }
     if (prevProps.allyThrower !== this.props.allyThrower) {
       this.setState(prevState => ({ allyThrower: this.props.allyThrower, isValid }))
     }
@@ -157,7 +161,7 @@ class MatchForm extends Component {
   onSubmit = event => {
     event.preventDefault()
 
-    const { rank, comment, map, group, heroes, playedAt,
+    const { rank, comment, map, group, heroes, playedAt, joinedVoice,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
             playOfTheGame, result, isValid, groupSize } = this.state
     if (!isValid) {
@@ -178,6 +182,7 @@ class MatchForm extends Component {
       enemyThrower,
       enemyLeaver,
       playOfTheGame,
+      joinedVoice,
       season,
       isPlacement,
       _id: id,
@@ -318,8 +323,13 @@ class MatchForm extends Component {
     this.setState(prevState => ({ playOfTheGame }), this.onFormFieldUpdate)
   }
 
+  onJoinedVoiceChange = event => {
+    const joinedVoice = event.target.checked
+    this.setState(prevState => ({ joinedVoice }), this.onFormFieldUpdate)
+  }
+
   render() {
-    const { rank, comment, map, group, heroes, playedAt, groupSize,
+    const { rank, comment, map, group, heroes, playedAt, groupSize, joinedVoice,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, groupMembers,
             playOfTheGame, result, isValid, dayOfWeek, timeOfDay } = this.state
     const { season, latestRank, isPlacement, isLastPlacement } = this.props
@@ -456,16 +466,29 @@ class MatchForm extends Component {
                 </dd>
               </dl>
             </fieldset>
-            <div className="form-checkbox">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={playOfTheGame}
-                  onChange={this.onPlayOfTheGameChange}
-                />
-                Play of the game
-              </label>
-              <p className="note">Did you get play of the game in this match?</p>
+            <div className="d-flex">
+              <div className="form-checkbox mr-4">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={playOfTheGame}
+                    onChange={this.onPlayOfTheGameChange}
+                  />
+                  Play of the game
+                </label>
+                <p className="note">Did you get play of the game?</p>
+              </div>
+              <div className="form-checkbox">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={joinedVoice}
+                    onChange={this.onJoinedVoiceChange}
+                  />
+                  Joined voice chat
+                </label>
+                <p className="note">Did you join voice chat?</p>
+              </div>
             </div>
             <div className="mb-3">
               <div className="text-bold">

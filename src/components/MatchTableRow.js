@@ -245,11 +245,11 @@ class MatchTableRow extends Component {
   }
 
   render() {
-    const { match, priorRank, showThrowerLeaver, showPlayOfTheGame,
+    const { match, priorRank, showThrowerLeaver, showPlayOfTheGame, showJoinedVoice,
             showComment, showDayTime, showHeroes, showGroup } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
-            rankChange, dayOfWeek, timeOfDay, groupSize } = match
+            rankChange, dayOfWeek, timeOfDay, groupSize, joinedVoice } = match
     const timeAndDayPresent = dayOfWeek && timeOfDay && dayOfWeek.length > 0 && timeOfDay.length > 0
     const isWin = match.isWin()
     const isLoss = match.isLoss()
@@ -380,17 +380,21 @@ class MatchTableRow extends Component {
             ) : null}
           </td>
         ) : null}
-        {showPlayOfTheGame ? (
+        {showPlayOfTheGame || showJoinedVoice ? (
           <td
             className="match-cell hide-sm potg-cell"
           >
             {playOfTheGame ? (
               <span
-                className="tooltipped tooltipped-n"
+                className={`tooltipped tooltipped-n ${showJoinedVoice ? 'd-inline-block mr-2' : ''}`}
                 aria-label="Play of the game"
-              >
-                <span className="text-green ion ion-ios-checkmark-circle"></span>
-              </span>
+              ><span role="img" aria-label="Party">🎉</span></span>
+            ) : null}
+            {joinedVoice ? (
+              <span
+                className="tooltipped tooltipped-n"
+                aria-label="Joined voice chat"
+              ><span role="img" aria-label="Speaker">🔊</span></span>
             ) : null}
           </td>
         ) : null}

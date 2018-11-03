@@ -73,11 +73,11 @@ class ImportPage extends Component {
         <div className="clearfix">
           <div className="col-6 float-left">
             <ul className="ml-4 mr-4 mb-4 mt-0">
-              <li><span className="text-bold">Valid columns:</span> rank, heroes, map, comment, time, day, date, ally thrower, ally leaver, enemy thrower, enemy leaver, group, group size, result, placement, play of the game</li>
+              <li><span className="text-bold">Valid columns:</span> rank, heroes, map, comment, time, day, date, ally thrower, ally leaver, enemy thrower, enemy leaver, group, group size, result, placement, play of the game, joined voice</li>
               <li>Rank is required for non-placement matches</li>
               <li>Valid values for 'day' column: weekday, weekend</li>
               <li>Valid values for 'time' column: morning, afternoon, evening, night</li>
-              <li>Valid values for thrower, leaver, play of the game, and placement columns: Y, N</li>
+              <li>Valid values for thrower, leaver, play of the game, joined voice, and placement columns: Y, N</li>
               <li>Valid values for result column: win, loss, draw</li>
               <li>'Group' should be a comma-separated list of the people who grouped with you</li>
               <li>'Group Size' should be an integer between 1-6 indicating how many people, including yourself, were in your group</li>

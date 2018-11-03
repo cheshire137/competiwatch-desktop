@@ -11,7 +11,8 @@ if (typeof window.require === 'function') {
 const headers = [
   'Battletag', 'Season', 'Rank', 'Rank Change', 'Result', 'Win Streak', 'Loss Streak',
   'Placement', 'Map', 'Comment', 'Date', 'Day', 'Time', 'Heroes', 'Group', 'Group Size',
-  'Play of the Game', 'Ally Leaver', 'Ally Thrower', 'Enemy Leaver', 'Enemy Thrower'
+  'Play of the Game', 'Ally Leaver', 'Ally Thrower', 'Enemy Leaver', 'Enemy Thrower',
+  'Joined Voice'
 ]
 
 const charForBoolean = boolean => {
@@ -100,6 +101,9 @@ class CsvExporter {
     }
     if (header === 'Play of the Game') {
       return charForBoolean(match.playOfTheGame)
+    }
+    if (header === 'Joined Voice') {
+      return charForBoolean(match.joinedVoice)
     }
     if (header === 'Result') {
       return match.result

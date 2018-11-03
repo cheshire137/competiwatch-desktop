@@ -171,6 +171,7 @@ class Match {
     this.allyLeaver = data.allyLeaver
 
     this.playOfTheGame = data.playOfTheGame
+    this.joinedVoice = data.joinedVoice
 
     this.createdAt = data.createdAt
     if (typeof data.createdAt === 'string') {
@@ -228,6 +229,7 @@ class Match {
       enemyLeaver: this.enemyLeaver,
       allyLeaver: this.allyLeaver,
       playOfTheGame: this.playOfTheGame,
+      joinedVoice: this.joinedVoice,
       season: this.season,
       result: this.result
     }

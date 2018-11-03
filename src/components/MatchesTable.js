@@ -66,6 +66,10 @@ class MatchesTable extends Component {
     return this.props.matches.filter(match => match.playOfTheGame).length > 0
   }
 
+  showJoinedVoiceColumn = () => {
+    return this.props.matches.filter(match => match.joinedVoice).length > 0
+  }
+
   showCommentColumn = () => {
     return this.props.matches
       .filter(match => match.comment && match.comment.trim().length > 0).length > 0
@@ -128,6 +132,7 @@ class MatchesTable extends Component {
     }
     const showThrowerLeaver = this.showThrowerLeaverColumn()
     const showPlayOfTheGame = this.showPlayOfTheGameColumn()
+    const showJoinedVoice = this.showJoinedVoiceColumn()
     const showComment = this.showCommentColumn()
     const showDayTime = this.showDayTimeColumn()
     const showHeroes = this.showHeroesColumn()
@@ -186,13 +191,10 @@ class MatchesTable extends Component {
                 <span role="img" aria-label="Sad face">😢</span>
               </th>
             ) : null}
-            {showPlayOfTheGame ? (
+            {showPlayOfTheGame || showJoinedVoice ? (
               <th
-                className="match-header hide-sm tooltipped tooltipped-n"
-                aria-label="Play of the game"
-              >
-                <span role="img" aria-label="Party">🎉</span>
-              </th>
+                className="match-header hide-sm"
+              >Other</th>
             ) : null}
             <th
               className="match-header"
@@ -226,6 +228,7 @@ class MatchesTable extends Component {
                 totalPlacementMatches={totalPlacementMatches}
                 showThrowerLeaver={showThrowerLeaver}
                 showPlayOfTheGame={showPlayOfTheGame}
+                showJoinedVoice={showJoinedVoice}
                 showDayTime={showDayTime}
                 showComment={showComment}
                 showHeroes={showHeroes}

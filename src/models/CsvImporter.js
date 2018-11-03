@@ -88,7 +88,8 @@ class CsvImporter {
       allyThrower: data['ally thrower'],
       enemyLeaver: data['enemy leaver'],
       allyLeaver: data['ally leaver'],
-      playOfTheGame: data['play of the game']
+      playOfTheGame: data['play of the game'],
+      joinedVoice: data['joined voice']
     }
     const match = new Match(matchData)
     await match.save()
