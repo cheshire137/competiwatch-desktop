@@ -20,7 +20,7 @@ class MatchCreatePage extends Component {
   }
 
   render() {
-    const { accountID, latestRank, isPlacement, latestSeason,
+    const { accountID, latestRank, isPlacement, latestSeason, latestGroup,
             isLastPlacement, season } = this.props
 
     return (
@@ -42,6 +42,7 @@ class MatchCreatePage extends Component {
           isPlacement={isPlacement}
           isLastPlacement={isLastPlacement}
           latestRank={latestRank}
+          latestGroup={latestGroup}
           onCreate={this.onMatchCreation}
         />
       </div>

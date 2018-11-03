@@ -2,6 +2,7 @@
 
 ## Version 0.2.0
 
+- Added 'Copy from last match' to the Group Members field when logging a match [#43](https://github.com/cheshire137/competiwatch-desktop/issues/43)
 - Added ability to log whether you joined voice chat in a match [#44](https://github.com/cheshire137/competiwatch-desktop/issues/44)
 - Added support for a 'joined voice' field when importing from a CSV file, and exporting matches, to specify whether you joined voice chat in a match
 - Added Ashe [#48](https://github.com/cheshire137/competiwatch-desktop/issues/48)

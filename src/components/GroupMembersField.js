@@ -3,6 +3,12 @@ import ReactAutocomplete from 'react-autocomplete'
 import './GroupMembersField.css'
 
 class GroupMembersField extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { hideCopyGroup: false }
+  }
+
   filterGroupMembers = inputValue => {
     const chosenGroupMembers = inputValue.toLowerCase().split(',')
     const lastMember = chosenGroupMembers[chosenGroupMembers.length - 1].trim()
@@ -26,6 +32,12 @@ class GroupMembersField extends Component {
 
   onGroupChange = event => {
     const group = event.target.value
+    const groupSize = this.groupSizeFrom(group)
+
+    this.props.onGroupChange(group, groupSize)
+  }
+
+  groupSizeFrom(group) {
     let groupSize = 1
 
     if (group && group.trim().length > 1) {
@@ -33,7 +45,7 @@ class GroupMembersField extends Component {
       groupSize = validGroupMembers.length + 1
     }
 
-    this.props.onGroupChange(group, groupSize)
+    return groupSize
   }
 
   onGroupMemberSelect = (value, groupMember) => {
@@ -65,6 +77,16 @@ class GroupMembersField extends Component {
     )
   }
 
+  copyPreviousMatchGroup = event => {
+    event.currentTarget.blur()
+
+    const group = this.props.latestGroup
+    const groupSize = this.groupSizeFrom(group)
+
+    this.props.onGroupChange(group, groupSize)
+    this.setState(prevState => ({ hideCopyGroup: true }))
+  }
+
   renderAutocompleteMenu = items => {
     const classes = ['position-absolute', 'border', 'rounded-1', 'box-shadow', 'autocomplete-menu']
     if (items.length < 1) {
@@ -89,7 +111,8 @@ class GroupMembersField extends Component {
   }
 
   render() {
-    const { group, groupMembers } = this.props
+    const { group, groupMembers, latestGroup } = this.props
+    const { hideCopyGroup } = this.state
     const inputProps = {
       id: 'match-group',
       className: 'form-control width-full',
@@ -119,8 +142,15 @@ class GroupMembersField extends Component {
             onMenuVisibilityChange={this.onMenuVisibilityChange}
             ref={autocomplete => { this.autocomplete = autocomplete }}
           />
-          <p className="note">
+          <p className="note clearfix">
             List friends you grouped with.
+            {!hideCopyGroup && typeof latestGroup === 'string' && latestGroup.length > 0 ? (
+              <button
+                type="button"
+                className="btn-link float-right"
+                onClick={this.copyPreviousMatchGroup}
+              >Copy from last match</button>
+            ) : null}
           </p>
         </dd>
       </dl>

@@ -200,7 +200,7 @@ class AppMenu {
         if (account) {
           account.latestMatch(self.season).then(match => {
             if (match) {
-              self.onPageChange('log-match', match.rank)
+              self.onPageChange('log-match', match.rank, match.group)
             } else {
               self.onPageChange('log-match')
             }

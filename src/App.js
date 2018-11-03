@@ -171,6 +171,10 @@ class App extends Component {
           newState.isPlacement = false
           newState.isLastPlacement = false
         }
+
+        if (typeof val2 === 'string') {
+          newState.latestGroup = val2
+        }
       }
 
       if (activePage === 'accounts') {
@@ -311,7 +315,7 @@ class App extends Component {
   }
 
   renderActivePage = () => {
-    const { activePage, activeAccountID, latestRank, isPlacement,
+    const { activePage, activeAccountID, latestRank, latestGroup, isPlacement,
             isLastPlacement, activeSeason, latestSeason, scrollToMatchID,
             activeMatchID, accounts, settings, scrollToMatch } = this.state
     const haveActiveSeason = typeof activeSeason === 'number' && !isNaN(activeSeason)
@@ -336,6 +340,7 @@ class App extends Component {
           onPageChange={this.changeActivePage}
           onSeasonChange={this.changeActiveSeason}
           latestRank={latestRank}
+          latestGroup={latestGroup}
           isPlacement={isPlacement}
           season={activeSeason}
           latestSeason={latestSeason}

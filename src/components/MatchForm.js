@@ -332,7 +332,7 @@ class MatchForm extends Component {
     const { rank, comment, map, group, heroes, playedAt, groupSize, joinedVoice,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, groupMembers,
             playOfTheGame, result, isValid, dayOfWeek, timeOfDay } = this.state
-    const { season, latestRank, isPlacement, isLastPlacement } = this.props
+    const { season, latestRank, isPlacement, isLastPlacement, latestGroup } = this.props
     let playedAtStr = playedAt
     if (playedAt && typeof playedAt === 'object') {
       playedAtStr = dateTimeStrFrom(playedAt)
@@ -442,6 +442,7 @@ class MatchForm extends Component {
                 group={group}
                 groupMembers={groupMembers}
                 onGroupChange={this.onGroupChange}
+                latestGroup={latestGroup}
               />
               <dl className="form-group mb-0">
                 <dt>

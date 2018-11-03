@@ -37,7 +37,7 @@ class MatchesList extends Component {
 
     if (matches.length > 0) {
       const latestMatch = matches[matches.length - 1]
-      this.props.onPageChange('log-match', latestMatch.rank)
+      this.props.onPageChange('log-match', latestMatch.rank, latestMatch.group)
     } else {
       this.props.onPageChange('log-match')
     }
