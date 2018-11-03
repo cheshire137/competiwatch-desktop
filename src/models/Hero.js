@@ -2,6 +2,7 @@ export default {
   roles: ['DPS', 'Flanker', 'Hitscan', 'Defense', 'Off-tank', 'Main Tank', 'Main Healer', 'Off-healer'],
   names: [
     'Ana',
+    'Ashe',
     'Bastion',
     'Brigitte',
     'D.Va',
@@ -33,7 +34,7 @@ export default {
   byType: {
     DPS: ['Pharah', 'Reaper', 'Doomfist', 'Junkrat'],
     Flanker: ['Genji', 'Sombra', 'Tracer'],
-    Hitscan: ['McCree', 'Soldier: 76', 'Widowmaker'],
+    Hitscan: ['Ashe', 'McCree', 'Soldier: 76', 'Widowmaker'],
     Tank: ['D.Va', 'Orisa', 'Reinhardt', 'Roadhog', 'Winston', 'Wrecking Ball', 'Zarya'],
     'Main Tank': ['Orisa', 'Reinhardt', 'Winston'],
     'Off-tank': ['D.Va', 'Roadhog', 'Wrecking Ball', 'Zarya'],
@@ -48,6 +49,7 @@ export default {
     Orisa: 4,
     Doomfist: 5,
     Sombra: 2,
-    'Wrecking Ball': 11
+    'Wrecking Ball': 11,
+    Ashe: 14
   }
 }

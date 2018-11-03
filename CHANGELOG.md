@@ -2,6 +2,7 @@
 
 ## Version 0.2.0
 
+- Added Ashe [#48](https://github.com/cheshire137/competiwatch-desktop/issues/48)
 - Added competitive season 13 [#47](https://github.com/cheshire137/competiwatch-desktop/issues/47)
 
 ## [Version 0.1.9](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.1.9)

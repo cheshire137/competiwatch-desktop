@@ -94,6 +94,10 @@
   color: #fd0d15;
 }
 
+.text-ashe {
+  color: rgb(64, 61, 59);
+}
+
 .text-sombra {
   color: #9743ad;
 }
@@ -180,6 +184,10 @@
 
 .theme-dark .text-reinhardt {
   color: #b1a7a1;
+}
+
+.theme-dark .text-ashe {
+  color: rgb(189, 181, 175);
 }
 
 .theme-dark .text-soldier76 {
