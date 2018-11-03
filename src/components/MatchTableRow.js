@@ -402,7 +402,7 @@ class MatchTableRow extends Component {
           <button
             type="button"
             onClick={this.editMatch}
-            className="btn-link link-gray-dark tooltipped tooltipped-n"
+            className="btn-link link-gray-dark tooltipped tooltipped-w"
             aria-label="Edit this match"
             value={_id}
           >
