@@ -57,3 +57,11 @@
 .theme-dark .Box .AvatarStack-body .avatar.account-hero-avatar {
   background-color: #2f363d;
 }
+
+.account-edit-button {
+  visibility: hidden;
+}
+
+.account-list-item:hover .account-edit-button {
+  visibility: visible;
+}

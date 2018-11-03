@@ -78,7 +78,7 @@ class AccountListItem extends Component {
   }
 
   toggleEditForm = event => {
-    event.target.blur()
+    event.currentTarget.blur()
     this.setState(prevState => ({ showEditForm: !prevState.showEditForm }))
   }
 
@@ -96,7 +96,7 @@ class AccountListItem extends Component {
     const haveLatestResult = latestMatch && latestMatch.result
 
     return (
-      <li className="Box mb-3 p-3">
+      <li className="Box mb-3 p-3 account-list-item">
         <div className="d-flex flex-justify-between flex-items-center">
           <div className="width-full">
             <div className="d-flex flex-items-center flex-justify-between">
@@ -108,13 +108,26 @@ class AccountListItem extends Component {
                     totalAccounts="1"
                     onUpdate={this.onAccountUpdate}
                   />
+                  <button
+                    className="btn-link f6"
+                    type="button"
+                    onClick={this.toggleEditForm}
+                  >Cancel rename</button>
                 </div>
               ) : (
-                <button
-                  type="button"
-                  className="btn-link h2 text-bold width-full text-left d-block"
-                  onClick={this.onAccountClick}
-                >{battletag}</button>
+                <div className="width-full d-flex flex-items-center">
+                  <button
+                    type="button"
+                    className="btn-link h2 text-bold text-left d-block flex-auto"
+                    onClick={this.onAccountClick}
+                  >{battletag}</button>
+                  <button
+                    className="btn-link link-gray-dark account-edit-button tooltipped-w tooltipped"
+                    type="button"
+                    aria-label="Rename account"
+                    onClick={this.toggleEditForm}
+                  ><span className="ion ion-md-create" /></button>
+                </div>
               )}
               <AccountDeleteForm
                 id={_id}
@@ -149,24 +162,15 @@ class AccountListItem extends Component {
               ) : (
                 <span>No matches in season {season}</span>
               )}
-              {totalMatches > 0 ? (
-                <span>
-                  <span className="separator" />
-                  <button
-                    type="button"
-                    aria-label="Save season as a CSV file"
-                    className="btn-link tooltipped tooltipped-n"
-                    onClick={this.exportSeason}
-                  >Export season {season}</button>
-                </span>
-              ) : null}
-              <span className="separator" />
-              <button
-                className="btn-link"
-                type="button"
-                onClick={this.toggleEditForm}
-              >{showEditForm ? 'Cancel' : 'Edit'}</button>
             </div>
+            {totalMatches > 0 ? (
+              <button
+                type="button"
+                aria-label="Save season as a CSV file"
+                className="btn-link tooltipped tooltipped-n text-bold link-gray-dark f6"
+                onClick={this.exportSeason}
+              >Export season {season}</button>
+            ) : null}
           </div>
           <div className="d-flex flex-items-center">
             {haveLatestRank ? (
@@ -179,23 +183,25 @@ class AccountListItem extends Component {
                   rank={latestMatch.rank}
                   className="d-inline-block"
                 />
-                <h3 className="h3 lh-condensed my-0">{latestMatch.rank}</h3>
+                <h3 className="h4 text-normal lh-condensed text-gray-dark my-0">{latestMatch.rank}</h3>
               </button>
             ) : null}
-            {topHeroes && topHeroes.length > 0 ? (
-              <div className={`ml-3 AvatarStack account-avatar-stack AvatarStack--right ${topHeroes.length >= 3 ? 'AvatarStack--three-plus' : 'AvatarStack--two'}`}>
-                <div className="AvatarStack-body tooltipped tooltipped-n" aria-label={topHeroes.join(', ')}>
-                  {topHeroes.map(hero => (
-                    <HeroImage
-                      key={hero}
-                      hero={hero}
-                      className="avatar account-hero-avatar"
-                      size="40"
-                    />
-                  ))}
+            <div className="ml-3 text-right">
+              {topHeroes && topHeroes.length > 0 ? (
+                <div className={`AvatarStack account-avatar-stack AvatarStack--right ${topHeroes.length >= 3 ? 'AvatarStack--three-plus' : 'AvatarStack--two'}`}>
+                  <div className="AvatarStack-body tooltipped tooltipped-n" aria-label={topHeroes.join(', ')}>
+                    {topHeroes.map(hero => (
+                      <HeroImage
+                        key={hero}
+                        hero={hero}
+                        className="avatar account-hero-avatar"
+                        size="40"
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ) : null}
+              ) : null}
+            </div>
           </div>
         </div>
       </li>
