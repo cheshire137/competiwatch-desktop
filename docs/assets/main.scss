@@ -1,0 +1,209 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@import "colors.scss";
+@import "carousel.scss";
+@import "page-theme.scss";
+
+.spin {
+  -webkit-animation: spin 2s infinite linear;
+  animation: spin 2s infinite linear;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.layout-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.layout-children-container {
+  flex: 1 0 auto;
+}
+
+dt,
+strong {
+  font-weight: 700;
+}
+
+.main-nav {
+  color: #b9b9b9;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+}
+
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.subnav-item.dropdown {
+  padding: 0;
+
+  .dropdown-toggle {
+    padding: 6px 14px;
+  }
+}
+
+.subnav-item.selected,
+.subnav-item.selected:hover,
+.subnav-item.selected:focus,
+.filter-item.selected {
+  background-color: $light-blue;
+}
+
+@supports(position:sticky) {
+  @media (min-width: 768px) {
+    .sticky-nav {
+      position: -webkit-sticky;
+      position: sticky;
+      background-color: #fff;
+      top: 0;
+      z-index: 99;
+    }
+  }
+}
+
+@media (max-width: 1085px) {
+  .container {
+    width: 96%;
+  }
+}
+
+.d-inline-block-sm,
+.d-block-sm,
+.d-inline-block-below-lg {
+  display: none;
+}
+
+@media (max-width: 544px) {
+  .tab-contents {
+    overflow: auto;
+  }
+
+  .d-inline-block-sm {
+    display: inline-block !important;
+  }
+
+  .d-block-sm {
+    display: block !important;
+  }
+
+  .mb-1-sm {
+    margin-bottom: 4px !important;
+  }
+
+  .mb-2-sm {
+    margin-bottom: 8px !important;
+  }
+
+  .mb-3-sm {
+    margin-bottom: 16px !important;
+  }
+
+  .mb-4-sm {
+    margin-bottom: 24px !important;
+  }
+
+  .mr-3-sm {
+    margin-right: 16px !important;
+  }
+
+  .UnderlineNav {
+    display: block;
+  }
+
+  .UnderlineNav-body {
+    display: inline-block;
+    margin-bottom: 0;
+
+    form {
+      display: inline-block;
+    }
+  }
+
+  .UnderlineNav-item {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 1010px) {
+  .d-inline-block-below-lg {
+    display: inline-block !important;
+  }
+
+  .hide-below-lg {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .d-flex-md {
+    display: flex !important;
+
+    &.d-none {
+      display: none !important;
+    }
+  }
+
+  .mr-3-md {
+    margin-right: 16px !important;
+  }
+
+  .mb-4-md {
+    margin-bottom: 24px !important;
+  }
+
+  .ml-4-md {
+    margin-left: 24px !important;
+  }
+
+  .mr-4-md {
+    margin-right: 24px !important;
+  }
+
+  .pl-2-md {
+    padding-left: 8px !important;
+  }
+
+  .pr-2-md {
+    padding-right: 8px !important;
+  }
+
+  .pl-3-md {
+    padding-left: 16px !important;
+  }
+
+  .pr-3-md {
+    padding-right: 16px !important;
+  }
+
+  .pl-4-md {
+    padding-left: 24px !important;
+  }
+
+  .pr-4-md {
+    padding-right: 24px !important;
+  }
+
+  .form-select {
+    background-image: none;
+  }
+
+  .flex-items-center-md {
+    align-items: center !important;
+  }
+
+  .flex-justify-between-md {
+    justify-content: space-between !important;
+  }
+}

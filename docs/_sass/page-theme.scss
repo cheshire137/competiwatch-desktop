@@ -1,0 +1,13 @@
+@import "colors.scss";
+
+.main-nav {
+  background-color: $blue;
+}
+
+.main-nav-link {
+  color: #fff;
+}
+
+.UnderlineNav-item.selected {
+  border-bottom-color: $green;
+}

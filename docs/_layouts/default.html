@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  <head>
+    <meta charset="utf-8">
+    <title>{{site.title}}</title>
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <link rel="stylesheet" type="text/css" media="screen" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/10.9.0/build.css">
+    <link rel="stylesheet" type="text/css" href="{{ "/assets/main.css" | relative_url }}">
+  </head>
+  <body class="layout-container">
+    <header class="box-shadow js-top-nav text-gray-light main-nav">
+      <div class="container">
+        <div class="d-flex-md py-2 flex-justify-between-md flex-items-center-md">
+          <h1 class="h1 lh-condensed clearfix">
+            <a class="main-nav-link no-underline d-inline-block mr-3" href="{{ "/" | relative_url }}">{{site.title}}</a>
+          </h1>
+        </div>
+      </div>
+    </header>
+    <div class="container layout-children-container mb-4">
+      <div class="mt-4">
+        {{ content }}
+      </div>
+    </div>
+  </body>
+</html>
