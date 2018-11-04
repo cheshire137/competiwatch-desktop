@@ -24,6 +24,19 @@
         {{ content }}
       </div>
     </div>
+    <footer class="my-4 border-top text-small text-gray py-4">
+      <div class="container pt-4 text-center">
+        Built by Sarah
+        <span class="d-inline-block mx-4">&middot;</span>
+        <a href="{{ site.app_repo_url }}/releases/latest">Get the app</a>
+        <span class="d-inline-block mx-4">&middot;</span>
+        <a href="{{ "/about" | relative_url }}">About</a>
+        <span class="d-inline-block mx-4">&middot;</span>
+        <a href="{{ "/help" | relative_url }}">Help</a>
+        <span class="d-inline-block mx-4">&middot;</span>
+        <a href="{{ site.app_repo_url }}/issues">Give feedback</a>
+      </div>
+    </footer>
     <script src="{{ "/assets/carousel.js" | relative_url }}"></script>
   </body>
 </html>
