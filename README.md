@@ -4,8 +4,13 @@
 
 **[Download the app](https://github.com/cheshire137/competiwatch-desktop/releases/latest)** - [see what's new](./CHANGELOG.md)
 
-This is a work in progress. It's a desktop app for Windows and macOS to track
-your competitive match history in Overwatch.
+This is a desktop app for Windows and macOS to track
+your competitive match history in Overwatch. I wanted to see
+my progress over time, more than what the game or sites like
+Overbuff provide. The app lets you see which heroes you're performing
+best on, which roles, whether you do better on weekday mornings or
+weekend evenings, whether joining voice chat helps your win rate,
+that sort of thing.
 
 ![Screenshot of match history](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/screenshot-matches-windows.png)
 
