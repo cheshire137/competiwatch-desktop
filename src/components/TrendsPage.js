@@ -7,6 +7,7 @@ import StreaksChart from './StreaksChart'
 import GroupSizeChart from './GroupSizeChart'
 import HeroesChart from './HeroesChart'
 import DayTimeChart from './DayTimeChart'
+import VoiceChatChart from './VoiceChatChart'
 import RoleChart from './RoleChart'
 import MapChart from './MapChart'
 import Match from '../models/Match'
@@ -60,6 +61,10 @@ class TrendsPage extends Component {
     }
   }
 
+  anyMatchesJoinedVoice = () => {
+    return this.state.matches.filter(match => match.joinedVoice).length > 0
+  }
+
   anyMatchesWithHeroes = () => {
     return this.state.matches.filter(match => match.heroList.length > 0).length > 0
   }
@@ -91,6 +96,9 @@ class TrendsPage extends Component {
       )
     }
 
+    const showHeroesCharts = this.anyMatchesWithHeroes()
+    const showVoiceCharts = this.anyMatchesJoinedVoice()
+
     return (
       <div className="container mb-4 layout-children-container">
         <div className="clearfix">
@@ -111,13 +119,26 @@ class TrendsPage extends Component {
         ) : null}
         <hr className="mb-4 pt-4" />
         <GroupSizeChart season={season} matches={matches} />
-        {this.anyMatchesWithHeroes() ? (
+        {showHeroesCharts || showVoiceCharts ? (
           <div>
+            {showHeroesCharts ? (
+              <div>
+                <hr className="mb-4 pt-4" />
+                <HeroesChart season={season} matches={matches} />
+              </div>
+            ) : null}
             <hr className="mb-4 pt-4" />
-            <HeroesChart season={season} matches={matches} />
-            <hr className="mb-4 pt-4" />
-            <div className="col-md-7 mx-auto">
-              <RoleChart season={season} theme={theme} matches={matches} />
+            <div className="clearfix">
+              {showHeroesCharts ? (
+                <div className={showVoiceCharts ? 'col-md-7 float-md-left' : 'col-md-7 mx-auto'}>
+                  <RoleChart season={season} theme={theme} matches={matches} />
+                </div>
+              ) : null}
+              {showVoiceCharts ? (
+                <div className={showHeroesCharts ? 'col-md-5 float-md-left' : 'col-md-5 mx-auto'}>
+                  <VoiceChatChart season={season} theme={theme} matches={matches} />
+                </div>
+              ) : null}
             </div>
           </div>
         ) : null}
