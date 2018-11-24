@@ -77,6 +77,10 @@ class TrendsPage extends Component {
     return this.state.matches.filter(match => match.map).length > 0
   }
 
+  anyThrowersLeavers = () => {
+    return this.state.matches.filter(match => match.hasThrowerOrLeaver()).length > 0
+  }
+
   render() {
     const { matches, account } = this.state
     if (!matches || !account) {
@@ -98,16 +102,19 @@ class TrendsPage extends Component {
 
     const showHeroesCharts = this.anyMatchesWithHeroes()
     const showVoiceCharts = this.anyMatchesJoinedVoice()
+    const showThrowerLeaverChart = this.anyThrowersLeavers()
 
     return (
       <div className="container mb-4 layout-children-container">
         <div className="clearfix">
-          <div className="col-md-5 float-md-left">
+          <div className={showThrowerLeaverChart ? 'col-md-5 float-md-left' : 'col-md-5 mx-auto'}>
             <WinLossChart season={season} matches={matches} />
           </div>
-          <div className="col-md-5 offset-md-2 float-md-left">
-            <ThrowerLeaverChart season={season} matches={matches} />
-          </div>
+          {showThrowerLeaverChart ? (
+            <div className="col-md-5 offset-md-2 float-md-left">
+              <ThrowerLeaverChart season={season} matches={matches} />
+            </div>
+          ) : null}
         </div>
         <hr className="mb-4 pt-4" />
         <StreaksChart season={season} matches={matches} />

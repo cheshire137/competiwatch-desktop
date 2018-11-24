@@ -3,6 +3,7 @@
 ## Version 0.2.1
 
 - Added chart to Trends tab showing wins and losses by whether or not you joined voice chat
+- Trends tab no longer shows Throwers/Leavers chart when no throwers or leavers have been recorded that season
 
 ## Version 0.2.0
 

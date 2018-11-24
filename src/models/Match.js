@@ -179,6 +179,11 @@ class Match {
     }
   }
 
+  hasThrowerOrLeaver() {
+    return this.allyThrower || this.allyLeaver || this.enemyThrower ||
+      this.enemyLeaver
+  }
+
   isWin() {
     return this.result === 'win'
   }
