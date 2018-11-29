@@ -50,6 +50,6 @@ export default {
     Doomfist: 5,
     Sombra: 2,
     'Wrecking Ball': 11,
-    Ashe: 14
+    Ashe: 13
   }
 }
