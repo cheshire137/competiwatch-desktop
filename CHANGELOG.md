@@ -1,12 +1,12 @@
 # Change log
 
-## Version 0.2.1
+## [Version 0.2.1](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.1)
 
 - Added chart to Trends tab showing wins and losses by whether or not you joined voice chat
 - Trends tab no longer shows Throwers/Leavers chart when no throwers or leavers have been recorded that season
 - Made Ashe available in season 13
 
-## Version 0.2.0
+## [Version 0.2.0](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.0)
 
 - Added 'Copy from last match' to the Group Members field when logging a match [#43](https://github.com/cheshire137/competiwatch-desktop/issues/43)
 - Added ability to log whether you joined voice chat in a match [#44](https://github.com/cheshire137/competiwatch-desktop/issues/44)
