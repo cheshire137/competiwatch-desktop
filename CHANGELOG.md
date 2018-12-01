@@ -1,5 +1,7 @@
 # Change log
 
+## Version 0.2.2
+
 ## [Version 0.2.1](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.1)
 
 - Added chart to Trends tab showing wins and losses by whether or not you joined voice chat
