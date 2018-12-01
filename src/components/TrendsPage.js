@@ -10,6 +10,7 @@ import DayTimeChart from './DayTimeChart'
 import VoiceChatChart from './VoiceChatChart'
 import RoleChart from './RoleChart'
 import MapChart from './MapChart'
+import MapTypeChart from './MapTypeChart'
 import Match from '../models/Match'
 import Account from '../models/Account'
 import Color from '../models/Color'
@@ -122,6 +123,12 @@ class TrendsPage extends Component {
           <div>
             <hr className="mb-4 pt-4" />
             <MapChart season={season} matches={matches} />
+            <hr className="mb-4 pt-4" />
+            <div className="clearfix">
+              <div className="col-md-6 mx-auto">
+                <MapTypeChart season={season} matches={matches} />
+              </div>
+            </div>
           </div>
         ) : null}
         <hr className="mb-4 pt-4" />

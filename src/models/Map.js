@@ -34,6 +34,13 @@ export default {
       'Temple of Anubis',
       'Volskaya Industries'
     ],
+    Control: [
+      'Busan',
+      'Ilios',
+      'Lijiang Tower',
+      'Nepal',
+      'Oasis'
+    ],
     Escort: [
       'Dorado',
       'Junkertown',
@@ -47,14 +54,12 @@ export default {
       'Hollywood',
       "King's Row",
       'Numbani'
-    ],
-    Control: [
-      'Busan',
-      'Ilios',
-      'Lijiang Tower',
-      'Nepal',
-      'Oasis'
     ]
+  },
+  typeAliases: {
+    Assault: '2CP',
+    Control: 'KotH',
+    Escort: 'Payload'
   }
 }
 
