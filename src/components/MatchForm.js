@@ -392,7 +392,10 @@ class MatchForm extends Component {
                 <dt>
                   <label
                     htmlFor="match-map"
-                  >Map:</label>
+                  >
+                    <span className="ion ion-md-pin mr-1" />
+                    Map:
+                  </label>
                 </dt>
                 <dd>
                   <MapSelect map={map} onChange={this.onMapChange} />
@@ -423,7 +426,10 @@ class MatchForm extends Component {
               <dt>
                 <label
                   htmlFor="match-comment"
-                >Comment:</label>
+                >
+                  <span className="ion ion-md-list mr-1" />
+                  Comment:
+                </label>
               </dt>
               <dd>
                 <input
@@ -437,7 +443,10 @@ class MatchForm extends Component {
               </dd>
             </dl>
             <fieldset className="Box pt-2 pb-3 px-3">
-              <legend className="h5">Your group</legend>
+              <legend className="h5">
+                <span className="ion ion-md-people mr-1" />
+                Your group
+              </legend>
               <GroupMembersField
                 group={group}
                 groupMembers={groupMembers}
@@ -475,6 +484,7 @@ class MatchForm extends Component {
                     checked={playOfTheGame}
                     onChange={this.onPlayOfTheGameChange}
                   />
+                  <span className="ion ion-md-trophy mr-1" />
                   Play of the game
                 </label>
                 <p className="note">Did you get play of the game?</p>
@@ -486,6 +496,7 @@ class MatchForm extends Component {
                     checked={joinedVoice}
                     onChange={this.onJoinedVoiceChange}
                   />
+                  <span className="ion ion-md-mic mr-1" />
                   Joined voice chat
                 </label>
                 <p className="note">Did you join voice chat?</p>

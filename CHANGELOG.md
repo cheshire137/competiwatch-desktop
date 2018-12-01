@@ -3,6 +3,7 @@
 ## Version 0.2.2
 
 - Added chart showing wins and losses by map type to the Trends page
+- Added icons to match form
 
 ## [Version 0.2.1](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.1)
 
