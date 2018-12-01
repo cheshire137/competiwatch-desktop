@@ -29,16 +29,16 @@ class HeroSelect extends Component {
             isChecked={this.isChecked}
             onToggle={onToggle}
           />
-          <h5 className="h5 border-bottom pb-2 mt-4 mb-2">Main tanks</h5>
+          <h5 className="h5 border-bottom pb-2 mt-4 mb-2">Off-tanks</h5>
           <HeroCheckboxList
-            heroes={Hero.byType['Main Tank']}
+            heroes={Hero.byType['Off-tank']}
             isAvailable={this.isAvailable}
             isChecked={this.isChecked}
             onToggle={onToggle}
           />
-          <h5 className="h5 border-bottom pb-2 mb-2 mt-4">Main healers</h5>
+          <h5 className="h5 border-bottom pb-2 mt-4 mb-2">Off-healers</h5>
           <HeroCheckboxList
-            heroes={Hero.byType['Main Healer']}
+            heroes={Hero.byType['Off-healer']}
             isAvailable={this.isAvailable}
             isChecked={this.isChecked}
             onToggle={onToggle}
@@ -52,16 +52,16 @@ class HeroSelect extends Component {
             isChecked={this.isChecked}
             onToggle={onToggle}
           />
-          <h5 className="h5 border-bottom pb-2 mt-4 mb-2">Off-tanks</h5>
+          <h5 className="h5 border-bottom pb-2 mt-4 mb-2">Main tanks</h5>
           <HeroCheckboxList
-            heroes={Hero.byType['Off-tank']}
+            heroes={Hero.byType['Main Tank']}
             isAvailable={this.isAvailable}
             isChecked={this.isChecked}
             onToggle={onToggle}
           />
-          <h5 className="h5 border-bottom pb-2 mt-4 mb-2">Off-healers</h5>
+          <h5 className="h5 border-bottom pb-2 mb-2 mt-4">Main healers</h5>
           <HeroCheckboxList
-            heroes={Hero.byType['Off-healer']}
+            heroes={Hero.byType['Main Healer']}
             isAvailable={this.isAvailable}
             isChecked={this.isChecked}
             onToggle={onToggle}
