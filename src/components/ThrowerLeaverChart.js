@@ -4,38 +4,38 @@ import Color from '../models/Color'
 import ChartUtils from '../models/ChartUtils'
 
 class ThrowerLeaverChart extends Component {
-  getAllies = () => {
+  getThrowers = () => {
     const { matches } = this.props
-    let throwerCount = 0
-    let leaverCount = 0
+    let allyCount = 0
+    let enemyCount = 0
 
     for (const match of matches) {
-      if (match.allyLeaver) {
-        leaverCount++
+      if (match.enemyThrower) {
+        enemyCount++
       }
       if (match.allyThrower) {
-        throwerCount++
+        allyCount++
       }
     }
 
-    return [throwerCount, leaverCount]
+    return [allyCount, enemyCount]
   }
 
-  getEnemies = () => {
+  getLeavers = () => {
     const { matches } = this.props
-    let throwerCount = 0
-    let leaverCount = 0
+    let allyCount = 0
+    let enemyCount = 0
 
     for (const match of matches) {
       if (match.enemyLeaver) {
-        leaverCount++
+        enemyCount++
       }
-      if (match.enemyThrower) {
-        throwerCount++
+      if (match.allyLeaver) {
+        allyCount++
       }
     }
 
-    return [throwerCount, leaverCount]
+    return [allyCount, enemyCount]
   }
 
   render() {
@@ -47,21 +47,21 @@ class ThrowerLeaverChart extends Component {
       }
     }
     const data = {
-      labels: ['Throwers', 'Leavers'],
+      labels: ['My Team', 'Enemy Team'],
       datasets: [
         {
           backgroundColor: Color.transparentAlly,
           borderColor: Color.ally,
           borderWidth: 2,
-          label: 'My Team',
-          data: this.getAllies()
+          label: 'Throwers',
+          data: this.getThrowers()
         },
         {
           backgroundColor: Color.transparentEnemy,
           borderColor: Color.enemy,
           borderWidth: 2,
-          label: 'Enemy Team',
-          data: this.getEnemies()
+          label: 'Leavers',
+          data: this.getLeavers()
         }
       ]
     }
