@@ -567,7 +567,10 @@ class MatchForm extends Component {
               <dt>
                 <label
                   htmlFor="match-played-at"
-                >When did you play?</label>
+                >
+                  <span className="ion ion-md-time mr-1" />
+                  When did you play?
+                </label>
               </dt>
               <dd>
                 <input
