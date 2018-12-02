@@ -4,20 +4,11 @@ import Color from '../models/Color'
 import ChartUtils from '../models/ChartUtils'
 import Map from '../models/Map'
 
-function getMapNames() {
-  let names = []
-  for (const mapType in Map.byType) {
-    names = names.concat(Map.byType[mapType])
-  }
-  return names
-}
-
 class MapChart extends Component {
   getCountsByMap = (matchesWithMaps, filterer) => {
     const countsByMap = {}
-    const maps = getMapNames()
 
-    for (const map of maps) {
+    for (const map of Map.names) {
       countsByMap[map] = 0
     }
 
@@ -44,9 +35,8 @@ class MapChart extends Component {
 
   getLabels = () => {
     const labels = []
-    const maps = getMapNames()
 
-    for (const map of maps) {
+    for (const map of Map.names) {
       if (map in Map.shortNames) {
         labels.push(Map.shortNames[map])
       } else {
