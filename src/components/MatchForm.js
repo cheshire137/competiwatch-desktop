@@ -507,7 +507,7 @@ class MatchForm extends Component {
                 Did anyone try to lose or leave the game early?
               </div>
               <div className="d-flex">
-                <div className="form-checkbox mr-4 my-1">
+                <div className="form-checkbox mr-4 mb-0 mt-1">
                   <label className="text-normal no-wrap text-ally">
                     <input
                       type="checkbox"
@@ -517,7 +517,7 @@ class MatchForm extends Component {
                     Thrower on my team
                   </label>
                 </div>
-                <div className="form-checkbox my-1">
+                <div className="form-checkbox mb-0 mt-1">
                   <label className="text-normal no-wrap text-enemy">
                     <input
                       type="checkbox"
