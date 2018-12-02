@@ -7,6 +7,7 @@ import StreaksChart from './StreaksChart'
 import GroupSizeChart from './GroupSizeChart'
 import HeroesChart from './HeroesChart'
 import DayTimeChart from './DayTimeChart'
+import ThrowerLeaverTimeChart from './ThrowerLeaverTimeChart'
 import VoiceChatChart from './VoiceChatChart'
 import RoleChart from './RoleChart'
 import MapChart from './MapChart'
@@ -72,6 +73,12 @@ class TrendsPage extends Component {
 
   showDayTimeChart = () => {
     return this.state.matches.filter(match => match.dayOfWeek && match.timeOfDay).length > 0
+  }
+
+  showThrowerLeaverTimeChart = () => {
+    return this.state.matches.filter(match => {
+      return match.dayOfWeek && match.timeOfDay && match.hasThrowerOrLeaver()
+    }).length > 0
   }
 
   showMapChart = () => {
@@ -160,6 +167,12 @@ class TrendsPage extends Component {
           <div>
             <hr className="mb-4 pt-4" />
             <DayTimeChart season={season} matches={matches} />
+          </div>
+        ) : null}
+        {this.showThrowerLeaverTimeChart() ? (
+          <div>
+            <hr className="mb-4 pt-4" />
+            <ThrowerLeaverTimeChart season={season} matches={matches} />
           </div>
         ) : null}
       </div>

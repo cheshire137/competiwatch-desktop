@@ -180,8 +180,15 @@ class Match {
   }
 
   hasThrowerOrLeaver() {
-    return this.allyThrower || this.allyLeaver || this.enemyThrower ||
-      this.enemyLeaver
+    return this.hasThrower() || this.hasLeaver()
+  }
+
+  hasThrower() {
+    return this.allyThrower || this.enemyThrower
+  }
+
+  hasLeaver() {
+    return this.allyLeaver || this.enemyLeaver
   }
 
   isWin() {
