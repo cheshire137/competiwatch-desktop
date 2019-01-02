@@ -5,6 +5,7 @@
 - Added chart showing wins and losses by map type to the Trends page
 - Added icons to match form
 - Added to the Trends page a chart showing throwers and leavers based on when you played
+- Added competitive season 14
 
 ## [Version 0.2.1](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.1)
 
