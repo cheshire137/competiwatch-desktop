@@ -506,7 +506,7 @@ class MatchForm extends Component {
               <div className="text-bold">
                 Did anyone try to lose or leave the game early?
               </div>
-              <div className="d-flex">
+              <div className="float-left col-lg-4 col-md-5">
                 <div className="form-checkbox mr-4 mb-0 mt-1">
                   <label className="text-normal no-wrap text-ally">
                     <input
@@ -517,18 +517,6 @@ class MatchForm extends Component {
                     Thrower on my team
                   </label>
                 </div>
-                <div className="form-checkbox mb-0 mt-1">
-                  <label className="text-normal no-wrap text-enemy">
-                    <input
-                      type="checkbox"
-                      checked={enemyThrower}
-                      onChange={this.onEnemyThrowerChange}
-                    />
-                    Thrower on the enemy team
-                  </label>
-                </div>
-              </div>
-              <div className="d-flex">
                 <div className="form-checkbox mr-4 my-1">
                   <label className="text-normal no-wrap text-ally">
                     <input
@@ -537,6 +525,18 @@ class MatchForm extends Component {
                       onChange={this.onAllyLeaverChange}
                     />
                     Leaver on my team
+                  </label>
+                </div>
+              </div>
+              <div className="float-left col-lg-5 col-md-7">
+                <div className="form-checkbox mb-0 mt-1">
+                  <label className="text-normal no-wrap text-enemy">
+                    <input
+                      type="checkbox"
+                      checked={enemyThrower}
+                      onChange={this.onEnemyThrowerChange}
+                    />
+                    Thrower on the enemy team
                   </label>
                 </div>
                 <div className="form-checkbox my-1">
