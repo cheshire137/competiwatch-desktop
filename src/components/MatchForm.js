@@ -566,6 +566,7 @@ class MatchForm extends Component {
             <dl className="form-group mt-0">
               <dt>
                 <label
+                  className="f6"
                   htmlFor="match-played-at"
                 >
                   <span className="ion ion-md-time mr-1" />
@@ -576,7 +577,7 @@ class MatchForm extends Component {
                 <input
                   id="match-played-at"
                   type="datetime-local"
-                  className="form-control datetime-local-control"
+                  className="input-sm form-control datetime-local-control"
                   value={playedAtStr}
                   onChange={this.onPlayedAtChange}
                 />
@@ -586,7 +587,7 @@ class MatchForm extends Component {
                   </span>
                 ) : null}
                 <select
-                  className="form-select ml-2"
+                  className="input-sm form-select ml-2"
                   value={dayOfWeekTimeOfDay}
                   aria-label="When did you generally play the game?"
                   onChange={this.onDayOfWeekTimeOfDayChange}
