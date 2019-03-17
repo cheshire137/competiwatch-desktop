@@ -5,7 +5,7 @@
   "version": "0.2.3",
   "private": true,
   "dependencies": {
-    "electron-log": "^2.2.16",
+    "electron-log": "^2.2.17",
     "nedb": "^1.8.0"
   },
   "bugs": {
@@ -36,23 +36,23 @@
     "electron-build-windows-installer": "node dist/installers/create-windows-installer.js"
   },
   "devDependencies": {
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.8.0",
     "csv-parse": "^2.5.0",
-    "csv-stringify": "^3.1.1",
-    "electron": "^2.0.8",
-    "electron-packager": "^12.1.0",
+    "csv-stringify": "^5.3.0",
+    "electron": "^2.0.18",
+    "electron-packager": "^12.2.0",
     "electron-winstaller": "^2.6.4",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
     "foreman": "^3.0.1",
-    "ionicons": "^4.2.4",
-    "jest-enzyme": "^6.0.2",
-    "primer": "^10.7.0",
-    "react": "^16.4.1",
+    "ionicons": "^4.5.5",
+    "jest-enzyme": "^6.1.2",
+    "primer": "^10.10.5",
+    "react": "^16.8.4",
     "react-autocomplete": "^1.8.1",
     "react-chartjs-2": "^2.7.4",
     "react-click-outside": "^3.0.1",
-    "react-dom": "^16.4.1",
+    "react-dom": "^16.8.4",
     "react-scripts": "1.1.4",
     "react-scroll-to-component": "^1.0.2"
   },
