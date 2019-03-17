@@ -5,7 +5,7 @@
 - Added Paris map
 - Added competitive season 15
 
-## Version 0.2.2
+## [Version 0.2.2](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.2)
 
 - Added chart showing wins and losses by map type to the Trends page
 - Added icons to match form
