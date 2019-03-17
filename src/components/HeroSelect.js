@@ -21,7 +21,7 @@ class HeroSelect extends Component {
 
     return (
       <div className="d-flex flex-wrap flex-justify-between">
-        <div className="hero-box mb-4">
+        <div className="hero-box mb-3">
           <h5 className="h5 border-bottom pb-1 mb-2">Flankers</h5>
           <HeroCheckboxList
             heroes={Hero.byType.Flanker}
@@ -44,7 +44,7 @@ class HeroSelect extends Component {
             onToggle={onToggle}
           />
         </div>
-        <div className="hero-box mb-4">
+        <div className="hero-box mb-3">
           <h5 className="h5 border-bottom pb-1 mb-2">Hitscan</h5>
           <HeroCheckboxList
             heroes={Hero.byType.Hitscan}
@@ -67,7 +67,7 @@ class HeroSelect extends Component {
             onToggle={onToggle}
           />
         </div>
-        <div className="hero-box mb-4">
+        <div className="hero-box mb-3">
           <h5 className="h5 border-bottom pb-1 mb-2">DPS</h5>
           <HeroCheckboxList
             heroes={Hero.byType.DPS}
