@@ -3,6 +3,7 @@ export default {
   names: [
     'Ana',
     'Ashe',
+    'Baptiste',
     'Bastion',
     'Brigitte',
     'D.Va',
@@ -40,7 +41,7 @@ export default {
     'Off-tank': ['D.Va', 'Roadhog', 'Wrecking Ball', 'Zarya'],
     Defense: ['Bastion', 'Hanzo', 'Mei', 'Symmetra', 'Torbjörn'],
     Healer: ['Ana', 'Brigitte', 'Lúcio', 'Mercy', 'Moira', 'Zenyatta'],
-    'Main Healer': ['Ana', 'Mercy', 'Moira'],
+    'Main Healer': ['Ana', 'Baptiste', 'Mercy', 'Moira'],
     'Off-healer': ['Brigitte', 'Lúcio', 'Zenyatta']
   },
   firstSeasons: {
@@ -50,6 +51,7 @@ export default {
     Doomfist: 5,
     Sombra: 2,
     'Wrecking Ball': 11,
-    Ashe: 13
+    Ashe: 13,
+    Baptiste: 15
   }
 }

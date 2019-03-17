@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import HeroUtil from '../models/HeroUtil'
 
 const knownHeroes = [
-  'ana', 'ashe', 'bastion', 'brigitte', 'doomfist', 'dva', 'genji',
-  'hanzo', 'junkrat', 'lucio', 'mccree', 'mei', 'mercy', 'moira',
+  'ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'doomfist', 'dva',
+  'genji', 'hanzo', 'junkrat', 'lucio', 'mccree', 'mei', 'mercy', 'moira',
   'orisa', 'pharah', 'reaper', 'reinhardt', 'roadhog', 'soldier76',
   'sombra', 'symmetra', 'torbjorn', 'tracer', 'widowmaker', 'winston',
   'wrecking-ball', 'zarya', 'zenyatta'

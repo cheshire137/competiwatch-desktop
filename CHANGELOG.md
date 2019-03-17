@@ -2,6 +2,7 @@
 
 ## Version 0.2.3
 
+- Made Baptiste available in season 15
 - Added Paris map
 - Added competitive season 15
 
