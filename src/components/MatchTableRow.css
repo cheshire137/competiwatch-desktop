@@ -124,6 +124,10 @@
   background-color: #cad298;
 }
 
+.background-paris {
+  background-color: #f0d5c0;
+}
+
 .background-ilios {
   background-color: #a0eafd;
 }
@@ -198,6 +202,10 @@
 
 .theme-dark .background-numbani {
   background-color: #566036;
+}
+
+.theme-dark .background-paris {
+  background-color: #7c6785;
 }
 
 .theme-dark .background-ilios {

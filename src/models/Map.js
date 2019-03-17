@@ -14,6 +14,7 @@ export default {
     'Nepal',
     'Numbani',
     'Oasis',
+    'Paris',
     'Rialto',
     'Route 66',
     'Temple of Anubis',
@@ -31,6 +32,7 @@ export default {
     Assault: [
       'Hanamura',
       'Horizon Lunar Colony',
+      'Paris',
       'Temple of Anubis',
       'Volskaya Industries'
     ],

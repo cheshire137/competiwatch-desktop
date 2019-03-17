@@ -2,6 +2,7 @@
 
 ## Version 0.2.3
 
+- Added Paris map
 - Added competitive season 15
 
 ## Version 0.2.2
