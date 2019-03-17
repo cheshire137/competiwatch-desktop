@@ -1,5 +1,9 @@
 # Change log
 
+## Version 0.2.3
+
+- Added competitive season 15
+
 ## Version 0.2.2
 
 - Added chart showing wins and losses by map type to the Trends page
