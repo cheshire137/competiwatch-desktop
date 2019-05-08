@@ -18,15 +18,15 @@ class DayTimeApproximator {
     }
     const hours = date.getHours()
 
-    if (hours >= 10 && hours < 17) { // 5a - 11:59a Central
+    if (hours >= 6 && hours < 12) { // 5a - 11:59a Central
       return 'morning'
     }
 
-    if (hours >= 17 && hours < 22) { // 12p - 4:59p Central
+    if (hours >= 12 && hours < 18) { // 12p - 4:59p Central
       return 'afternoon'
     }
 
-    if (hours >= 22 || hours < 2) { // 5p - 8:59p Central
+    if (hours >= 18 || hours < 22) { // 5p - 8:59p Central
       return 'evening'
     }
 
