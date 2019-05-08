@@ -22,7 +22,7 @@ import './primer.css'
 import './ionicons.min.css'
 import './App.css'
 
-const latestKnownSeason = 15
+const latestKnownSeason = 16
 const { ipcRenderer, remote } = ElectronUtils
 const { dialog } = remote
 
