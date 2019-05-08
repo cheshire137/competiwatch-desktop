@@ -16,7 +16,7 @@ class DayTimeApproximator {
     if (typeof date === 'string') {
       date = new Date(date)
     }
-    const hours = date.getUTCHours()
+    const hours = date.getHours()
 
     if (hours >= 10 && hours < 17) { // 5a - 11:59a Central
       return 'morning'
