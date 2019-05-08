@@ -22,15 +22,16 @@ class DayTimeApproximator {
       return 'morning'
     }
 
-    if (hours >= 12 && hours < 18) { // 12p - 4:59p Central
+    else if (hours >= 12 && hours < 18) { // 12p - 4:59p Central
       return 'afternoon'
     }
 
-    if (hours >= 18 || hours < 22) { // 5p - 8:59p Central
+    else if (hours >= 18 && hours < 22) { // 5p - 8:59p Central
       return 'evening'
     }
-
-    return 'night'
+    else{
+      return 'night'
+    }
   }
 }
 
