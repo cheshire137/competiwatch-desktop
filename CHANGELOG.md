@@ -1,5 +1,9 @@
 # Change log
 
+## Version 0.2.4
+
+- Added competitive season 16 -- thanks @finncyr!
+
 ## Version 0.2.3
 
 - Made Baptiste available in season 15
