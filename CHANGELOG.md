@@ -4,7 +4,7 @@
 
 - Added competitive season 16 -- thanks [@finncyr](https://github.com/finncyr)!
 
-## Version 0.2.3
+## [Version 0.2.3](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.3)
 
 - Made Baptiste available in season 15
 - Added Paris map
