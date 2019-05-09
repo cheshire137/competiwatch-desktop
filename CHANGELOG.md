@@ -2,7 +2,7 @@
 
 ## Version 0.2.4
 
-- Added competitive season 16 -- thanks @finncyr!
+- Added competitive season 16 -- thanks [@finncyr](https://github.com/finncyr)!
 
 ## Version 0.2.3
 
