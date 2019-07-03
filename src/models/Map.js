@@ -5,6 +5,7 @@ export default {
     'Dorado',
     'Eichenwalde',
     'Hanamura',
+    'Havana',
     'Hollywood',
     'Horizon Lunar Colony',
     'Ilios',
@@ -45,6 +46,7 @@ export default {
     ],
     Escort: [
       'Dorado',
+      'Havana',
       'Junkertown',
       'Rialto',
       'Route 66',
@@ -64,4 +66,3 @@ export default {
     Escort: 'Payload'
   }
 }
-
