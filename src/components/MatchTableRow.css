@@ -112,6 +112,10 @@
   background-color: #2aa6fb;
 }
 
+.background-havana {
+  background-color: #77e3d1;
+}
+
 .background-hollywood {
   background-color: #92d8fd;
 }
@@ -190,6 +194,10 @@
 
 .theme-dark .background-blizzard-world {
   background-color: #0471bb;
+}
+
+.theme-dark .background-havana {
+  background-color: #44867b;
 }
 
 .theme-dark .background-hollywood {
