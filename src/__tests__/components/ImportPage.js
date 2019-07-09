@@ -16,6 +16,10 @@ jest.mock('electron', () => ({
     send: () => null
   }
 }))
+jest.mock('is-electron', () => ({
+  __esModule: true,
+  default: () => true
+}))
 import ImportPage from '../../components/ImportPage'
 
 it('displays warning when account has matches in that season', async () => {
