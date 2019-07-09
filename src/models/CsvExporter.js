@@ -1,12 +1,6 @@
 import stringify from '../lib/csv-stringify'
 import Match from './Match'
-
-let fs = null
-if (typeof window.require === 'function') {
-  fs = window.require('fs')
-} else {
-  fs = require('fs')
-}
+import isElectron from 'is-electron'
 
 const headers = [
   'Battletag', 'Season', 'Rank', 'Rank Change', 'Result', 'Win Streak', 'Loss Streak',
@@ -30,14 +24,18 @@ class CsvExporter {
   writeFile = contents => {
     return new Promise((resolve, reject) => {
       console.log('saving', this.path)
-      fs.writeFile(this.path, contents, err => {
-        if (err) {
-          console.error('failed to save file', this.path)
-          reject(err)
-        } else {
-          resolve()
-        }
-      })
+      if (isElectron()) {
+        window.fs.writeFile(this.path, contents, err => {
+          if (err) {
+            console.error('failed to save file', this.path)
+            reject(err)
+          } else {
+            resolve()
+          }
+        })
+      } else {
+        reject('not electron, cannot write to filesystem')
+      }
     })
   }
 

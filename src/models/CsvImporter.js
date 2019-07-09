@@ -1,12 +1,6 @@
 import parse from '../lib/csv-parse/lib/es5'
 import Match from './Match'
-
-let fs = null
-if (typeof window.require === 'function') {
-  fs = window.require('fs')
-} else {
-  fs = require('fs')
-}
+import isElectron from 'is-electron'
 
 class CsvImporter {
   constructor(path, season, accountID) {
@@ -18,14 +12,19 @@ class CsvImporter {
   readFile = () => {
     return new Promise((resolve, reject) => {
       console.log('reading', this.path)
-      fs.readFile(this.path, 'utf8', (err, data) => {
-        if (err) {
-          console.error('failed to read file', this.path, err)
-          reject(err)
-        } else {
-          resolve(data)
-        }
-      })
+
+      if (isElectron()) {
+        window.fs.readFile(this.path, 'utf8', (err, data) => {
+          if (err) {
+            console.error('failed to read file', this.path, err)
+            reject(err)
+          } else {
+            resolve(data)
+          }
+        })
+      } else {
+        reject('not electron, cannot read file from filesystem')
+      }
     })
   }
 
