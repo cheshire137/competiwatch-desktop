@@ -1,4 +1,4 @@
-import parse from '../lib/csv-parse'
+import parse from '../lib/csv-parse/lib/es5'
 import Match from './Match'
 
 let fs = null
