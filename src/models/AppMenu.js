@@ -1,9 +1,6 @@
 import os from 'os'
 import PackageInfo from '../../package.json'
-import ElectronUtils from '../models/ElectronUtils'
-
-const { remote, shell } = ElectronUtils
-const { Menu, app } = remote
+import isElectron from 'is-electron'
 
 class AppMenu {
   constructor(options) {
@@ -24,8 +21,10 @@ class AppMenu {
     this.altOrOption = this.isMac ? 'Option' : 'Alt'
 
     const template = this.getMenuTemplate()
-    const menu = Menu.buildFromTemplate(template)
-    Menu.setApplicationMenu(menu)
+    if (isElectron()) {
+      const menu = window.remote.Menu.buildFromTemplate(template)
+      window.remote.Menu.setApplicationMenu(menu)
+    }
   }
 
   getMenuTemplate() {
@@ -39,7 +38,7 @@ class AppMenu {
   getMacMenuTemplate() {
     const menuItems = [
       {
-        label: app.getName(),
+        label: isElectron() ? window.remote.app.getName() : '',
         submenu: [
           this.aboutMenuItem(),
           this.settingsMenuItem(),
@@ -47,7 +46,11 @@ class AppMenu {
           {
             label: 'Quit',
             accelerator: 'Command+Q',
-            click() { app.quit() }
+            click() {
+              if (isElectron()) {
+                window.remote.app.quit()
+              }
+            }
           }
         ]
       },
@@ -126,7 +129,7 @@ class AppMenu {
     const self = this
 
     return {
-      label: `About ${app.getName()}`,
+      label: `About ${isElectron() ? window.remote.app.getName() : ''}`,
       click() { self.onPageChange('about') }
     }
   }
@@ -144,7 +147,11 @@ class AppMenu {
   bugReportMenuItem() {
     return {
       label: 'Report a Bug',
-      click() { shell.openExternal(PackageInfo.bugs.url) }
+      click() {
+        if (isElectron()) {
+          window.shell.openExternal(PackageInfo.bugs.url)
+        }
+      }
     }
   }
 
@@ -152,7 +159,7 @@ class AppMenu {
     const self = this
 
     return {
-      label: `${app.getName()} Help`,
+      label: `${isElectron() ? window.remote.app.getName() : ''} Help`,
       click() { self.onPageChange('help') }
     }
   }

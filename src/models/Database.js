@@ -1,5 +1,4 @@
-import ElectronUtils from './ElectronUtils'
-const { ipcRenderer } = ElectronUtils
+import isElectron from 'is-electron'
 
 const getSignature = prefix => {
   return prefix + Math.random().toString(36).substr(2, 9)
@@ -9,15 +8,20 @@ class Database {
   static findOne(dbName, conditions) {
     return new Promise((resolve, reject) => {
       const replyTo = getSignature('find-one')
-      ipcRenderer.once(replyTo, (event, err, data) => {
-        if (err) {
-          console.error('failed to look up a record', conditions, err)
-          reject(err)
-        } else {
-          resolve(data)
-        }
-      })
-      ipcRenderer.send('find-one', replyTo, dbName, conditions)
+
+      if (isElectron()) {
+        window.ipcRenderer.once(replyTo, (event, err, data) => {
+          if (err) {
+            console.error('failed to look up a record', conditions, err)
+            reject(err)
+          } else {
+            resolve(data)
+          }
+        })
+        window.ipcRenderer.send('find-one', replyTo, dbName, conditions)
+      } else {
+        reject('not electron')
+      }
     })
   }
 
@@ -29,29 +33,39 @@ class Database {
   static count(dbName, conditions) {
     return new Promise((resolve, reject) => {
       const replyTo = getSignature('count')
-      ipcRenderer.once(replyTo, (event, err, count) => {
-        if (err) {
-          console.error('failed to count records', err)
-        } else {
-          resolve(count)
-        }
-      })
-      ipcRenderer.send('count', replyTo, dbName, conditions)
+
+      if (isElectron()) {
+        window.ipcRenderer.once(replyTo, (event, err, count) => {
+          if (err) {
+            console.error('failed to count records', err)
+          } else {
+            resolve(count)
+          }
+        })
+        window.ipcRenderer.send('count', replyTo, dbName, conditions)
+      } else {
+        reject('not electron')
+      }
     })
   }
 
   static findAll(dbName, sort, conditions) {
     return new Promise((resolve, reject) => {
       const replyTo = getSignature('find-all')
-      ipcRenderer.once(replyTo, (event, err, rows, val) => {
-        if (err) {
-          console.error('failed to look up records', dbName, err)
-          reject(err)
-        } else {
-          resolve(rows)
-        }
-      })
-      ipcRenderer.send('find-all', replyTo, dbName, sort, conditions)
+
+      if (isElectron()) {
+        window.ipcRenderer.once(replyTo, (event, err, rows, val) => {
+          if (err) {
+            console.error('failed to look up records', dbName, err)
+            reject(err)
+          } else {
+            resolve(rows)
+          }
+        })
+        window.ipcRenderer.send('find-all', replyTo, dbName, sort, conditions)
+      } else {
+        reject('not electron')
+      }
     })
   }
 
@@ -63,17 +77,22 @@ class Database {
   static deleteSome(dbName, conditions) {
     return new Promise((resolve, reject) => {
       const replyTo = getSignature('delete')
-      ipcRenderer.once(replyTo, (event, err, numRemoved) => {
-        if (err) {
-          console.error('failed to delete record(s)', dbName, conditions)
-          reject()
-        } else {
-          console.log('deleted', numRemoved, dbName, 'record(s)', conditions)
-          resolve()
-        }
-      })
-      const options = {}
-      ipcRenderer.send('delete', replyTo, dbName, conditions, options)
+
+      if (isElectron()) {
+        window.ipcRenderer.once(replyTo, (event, err, numRemoved) => {
+          if (err) {
+            console.error('failed to delete record(s)', dbName, conditions)
+            reject()
+          } else {
+            console.log('deleted', numRemoved, dbName, 'record(s)', conditions)
+            resolve()
+          }
+        })
+        const options = {}
+        window.ipcRenderer.send('delete', replyTo, dbName, conditions, options)
+      } else {
+        reject('not electron')
+      }
     })
   }
 
@@ -84,16 +103,20 @@ class Database {
       const update = { $set: data }
       const replyTo = getSignature('update')
 
-      ipcRenderer.once(replyTo, (event, err, numReplaced) => {
-        if (err) {
-          console.error('failed to update record', dbName, id, err)
-          reject(err)
-        } else {
-          console.log('updated', numReplaced, 'record', dbName, id)
-          resolve({ _id: id })
-        }
-      })
-      ipcRenderer.send('update', replyTo, dbName, conditions, update, options)
+      if (isElectron()) {
+        window.ipcRenderer.once(replyTo, (event, err, numReplaced) => {
+          if (err) {
+            console.error('failed to update record', dbName, id, err)
+            reject(err)
+          } else {
+            console.log('updated', numReplaced, 'record', dbName, id)
+            resolve({ _id: id })
+          }
+        })
+        window.ipcRenderer.send('update', replyTo, dbName, conditions, update, options)
+      } else {
+        reject('not electron')
+      }
     })
   }
 
@@ -104,18 +127,22 @@ class Database {
       data.createdAt = createdDate.toJSON()
       const rows = [data]
 
-      ipcRenderer.once(replyTo, (event, err, newRecords) => {
-        if (err) {
-          console.error('failed to create record', dbName, data, err)
-          reject(err)
-        } else {
-          const newRecord = newRecords[0]
-          newRecord.createdAt = createdDate
-          console.log('created record', dbName, newRecord)
-          resolve(newRecord)
-        }
-      })
-      ipcRenderer.send('insert', replyTo, dbName, rows)
+      if (isElectron()) {
+        window.ipcRenderer.once(replyTo, (event, err, newRecords) => {
+          if (err) {
+            console.error('failed to create record', dbName, data, err)
+            reject(err)
+          } else {
+            const newRecord = newRecords[0]
+            newRecord.createdAt = createdDate
+            console.log('created record', dbName, newRecord)
+            resolve(newRecord)
+          }
+        })
+        window.ipcRenderer.send('insert', replyTo, dbName, rows)
+      } else {
+        reject('not electron')
+      }
     })
   }
 
@@ -132,15 +159,20 @@ class Database {
   static latest(dbName, conditions, sort) {
     return new Promise((resolve, reject) => {
       const replyTo = getSignature('find-latest')
-      ipcRenderer.once(replyTo, (event, err, rows) => {
-        if (err) {
-          console.error('failed to load latest record', dbName, err)
-          reject(err)
-        } else {
-          resolve(rows[0])
-        }
-      })
-      ipcRenderer.send('find-latest', replyTo, dbName, conditions, sort)
+
+      if (isElectron()) {
+        window.ipcRenderer.once(replyTo, (event, err, rows) => {
+          if (err) {
+            console.error('failed to load latest record', dbName, err)
+            reject(err)
+          } else {
+            resolve(rows[0])
+          }
+        })
+        window.ipcRenderer.send('find-latest', replyTo, dbName, conditions, sort)
+      } else {
+        reject('not electron')
+      }
     })
   }
 }

@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import ElectronUtils from '../models/ElectronUtils'
-
-const { shell } = ElectronUtils
+import isElectron from 'is-electron'
 
 class HelpPage extends Component {
   openLink = event => {
     event.preventDefault()
     const link = event.currentTarget
-    shell.openExternal(link.href)
+
+    if (isElectron()) {
+      window.shell.openExternal(link.href)
+    }
   }
 
   returnToAccounts = event => {

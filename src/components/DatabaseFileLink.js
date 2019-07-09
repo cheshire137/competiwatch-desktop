@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import ElectronUtils from '../models/ElectronUtils'
-
-const { ipcRenderer, shell } = ElectronUtils
+import isElectron from 'is-electron'
 
 class DatabaseFileLink extends Component {
   constructor(props) {
@@ -13,10 +11,12 @@ class DatabaseFileLink extends Component {
     const { dbName } = this.props
     const replyTo = `get-db-path-${dbName}`
 
-    ipcRenderer.once(replyTo, (event, dbPath) => {
-      this.setState(prevState => ({ dbPath }))
-    })
-    ipcRenderer.send('get-db-path', replyTo, dbName)
+    if (isElectron()) {
+      window.ipcRenderer.once(replyTo, (event, dbPath) => {
+        this.setState(prevState => ({ dbPath }))
+      })
+      window.ipcRenderer.send('get-db-path', replyTo, dbName)
+    }
   }
 
   openInExplorer = event => {
@@ -27,7 +27,9 @@ class DatabaseFileLink extends Component {
       return
     }
 
-    shell.showItemInFolder(dbPath)
+    if (isElectron()) {
+      window.shell.showItemInFolder(dbPath)
+    }
   }
 
   render() {

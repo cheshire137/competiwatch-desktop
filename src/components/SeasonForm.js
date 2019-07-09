@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import Season from '../models/Season'
 import PackageInfo from '../../package.json'
-import ElectronUtils from '../models/ElectronUtils'
-
-const { remote, shell } = ElectronUtils
-const { app } = remote
+import isElectron from 'is-electron'
 
 class SeasonForm extends Component {
   constructor(props) {
@@ -44,13 +41,18 @@ class SeasonForm extends Component {
     const joiner = repoUrl.substr(-1) === '/' ? '' : '/'
     const releasesUrl = `${repoUrl}${joiner}releases`
 
-    shell.openExternal(releasesUrl)
+    if (isElectron()) {
+      window.shell.openExternal(releasesUrl)
+    }
   }
 
   render() {
     const { season, isValid } = this.state
     const { latestSeason } = this.props
-    const appName = app.getName()
+    let appName = ''
+    if (isElectron()) {
+      appName = window.remote.app.getName()
+    }
 
     return (
       <form

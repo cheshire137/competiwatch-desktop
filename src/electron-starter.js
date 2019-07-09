@@ -25,7 +25,11 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 1180,
     height: 693,
-    icon: path.join(__dirname, 'images/64x64.png')
+    icon: path.join(__dirname, 'images/64x64.png'),
+    webPreferences: {
+      nodeIntegration: false,
+      preload: __dirname + '/preload.js'
+    }
   })
 
   const startUrl = process.env.ELECTRON_START_URL || url.format({

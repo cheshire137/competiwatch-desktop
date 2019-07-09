@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
+import isElectron from 'is-electron'
 import AccountDeleteForm from './AccountDeleteForm'
 import AccountForm from './AccountForm'
 import CsvExporter from '../models/CsvExporter'
-import ElectronUtils from '../models/ElectronUtils'
 import FileUtil from '../models/FileUtil'
 import MatchRankImage from './MatchRankImage'
 import HeroImage from './HeroImage'
 import './AccountListItem.css'
-
-const { remote } = ElectronUtils
-const { dialog } = remote
 
 class AccountListItem extends Component {
   constructor(props) {
@@ -70,11 +67,13 @@ class AccountListItem extends Component {
     const defaultPath = FileUtil.defaultCsvExportFilename(account.battletag, season)
     const options = { defaultPath }
 
-    dialog.showSaveDialog(options, path => {
-      if (path && path.length > 0) {
-        this.exportSeasonTo(path)
-      }
-    })
+    if (isElectron()) {
+      window.remote.dialog.showSaveDialog(options, path => {
+        if (path && path.length > 0) {
+          this.exportSeasonTo(path)
+        }
+      })
+    }
   }
 
   toggleEditForm = event => {

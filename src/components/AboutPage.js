@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import PackageInfo from '../../package.json'
-import ElectronUtils from '../models/ElectronUtils'
+import isElectron from 'is-electron'
 import GithubApi from '../models/GithubApi'
-
-const { remote, shell } = ElectronUtils
-const { app } = remote
 
 class AboutPage extends Component {
   constructor(props) {
@@ -15,7 +12,9 @@ class AboutPage extends Component {
   openLink = event => {
     event.preventDefault()
     const link = event.currentTarget
-    shell.openExternal(link.href)
+    if (isElectron()) {
+      window.shell.openExternal(link.href)
+    }
   }
 
   returnToAccounts = event => {
@@ -34,15 +33,18 @@ class AboutPage extends Component {
     event.target.blur()
     const { latestVersion } = this.state
 
-    if (latestVersion && latestVersion.url) {
-      shell.openExternal(latestVersion.url)
+    if (latestVersion && latestVersion.url && isElectron()) {
+      window.shell.openExternal(latestVersion.url)
     }
   }
 
   render() {
-    const appName = app.getName()
     const version = PackageInfo.version
     const { latestVersion } = this.state
+    let appName = ''
+    if (isElectron()) {
+      appName = window.remote.app.getName()
+    }
 
     return (
       <div className="container layout-children-container">
