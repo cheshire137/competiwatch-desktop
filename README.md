@@ -52,11 +52,11 @@ If you did not use the installer, you can just delete the folder that has Compet
 
 ## How to Develop
 
-This app was built with node version 8.11.3 and npm version 3.10.8. See [the contributing guidelines](./CONTRIBUTING.md).
+This app was built with node version 8.11.3 and yarn 1.15.2 (npm will also work, if you'd prefer, I used npm version 6.8.0). See [the contributing guidelines](./CONTRIBUTING.md).
 
 ```bash
-npm install
-npm run dev
+yarn install
+yarn run dev
 ```
 
 The app should launch and also open in your browser. You can close the
@@ -72,16 +72,16 @@ While you run the app, Electron logs will end up in the following places:
 
 React logs will show in your terminal. You can run
 `tail -f ~/Library/Logs/Competiwatch/log.log` in macOS in a separate
-terminal from `npm run dev` to monitor Electron logs while the app is running.
+terminal from `yarn run dev` to monitor Electron logs while the app is running.
 
 ## How to Run Tests
 
 ```bash
-npm install
-npm test
+yarn install
+yarn test
 ```
 
-To see test coverage, run `npm test -- --coverage`. A coverage report will
+To see test coverage, run `yarn test -- --coverage`. A coverage report will
 display in your terminal or you can open coverage/lcov-report/index.html in
 your browser.
 
@@ -90,7 +90,7 @@ your browser.
 For macOS, from a Mac run:
 
 ```bash
-npm run electron-build-macos
+yarn run electron-build-macos
 ```
 
 This will produce a new directory in dist/ that has a distributable .app file.
@@ -98,9 +98,9 @@ This will produce a new directory in dist/ that has a distributable .app file.
 For Windows, from a Windows machine run:
 
 ```bash
-npm run electron-build-windows
+yarn run electron-build-windows
 ```
 
 This will produce new directories in dist/ with .exe files.
 
-Then you can run `npm run electron-build-windows-installer` to generate an installer in dist/installers/.
+Then you can run `yarn run electron-build-windows-installer` to generate an installer in dist/installers/.
