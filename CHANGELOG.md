@@ -1,12 +1,9 @@
 # Change log
 
-## Version 0.2.5
+## Version 0.2.4
 
 - Added competitive season 17 -- thanks [@antn](https://github.com/antn)!
 - Added Havana map -- thanks [@antn](https://github.com/antn)!
-
-## Version 0.2.4
-
 - Added competitive season 16 -- thanks [@finncyr](https://github.com/finncyr)!
 
 ## [Version 0.2.3](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.3)
