@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom'
 import renderer from 'react-test-renderer'
 import { shallow } from 'enzyme'
 
-jest.mock('electron', () => ({
-  remote: {
-    app: {
-      getName: () => 'Sample App'
-    }
+global.window.remote = {
+  app: {
+    getName: () => 'Sample App'
   }
+}
+jest.mock('is-electron', () => ({
+  __esModule: true,
+  default: () => true
 }))
 import AboutPage from '../../components/AboutPage'
 
