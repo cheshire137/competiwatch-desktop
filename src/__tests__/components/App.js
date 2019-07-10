@@ -1,12 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-jest.mock('electron', () => ({
-  ipcRenderer: {
-    once: () => null,
-    send: () => null
-  },
-  remote: () => null
+global.window.ipcRenderer = {
+  once: () => null,
+  send: () => null
+}
+global.window.remote = () => null
+jest.mock('is-electron', () => ({
+  __esModule: true,
+  default: () => true
 }))
 import App from '../../App'
 
