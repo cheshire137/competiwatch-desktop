@@ -3,19 +3,17 @@ import ReactDOM from 'react-dom'
 import { shallow } from 'enzyme'
 import TestHelpers from '../../TestHelpers'
 
-jest.mock('electron', () => ({
-  ipcRenderer: {
-    once: (replyTo, handler) => {
-      if (replyTo.indexOf('find-one') === 0) {
-        handler(null, null, { _id: '123', battletag: 'MarchHare' })
-      } else {
-        const totalMatches = 10
-        handler(null, null, totalMatches)
-      }
-    },
-    send: () => null
-  }
-}))
+global.window.ipcRenderer = {
+  once: (replyTo, handler) => {
+    if (replyTo.indexOf('find-one') === 0) {
+      handler(null, null, {_id: '123', battletag: 'MarchHare'})
+    } else {
+      const totalMatches = 10
+      handler(null, null, totalMatches)
+    }
+  },
+  send: () => null
+}
 jest.mock('is-electron', () => ({
   __esModule: true,
   default: () => true
