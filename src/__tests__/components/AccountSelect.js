@@ -9,13 +9,15 @@ const accounts = [
   { _id: '123', battletag: 'MarchHare' }
 ]
 
-jest.mock('electron', () => ({
-  ipcRenderer: {
-    once: (replyTo, handler) => {
-      handler(null, null, { _id: '123', battletag: 'MarchHare' })
-    },
-    send: () => null
-  }
+global.window.ipcRenderer = {
+  once: (replyTo, handler) => {
+    handler(null, null, { _id: '123', battletag: 'MarchHare' })
+  },
+  send: () => null
+}
+jest.mock('is-electron', () => ({
+  __esModule: true,
+  default: () => true
 }))
 import AccountSelect from '../../components/AccountSelect'
 
