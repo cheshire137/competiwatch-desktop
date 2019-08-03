@@ -134,10 +134,6 @@ class MatchesTable extends Component {
     const { matches, onEdit } = this.props
     const rankChanges = this.matchRankChangesByResult()
     const firstMatchWithRank = this.firstMatchWithRank()
-    let totalPlacementMatches = matches.filter(match => match.isPlacement).length
-    if (totalPlacementMatches < 1 && firstMatchWithRank) {
-      totalPlacementMatches = 1
-    }
     const showThrowerLeaver = this.showThrowerLeaverColumn()
     const showPlayOfTheGame = this.showPlayOfTheGameColumn()
     const showJoinedVoice = this.showJoinedVoiceColumn()
@@ -234,12 +230,13 @@ class MatchesTable extends Component {
                   }
                 }}
                 placementRank={placementRank}
+                firstMatchWithRank={firstMatchWithRank}
                 firstRankedMatchID={firstRankedMatchID}
                 rankChanges={matchRankChanges}
                 isLast={isLast}
                 onEdit={onEdit}
                 priorRank={priorRank}
-                totalPlacementMatches={totalPlacementMatches}
+                priorMatches={matches.slice(0, i)}
                 showThrowerLeaver={showThrowerLeaver}
                 showPlayOfTheGame={showPlayOfTheGame}
                 showJoinedVoice={showJoinedVoice}

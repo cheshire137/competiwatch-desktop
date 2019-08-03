@@ -10,6 +10,7 @@ import './MatchTableRow.css'
 const winColors = [[178,212,132], [102,189,125]]
 const lossColors = [[250,170,124], [246,106,110]]
 const neutralColor = [254,234,138]
+const roleQueueSeasonStart = 18
 
 const capitalize = str => {
   return str.charAt(0).toUpperCase() + str.substr(1)
@@ -89,9 +90,18 @@ class MatchTableRow extends Component {
   }
 
   matchNumber = () => {
-    const { match, index, totalPlacementMatches, firstRankedMatchID } = this.props
+    const {match, index, priorMatches, firstMatchWithRank, firstRankedMatchID } = this.props
+    let totalPlacementMatches = priorMatches.filter(match => match.isPlacement).length
+    if (totalPlacementMatches < 1 && firstMatchWithRank) {
+      totalPlacementMatches = 1
+    }
 
     if (match.isPlacement) {
+      if (match.season >= roleQueueSeasonStart) {
+        const role = match.role
+        const priorMatchesInRole = priorMatches.filter(priorMatch => priorMatch.role === role)
+        return `P${priorMatchesInRole.length + 1}`
+      }
       return `P${index + 1}`
     }
 
