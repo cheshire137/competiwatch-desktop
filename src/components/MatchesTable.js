@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import MatchTableRow from './MatchTableRow'
 
+const roleQueueSeasonStart = 18
+
 class MatchesTable extends Component {
   constructor(props) {
     super(props)
@@ -88,6 +90,12 @@ class MatchesTable extends Component {
       .filter(match => match.groupList.length > 0 || match.groupSize > 1).length > 0
   }
 
+  showRoleColumn = () => {
+    const { matches, season } = this.props
+    return season >= roleQueueSeasonStart &&
+      matches.filter(match => typeof match.role === 'string').length > 0
+  }
+
   getLongestWinStreak = () => {
     const winStreaks = this.props.matches.filter(match => typeof match.winStreak === 'number')
       .map(match => match.winStreak)
@@ -137,6 +145,7 @@ class MatchesTable extends Component {
     const showDayTime = this.showDayTimeColumn()
     const showHeroes = this.showHeroesColumn()
     const showGroup = this.showGroupColumn()
+    const showRole = this.showRoleColumn()
     const longestWinStreak = this.getLongestWinStreak()
     const longestLossStreak = this.getLongestLossStreak()
     const placementRank = this.placementRank(firstMatchWithRank)
@@ -168,15 +177,20 @@ class MatchesTable extends Component {
                 className="match-header hide-sm"
               >Comment</th>
             ) : null}
-            {showDayTime ? (
+            {showRole && (
               <th
                 className="match-header hide-sm"
-              >Day/Time</th>
-            ) : null}
+              >Role</th>
+            )}
             {showHeroes ? (
               <th
                 className="match-header hide-sm"
               >Heroes</th>
+            ) : null}
+            {showDayTime ? (
+              <th
+                className="match-header hide-sm"
+              >Day/Time</th>
             ) : null}
             {showGroup ? (
               <th
@@ -233,6 +247,7 @@ class MatchesTable extends Component {
                 showComment={showComment}
                 showHeroes={showHeroes}
                 showGroup={showGroup}
+                showRole={showRole}
                 longestWinStreak={longestWinStreak}
                 longestLossStreak={longestLossStreak}
               />

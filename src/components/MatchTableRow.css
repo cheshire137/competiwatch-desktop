@@ -24,6 +24,22 @@
   padding-bottom: 0;
 }
 
+.match-cell.role-cell {
+  font-weight: bold;
+}
+
+.match-cell.role-Tank {
+  color: #2E84F2;
+}
+
+.match-cell.role-Support {
+  color: #107E47;
+}
+
+.match-cell.role-Damage {
+  color: #F22E93;
+}
+
 .match-placement-row .match-cell.sr-change-cell,
 .match-placement-row .match-cell.rank-cell,
 .match-placement-row .match-cell.comment-cell,
@@ -32,7 +48,8 @@
 .match-placement-row .match-cell.throwers-leavers-cell,
 .match-placement-row .match-cell.options-cell,
 .match-placement-row .match-cell.group-cell,
-.match-placement-row .match-cell.potg-cell {
+.match-placement-row .match-cell.potg-cell,
+.match-placement-row .match-cell.role-cell {
   background-color: #efefef;
 }
 
@@ -259,7 +276,6 @@
 .theme-dark .darken-change-draw {
   background-color: #a88600;
 }
-
 
 .theme-dark .match-placement-row .match-cell.sr-change-cell,
 .theme-dark .match-placement-row .match-cell.rank-cell,

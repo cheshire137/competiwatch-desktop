@@ -213,6 +213,11 @@ class MatchTableRow extends Component {
     return comment.trim().replace(/"/g, "'")
   }
 
+  roleClass = () => {
+    const { role } = this.props.match
+    return `match-cell role-cell role-${role}`
+  }
+
   commentClass = () => {
     const { comment } = this.props.match
     let classes = ['match-cell', 'hide-sm', 'comment-cell', 'css-truncate']
@@ -246,9 +251,9 @@ class MatchTableRow extends Component {
 
   render() {
     const { match, priorRank, showThrowerLeaver, showPlayOfTheGame, showJoinedVoice,
-            showComment, showDayTime, showHeroes, showGroup } = this.props
+            showComment, showDayTime, showHeroes, showGroup, showRole } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
-            allyThrower, allyLeaver, enemyThrower, enemyLeaver, map,
+            allyThrower, allyLeaver, enemyThrower, enemyLeaver, map, role,
             rankChange, dayOfWeek, timeOfDay, groupSize, joinedVoice } = match
     const timeAndDayPresent = dayOfWeek && timeOfDay && dayOfWeek.length > 0 && timeOfDay.length > 0
     const isWin = match.isWin()
@@ -315,22 +320,11 @@ class MatchTableRow extends Component {
             <span className="css-truncate-target comment-truncate-target">{comment}</span>
           </td>
         ) : null}
-        {showDayTime ? (
+        {showRole && (
           <td
-            className="match-cell text-center hide-sm time-cell no-wrap"
-          >
-            {timeAndDayPresent ? (
-              <div
-                className="tooltipped tooltipped-n"
-                aria-label={`${capitalize(dayOfWeek)} ${capitalize(timeOfDay)}`}
-              >
-                <DayOfWeekEmoji dayOfWeek={dayOfWeek} />
-                <span> </span>
-                <TimeOfDayEmoji timeOfDay={timeOfDay} />
-              </div>
-            ) : null}
-          </td>
-        ) : null}
+            className={this.roleClass()}
+          >{role}</td>
+        )}
         {showHeroes ? (
           <td
             className="match-cell hide-sm heroes-cell"
@@ -347,6 +341,22 @@ class MatchTableRow extends Component {
                 />
               </span>
             ))}
+          </td>
+        ) : null}
+        {showDayTime ? (
+          <td
+            className="match-cell text-center hide-sm time-cell no-wrap"
+          >
+            {timeAndDayPresent ? (
+              <div
+                className="tooltipped tooltipped-n"
+                aria-label={`${capitalize(dayOfWeek)} ${capitalize(timeOfDay)}`}
+              >
+                <DayOfWeekEmoji dayOfWeek={dayOfWeek} />
+                <span> </span>
+                <TimeOfDayEmoji timeOfDay={timeOfDay} />
+              </div>
+            ) : null}
           </td>
         ) : null}
         {showGroup ? (

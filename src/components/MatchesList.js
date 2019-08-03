@@ -79,6 +79,7 @@ class MatchesList extends Component {
         {anyMatches ? (
           <div>
             <MatchesTable
+              season={season}
               matches={matches}
               onEdit={this.changeToEditPage}
               scrollToMatch={scrollToMatch}
