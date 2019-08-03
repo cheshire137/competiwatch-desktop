@@ -13,13 +13,6 @@ class HeroCheckbox extends Component {
     return classes.join(' ')
   }
 
-  containerTooltip = () => {
-    if (this.props.isAvailable) {
-      return null
-    }
-    return 'Not available in this season'
-  }
-
   labelClass = () => {
     const classes = ['d-flex', 'flex-items-center']
     if (!this.props.isAvailable) {
@@ -42,13 +35,13 @@ class HeroCheckbox extends Component {
   }
 
   render() {
-    const { isAvailable, isChecked, hero } = this.props
+    const { isAvailable, isChecked, hero, unavailableReason } = this.props
     const domID = `hero-${HeroUtil.slugify(hero)}`
 
     return (
       <div
         className={this.containerClass()}
-        aria-label={this.containerTooltip()}
+        aria-label={unavailableReason}
       >
         <label
           htmlFor={domID}

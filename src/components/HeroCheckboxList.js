@@ -3,19 +3,23 @@ import HeroCheckbox from './HeroCheckbox'
 
 class HeroCheckboxList extends Component {
   render() {
-    const { heroes, isAvailable, isChecked, onToggle } = this.props
+    const { heroes, getUnavailableReason, isChecked, onToggle, role } = this.props
 
     return (
       <div>
-        {heroes.map(hero => (
-          <HeroCheckbox
-            key={hero}
-            isAvailable={isAvailable(hero)}
-            isChecked={isChecked(hero)}
-            onToggle={onToggle}
-            hero={hero}
-          />
-        ))}
+        {heroes.map(hero => {
+          const unavailableReason = getUnavailableReason(hero)
+          return (
+            <HeroCheckbox
+              key={hero}
+              isAvailable={typeof unavailableReason !== 'string'}
+              unavailableReason={unavailableReason}
+              isChecked={isChecked(hero)}
+              onToggle={onToggle}
+              hero={hero}
+            />
+          )
+        })}
       </div>
     )
   }

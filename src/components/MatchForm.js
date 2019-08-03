@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Match from '../models/Match'
+import Hero from '../models/Hero'
 import Account from '../models/Account'
 import DayTimeApproximator from '../models/DayTimeApproximator'
 import MapSelect from './MapSelect'
@@ -67,6 +68,12 @@ const isMatchValid = data => {
   }
 
   return true
+}
+
+const explodeHeroesString = (heroesStr) => {
+  return heroesStr.split(',')
+    .map(str => str.trim())
+    .filter(str => str && str.length > 0)
 }
 
 class MatchForm extends Component {
@@ -293,24 +300,32 @@ class MatchForm extends Component {
     }, this.onFormFieldUpdate)
   }
 
+  changeHeroesString = (heroesStr, hero, isSelected) => {
+    const heroes = explodeHeroesString(heroesStr)
+    const heroIndex = heroes.indexOf(hero)
+    if (isSelected && heroIndex < 0) {
+      heroes.push(hero)
+    }
+    if (!isSelected && heroIndex > -1) {
+      delete heroes[heroIndex]
+    }
+    return heroes.join(', ')
+  }
+
   onRoleChange = (role) => {
-    this.setState(prevState => ({role}), this.onFormFieldUpdate)
+    this.setState(prevState => {
+      const heroesInRole = Hero.byRole[role]
+      const oldSelectedHeroes = explodeHeroesString(prevState.heroes)
+      const selectedHeroes = oldSelectedHeroes
+        .filter(hero => heroesInRole.indexOf(hero) > -1)
+      return { role, heroes: selectedHeroes.join(', ') }
+    }, this.onFormFieldUpdate)
   }
 
   onHeroChange = (hero, isSelected) => {
-    this.setState(prevState => {
-      const heroes = prevState.heroes.split(',')
-        .map(str => str.trim())
-        .filter(str => str && str.length > 0)
-      const heroIndex = heroes.indexOf(hero)
-      if (isSelected && heroIndex < 0) {
-        heroes.push(hero)
-      }
-      if (!isSelected && heroIndex > -1) {
-        delete heroes[heroIndex]
-      }
-      return { heroes: heroes.join(', ') }
-    }, this.onFormFieldUpdate)
+    this.setState(prevState => ({
+      heroes: this.changeHeroesString(prevState.heroes, hero, isSelected)
+    }), this.onFormFieldUpdate)
   }
 
   onAllyThrowerChange = event => {
@@ -582,6 +597,7 @@ class MatchForm extends Component {
               <dt className="text-bold">Heroes played:</dt>
               <dd>
                 <HeroSelect
+                  role={role}
                   heroes={heroes}
                   season={season}
                   onToggle={this.onHeroChange}
