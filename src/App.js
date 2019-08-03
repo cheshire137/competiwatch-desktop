@@ -22,7 +22,7 @@ import './primer.css'
 import './ionicons.min.css'
 import './App.css'
 
-const latestKnownSeason = 17
+const latestKnownSeason = 18
 
 class App extends Component {
   constructor(props) {

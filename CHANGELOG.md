@@ -3,6 +3,7 @@
 ## Version 0.2.5
 
 - Added Sigma available in season 18
+- Added competitive season 18
 
 ## Version 0.2.4
 
