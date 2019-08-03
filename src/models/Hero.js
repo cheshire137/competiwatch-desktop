@@ -21,6 +21,7 @@ export default {
     'Reaper',
     'Reinhardt',
     'Roadhog',
+    'Sigma',
     'Soldier: 76',
     'Sombra',
     'Symmetra',
@@ -36,8 +37,8 @@ export default {
     DPS: ['Pharah', 'Reaper', 'Doomfist', 'Junkrat'],
     Flanker: ['Genji', 'Sombra', 'Tracer'],
     Hitscan: ['Ashe', 'McCree', 'Soldier: 76', 'Widowmaker'],
-    Tank: ['D.Va', 'Orisa', 'Reinhardt', 'Roadhog', 'Winston', 'Wrecking Ball', 'Zarya'],
-    'Main Tank': ['Orisa', 'Reinhardt', 'Winston'],
+    Tank: ['D.Va', 'Orisa', 'Reinhardt', 'Roadhog', 'Sigma', 'Winston', 'Wrecking Ball', 'Zarya'],
+    'Main Tank': ['Orisa', 'Reinhardt', 'Sigma', 'Winston'],
     'Off-tank': ['D.Va', 'Roadhog', 'Wrecking Ball', 'Zarya'],
     Defense: ['Bastion', 'Hanzo', 'Mei', 'Symmetra', 'Torbjörn'],
     Healer: ['Ana', 'Brigitte', 'Lúcio', 'Mercy', 'Moira', 'Zenyatta'],
@@ -52,6 +53,7 @@ export default {
     Sombra: 2,
     'Wrecking Ball': 11,
     Ashe: 13,
-    Baptiste: 15
+    Baptiste: 15,
+    Sigma: 18
   }
 }

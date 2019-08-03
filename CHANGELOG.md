@@ -2,6 +2,8 @@
 
 ## Version 0.2.5
 
+- Added Sigma available in season 18
+
 ## Version 0.2.4
 
 - Added competitive season 17 -- thanks [@antn](https://github.com/antn)!
