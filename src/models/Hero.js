@@ -41,9 +41,14 @@ export default {
     'Main Tank': ['Orisa', 'Reinhardt', 'Sigma', 'Winston'],
     'Off-tank': ['D.Va', 'Roadhog', 'Wrecking Ball', 'Zarya'],
     Defense: ['Bastion', 'Hanzo', 'Mei', 'Symmetra', 'Torbjörn'],
-    Healer: ['Ana', 'Brigitte', 'Lúcio', 'Mercy', 'Moira', 'Zenyatta'],
+    Healer: ['Ana', 'Baptiste', 'Brigitte', 'Lúcio', 'Mercy', 'Moira', 'Zenyatta'],
     'Main Healer': ['Ana', 'Baptiste', 'Mercy', 'Moira'],
     'Off-healer': ['Brigitte', 'Lúcio', 'Zenyatta']
+  },
+  byRole: {
+    Tank: ['D.Va', 'Orisa', 'Reinhardt', 'Roadhog', 'Sigma', 'Winston', 'Wrecking Ball', 'Zarya'],
+    Damage: ['Pharah', 'Reaper', 'Doomfist', 'Junkrat', 'Genji', 'Sombra', 'Tracer', 'Ashe', 'McCree', 'Soldier: 76', 'Widowmaker', 'Bastion', 'Hanzo', 'Mei', 'Symmetra', 'Torbjörn'],
+    Support: ['Ana', 'Baptiste', 'Brigitte', 'Lúcio', 'Mercy', 'Moira', 'Zenyatta']
   },
   firstSeasons: {
     Moira: 7,
