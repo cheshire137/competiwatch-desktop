@@ -70,6 +70,7 @@ class MatchEditPage extends Component {
         enemyLeaver={match.enemyLeaver}
         playOfTheGame={match.playOfTheGame}
         result={match.result}
+        role={match.role}
       />
     )
   }

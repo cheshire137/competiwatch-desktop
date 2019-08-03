@@ -120,6 +120,11 @@ class Match {
     this.isPlacement = data.isPlacement
     this.result = data.result
 
+    this.role = data.role
+    if (typeof this.role === 'string' && this.role.length < 1) {
+      this.role = null;
+    }
+
     if (typeof data.groupSize === 'number' && !isNaN(data.groupSize)) {
       this.groupSize = data.groupSize
     } else if (typeof data.groupSize === 'string') {
@@ -243,7 +248,8 @@ class Match {
       playOfTheGame: this.playOfTheGame,
       joinedVoice: this.joinedVoice,
       season: this.season,
-      result: this.result
+      result: this.result,
+      role: this.role
     }
     return Database.upsert('matches', data, this._id).then(newMatch => {
       this._id = newMatch._id

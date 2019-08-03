@@ -4,6 +4,7 @@ import Account from '../models/Account'
 import DayTimeApproximator from '../models/DayTimeApproximator'
 import MapSelect from './MapSelect'
 import HeroSelect from './HeroSelect'
+import RoleSelect from './RoleSelect'
 import TimeOfDayEmoji from './TimeOfDayEmoji'
 import DayOfWeekEmoji from './DayOfWeekEmoji'
 import GroupMembersField from './GroupMembersField'
@@ -38,6 +39,7 @@ const dateTimeStrFrom = date => {
 const minRank = 0
 const maxRank = 5000
 const maxGroupSize = 6
+const roleQueueSeasonStart = 18
 
 const isMatchValid = data => {
   if (typeof data.rank !== 'number' ||
@@ -50,6 +52,10 @@ const isMatchValid = data => {
     if (!data.isPlacement) {
       return false
     }
+  }
+
+  if (data.season >= roleQueueSeasonStart && (typeof data.role !== 'string' || data.role.length < 1)) {
+    return false;
   }
 
   if (data.groupSize && data.groupSize > maxGroupSize) {
@@ -85,6 +91,7 @@ class MatchForm extends Component {
       groupSize: props.groupSize || 1,
       groupMembers: [],
       heroes: props.heroes || '',
+      role: props.role || '',
       playedAt,
       dayOfWeek,
       timeOfDay,
@@ -122,6 +129,9 @@ class MatchForm extends Component {
     }
     if (prevProps.result !== this.props.result) {
       this.setState(prevState => ({ result: this.props.result, isValid }))
+    }
+    if (prevProps.role !== this.props.role) {
+      this.setState(prevState => ({role: this.props.role, isValid}))
     }
     if (prevProps.comment !== this.props.comment) {
       this.setState(prevState => ({ comment: this.props.comment, isValid }))
@@ -163,7 +173,7 @@ class MatchForm extends Component {
 
     const { rank, comment, map, group, heroes, playedAt, joinedVoice,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
-            playOfTheGame, result, isValid, groupSize } = this.state
+            playOfTheGame, result, isValid, groupSize, role } = this.state
     if (!isValid) {
       return
     }
@@ -184,6 +194,7 @@ class MatchForm extends Component {
       playOfTheGame,
       joinedVoice,
       season,
+      role,
       isPlacement,
       _id: id,
       result: result === '' ? null : result
@@ -282,6 +293,10 @@ class MatchForm extends Component {
     }, this.onFormFieldUpdate)
   }
 
+  onRoleChange = (role) => {
+    this.setState(prevState => ({role}), this.onFormFieldUpdate)
+  }
+
   onHeroChange = (hero, isSelected) => {
     this.setState(prevState => {
       const heroes = prevState.heroes.split(',')
@@ -331,7 +346,7 @@ class MatchForm extends Component {
   render() {
     const { rank, comment, map, group, heroes, playedAt, groupSize, joinedVoice,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, groupMembers,
-            playOfTheGame, result, isValid, dayOfWeek, timeOfDay } = this.state
+            playOfTheGame, result, isValid, dayOfWeek, timeOfDay, role } = this.state
     const { season, latestRank, isPlacement, isLastPlacement, latestGroup } = this.props
     let playedAtStr = playedAt
     if (playedAt && typeof playedAt === 'object') {
@@ -553,6 +568,16 @@ class MatchForm extends Component {
             </div>
           </div>
           <div className="col-md-12 col-lg-6 float-right pl-3-lg">
+            {season >= roleQueueSeasonStart && (
+              <div className="form-group mt-0">
+                <label htmlFor="role-select" className="text-bold mr-2">Role played:</label>
+                <RoleSelect
+                  role={role}
+                  season={season}
+                  onChange={this.onRoleChange}
+                />
+              </div>
+            )}
             <dl className="form-group my-0">
               <dt className="text-bold">Heroes played:</dt>
               <dd>
