@@ -25,19 +25,8 @@
 }
 
 .match-cell.role-cell {
-  font-weight: bold;
-}
-
-.match-cell.role-Tank {
-  color: #2E84F2;
-}
-
-.match-cell.role-Support {
-  color: #107E47;
-}
-
-.match-cell.role-Damage {
-  color: #F22E93;
+  line-height: 1;
+  vertical-align: middle;
 }
 
 .match-placement-row .match-cell.sr-change-cell,

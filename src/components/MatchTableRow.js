@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ColorGradient from '../models/ColorGradient'
 import MatchRankImage from './MatchRankImage'
 import HeroImage from './HeroImage'
+import RoleImage from './RoleImage'
 import TimeOfDayEmoji from './TimeOfDayEmoji'
 import DayOfWeekEmoji from './DayOfWeekEmoji'
 import './MatchTableRow.css'
@@ -323,7 +324,9 @@ class MatchTableRow extends Component {
         {showRole && (
           <td
             className={this.roleClass()}
-          >{role}</td>
+          >
+            <RoleImage role={role} className="d-inline-block" />
+          </td>
         )}
         {showHeroes ? (
           <td
