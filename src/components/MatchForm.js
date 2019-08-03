@@ -11,6 +11,15 @@ import DayOfWeekEmoji from './DayOfWeekEmoji'
 import GroupMembersField from './GroupMembersField'
 import './MatchForm.css'
 
+const roleForHero = hero => {
+  for (const role in Hero.byRole) {
+    if (Hero.byRole[role].indexOf(hero) > -1) {
+      return role
+    }
+  }
+  return null
+}
+
 const dateTimeStrFrom = date => {
   const year = date.getFullYear()
 
@@ -323,9 +332,17 @@ class MatchForm extends Component {
   }
 
   onHeroChange = (hero, isSelected) => {
-    this.setState(prevState => ({
-      heroes: this.changeHeroesString(prevState.heroes, hero, isSelected)
-    }), this.onFormFieldUpdate)
+    this.setState(prevState => {
+      const newState = {
+        heroes: this.changeHeroesString(prevState.heroes, hero, isSelected)
+      }
+      if (isSelected && (prevState.role !== 'string' || prevState.role.length < 1)) {
+        newState.role = roleForHero(hero)
+      } else if (!isSelected && newState.heroes.length < 1) {
+        newState.role = null
+      }
+      return newState
+    }, this.onFormFieldUpdate)
   }
 
   onAllyThrowerChange = event => {

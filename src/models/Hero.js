@@ -1,4 +1,5 @@
 export default {
+  // TODO: rename this to like detailedRoles, to not confuse with official Role Queue roles
   roles: ['DPS', 'Flanker', 'Hitscan', 'Defense', 'Off-tank', 'Main Tank', 'Main Healer', 'Off-healer'],
   names: [
     'Ana',

@@ -13,7 +13,7 @@ class RoleSelect extends Component {
     return (
       <select
         className="form-select"
-        value={role}
+        value={role || ''}
         id="role-select"
         onChange={this.onChange}
       >
