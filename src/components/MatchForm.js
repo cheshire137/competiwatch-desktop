@@ -336,9 +336,13 @@ class MatchForm extends Component {
       const newState = {
         heroes: this.changeHeroesString(prevState.heroes, hero, isSelected)
       }
-      if (isSelected && (prevState.role !== 'string' || prevState.role.length < 1)) {
-        newState.role = roleForHero(hero)
-      } else if (!isSelected && newState.heroes.length < 1) {
+      if (this.props.season >= roleQueueSeasonStart) {
+        if (isSelected && (prevState.role !== 'string' || prevState.role.length < 1)) {
+          newState.role = roleForHero(hero)
+        } else if (!isSelected && newState.heroes.length < 1) {
+          newState.role = null
+        }
+      } else {
         newState.role = null
       }
       return newState
