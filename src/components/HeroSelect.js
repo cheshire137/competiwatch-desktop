@@ -16,18 +16,25 @@ class HeroSelect extends Component {
     return
   }
 
-  isChecked = (hero) => {
+  isChecked = hero => {
     const heroList = this.props.heroes.split(',').map(str => str.trim())
     return heroList.indexOf(hero) > -1
   }
 
+  unavailableClass = displayedRole => {
+    const { role } = this.props
+    if (typeof role === 'string' && role.length > 0 && role.toLowerCase() !== displayedRole) {
+      return 'role-unavailable'
+    }
+  }
+
   render() {
-    const { onToggle, role } = this.props
+    const { onToggle } = this.props
 
     return (
       <div className="d-flex flex-wrap flex-justify-between">
         <div className="hero-box mb-3">
-          <h5 className="h5 border-bottom pb-1 mb-2">
+          <h5 className={`h5 border-bottom pb-1 mb-2 ${this.unavailableClass('damage')}`}>
             <RoleImage role="damage" size="12" className="d-inline-block mr-1" />
             Flankers
           </h5>
@@ -37,7 +44,7 @@ class HeroSelect extends Component {
             isChecked={this.isChecked}
             onToggle={onToggle}
           />
-          <h5 className="h5 border-bottom pb-1 mt-4 mb-2">
+          <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${this.unavailableClass('tank')}`}>
             <RoleImage role="tank" size="12" className="d-inline-block mr-1" />
             Off-tanks
           </h5>
@@ -47,7 +54,7 @@ class HeroSelect extends Component {
             isChecked={this.isChecked}
             onToggle={onToggle}
           />
-          <h5 className="h5 border-bottom pb-1 mt-4 mb-2">
+          <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${this.unavailableClass('support')}`}>
             <RoleImage role="support" size="12" className="d-inline-block mr-1" />
             Off-healers
           </h5>
@@ -59,7 +66,7 @@ class HeroSelect extends Component {
           />
         </div>
         <div className="hero-box mb-3">
-          <h5 className="h5 border-bottom pb-1 mb-2">
+          <h5 className={`h5 border-bottom pb-1 mb-2 ${this.unavailableClass('damage')}`}>
             <RoleImage role="damage" size="12" className="d-inline-block mr-1" />
             Hitscan
           </h5>
@@ -69,7 +76,7 @@ class HeroSelect extends Component {
             isChecked={this.isChecked}
             onToggle={onToggle}
           />
-          <h5 className="h5 border-bottom pb-1 mt-4 mb-2">
+          <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${this.unavailableClass('tank')}`}>
             <RoleImage role="tank" size="12" className="d-inline-block mr-1" />
             Main tanks
           </h5>
@@ -79,7 +86,7 @@ class HeroSelect extends Component {
             isChecked={this.isChecked}
             onToggle={onToggle}
           />
-          <h5 className="h5 border-bottom pb-1 mb-2 mt-4">
+          <h5 className={`h5 border-bottom pb-1 mb-2 mt-4 ${this.unavailableClass('support')}`}>
             <RoleImage role="support" size="12" className="d-inline-block mr-1" />
             Main healers
           </h5>
@@ -91,7 +98,7 @@ class HeroSelect extends Component {
           />
         </div>
         <div className="hero-box mb-3">
-          <h5 className="h5 border-bottom pb-1 mb-2">
+          <h5 className={`h5 border-bottom pb-1 mb-2 ${this.unavailableClass('damage')}`}>
             <RoleImage role="damage" size="12" className="d-inline-block mr-1" />
             DPS
           </h5>
@@ -101,7 +108,7 @@ class HeroSelect extends Component {
             isChecked={this.isChecked}
             onToggle={onToggle}
           />
-          <h5 className="h5 border-bottom pb-1 mt-4 mb-2">
+          <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${this.unavailableClass('damage')}`}>
             <RoleImage role="damage" size="12" className="d-inline-block mr-1" />
             Defense
           </h5>

@@ -7,3 +7,7 @@
     width: 30%;
   }
 }
+
+.role-unavailable {
+  opacity: 0.7;
+}
