@@ -32,7 +32,6 @@ class HeroSelect extends Component {
             getUnavailableReason={this.getUnavailableReason}
             isChecked={this.isChecked}
             onToggle={onToggle}
-            role={role}
           />
           <h5 className="h5 border-bottom pb-1 mt-4 mb-2">Off-tanks</h5>
           <HeroCheckboxList
@@ -40,7 +39,6 @@ class HeroSelect extends Component {
             getUnavailableReason={this.getUnavailableReason}
             isChecked={this.isChecked}
             onToggle={onToggle}
-            role={role}
           />
           <h5 className="h5 border-bottom pb-1 mt-4 mb-2">Off-healers</h5>
           <HeroCheckboxList
@@ -48,7 +46,6 @@ class HeroSelect extends Component {
             getUnavailableReason={this.getUnavailableReason}
             isChecked={this.isChecked}
             onToggle={onToggle}
-            role={role}
           />
         </div>
         <div className="hero-box mb-3">
@@ -58,7 +55,6 @@ class HeroSelect extends Component {
             getUnavailableReason={this.getUnavailableReason}
             isChecked={this.isChecked}
             onToggle={onToggle}
-            role={role}
           />
           <h5 className="h5 border-bottom pb-1 mt-4 mb-2">Main tanks</h5>
           <HeroCheckboxList
@@ -66,7 +62,6 @@ class HeroSelect extends Component {
             getUnavailableReason={this.getUnavailableReason}
             isChecked={this.isChecked}
             onToggle={onToggle}
-            role={role}
           />
           <h5 className="h5 border-bottom pb-1 mb-2 mt-4">Main healers</h5>
           <HeroCheckboxList
@@ -74,7 +69,6 @@ class HeroSelect extends Component {
             getUnavailableReason={this.getUnavailableReason}
             isChecked={this.isChecked}
             onToggle={onToggle}
-            role={role}
           />
         </div>
         <div className="hero-box mb-3">
@@ -84,7 +78,6 @@ class HeroSelect extends Component {
             getUnavailableReason={this.getUnavailableReason}
             isChecked={this.isChecked}
             onToggle={onToggle}
-            role={role}
           />
           <h5 className="h5 border-bottom pb-1 mt-4 mb-2">Defense</h5>
           <HeroCheckboxList
@@ -92,7 +85,6 @@ class HeroSelect extends Component {
             getUnavailableReason={this.getUnavailableReason}
             isChecked={this.isChecked}
             onToggle={onToggle}
-            role={role}
           />
         </div>
       </div>

@@ -3,7 +3,7 @@ import HeroCheckbox from './HeroCheckbox'
 
 class HeroCheckboxList extends Component {
   render() {
-    const { heroes, getUnavailableReason, isChecked, onToggle, role } = this.props
+    const { heroes, getUnavailableReason, isChecked, onToggle } = this.props
 
     return (
       <div>
