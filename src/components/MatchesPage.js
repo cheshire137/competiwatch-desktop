@@ -3,8 +3,6 @@ import MatchesList from './MatchesList'
 import LoadingPage from './LoadingPage'
 import Account from '../models/Account'
 
-const totalPlacementMatches = 10
-
 class MatchesPage extends Component {
   constructor(props) {
     super(props)
@@ -36,9 +34,18 @@ class MatchesPage extends Component {
     this.setState(prevState => ({ totalMatches: prevState.totalMatches + 1 }))
   }
 
+  getTotalPlacementMatches = () => {
+    const { season } = this.props
+    if (season < 18) { // no role queue in seasons 1-17
+      return 10;
+    }
+    return 5; // role queue introduced with season 18, dropping placement match count
+  }
+
   onMatchesLoad = totalMatches => {
     this.setState(prevState => ({ totalMatches }))
 
+    const totalPlacementMatches = this.getTotalPlacementMatches()
     const isPlacement = totalMatches < totalPlacementMatches
     const isLastPlacement = totalMatches === totalPlacementMatches - 1
 
