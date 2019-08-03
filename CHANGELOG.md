@@ -5,7 +5,7 @@
 - Added Sigma available in season 18
 - Added competitive season 18
 
-## Version 0.2.4
+## [Version 0.2.4](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.4)
 
 - Added competitive season 17 -- thanks [@antn](https://github.com/antn)!
 - Added Havana map -- thanks [@antn](https://github.com/antn)!
