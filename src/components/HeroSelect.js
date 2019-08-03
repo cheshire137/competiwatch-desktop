@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Hero from '../models/Hero'
 import HeroCheckboxList from './HeroCheckboxList'
+import RoleImage from './RoleImage'
 import './HeroSelect.css'
 
 class HeroSelect extends Component {
@@ -26,21 +27,30 @@ class HeroSelect extends Component {
     return (
       <div className="d-flex flex-wrap flex-justify-between">
         <div className="hero-box mb-3">
-          <h5 className="h5 border-bottom pb-1 mb-2">Flankers</h5>
+          <h5 className="h5 border-bottom pb-1 mb-2">
+            <RoleImage role="damage" size="12" className="d-inline-block mr-1" />
+            Flankers
+          </h5>
           <HeroCheckboxList
             heroes={Hero.byType.Flanker}
             getUnavailableReason={this.getUnavailableReason}
             isChecked={this.isChecked}
             onToggle={onToggle}
           />
-          <h5 className="h5 border-bottom pb-1 mt-4 mb-2">Off-tanks</h5>
+          <h5 className="h5 border-bottom pb-1 mt-4 mb-2">
+            <RoleImage role="tank" size="12" className="d-inline-block mr-1" />
+            Off-tanks
+          </h5>
           <HeroCheckboxList
             heroes={Hero.byType['Off-tank']}
             getUnavailableReason={this.getUnavailableReason}
             isChecked={this.isChecked}
             onToggle={onToggle}
           />
-          <h5 className="h5 border-bottom pb-1 mt-4 mb-2">Off-healers</h5>
+          <h5 className="h5 border-bottom pb-1 mt-4 mb-2">
+            <RoleImage role="support" size="12" className="d-inline-block mr-1" />
+            Off-healers
+          </h5>
           <HeroCheckboxList
             heroes={Hero.byType['Off-healer']}
             getUnavailableReason={this.getUnavailableReason}
@@ -49,21 +59,30 @@ class HeroSelect extends Component {
           />
         </div>
         <div className="hero-box mb-3">
-          <h5 className="h5 border-bottom pb-1 mb-2">Hitscan</h5>
+          <h5 className="h5 border-bottom pb-1 mb-2">
+            <RoleImage role="damage" size="12" className="d-inline-block mr-1" />
+            Hitscan
+          </h5>
           <HeroCheckboxList
             heroes={Hero.byType.Hitscan}
             getUnavailableReason={this.getUnavailableReason}
             isChecked={this.isChecked}
             onToggle={onToggle}
           />
-          <h5 className="h5 border-bottom pb-1 mt-4 mb-2">Main tanks</h5>
+          <h5 className="h5 border-bottom pb-1 mt-4 mb-2">
+            <RoleImage role="tank" size="12" className="d-inline-block mr-1" />
+            Main tanks
+          </h5>
           <HeroCheckboxList
             heroes={Hero.byType['Main Tank']}
             getUnavailableReason={this.getUnavailableReason}
             isChecked={this.isChecked}
             onToggle={onToggle}
           />
-          <h5 className="h5 border-bottom pb-1 mb-2 mt-4">Main healers</h5>
+          <h5 className="h5 border-bottom pb-1 mb-2 mt-4">
+            <RoleImage role="support" size="12" className="d-inline-block mr-1" />
+            Main healers
+          </h5>
           <HeroCheckboxList
             heroes={Hero.byType['Main Healer']}
             getUnavailableReason={this.getUnavailableReason}
@@ -72,14 +91,20 @@ class HeroSelect extends Component {
           />
         </div>
         <div className="hero-box mb-3">
-          <h5 className="h5 border-bottom pb-1 mb-2">DPS</h5>
+          <h5 className="h5 border-bottom pb-1 mb-2">
+            <RoleImage role="damage" size="12" className="d-inline-block mr-1" />
+            DPS
+          </h5>
           <HeroCheckboxList
             heroes={Hero.byType.DPS}
             getUnavailableReason={this.getUnavailableReason}
             isChecked={this.isChecked}
             onToggle={onToggle}
           />
-          <h5 className="h5 border-bottom pb-1 mt-4 mb-2">Defense</h5>
+          <h5 className="h5 border-bottom pb-1 mt-4 mb-2">
+            <RoleImage role="damage" size="12" className="d-inline-block mr-1" />
+            Defense
+          </h5>
           <HeroCheckboxList
             heroes={Hero.byType.Defense}
             getUnavailableReason={this.getUnavailableReason}
