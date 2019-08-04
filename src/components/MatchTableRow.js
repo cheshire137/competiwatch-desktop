@@ -151,6 +151,25 @@ class MatchTableRow extends Component {
     return style
   }
 
+  getPriorMatchesWithRank = () => {
+    const {priorMatches, match} = this.props
+    if (match.season < roleQueueSeasonStart) { // no role queue
+      return priorMatches
+        .filter(m => typeof m.rank === 'number')
+    }
+
+    // role queue
+    return priorMatches.filter(m => m.role === match.role && typeof m.rank === 'number')
+  }
+
+  getPriorRank = () => {
+    const matchesWithRank = this.getPriorMatchesWithRank()
+    const priorMatch = matchesWithRank[matchesWithRank.length - 1]
+    if (priorMatch) {
+      return priorMatch.rank
+    }
+  }
+
   getPlacementRank = () => {
     const { priorMatches, match } = this.props
     let placementMatches = []
@@ -167,14 +186,7 @@ class MatchTableRow extends Component {
       return lastPlacement.rank
     }
 
-    let matchesWithRank = []
-    if (match.season < roleQueueSeasonStart) { // no role queue
-      matchesWithRank = priorMatches
-        .filter(m => typeof m.rank === 'number')
-    } else { // role queue
-      matchesWithRank = priorMatches
-        .filter(m => m.role === match.role && typeof m.rank === 'number')
-    }
+    const matchesWithRank = this.getPriorMatchesWithRank()
     const firstMatchWithRank = matchesWithRank[0]
     if (firstMatchWithRank) {
       return firstMatchWithRank.rank
@@ -292,7 +304,7 @@ class MatchTableRow extends Component {
   }
 
   render() {
-    const { match, priorRank, showThrowerLeaver, showPlayOfTheGame, showJoinedVoice,
+    const { match, showThrowerLeaver, showPlayOfTheGame, showJoinedVoice,
             showComment, showDayTime, showHeroes, showGroup, showRole, theme } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map, role,
@@ -300,6 +312,7 @@ class MatchTableRow extends Component {
     const timeAndDayPresent = dayOfWeek && timeOfDay && dayOfWeek.length > 0 && timeOfDay.length > 0
     const isWin = match.isWin()
     const isLoss = match.isLoss()
+    const priorRank = this.getPriorRank()
 
     return (
       <tr className={this.outerClass()}>
