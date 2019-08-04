@@ -3,27 +3,37 @@ import DayTimeApproximator from './DayTimeApproximator'
 
 const roleQueueSeasonStart = 18
 
-const matchRankChange = (match, prevMatch) => {
-  if (!match || !prevMatch) {
-    return
+const getPriorMatch = (match, prevMatches) => {
+  if (match.season >= roleQueueSeasonStart) {
+    const prevMatchesInRole = prevMatches.filter(m => m.role === match.role)
+    return prevMatchesInRole[prevMatchesInRole.length - 1]
   }
 
-  if (typeof match.rank === 'number' && typeof prevMatch.rank === 'number') {
-    return match.rank - prevMatch.rank
+  return prevMatches[prevMatches.length - 1]
+}
+
+const matchRankChange = (match, prevMatches) => {
+  if (!match || prevMatches.length < 1) {
+    return
+  }
+  const priorMatch = getPriorMatch(match, prevMatches)
+  if (typeof match.rank === 'number' && typeof priorMatch.rank === 'number') {
+    return match.rank - priorMatch.rank
   }
 }
 
-const matchResult = (match, prevMatch) => {
+const matchResult = (match, prevMatches) => {
   if (match.result) {
     return match.result
   }
 
-  if (prevMatch) {
-    if (match.rank > prevMatch.rank) {
+  if (prevMatches.length > 0) {
+    const priorMatch = getPriorMatch(match, prevMatches)
+    if (match.rank > priorMatch.rank) {
       return 'win'
     }
 
-    if (match.rank === prevMatch.rank) {
+    if (match.rank === priorMatch.rank) {
       return 'draw'
     }
 
@@ -92,12 +102,12 @@ class Match {
 
       for (let i = 0; i < matches.length; i++) {
         const match = matches[i]
-        const prevMatch = matches[i - 1]
+        const prevMatches = matches.slice(0, i)
 
-        match.rankChange = matchRankChange(match, prevMatch)
+        match.rankChange = matchRankChange(match, prevMatches)
 
         if (!match.result) {
-          match.result = matchResult(match, prevMatch)
+          match.result = matchResult(match, prevMatches)
         }
 
         if (match.isWin()) {
