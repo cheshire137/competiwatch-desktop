@@ -2,6 +2,7 @@
 
 ## Version 0.2.5
 
+- Added support for role queue, allowing you to log your placements and regular matches based on what role you played in each game
 - Added Sigma available in season 18
 - Added competitive season 18
 
