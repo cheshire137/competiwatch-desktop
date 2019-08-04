@@ -167,10 +167,10 @@ class MatchForm extends Component {
       this.setState(prevState => ({ rank: this.props.rank, isValid }))
     }
     if (prevProps.isPlacement !== this.props.isPlacement) {
-      this.setState(prevState => ({rank: this.props.isPlacement, isValid}))
+      this.setState(prevState => ({isPlacement: this.props.isPlacement, isValid}))
     }
     if (prevProps.isLastPlacement !== this.props.isLastPlacement) {
-      this.setState(prevState => ({rank: this.props.isLastPlacement, isValid}))
+      this.setState(prevState => ({isLastPlacement: this.props.isLastPlacement, isValid}))
     }
     if (prevProps.result !== this.props.result) {
       this.setState(prevState => ({ result: this.props.result, isValid }))
