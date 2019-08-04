@@ -466,7 +466,7 @@ class MatchForm extends Component {
                   <label
                     htmlFor="match-result"
                     className="label-lg mr-2 no-wrap"
-                  >Match result:</label>
+                  >Placement match result:</label>
                 ) : (
                   <label
                     htmlFor="match-rank"
@@ -520,7 +520,9 @@ class MatchForm extends Component {
                   <label
                     htmlFor="match-rank"
                     className="sr-field-label"
-                  >Where did you place?</label>
+                  >
+                    {role && season >= roleQueueSeasonStart ? `Where did you place as a ${role}?` : 'Where did you place?'}
+                  </label>
                 </dt>
                 <dd>
                   <input
