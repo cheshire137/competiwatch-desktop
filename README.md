@@ -26,14 +26,14 @@ See [the changelog](./CHANGELOG.md) for what has changed each version.
 
 ## Features
 
-- Track matches across multiple Battle.net accounts and competitive seasons
+- Track matches across different roles, Battle.net accounts, and competitive seasons
 - Log details such as your new SR, which people you played with, whether you were in a 6-stack or solo queuing, what time you played, whether you got Play of the Game, which heroes you played, and what map you played
 - Export your match history as a CSV file (Comma-Separated Value)
 - Import your match history for past seasons
 - View charts summarizing your season
 - Log your placement matches and regular season games
 - See when you go on win streaks or loss streaks
-- Choose between a dark and light theme
+- Choose between a dark and light theme, or automatic based on time of day
 - Works in Windows and macOS
 
 ## How to Install
