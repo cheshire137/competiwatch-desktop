@@ -12,9 +12,9 @@ best on, which roles, whether you do better on weekday mornings or
 weekend evenings, whether joining voice chat helps your win rate,
 that sort of thing.
 
-![Screenshot of match history](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/screenshot-matches-windows.png)
+![Screenshot of match history](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/matches-macos-roles.png)
 
-![Screenshot of log match form](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/log-match.png)
+![Screenshot of log match form](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/log-match-role-queue.png)
 
 ![Screenshot of trends page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/screenshot-trends.png)
 
