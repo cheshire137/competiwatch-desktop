@@ -460,6 +460,16 @@ class MatchForm extends Component {
       >
         <div className="clearfix">
           <div className="col-md-12 col-lg-6 float-left pr-3-lg">
+            {season >= roleQueueSeasonStart && (
+              <div className="form-group mt-0">
+                <label htmlFor="role-select" className="text-bold mr-2">Role played:</label>
+                <RoleSelect
+                  role={role}
+                  season={season}
+                  onChange={this.onRoleChange}
+                />
+              </div>
+            )}
             <div className="d-flex-md mb-2 flex-items-center-md flex-justify-between-md">
               <div className="form-group my-0 d-flex flex-items-center">
                 {isPlacement ? (
@@ -667,16 +677,6 @@ class MatchForm extends Component {
             </div>
           </div>
           <div className="col-md-12 col-lg-6 float-right pl-3-lg">
-            {season >= roleQueueSeasonStart && (
-              <div className="form-group mt-0">
-                <label htmlFor="role-select" className="text-bold mr-2">Role played:</label>
-                <RoleSelect
-                  role={role}
-                  season={season}
-                  onChange={this.onRoleChange}
-                />
-              </div>
-            )}
             <dl className="form-group my-0">
               <dt className="text-bold">Heroes played:</dt>
               <dd>
