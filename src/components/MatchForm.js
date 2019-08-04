@@ -120,6 +120,7 @@ class MatchForm extends Component {
     }
 
     this.state = {
+      latestRank: props.rank || '',
       rank: props.rank || '',
       result: props.result || '',
       comment: props.comment || '',
@@ -165,6 +166,9 @@ class MatchForm extends Component {
     }
     if (prevProps.rank !== this.props.rank) {
       this.setState(prevState => ({ rank: this.props.rank, isValid }))
+    }
+    if (prevProps.latestRank !== this.props.latestRank) {
+      this.setState(prevState => ({latestRank: this.props.latestRank, isValid}))
     }
     if (prevProps.isPlacement !== this.props.isPlacement) {
       this.setState(prevState => ({isPlacement: this.props.isPlacement, isValid}))
@@ -354,6 +358,18 @@ class MatchForm extends Component {
     return this.props.priorMatches.filter(m => m.role === role && m.isPlacement)
   }
 
+  getLatestRankInRole = role => {
+    const priorMatchesInRole = this.props.priorMatches
+      .filter(m => m.role === role && typeof m.rank === 'number')
+    const latestMatchInRole = priorMatchesInRole[priorMatchesInRole.length - 1]
+
+    if (latestMatchInRole) {
+      return latestMatchInRole.rank
+    }
+
+    return ''
+  }
+
   onRoleChange = (role) => {
     const { season } = this.props
 
@@ -373,6 +389,8 @@ class MatchForm extends Component {
           newState.isPlacement = false
           newState.isLastPlacement = false
         }
+
+        newState.latestRank = this.getLatestRankInRole(role)
       }
 
       return newState
@@ -398,9 +416,15 @@ class MatchForm extends Component {
             newState.isPlacement = false
             newState.isLastPlacement = false
           }
+
+          const latestRank = this.getLatestRankInRole(newState.role)
+          if (typeof latestRank === 'number') {
+            newState.latestRank = latestRank
+          }
         } else if (!isSelected && newState.heroes.length < 1) {
           newState.role = null
           newState.isLastPlacement = false
+          newState.latestRank = ''
         }
       } else {
         newState.role = null
@@ -444,8 +468,8 @@ class MatchForm extends Component {
     const { rank, comment, map, group, heroes, playedAt, groupSize, joinedVoice,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, groupMembers,
             playOfTheGame, result, isValid, dayOfWeek, timeOfDay, role,
-            isPlacement, isLastPlacement } = this.state
-    const { season, latestRank, latestGroup, theme } = this.props
+            isPlacement, isLastPlacement, latestRank } = this.state
+    const { season, latestGroup, theme } = this.props
     let playedAtStr = playedAt
     if (playedAt && typeof playedAt === 'object') {
       playedAtStr = dateTimeStrFrom(playedAt)
