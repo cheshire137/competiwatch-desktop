@@ -355,7 +355,7 @@ class MatchForm extends Component {
   }
 
   onRoleChange = (role) => {
-    const { priorMatches, season } = this.props
+    const { season } = this.props
 
     this.setState(prevState => {
       const heroesInRole = Hero.byRole[role]
@@ -384,7 +384,7 @@ class MatchForm extends Component {
       const newState = {
         heroes: this.changeHeroesString(prevState.heroes, hero, isSelected)
       }
-      const { season, priorMatches } = this.props
+      const { season } = this.props
 
       if (season >= roleQueueSeasonStart) {
         if (isSelected && (prevState.role !== 'string' || prevState.role.length < 1)) {
@@ -400,6 +400,7 @@ class MatchForm extends Component {
           }
         } else if (!isSelected && newState.heroes.length < 1) {
           newState.role = null
+          newState.isLastPlacement = false
         }
       } else {
         newState.role = null
