@@ -155,7 +155,7 @@ class Match {
 
     if (typeof data.playedAt === 'string') {
       this.playedAt = new Date(data.playedAt)
-    } else if (typeof data.playedAt === 'object' && data.playedAt.constructor.name === 'Date') {
+    } else if (data.playedAt && typeof data.playedAt === 'object' && data.playedAt.constructor.name === 'Date') {
       this.playedAt = data.playedAt
     }
 
