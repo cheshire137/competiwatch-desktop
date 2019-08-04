@@ -124,6 +124,11 @@ class MatchesTable extends Component {
             <th
               className="match-header hide-sm"
             >#</th>
+            {showRole && (
+              <th
+                className="match-header hide-sm"
+              >Role</th>
+            )}
             <th
               className="match-header hide-sm"
             >Win/Loss</th>
@@ -144,11 +149,6 @@ class MatchesTable extends Component {
                 className="match-header hide-sm"
               >Comment</th>
             ) : null}
-            {showRole && (
-              <th
-                className="match-header hide-sm"
-              >Role</th>
-            )}
             {showHeroes ? (
               <th
                 className="match-header hide-sm"

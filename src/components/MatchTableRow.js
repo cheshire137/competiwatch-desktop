@@ -319,6 +319,13 @@ class MatchTableRow extends Component {
         <td
           className={this.matchNumberClass()}
         >{this.matchNumber()}</td>
+        {showRole && (
+          <td
+            className={this.roleClass()}
+          >
+            <RoleImage role={role} theme={theme} className="d-inline-block" />
+          </td>
+        )}
         <td
           className={`match-cell hide-sm result-cell result-${result}`}
         >
@@ -375,13 +382,6 @@ class MatchTableRow extends Component {
             <span className="css-truncate-target comment-truncate-target">{comment}</span>
           </td>
         ) : null}
-        {showRole && (
-          <td
-            className={this.roleClass()}
-          >
-            <RoleImage role={role} theme={theme} className="d-inline-block" />
-          </td>
-        )}
         {showHeroes ? (
           <td
             className="match-cell hide-sm heroes-cell"
