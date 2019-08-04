@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import RoleImage from './RoleImage'
 
 const roles = ['Tank', 'Damage', 'Support']
 
@@ -9,19 +10,32 @@ class RoleSelect extends Component {
   }
 
   render() {
-    const { role } = this.props
+    const { theme } = this.props
+    const selectedRole = this.props.role
     return (
-      <select
-        className="form-select"
-        value={role || ''}
-        id="role-select"
-        onChange={this.onChange}
-      >
-        <option value=""></option>
-        {roles.map(role => (
-          <option key={role} value={role}>{role}</option>
-        ))}
-      </select>
+      <div className="d-inline-flex flex-items-center">
+        {roles.map((role, index) => {
+          const domID = `role-${role}`
+          return (
+            <label
+              key={role}
+              htmlFor={domID}
+              className={`d-flex flex-items-center ${index < roles.length - 1 ? 'mr-4' : ''}`}
+            >
+              <input
+                checked={role === selectedRole}
+                value={role}
+                id={domID}
+                onChange={this.onChange}
+                type="radio"
+                name="role"
+              />
+              <RoleImage role={role} theme={theme} className="mx-2" />
+              {role}
+            </label>
+          )
+        })}
+      </div>
     )
   }
 }

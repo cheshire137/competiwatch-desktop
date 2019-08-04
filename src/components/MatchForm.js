@@ -463,10 +463,11 @@ class MatchForm extends Component {
           <div className="col-md-12 col-lg-6 float-left pr-3-lg">
             {season >= roleQueueSeasonStart && (
               <div className="form-group mt-0">
-                <label htmlFor="role-select" className="text-bold mr-2">Role played:</label>
+                <span className="text-bold mr-4">Role played:</span>
                 <RoleSelect
                   role={role}
                   season={season}
+                  theme={theme}
                   onChange={this.onRoleChange}
                 />
               </div>
