@@ -35,21 +35,6 @@ class MatchesTable extends Component {
     return this.props.matches.filter(match => typeof match.rank === 'number')[0]
   }
 
-  placementRank = firstMatchWithRank => {
-    const { matches } = this.props
-    const placementMatches = matches
-      .filter(match => match.isPlacement && typeof match.rank === 'number')
-    const lastPlacement = placementMatches[placementMatches.length - 1]
-
-    if (lastPlacement) {
-      return lastPlacement.rank
-    }
-
-    if (firstMatchWithRank) {
-      return firstMatchWithRank.rank
-    }
-  }
-
   priorRank = index => {
     const priorMatch = this.props.matches[index - 1]
     if (priorMatch) {
@@ -144,7 +129,6 @@ class MatchesTable extends Component {
     const showRole = this.showRoleColumn()
     const longestWinStreak = this.getLongestWinStreak()
     const longestLossStreak = this.getLongestLossStreak()
-    const placementRank = this.placementRank(firstMatchWithRank)
 
     return (
       <table className="width-full">
@@ -214,8 +198,6 @@ class MatchesTable extends Component {
         <tbody>
           {matches.map((match, i) => {
             const isLast = i === matches.length - 1
-            const firstRankedMatchID = firstMatchWithRank ? firstMatchWithRank._id : null
-            const priorRank = this.priorRank(i)
             const matchRankChanges = rankChanges[match.result] || []
 
             return (
@@ -230,13 +212,9 @@ class MatchesTable extends Component {
                     this.lastMatchRow = row
                   }
                 }}
-                placementRank={placementRank}
-                firstMatchWithRank={firstMatchWithRank}
-                firstRankedMatchID={firstRankedMatchID}
                 rankChanges={matchRankChanges}
                 isLast={isLast}
                 onEdit={onEdit}
-                priorRank={priorRank}
                 priorMatches={matches.slice(0, i)}
                 showThrowerLeaver={showThrowerLeaver}
                 showPlayOfTheGame={showPlayOfTheGame}

@@ -151,9 +151,40 @@ class MatchTableRow extends Component {
     return style
   }
 
+  getPlacementRank = () => {
+    const { priorMatches, match } = this.props
+    let placementMatches = []
+    if (match.season < roleQueueSeasonStart) { // no role queue
+      placementMatches = priorMatches
+        .filter(m => m.isPlacement && typeof m.rank === 'number')
+    } else { // role queue
+      placementMatches = priorMatches
+        .filter(m => m.isPlacement && m.role === match.role && typeof m.rank === 'number')
+    }
+
+    const lastPlacement = placementMatches[placementMatches.length - 1]
+    if (lastPlacement) {
+      return lastPlacement.rank
+    }
+
+    let matchesWithRank = []
+    if (match.season < roleQueueSeasonStart) { // no role queue
+      matchesWithRank = priorMatches
+        .filter(m => typeof m.rank === 'number')
+    } else { // role queue
+      matchesWithRank = priorMatches
+        .filter(m => m.role === match.role && typeof m.rank === 'number')
+    }
+    const firstMatchWithRank = matchesWithRank[0]
+    if (firstMatchWithRank) {
+      return firstMatchWithRank.rank
+    }
+  }
+
   rankClass = () => {
-    const { placementRank, match } = this.props
+    const { match } = this.props
     const classes = ['match-cell', 'rank-cell']
+    const placementRank = this.getPlacementRank()
 
     if (typeof placementRank === 'number') {
       if (placementRank > match.rank) {
