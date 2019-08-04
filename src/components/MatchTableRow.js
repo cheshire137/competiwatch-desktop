@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ColorGradient from '../models/ColorGradient'
+import Season from '../models/Season'
 import MatchRankImage from './MatchRankImage'
 import HeroImage from './HeroImage'
 import RoleImage from './RoleImage'
@@ -10,7 +11,6 @@ import './MatchTableRow.css'
 const winColors = [[178,212,132], [102,189,125]]
 const lossColors = [[250,170,124], [246,106,110]]
 const neutralColor = [254,234,138]
-const roleQueueSeasonStart = 18
 
 const capitalize = str => {
   return str.charAt(0).toUpperCase() + str.substr(1)
@@ -97,7 +97,7 @@ class MatchTableRow extends Component {
     }
 
     if (match.isPlacement) {
-      if (match.season >= roleQueueSeasonStart) {
+      if (match.season >= Season.roleQueueSeasonStart) {
         const role = match.role
         const priorMatchesInRole = priorMatches.filter(priorMatch => priorMatch.role === role)
         return `P${priorMatchesInRole.length + 1}`
@@ -153,7 +153,7 @@ class MatchTableRow extends Component {
 
   getPriorMatchesWithRank = () => {
     const {priorMatches, match} = this.props
-    if (match.season < roleQueueSeasonStart) { // no role queue
+    if (match.season < Season.roleQueueSeasonStart) { // no role queue
       return priorMatches
         .filter(m => typeof m.rank === 'number')
     }
@@ -173,7 +173,7 @@ class MatchTableRow extends Component {
   getPlacementRank = () => {
     const { priorMatches, match } = this.props
     let placementMatches = []
-    if (match.season < roleQueueSeasonStart) { // no role queue
+    if (match.season < Season.roleQueueSeasonStart) { // no role queue
       placementMatches = priorMatches
         .filter(m => m.isPlacement && typeof m.rank === 'number')
     } else { // role queue

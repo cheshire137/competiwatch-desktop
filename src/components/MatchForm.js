@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Match from '../models/Match'
 import Hero from '../models/Hero'
+import Season from '../models/Season'
 import Account from '../models/Account'
 import DayTimeApproximator from '../models/DayTimeApproximator'
 import MapSelect from './MapSelect'
@@ -49,7 +50,6 @@ const dateTimeStrFrom = date => {
 const minRank = 0
 const maxRank = 5000
 const maxGroupSize = 6
-const roleQueueSeasonStart = 18
 
 const isMatchValid = data => {
   if (typeof data.rank !== 'number' ||
@@ -64,7 +64,7 @@ const isMatchValid = data => {
     }
   }
 
-  if (data.season >= roleQueueSeasonStart && (typeof data.role !== 'string' || data.role.length < 1)) {
+  if (data.season >= Season.roleQueueSeasonStart && (typeof data.role !== 'string' || data.role.length < 1)) {
     return false;
   }
 
@@ -102,7 +102,7 @@ class MatchForm extends Component {
     let isLastPlacement = props.isLastPlacement
     if (typeof isPlacement !== 'boolean') {
       const priorPlacements = props.priorMatches.filter(m => m.isPlacement)
-      if (props.season < roleQueueSeasonStart) { // no role queue
+      if (props.season < Season.roleQueueSeasonStart) { // no role queue
         isPlacement = priorPlacements.length < 10
         isLastPlacement = priorPlacements.length === 9
       } else { // role queue
@@ -381,7 +381,7 @@ class MatchForm extends Component {
       const priorPlacementMatchesInRole = this.getPriorPlacementsInRole(role)
       const newState = { role, heroes: selectedHeroes.join(', ') }
 
-      if (season >= roleQueueSeasonStart) {
+      if (season >= Season.roleQueueSeasonStart) {
         if (priorPlacementMatchesInRole.length < 5) {
           newState.isPlacement = true
           newState.isLastPlacement = priorPlacementMatchesInRole.length === 4
@@ -404,7 +404,7 @@ class MatchForm extends Component {
       }
       const { season } = this.props
 
-      if (season >= roleQueueSeasonStart) {
+      if (season >= Season.roleQueueSeasonStart) {
         if (isSelected && (prevState.role !== 'string' || prevState.role.length < 1)) {
           newState.role = roleForHero(hero)
 
@@ -485,7 +485,7 @@ class MatchForm extends Component {
       >
         <div className="clearfix">
           <div className="col-md-12 col-lg-6 float-left pr-3-lg">
-            {season >= roleQueueSeasonStart && (
+            {season >= Season.roleQueueSeasonStart && (
               <div className="form-group mt-0">
                 <span className="text-bold mr-4">Role played:</span>
                 <RoleSelect
@@ -557,7 +557,7 @@ class MatchForm extends Component {
                     htmlFor="match-rank"
                     className="sr-field-label"
                   >
-                    {role && season >= roleQueueSeasonStart ? `Where did you place as a ${role}?` : 'Where did you place?'}
+                    {role && season >= Season.roleQueueSeasonStart ? `Where did you place as a ${role}?` : 'Where did you place?'}
                   </label>
                 </dt>
                 <dd>

@@ -1,10 +1,9 @@
 import Database from './Database'
+import Season from './Season'
 import DayTimeApproximator from './DayTimeApproximator'
 
-const roleQueueSeasonStart = 18
-
 const getPriorMatch = (match, prevMatches) => {
-  if (match.season >= roleQueueSeasonStart) {
+  if (match.season >= Season.roleQueueSeasonStart) {
     const prevMatchesInRole = prevMatches.filter(m => m.role === match.role)
     return prevMatchesInRole[prevMatchesInRole.length - 1]
   }
@@ -229,7 +228,7 @@ class Match {
       accountID: this.accountID
     }
     let totalPlacementMatches = 10
-    if (this.season >= roleQueueSeasonStart) {
+    if (this.season >= Season.roleQueueSeasonStart) {
       totalPlacementMatches = 5
       conditions.role = this.role
     }

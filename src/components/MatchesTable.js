@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import MatchTableRow from './MatchTableRow'
-
-const roleQueueSeasonStart = 18
+import Season from '../models/Season'
 
 class MatchesTable extends Component {
   constructor(props) {
@@ -77,7 +76,7 @@ class MatchesTable extends Component {
 
   showRoleColumn = () => {
     const { matches, season } = this.props
-    return season >= roleQueueSeasonStart &&
+    return season >= Season.roleQueueSeasonStart &&
       matches.filter(match => typeof match.role === 'string').length > 0
   }
 

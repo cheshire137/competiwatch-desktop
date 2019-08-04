@@ -42,4 +42,6 @@ class Season {
   }
 }
 
+Season.roleQueueSeasonStart = 18
+
 export default Season
