@@ -30,17 +30,6 @@ class MatchesTable extends Component {
     return rankChanges
   }
 
-  firstMatchWithRank = () => {
-    return this.props.matches.filter(match => typeof match.rank === 'number')[0]
-  }
-
-  priorRank = index => {
-    const priorMatch = this.props.matches[index - 1]
-    if (priorMatch) {
-      return priorMatch.rank
-    }
-  }
-
   showThrowerLeaverColumn = () => {
     const matches = this.props.matches
       .filter(match => match.allyThrower || match.allyLeaver ||
@@ -117,7 +106,6 @@ class MatchesTable extends Component {
   render() {
     const { matches, onEdit, theme } = this.props
     const rankChanges = this.matchRankChangesByResult()
-    const firstMatchWithRank = this.firstMatchWithRank()
     const showThrowerLeaver = this.showThrowerLeaverColumn()
     const showPlayOfTheGame = this.showPlayOfTheGameColumn()
     const showJoinedVoice = this.showJoinedVoiceColumn()
