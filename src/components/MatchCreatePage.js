@@ -1,14 +1,26 @@
 import React, { Component } from 'react'
+import Match from '../models/Match'
 import MatchForm from './MatchForm'
 
 class MatchCreatePage extends Component {
   constructor(props) {
     super(props)
-    this.state = { totalMatches: 0 }
+    this.state = {}
+  }
+
+  refreshMatches = () => {
+    const {accountID, season} = this.props
+
+    Match.findAll(accountID, season).then(matches => {
+      this.setState(prevState => ({matches}))
+    })
+  }
+
+  componentDidMount() {
+    this.refreshMatches()
   }
 
   onMatchCreation = () => {
-    this.setState(prevState => ({ totalMatches: prevState.totalMatches + 1 }))
     this.props.onPageChange('matches', true)
   }
 
@@ -20,9 +32,13 @@ class MatchCreatePage extends Component {
   }
 
   render() {
-    const { accountID, latestRank, isPlacement, latestSeason, latestGroup,
-            isLastPlacement, season, theme } = this.props
+    const { matches } = this.state
+    if (!matches) {
+      return null
+    }
 
+    const { accountID, latestRank, latestSeason, latestGroup,
+            season, theme } = this.props
     return (
       <div className="container layout-children-container">
         {season < latestSeason ? (
@@ -39,12 +55,11 @@ class MatchCreatePage extends Component {
         <MatchForm
           season={season}
           accountID={accountID}
-          isPlacement={isPlacement}
-          isLastPlacement={isLastPlacement}
           latestRank={latestRank}
           latestGroup={latestGroup}
           theme={theme}
           onCreate={this.onMatchCreation}
+          priorMatches={matches}
         />
       </div>
     )

@@ -1,7 +1,7 @@
 import Database from './Database'
 import DayTimeApproximator from './DayTimeApproximator'
 
-const totalPlacementMatches = 10
+const roleQueueSeasonStart = 18
 
 const matchRankChange = (match, prevMatch) => {
   if (!match || !prevMatch) {
@@ -217,6 +217,11 @@ class Match {
       isPlacement: true,
       season: this.season,
       accountID: this.accountID
+    }
+    let totalPlacementMatches = 10
+    if (this.season >= roleQueueSeasonStart) {
+      totalPlacementMatches = 5
+      conditions.role = this.role
     }
     const placementRows = await Database.findAll('matches', defaultSort, conditions)
 

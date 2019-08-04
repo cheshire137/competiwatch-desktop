@@ -98,6 +98,27 @@ class MatchForm extends Component {
       timeOfDay = DayTimeApproximator.timeOfDay(playedAt)
     }
 
+    let isPlacement = props.isPlacement
+    let isLastPlacement = props.isLastPlacement
+    if (typeof isPlacement !== 'boolean') {
+      const priorPlacements = props.priorMatches.filter(m => m.isPlacement)
+      if (props.season < roleQueueSeasonStart) { // no role queue
+        isPlacement = priorPlacements.length < 10
+        isLastPlacement = priorPlacements.length === 9
+      } else { // role queue
+        const placementCountsByRole = {}
+        for (const placement of priorPlacements) {
+          if (placement.role in placementCountsByRole) {
+            placementCountsByRole[placement.role]++
+          } else {
+            placementCountsByRole[placement.role] = 1
+          }
+        }
+        // definitely logging a placement match because haven't finished placements for any role
+        isPlacement = Object.values(placementCountsByRole).every(count => count < 5)
+      }
+    }
+
     this.state = {
       rank: props.rank || '',
       result: props.result || '',
@@ -111,6 +132,8 @@ class MatchForm extends Component {
       playedAt,
       dayOfWeek,
       timeOfDay,
+      isPlacement,
+      isLastPlacement,
       joinedVoice: typeof props.joinedVoice === 'boolean' ? props.joinedVoice : false,
       playOfTheGame: typeof props.playOfTheGame === 'boolean' ? props.playOfTheGame : false,
       allyThrower: typeof props.allyThrower === 'boolean' ? props.allyThrower : false,
@@ -142,6 +165,12 @@ class MatchForm extends Component {
     }
     if (prevProps.rank !== this.props.rank) {
       this.setState(prevState => ({ rank: this.props.rank, isValid }))
+    }
+    if (prevProps.isPlacement !== this.props.isPlacement) {
+      this.setState(prevState => ({rank: this.props.isPlacement, isValid}))
+    }
+    if (prevProps.isLastPlacement !== this.props.isLastPlacement) {
+      this.setState(prevState => ({rank: this.props.isLastPlacement, isValid}))
     }
     if (prevProps.result !== this.props.result) {
       this.setState(prevState => ({ result: this.props.result, isValid }))
@@ -189,12 +218,12 @@ class MatchForm extends Component {
 
     const { rank, comment, map, group, heroes, playedAt, joinedVoice,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver,
-            playOfTheGame, result, isValid, groupSize, role } = this.state
+            playOfTheGame, result, isValid, groupSize, role, isPlacement } = this.state
     if (!isValid) {
       return
     }
 
-    const { accountID, season, isPlacement, id } = this.props
+    const { accountID, season, id } = this.props
     const data = {
       comment,
       map,
@@ -321,13 +350,32 @@ class MatchForm extends Component {
     return heroes.join(', ')
   }
 
+  getPriorPlacementsInRole = role => {
+    return this.props.priorMatches.filter(m => m.role === role && m.isPlacement)
+  }
+
   onRoleChange = (role) => {
+    const { priorMatches, season } = this.props
+
     this.setState(prevState => {
       const heroesInRole = Hero.byRole[role]
       const oldSelectedHeroes = explodeHeroesString(prevState.heroes)
       const selectedHeroes = oldSelectedHeroes
         .filter(hero => heroesInRole.indexOf(hero) > -1)
-      return { role, heroes: selectedHeroes.join(', ') }
+      const priorPlacementMatchesInRole = this.getPriorPlacementsInRole(role)
+      const newState = { role, heroes: selectedHeroes.join(', ') }
+
+      if (season >= roleQueueSeasonStart) {
+        if (priorPlacementMatchesInRole.length < 5) {
+          newState.isPlacement = true
+          newState.isLastPlacement = priorPlacementMatchesInRole.length === 4
+        } else {
+          newState.isPlacement = false
+          newState.isLastPlacement = false
+        }
+      }
+
+      return newState
     }, this.onFormFieldUpdate)
   }
 
@@ -336,15 +384,27 @@ class MatchForm extends Component {
       const newState = {
         heroes: this.changeHeroesString(prevState.heroes, hero, isSelected)
       }
-      if (this.props.season >= roleQueueSeasonStart) {
+      const { season, priorMatches } = this.props
+
+      if (season >= roleQueueSeasonStart) {
         if (isSelected && (prevState.role !== 'string' || prevState.role.length < 1)) {
           newState.role = roleForHero(hero)
+
+          const priorPlacementMatchesInRole = this.getPriorPlacementsInRole(newState.role)
+          if (priorPlacementMatchesInRole.length < 5) {
+            newState.isPlacement = true
+            newState.isLastPlacement = priorPlacementMatchesInRole.length === 4
+          } else {
+            newState.isPlacement = false
+            newState.isLastPlacement = false
+          }
         } else if (!isSelected && newState.heroes.length < 1) {
           newState.role = null
         }
       } else {
         newState.role = null
       }
+
       return newState
     }, this.onFormFieldUpdate)
   }
@@ -382,9 +442,9 @@ class MatchForm extends Component {
   render() {
     const { rank, comment, map, group, heroes, playedAt, groupSize, joinedVoice,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, groupMembers,
-            playOfTheGame, result, isValid, dayOfWeek, timeOfDay, role } = this.state
-    const { season, latestRank, isPlacement, isLastPlacement, latestGroup,
-            theme } = this.props
+            playOfTheGame, result, isValid, dayOfWeek, timeOfDay, role,
+            isPlacement, isLastPlacement } = this.state
+    const { season, latestRank, latestGroup, theme } = this.props
     let playedAtStr = playedAt
     if (playedAt && typeof playedAt === 'object') {
       playedAtStr = dateTimeStrFrom(playedAt)

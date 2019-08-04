@@ -6,22 +6,26 @@ import Match from '../models/Match'
 class MatchEditPage extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = { matches: [] }
   }
 
-  loadMatch = () => {
-    const { id } = this.props
-    Match.find(id).then(match => {
-      this.setState(prevState => ({ match }))
+  refreshMatches = () => {
+    const {accountID, season, id} = this.props
 
-      match.isLastPlacement().then(isLastPlacement => {
-        this.setState(prevState => ({ isLastPlacement }))
+    Match.findAll(accountID, season).then(matches => {
+      this.setState(prevState => {
+        const match = matches.filter(m => m._id === id)[0]
+        return { matches, match }
+      }, () => {
+        this.state.match.isLastPlacement().then(isLastPlacement => {
+          this.setState(prevState => ({isLastPlacement}))
+        })
       })
     })
   }
 
   componentDidMount() {
-    this.loadMatch()
+    this.refreshMatches()
   }
 
   componentDidUpdate(prevProps) {
@@ -39,6 +43,19 @@ class MatchEditPage extends Component {
     this.props.onPageChange('matches')
   }
 
+  getPriorMatches = () => {
+    const { id } = this.props
+    const { matches } = this.state
+    let index = 0
+    for (const match of matches) {
+      if (match._id === id) {
+        break
+      }
+      index++
+    }
+    return matches.slice(0, index)
+  }
+
   renderMatchForm = () => {
     const { match, isLastPlacement } = this.state
     if (!match || typeof isLastPlacement !== 'boolean') {
@@ -49,6 +66,7 @@ class MatchEditPage extends Component {
     return (
       <MatchForm
         id={id}
+        priorMatches={this.getPriorMatches()}
         theme={theme}
         season={match.season}
         accountID={match.accountID}

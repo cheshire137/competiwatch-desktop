@@ -29,7 +29,6 @@ class App extends Component {
     super(props)
     this.state = {
       latestRank: 2500,
-      isPlacement: false,
       latestSeason: latestKnownSeason,
       scrollToMatch: false,
       themeClass: 'theme-light'
@@ -152,10 +151,6 @@ class App extends Component {
     }
   }
 
-  setIsPlacement = (isPlacement, isLastPlacement) => {
-    this.setState(prevState => ({ isPlacement, isLastPlacement }))
-  }
-
   changeActivePage = (activePage, val1, val2) => {
     this.setState(prevState => {
       const newState = {
@@ -168,8 +163,6 @@ class App extends Component {
       if (activePage === 'log-match') {
         if (typeof val1 === 'number') {
           newState.latestRank = val1
-          newState.isPlacement = false
-          newState.isLastPlacement = false
         }
 
         if (typeof val2 === 'string') {
@@ -180,8 +173,6 @@ class App extends Component {
       if (activePage === 'accounts') {
         newState.activeAccountID = null
         newState.latestRank = 2500
-        newState.isPlacement = false
-        newState.isLastPlacement = false
       }
 
       if (activePage === 'matches') {
@@ -317,8 +308,8 @@ class App extends Component {
   }
 
   renderActivePage = () => {
-    const { activePage, activeAccountID, latestRank, latestGroup, isPlacement,
-            isLastPlacement, activeSeason, latestSeason, scrollToMatchID,
+    const { activePage, activeAccountID, latestRank, latestGroup,
+            activeSeason, latestSeason, scrollToMatchID,
             activeMatchID, accounts, settings, scrollToMatch } = this.state
     const haveActiveSeason = typeof activeSeason === 'number' && !isNaN(activeSeason)
 
@@ -328,7 +319,6 @@ class App extends Component {
           accountID={activeAccountID}
           season={activeSeason}
           onPageChange={this.changeActivePage}
-          setIsPlacement={this.setIsPlacement}
           scrollToMatch={scrollToMatch}
           scrollToMatchID={scrollToMatchID}
           theme={settings.theme}
@@ -344,11 +334,9 @@ class App extends Component {
           onSeasonChange={this.changeActiveSeason}
           latestRank={latestRank}
           latestGroup={latestGroup}
-          isPlacement={isPlacement}
           season={activeSeason}
           theme={settings.theme}
           latestSeason={latestSeason}
-          isLastPlacement={isLastPlacement}
         />
       )
     }
@@ -379,6 +367,8 @@ class App extends Component {
       return (
         <MatchEditPage
           id={activeMatchID}
+          season={activeSeason}
+          accountID={activeAccountID}
           theme={settings.theme}
           onPageChange={this.changeActivePage}
         />
@@ -448,7 +438,7 @@ class App extends Component {
 
   render() {
     const { activePage, activeAccountID, activeSeason, latestSeason,
-            isPlacement, accounts, themeClass } = this.state
+            accounts, themeClass } = this.state
     const showHeader = activePage !== 'about' && activePage !== 'settings' &&
       activePage !== 'manage-seasons' && activePage !== 'help'
 
@@ -462,7 +452,6 @@ class App extends Component {
             onPageChange={this.changeActivePage}
             activeSeason={activeSeason}
             latestSeason={latestSeason}
-            isPlacement={isPlacement}
             onSeasonChange={this.changeActiveSeason}
             onAccountChange={this.changeActiveAccount}
             onExport={this.exportSeason}
