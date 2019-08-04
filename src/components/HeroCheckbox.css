@@ -1,5 +1,10 @@
-.disabled-hero {
+.unavailable-hero {
+  opacity: 0.7;
+}
+
+.unavailable-hero .hero-name {
   text-decoration: line-through;
+  font-style: italic;
 }
 
 .text-ana {

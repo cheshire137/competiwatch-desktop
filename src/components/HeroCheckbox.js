@@ -5,10 +5,9 @@ import './HeroCheckbox.css'
 
 class HeroCheckbox extends Component {
   containerClass = () => {
-    const classes = ['form-checkbox', 'mb-0', 'mt-1']
+    let classes = ['form-checkbox', 'mb-0', 'mt-1']
     if (!this.props.isAvailable) {
-      classes.push('tooltipped')
-      classes.push('tooltipped-n')
+      classes = classes.concat(['tooltipped', 'tooltipped-n', 'unavailable-hero'])
     }
     return classes.join(' ')
   }
@@ -22,11 +21,8 @@ class HeroCheckbox extends Component {
   }
 
   nameClass = () => {
-    const { hero, isAvailable } = this.props
-    const classes = [`text-${HeroUtil.slugify(hero)}`]
-    if (!isAvailable) {
-      classes.push('disabled-hero')
-    }
+    const { hero } = this.props
+    const classes = [`text-${HeroUtil.slugify(hero)}`, 'hero-name']
     return classes.join(' ')
   }
 
