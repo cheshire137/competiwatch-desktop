@@ -262,7 +262,7 @@ class MatchTableRow extends Component {
 
   render() {
     const { match, priorRank, showThrowerLeaver, showPlayOfTheGame, showJoinedVoice,
-            showComment, showDayTime, showHeroes, showGroup, showRole } = this.props
+            showComment, showDayTime, showHeroes, showGroup, showRole, theme } = this.props
     const { rank, _id, groupList, heroList, comment, playOfTheGame, result,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, map, role,
             rankChange, dayOfWeek, timeOfDay, groupSize, joinedVoice } = match
@@ -335,7 +335,7 @@ class MatchTableRow extends Component {
           <td
             className={this.roleClass()}
           >
-            <RoleImage role={role} className="d-inline-block" />
+            <RoleImage role={role} theme={theme} className="d-inline-block" />
           </td>
         )}
         {showHeroes ? (

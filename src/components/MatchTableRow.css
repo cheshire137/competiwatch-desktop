@@ -273,6 +273,7 @@
 .theme-dark .match-placement-row .match-cell.heroes-cell,
 .theme-dark .match-placement-row .match-cell.throwers-leavers-cell,
 .theme-dark .match-placement-row .match-cell.options-cell,
+.theme-dark .match-placement-row .match-cell.role-cell,
 .theme-dark .match-placement-row .match-cell.group-cell,
 .theme-dark .match-placement-row .match-cell.potg-cell {
   background-color: #3a434b;

@@ -331,6 +331,7 @@ class App extends Component {
           setIsPlacement={this.setIsPlacement}
           scrollToMatch={scrollToMatch}
           scrollToMatchID={scrollToMatchID}
+          theme={settings.theme}
         />
       )
     }
@@ -345,6 +346,7 @@ class App extends Component {
           latestGroup={latestGroup}
           isPlacement={isPlacement}
           season={activeSeason}
+          theme={settings.theme}
           latestSeason={latestSeason}
           isLastPlacement={isLastPlacement}
         />
@@ -377,6 +379,7 @@ class App extends Component {
       return (
         <MatchEditPage
           id={activeMatchID}
+          theme={settings.theme}
           onPageChange={this.changeActivePage}
         />
       )

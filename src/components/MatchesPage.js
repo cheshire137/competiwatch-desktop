@@ -58,13 +58,14 @@ class MatchesPage extends Component {
       return <LoadingPage />
     }
 
-    const { onPageChange, season, scrollToMatch, scrollToMatchID } = this.props
+    const { onPageChange, season, scrollToMatch, scrollToMatchID, theme } = this.props
     return (
       <div className="container layout-children-container">
         <MatchesList
           totalMatches={totalMatches}
           season={season}
           account={account}
+          theme={theme}
           onLoad={this.onMatchesLoad}
           onPageChange={onPageChange}
           scrollToMatch={scrollToMatch}

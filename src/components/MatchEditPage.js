@@ -45,10 +45,11 @@ class MatchEditPage extends Component {
       return null
     }
 
-    const { id } = this.props
+    const { id, theme } = this.props
     return (
       <MatchForm
         id={id}
+        theme={theme}
         season={match.season}
         accountID={match.accountID}
         isPlacement={match.isPlacement}

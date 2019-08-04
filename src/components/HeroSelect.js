@@ -29,13 +29,13 @@ class HeroSelect extends Component {
   }
 
   render() {
-    const { onToggle } = this.props
+    const { onToggle, theme } = this.props
 
     return (
       <div className="d-flex flex-wrap flex-justify-between">
         <div className="hero-box mb-3">
           <h5 className={`h5 border-bottom pb-1 mb-2 ${this.unavailableClass('damage')}`}>
-            <RoleImage role="damage" size="12" className="d-inline-block mr-1" />
+            <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
             Flankers
           </h5>
           <HeroCheckboxList
@@ -45,7 +45,7 @@ class HeroSelect extends Component {
             onToggle={onToggle}
           />
           <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${this.unavailableClass('tank')}`}>
-            <RoleImage role="tank" size="12" className="d-inline-block mr-1" />
+            <RoleImage theme={theme} role="tank" size="12" className="d-inline-block mr-1" />
             Off-tanks
           </h5>
           <HeroCheckboxList
@@ -55,7 +55,7 @@ class HeroSelect extends Component {
             onToggle={onToggle}
           />
           <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${this.unavailableClass('support')}`}>
-            <RoleImage role="support" size="12" className="d-inline-block mr-1" />
+            <RoleImage theme={theme} role="support" size="12" className="d-inline-block mr-1" />
             Off-healers
           </h5>
           <HeroCheckboxList
@@ -67,7 +67,7 @@ class HeroSelect extends Component {
         </div>
         <div className="hero-box mb-3">
           <h5 className={`h5 border-bottom pb-1 mb-2 ${this.unavailableClass('damage')}`}>
-            <RoleImage role="damage" size="12" className="d-inline-block mr-1" />
+            <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
             Hitscan
           </h5>
           <HeroCheckboxList
@@ -77,7 +77,7 @@ class HeroSelect extends Component {
             onToggle={onToggle}
           />
           <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${this.unavailableClass('tank')}`}>
-            <RoleImage role="tank" size="12" className="d-inline-block mr-1" />
+            <RoleImage theme={theme} role="tank" size="12" className="d-inline-block mr-1" />
             Main tanks
           </h5>
           <HeroCheckboxList
@@ -87,7 +87,7 @@ class HeroSelect extends Component {
             onToggle={onToggle}
           />
           <h5 className={`h5 border-bottom pb-1 mb-2 mt-4 ${this.unavailableClass('support')}`}>
-            <RoleImage role="support" size="12" className="d-inline-block mr-1" />
+            <RoleImage theme={theme} role="support" size="12" className="d-inline-block mr-1" />
             Main healers
           </h5>
           <HeroCheckboxList
@@ -99,7 +99,7 @@ class HeroSelect extends Component {
         </div>
         <div className="hero-box mb-3">
           <h5 className={`h5 border-bottom pb-1 mb-2 ${this.unavailableClass('damage')}`}>
-            <RoleImage role="damage" size="12" className="d-inline-block mr-1" />
+            <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
             DPS
           </h5>
           <HeroCheckboxList
@@ -109,7 +109,7 @@ class HeroSelect extends Component {
             onToggle={onToggle}
           />
           <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${this.unavailableClass('damage')}`}>
-            <RoleImage role="damage" size="12" className="d-inline-block mr-1" />
+            <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
             Defense
           </h5>
           <HeroCheckboxList

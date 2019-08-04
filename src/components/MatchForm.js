@@ -383,7 +383,8 @@ class MatchForm extends Component {
     const { rank, comment, map, group, heroes, playedAt, groupSize, joinedVoice,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, groupMembers,
             playOfTheGame, result, isValid, dayOfWeek, timeOfDay, role } = this.state
-    const { season, latestRank, isPlacement, isLastPlacement, latestGroup } = this.props
+    const { season, latestRank, isPlacement, isLastPlacement, latestGroup,
+            theme } = this.props
     let playedAtStr = playedAt
     if (playedAt && typeof playedAt === 'object') {
       playedAtStr = dateTimeStrFrom(playedAt)
@@ -619,6 +620,7 @@ class MatchForm extends Component {
               <dd>
                 <HeroSelect
                   role={role}
+                  theme={theme}
                   heroes={heroes}
                   season={season}
                   onToggle={this.onHeroChange}

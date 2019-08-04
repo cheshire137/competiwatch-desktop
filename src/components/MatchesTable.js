@@ -131,7 +131,7 @@ class MatchesTable extends Component {
   }
 
   render() {
-    const { matches, onEdit } = this.props
+    const { matches, onEdit, theme } = this.props
     const rankChanges = this.matchRankChangesByResult()
     const firstMatchWithRank = this.firstMatchWithRank()
     const showThrowerLeaver = this.showThrowerLeaverColumn()
@@ -223,6 +223,7 @@ class MatchesTable extends Component {
                 key={match._id}
                 match={match}
                 index={i}
+                theme={theme}
                 ref={row => {
                   this.matchRowsByID[match._id] = row
                   if (isLast) {

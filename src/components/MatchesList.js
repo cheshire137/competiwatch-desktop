@@ -53,7 +53,7 @@ class MatchesList extends Component {
   }
 
   render() {
-    const { totalMatches, season, account, scrollToMatch,
+    const { totalMatches, season, account, scrollToMatch, theme,
             scrollToMatchID } = this.props
     if (totalMatches < 0) {
       return <LoadingPage />
@@ -81,6 +81,7 @@ class MatchesList extends Component {
             <MatchesTable
               season={season}
               matches={matches}
+              theme={theme}
               onEdit={this.changeToEditPage}
               scrollToMatch={scrollToMatch}
               scrollToMatchID={scrollToMatchID}
