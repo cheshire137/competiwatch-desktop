@@ -516,7 +516,9 @@ class MatchForm extends Component {
                   <label
                     htmlFor="match-rank"
                     className="label-lg mr-2 no-wrap"
-                  >New SR:</label>
+                  >
+                    New <span className="tooltipped tooltipped-n" aria-label="Skill Rating">SR</span>:
+                  </label>
                 )}
                 {isPlacement ? (
                   <select
