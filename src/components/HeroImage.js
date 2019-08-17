@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import HeroUtil from '../models/HeroUtil'
 
 const knownHeroes = [
@@ -9,26 +9,24 @@ const knownHeroes = [
   'wrecking-ball', 'zarya', 'zenyatta'
 ]
 
-class HeroImage extends Component {
-  render() {
-    const { hero, className, size } = this.props
-    const slug = HeroUtil.slugify(hero)
-    if (knownHeroes.indexOf(slug) < 0) {
-      return <span>{hero}</span>
-    }
-
-    const src = require(`../images/heroes/${slug}.png`)
-
-    return (
-      <img
-        src={src}
-        alt={hero}
-        className={className}
-        width={size || 20}
-        height={size || 20}
-      />
-    )
+const HeroImage = (props) => {
+  const { hero, className, size } = props
+  const slug = HeroUtil.slugify(hero)
+  if (knownHeroes.indexOf(slug) < 0) {
+    return <span>{hero}</span>
   }
+
+  const src = require(`../images/heroes/${slug}.png`)
+
+  return (
+    <img
+      src={src}
+      alt={hero}
+      className={className}
+      width={size || 20}
+      height={size || 20}
+    />
+  )
 }
 
 export default HeroImage
