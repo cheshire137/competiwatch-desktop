@@ -36,13 +36,16 @@ class HeroSelect extends Component {
     const damageAvailable = typeof damageUnavailableClass !== 'string'
     const tankAvailable = typeof tankUnavailableClass !== 'string'
     const supportAvailable = typeof supportUnavailableClass !== 'string'
+    const allRolesAvailable = damageAvailable && tankAvailable && supportAvailable
+    const verticalSpacingClass = allRolesAvailable ? 'mt-4' : ''
+    const horizontalSpacingClass = allRolesAvailable ? '' : 'mr-3'
 
     return (
-      <div className="d-flex flex-wrap flex-justify-between">
+      <div className={`d-flex flex-wrap ${allRolesAvailable ? 'flex-justify-between' : 'flex-justify-start'}`}>
         <div className="hero-box mb-3">
           {damageAvailable && (
             <>
-              <h5 className={`h5 border-bottom pb-1 mb-2 ${damageUnavailableClass}`}>
+              <h5 className={`h5 border-bottom ${horizontalSpacingClass} pb-1 mb-2 ${damageUnavailableClass}`}>
                 <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
                 Flankers
               </h5>
@@ -56,7 +59,7 @@ class HeroSelect extends Component {
           )}
           {tankAvailable && (
             <>
-              <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${tankUnavailableClass}`}>
+              <h5 className={`h5 border-bottom pb-1 ${horizontalSpacingClass} ${verticalSpacingClass} mb-2 ${tankUnavailableClass}`}>
                 <RoleImage theme={theme} role="tank" size="12" className="d-inline-block mr-1" />
                 Off-tanks
               </h5>
@@ -70,7 +73,7 @@ class HeroSelect extends Component {
           )}
           {supportAvailable && (
             <>
-              <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${supportUnavailableClass}`}>
+              <h5 className={`h5 border-bottom pb-1 ${horizontalSpacingClass} ${verticalSpacingClass} mb-2 ${supportUnavailableClass}`}>
                 <RoleImage theme={theme} role="support" size="12" className="d-inline-block mr-1" />
                 Off-healers
               </h5>
@@ -86,7 +89,7 @@ class HeroSelect extends Component {
         <div className="hero-box mb-3">
           {damageAvailable && (
             <>
-              <h5 className={`h5 border-bottom pb-1 mb-2 ${damageUnavailableClass}`}>
+              <h5 className={`h5 border-bottom pb-1 ${horizontalSpacingClass} mb-2 ${damageUnavailableClass}`}>
                 <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
                 Hitscan
               </h5>
@@ -100,7 +103,7 @@ class HeroSelect extends Component {
           )}
           {tankAvailable && (
             <>
-              <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${tankUnavailableClass}`}>
+              <h5 className={`h5 border-bottom pb-1 ${verticalSpacingClass} mb-2 ${tankUnavailableClass}`}>
                 <RoleImage theme={theme} role="tank" size="12" className="d-inline-block mr-1" />
                 Main tanks
               </h5>
@@ -114,7 +117,7 @@ class HeroSelect extends Component {
           )}
           {supportAvailable && (
             <>
-              <h5 className={`h5 border-bottom pb-1 mb-2 mt-4 ${supportUnavailableClass}`}>
+              <h5 className={`h5 border-bottom pb-1 mb-2 ${verticalSpacingClass} ${supportUnavailableClass}`}>
                 <RoleImage theme={theme} role="support" size="12" className="d-inline-block mr-1" />
                 Main healers
               </h5>
@@ -139,7 +142,7 @@ class HeroSelect extends Component {
               isChecked={this.isChecked}
               onToggle={onToggle}
             />
-            <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${damageUnavailableClass}`}>
+            <h5 className={`h5 border-bottom pb-1 ${allRolesAvailable ? '' : 'mt-3'} ${verticalSpacingClass} mb-2 ${damageUnavailableClass}`}>
               <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
               Defense
             </h5>
