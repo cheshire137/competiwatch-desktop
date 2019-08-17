@@ -25,38 +25,36 @@ const rankTierFor = rank => {
   }
 }
 
-class MatchRankImage extends Component {
-  render() {
-    const { rank, priorRank, className } = this.props
+const MatchRankImage = props => {
+  const { rank, priorRank, className } = props
 
-    if (typeof rank !== 'number') {
-      return null
-    }
-
-    const rankTier = rankTierFor(rank)
-    if (!rankTier) {
-      return null
-    }
-
-    if (priorRank && rankTier === rankTierFor(priorRank)) {
-      return null
-    }
-
-    const src = require(`../images/ranks/${rankTier}.png`)
-    const imgClass = `rank-image rank-${rankTier} ${className}`
-    return (
-      <span
-        className="d-inline-block tooltipped-n tooltipped"
-        aria-label={`${rank} SR, ${rankTier}`}
-      >
-        <img
-          src={src}
-          className={imgClass}
-          alt={`${rank} (${rankTier})`}
-        />
-      </span>
-    )
+  if (typeof rank !== 'number') {
+    return null
   }
+
+  const rankTier = rankTierFor(rank)
+  if (!rankTier) {
+    return null
+  }
+
+  if (priorRank && rankTier === rankTierFor(priorRank)) {
+    return null
+  }
+
+  const src = require(`../images/ranks/${rankTier}.png`)
+  const imgClass = `rank-image rank-${rankTier} ${className}`
+  return (
+    <span
+      className="d-inline-block tooltipped-n tooltipped"
+      aria-label={`${rank} SR, ${rankTier}`}
+    >
+      <img
+        src={src}
+        className={imgClass}
+        alt={`${rank} (${rankTier})`}
+      />
+    </span>
+  )
 }
 
 export default MatchRankImage
