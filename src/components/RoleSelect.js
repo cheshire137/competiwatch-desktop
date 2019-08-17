@@ -20,7 +20,7 @@ class RoleSelect extends Component {
             <label
               key={role}
               htmlFor={domID}
-              className={`d-flex f3 flex-items-center ${index < roles.length - 1 ? 'mr-4' : ''}`}
+              className={`d-flex f3 flex-items-center text-normal ${index < roles.length - 1 ? 'mr-4' : ''}`}
             >
               <input
                 checked={role === selectedRole}
