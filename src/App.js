@@ -31,7 +31,7 @@ class App extends Component {
       latestRank: 2500,
       latestSeason: latestKnownSeason,
       scrollToMatch: false,
-      themeClass: 'theme-light'
+      theme: 'light'
     }
   }
 
@@ -89,20 +89,20 @@ class App extends Component {
     })
   }
 
-  updateThemeClass = () => {
+  updateTheme = () => {
     const { settings } = this.state
     if (!settings) {
       return
     }
 
-    let themeClass = 'theme-light'
+    let theme = 'light'
     if (settings.theme === 'dark') {
-      themeClass = 'theme-dark'
+      theme = 'dark'
     } else if (settings.theme === 'auto' && this.isNighttime()) {
-      themeClass = 'theme-dark'
+      theme = 'dark'
     }
 
-    this.setState(prevState => ({ themeClass }))
+    this.setState(prevState => ({ theme }))
   }
 
   componentDidMount() {
@@ -112,11 +112,11 @@ class App extends Component {
     })
 
     const millisecondsInHour = 3600000
-    this.themeClassInterval = setInterval(() => this.updateThemeClass(), millisecondsInHour)
+    this.themeInterval = setInterval(() => this.updateTheme(), millisecondsInHour)
   }
 
   componentWillUnmount() {
-    clearInterval(this.themeClassInterval)
+    clearInterval(this.themeInterval)
   }
 
   exportSeasonTo = path => {
@@ -199,7 +199,7 @@ class App extends Component {
     }
 
     this.updateAppTitle()
-    this.updateThemeClass()
+    this.updateTheme()
 
     new AppMenu({
       onPageChange: this.changeActivePage,
@@ -309,7 +309,7 @@ class App extends Component {
 
   renderActivePage = () => {
     const { activePage, activeAccountID, latestRank, latestGroup,
-            activeSeason, latestSeason, scrollToMatchID,
+            activeSeason, latestSeason, scrollToMatchID, theme,
             activeMatchID, accounts, settings, scrollToMatch } = this.state
     const haveActiveSeason = typeof activeSeason === 'number' && !isNaN(activeSeason)
 
@@ -321,7 +321,7 @@ class App extends Component {
           onPageChange={this.changeActivePage}
           scrollToMatch={scrollToMatch}
           scrollToMatchID={scrollToMatchID}
-          theme={settings.theme}
+          theme={theme}
         />
       )
     }
@@ -335,7 +335,7 @@ class App extends Component {
           latestRank={latestRank}
           latestGroup={latestGroup}
           season={activeSeason}
-          theme={settings.theme}
+          theme={theme}
           latestSeason={latestSeason}
         />
       )
@@ -369,7 +369,7 @@ class App extends Component {
           id={activeMatchID}
           season={activeSeason}
           accountID={activeAccountID}
-          theme={settings.theme}
+          theme={theme}
           onPageChange={this.changeActivePage}
         />
       )
@@ -397,7 +397,7 @@ class App extends Component {
           accountID={activeAccountID}
           season={activeSeason}
           onPageChange={this.changeActivePage}
-          theme={settings.theme}
+          theme={theme}
         />
       )
     }
@@ -438,13 +438,13 @@ class App extends Component {
 
   render() {
     const { activePage, activeAccountID, activeSeason, latestSeason,
-            accounts, themeClass } = this.state
+            accounts, theme } = this.state
     const showHeader = activePage !== 'about' && activePage !== 'settings' &&
       activePage !== 'manage-seasons' && activePage !== 'help'
 
     return (
-      <div className={`layout-container ${themeClass}`}>
-        {showHeader ? (
+      <div className={`layout-container theme-${theme}`}>
+        {showHeader && (
           <Header
             accounts={accounts}
             activePage={activePage}
@@ -456,7 +456,7 @@ class App extends Component {
             onAccountChange={this.changeActiveAccount}
             onExport={this.exportSeason}
           />
-        ) : null}
+        )}
         {this.renderActivePage()}
       </div>
     )

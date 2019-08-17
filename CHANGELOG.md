@@ -1,6 +1,10 @@
 # Change log
 
-## Version 0.2.5
+## Version 0.2.6
+
+- Fixed bug where role icons didn't change color when theme changed
+
+## [Version 0.2.5](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.5)
 
 - Added support for role queue, allowing you to log your placements and regular matches based on what role you played in each game
 - Added Sigma available in season 18
