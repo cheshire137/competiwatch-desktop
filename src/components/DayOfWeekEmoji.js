@@ -1,19 +1,17 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class DayOfWeekEmoji extends Component {
-  render() {
-    const { dayOfWeek } = this.props
+const DayOfWeekEmoji = (props) => {
+  const { dayOfWeek } = props
 
-    if (dayOfWeek === 'weekend') {
-      return <span role="img" aria-label="Weekend">🎉</span>
-    }
-
-    if (dayOfWeek === 'weekday') {
-      return <span role="img" aria-label="Weekday">👔</span>
-    }
-
-    return null
+  if (dayOfWeek === 'weekend') {
+    return <span role="img" aria-label="Weekend">🎉</span>
   }
+
+  if (dayOfWeek === 'weekday') {
+    return <span role="img" aria-label="Weekday">👔</span>
+  }
+
+  return null
 }
 
 export default DayOfWeekEmoji

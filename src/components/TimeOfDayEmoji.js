@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 const TimeOfDayEmoji = (props) => {
   const { timeOfDay } = props
