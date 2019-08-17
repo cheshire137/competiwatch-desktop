@@ -38,7 +38,21 @@ class HeroSelect extends Component {
     const supportAvailable = typeof supportUnavailableClass !== 'string'
     const allRolesAvailable = damageAvailable && tankAvailable && supportAvailable
     const verticalSpacingClass = allRolesAvailable ? 'mt-4' : ''
-    const horizontalSpacingClass = allRolesAvailable ? '' : 'mr-3'
+    const horizontalSpacingClass = allRolesAvailable ? '' : 'mr-4'
+    const defenseHeroes = (
+      <>
+        <h5 className={`h5 border-bottom pb-1 ${allRolesAvailable ? '' : 'mt-3'} ${verticalSpacingClass} mb-2 ${damageUnavailableClass}`}>
+          <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
+          Defense
+        </h5>
+        <HeroCheckboxList
+          heroes={Hero.byType.Defense}
+          getUnavailableReason={this.getUnavailableReason}
+          isChecked={this.isChecked}
+          onToggle={onToggle}
+        />
+      </>
+    )
 
     return (
       <div className={`d-flex flex-wrap ${allRolesAvailable ? 'flex-justify-between' : 'flex-justify-start'}`}>
@@ -55,6 +69,7 @@ class HeroSelect extends Component {
                 isChecked={this.isChecked}
                 onToggle={onToggle}
               />
+              {!allRolesAvailable && defenseHeroes}
             </>
           )}
           {tankAvailable && (
@@ -142,16 +157,7 @@ class HeroSelect extends Component {
               isChecked={this.isChecked}
               onToggle={onToggle}
             />
-            <h5 className={`h5 border-bottom pb-1 ${allRolesAvailable ? '' : 'mt-3'} ${verticalSpacingClass} mb-2 ${damageUnavailableClass}`}>
-              <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
-              Defense
-            </h5>
-            <HeroCheckboxList
-              heroes={Hero.byType.Defense}
-              getUnavailableReason={this.getUnavailableReason}
-              isChecked={this.isChecked}
-              onToggle={onToggle}
-            />
+            {allRolesAvailable && defenseHeroes}
           </div>
         )}
       </div>
