@@ -120,6 +120,7 @@ class MatchForm extends Component {
     }
 
     this.state = {
+      enableRankField: props.season < Season.roleQueueSeasonStart,
       latestRank: props.rank || '',
       rank: props.rank || '',
       result: props.result || '',
@@ -161,6 +162,11 @@ class MatchForm extends Component {
   componentDidUpdate(prevProps) {
     const isValid = isMatchValid(this.props)
 
+    if (prevProps.season !== this.props.season) {
+      this.setState(prevState => ({
+        enableRankField: this.props.season < Season.roleQueueSeasonStart
+      }))
+    }
     if (prevProps.accountID !== this.props.accountID) {
       this.refreshGroupMembers()
     }
@@ -391,6 +397,9 @@ class MatchForm extends Component {
         }
 
         newState.latestRank = this.getLatestRankInRole(role)
+        newState.enableRankField = typeof newState.role === 'string' && newState.role.length > 0
+      } else {
+        newState.enableRankField = true
       }
 
       return newState
@@ -468,7 +477,7 @@ class MatchForm extends Component {
     const { rank, comment, map, group, heroes, playedAt, groupSize, joinedVoice,
             allyThrower, allyLeaver, enemyThrower, enemyLeaver, groupMembers,
             playOfTheGame, result, isValid, dayOfWeek, timeOfDay, role,
-            isPlacement, isLastPlacement, latestRank } = this.state
+            isPlacement, isLastPlacement, latestRank, enableRankField } = this.state
     const { season, latestGroup, theme } = this.props
     let playedAtStr = playedAt
     if (playedAt && typeof playedAt === 'object') {
@@ -487,7 +496,7 @@ class MatchForm extends Component {
           <div className="col-md-12 col-lg-6 float-left pr-3-lg">
             {season >= Season.roleQueueSeasonStart && (
               <div className="form-group mt-0">
-                <span className="text-bold mr-4">Role played:</span>
+                <span className="f3 mr-4">Role played:</span>
                 <RoleSelect
                   role={role}
                   season={season}
@@ -507,7 +516,9 @@ class MatchForm extends Component {
                   <label
                     htmlFor="match-rank"
                     className="label-lg mr-2 no-wrap"
-                  >New SR:</label>
+                  >
+                    New <span className="tooltipped tooltipped-n" aria-label="Skill Rating">SR</span>:
+                  </label>
                 )}
                 {isPlacement ? (
                   <select
@@ -533,6 +544,7 @@ class MatchForm extends Component {
                     onChange={this.onRankChange}
                     placeholder={latestRank}
                     autoFocus
+                    disabled={!enableRankField}
                   />
                 )}
               </div>

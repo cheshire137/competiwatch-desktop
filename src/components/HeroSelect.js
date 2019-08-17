@@ -30,95 +30,136 @@ class HeroSelect extends Component {
 
   render() {
     const { onToggle, theme } = this.props
+    const damageUnavailableClass = this.unavailableClass('damage')
+    const tankUnavailableClass = this.unavailableClass('tank')
+    const supportUnavailableClass = this.unavailableClass('support')
+    const damageAvailable = typeof damageUnavailableClass !== 'string'
+    const tankAvailable = typeof tankUnavailableClass !== 'string'
+    const supportAvailable = typeof supportUnavailableClass !== 'string'
+    const allRolesAvailable = damageAvailable && tankAvailable && supportAvailable
+    const verticalSpacingClass = allRolesAvailable ? 'mt-4' : ''
+    const horizontalSpacingClass = allRolesAvailable ? '' : 'mr-4'
+    const defenseHeroes = (
+      <>
+        <h5 className={`h5 border-bottom pb-1 ${allRolesAvailable ? '' : 'mt-3'} ${verticalSpacingClass} mb-2 ${damageUnavailableClass}`}>
+          <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
+          Defense
+        </h5>
+        <HeroCheckboxList
+          heroes={Hero.byType.Defense}
+          getUnavailableReason={this.getUnavailableReason}
+          isChecked={this.isChecked}
+          onToggle={onToggle}
+        />
+      </>
+    )
 
     return (
-      <div className="d-flex flex-wrap flex-justify-between">
+      <div className={`d-flex flex-wrap ${allRolesAvailable ? 'flex-justify-between' : 'flex-justify-start'}`}>
         <div className="hero-box mb-3">
-          <h5 className={`h5 border-bottom pb-1 mb-2 ${this.unavailableClass('damage')}`}>
-            <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
-            Flankers
-          </h5>
-          <HeroCheckboxList
-            heroes={Hero.byType.Flanker}
-            getUnavailableReason={this.getUnavailableReason}
-            isChecked={this.isChecked}
-            onToggle={onToggle}
-          />
-          <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${this.unavailableClass('tank')}`}>
-            <RoleImage theme={theme} role="tank" size="12" className="d-inline-block mr-1" />
-            Off-tanks
-          </h5>
-          <HeroCheckboxList
-            heroes={Hero.byType['Off-tank']}
-            getUnavailableReason={this.getUnavailableReason}
-            isChecked={this.isChecked}
-            onToggle={onToggle}
-          />
-          <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${this.unavailableClass('support')}`}>
-            <RoleImage theme={theme} role="support" size="12" className="d-inline-block mr-1" />
-            Off-healers
-          </h5>
-          <HeroCheckboxList
-            heroes={Hero.byType['Off-healer']}
-            getUnavailableReason={this.getUnavailableReason}
-            isChecked={this.isChecked}
-            onToggle={onToggle}
-          />
+          {damageAvailable && (
+            <>
+              <h5 className={`h5 border-bottom ${horizontalSpacingClass} pb-1 mb-2 ${damageUnavailableClass}`}>
+                <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
+                Flankers
+              </h5>
+              <HeroCheckboxList
+                heroes={Hero.byType.Flanker}
+                getUnavailableReason={this.getUnavailableReason}
+                isChecked={this.isChecked}
+                onToggle={onToggle}
+              />
+              {!allRolesAvailable && defenseHeroes}
+            </>
+          )}
+          {tankAvailable && (
+            <>
+              <h5 className={`h5 border-bottom pb-1 ${horizontalSpacingClass} ${verticalSpacingClass} mb-2 ${tankUnavailableClass}`}>
+                <RoleImage theme={theme} role="tank" size="12" className="d-inline-block mr-1" />
+                Off-tanks
+              </h5>
+              <HeroCheckboxList
+                heroes={Hero.byType['Off-tank']}
+                getUnavailableReason={this.getUnavailableReason}
+                isChecked={this.isChecked}
+                onToggle={onToggle}
+              />
+            </>
+          )}
+          {supportAvailable && (
+            <>
+              <h5 className={`h5 border-bottom pb-1 ${horizontalSpacingClass} ${verticalSpacingClass} mb-2 ${supportUnavailableClass}`}>
+                <RoleImage theme={theme} role="support" size="12" className="d-inline-block mr-1" />
+                Off-healers
+              </h5>
+              <HeroCheckboxList
+                heroes={Hero.byType['Off-healer']}
+                getUnavailableReason={this.getUnavailableReason}
+                isChecked={this.isChecked}
+                onToggle={onToggle}
+              />
+            </>
+          )}
         </div>
         <div className="hero-box mb-3">
-          <h5 className={`h5 border-bottom pb-1 mb-2 ${this.unavailableClass('damage')}`}>
-            <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
-            Hitscan
-          </h5>
-          <HeroCheckboxList
-            heroes={Hero.byType.Hitscan}
-            getUnavailableReason={this.getUnavailableReason}
-            isChecked={this.isChecked}
-            onToggle={onToggle}
-          />
-          <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${this.unavailableClass('tank')}`}>
-            <RoleImage theme={theme} role="tank" size="12" className="d-inline-block mr-1" />
-            Main tanks
-          </h5>
-          <HeroCheckboxList
-            heroes={Hero.byType['Main Tank']}
-            getUnavailableReason={this.getUnavailableReason}
-            isChecked={this.isChecked}
-            onToggle={onToggle}
-          />
-          <h5 className={`h5 border-bottom pb-1 mb-2 mt-4 ${this.unavailableClass('support')}`}>
-            <RoleImage theme={theme} role="support" size="12" className="d-inline-block mr-1" />
-            Main healers
-          </h5>
-          <HeroCheckboxList
-            heroes={Hero.byType['Main Healer']}
-            getUnavailableReason={this.getUnavailableReason}
-            isChecked={this.isChecked}
-            onToggle={onToggle}
-          />
+          {damageAvailable && (
+            <>
+              <h5 className={`h5 border-bottom pb-1 ${horizontalSpacingClass} mb-2 ${damageUnavailableClass}`}>
+                <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
+                Hitscan
+              </h5>
+              <HeroCheckboxList
+                heroes={Hero.byType.Hitscan}
+                getUnavailableReason={this.getUnavailableReason}
+                isChecked={this.isChecked}
+                onToggle={onToggle}
+              />
+            </>
+          )}
+          {tankAvailable && (
+            <>
+              <h5 className={`h5 border-bottom pb-1 ${verticalSpacingClass} mb-2 ${tankUnavailableClass}`}>
+                <RoleImage theme={theme} role="tank" size="12" className="d-inline-block mr-1" />
+                Main tanks
+              </h5>
+              <HeroCheckboxList
+                heroes={Hero.byType['Main Tank']}
+                getUnavailableReason={this.getUnavailableReason}
+                isChecked={this.isChecked}
+                onToggle={onToggle}
+              />
+            </>
+          )}
+          {supportAvailable && (
+            <>
+              <h5 className={`h5 border-bottom pb-1 mb-2 ${verticalSpacingClass} ${supportUnavailableClass}`}>
+                <RoleImage theme={theme} role="support" size="12" className="d-inline-block mr-1" />
+                Main healers
+              </h5>
+              <HeroCheckboxList
+                heroes={Hero.byType['Main Healer']}
+                getUnavailableReason={this.getUnavailableReason}
+                isChecked={this.isChecked}
+                onToggle={onToggle}
+              />
+            </>
+          )}
         </div>
-        <div className="hero-box mb-3">
-          <h5 className={`h5 border-bottom pb-1 mb-2 ${this.unavailableClass('damage')}`}>
-            <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
-            DPS
-          </h5>
-          <HeroCheckboxList
-            heroes={Hero.byType.DPS}
-            getUnavailableReason={this.getUnavailableReason}
-            isChecked={this.isChecked}
-            onToggle={onToggle}
-          />
-          <h5 className={`h5 border-bottom pb-1 mt-4 mb-2 ${this.unavailableClass('damage')}`}>
-            <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
-            Defense
-          </h5>
-          <HeroCheckboxList
-            heroes={Hero.byType.Defense}
-            getUnavailableReason={this.getUnavailableReason}
-            isChecked={this.isChecked}
-            onToggle={onToggle}
-          />
-        </div>
+        {damageAvailable && (
+          <div className="hero-box mb-3">
+            <h5 className={`h5 border-bottom pb-1 mb-2 ${damageUnavailableClass}`}>
+              <RoleImage theme={theme} role="damage" size="12" className="d-inline-block mr-1" />
+              DPS
+            </h5>
+            <HeroCheckboxList
+              heroes={Hero.byType.DPS}
+              getUnavailableReason={this.getUnavailableReason}
+              isChecked={this.isChecked}
+              onToggle={onToggle}
+            />
+            {allRolesAvailable && defenseHeroes}
+          </div>
+        )}
       </div>
     )
   }

@@ -13,7 +13,6 @@ class RoleImage extends Component {
     if (theme === 'dark') {
       color = '-invert'
     }
-
     const src = require(`../images/roles/${slug}${color}.png`)
 
     return (
