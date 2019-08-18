@@ -9,7 +9,13 @@ const knownHeroes = [
   'wrecking-ball', 'zarya', 'zenyatta'
 ]
 
-const HeroImage = (props) => {
+interface Props {
+  hero: string;
+  className?: string;
+  size?: number;
+}
+
+const HeroImage = (props: Props) => {
   const { hero, className, size } = props
   const slug = HeroUtil.slugify(hero)
   if (knownHeroes.indexOf(slug) < 0) {

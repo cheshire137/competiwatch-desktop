@@ -2,7 +2,14 @@ import React from 'react'
 
 const knownRoles = ['tank', 'support', 'damage']
 
-const RoleImage = (props) => {
+interface Props {
+  role: string;
+  className?: string;
+  size?: number;
+  theme: string;
+}
+
+const RoleImage = (props: Props) => {
   const {role, className, size, theme} = props
   const slug = role.toLowerCase()
   if (knownRoles.indexOf(slug) < 0) {

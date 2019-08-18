@@ -1,5 +1,5 @@
 class HeroUtil {
-  static slugify(hero) {
+  static slugify(hero: string): string {
     if (hero === 'D.Va') {
       return 'dva'
     }
