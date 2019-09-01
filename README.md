@@ -90,17 +90,16 @@ your browser.
 For macOS, from a Mac run:
 
 ```bash
+# produce a new directory in dist/ that has a distributable .app file:
 yarn run electron-build-macos
 ```
-
-This will produce a new directory in dist/ that has a distributable .app file.
 
 For Windows, from a Windows machine run:
 
 ```bash
+# produce new directories in dist/ with .exe files:
 yarn run electron-build-windows
+
+# generate an installer in dist/installers/:
+yarn run electron-build-windows-installer
 ```
-
-This will produce new directories in dist/ with .exe files.
-
-Then you can run `yarn run electron-build-windows-installer` to generate an installer in dist/installers/.
