@@ -1,6 +1,10 @@
 # Change log
 
-## Version 0.2.6
+## Version 0.2.7
+
+- Fixed bug that could happen when deleting matches that would cause the season to just show a loading spinner indefinitely
+
+## [Version 0.2.6](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.6)
 
 - Fixed bug where role icons didn't change color when theme changed
 - Require role selection in match log form before you can set your new rank

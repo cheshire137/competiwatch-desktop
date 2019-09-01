@@ -2,7 +2,7 @@
   "name": "Competiwatch",
   "productName": "Competiwatch",
   "description": "A desktop app to track and visualize your competitive match history in Overwatch.",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "private": true,
   "dependencies": {
     "@types/jest": "^24.0.17",
