@@ -16,6 +16,9 @@ const matchRankChange = (match, prevMatches) => {
     return
   }
   const priorMatch = getPriorMatch(match, prevMatches)
+  if (!priorMatch) {
+    return
+  }
   if (typeof match.rank === 'number' && typeof priorMatch.rank === 'number') {
     return match.rank - priorMatch.rank
   }
