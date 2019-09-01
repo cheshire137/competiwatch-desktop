@@ -31,6 +31,9 @@ const matchResult = (match, prevMatches) => {
 
   if (prevMatches.length > 0) {
     const priorMatch = getPriorMatch(match, prevMatches)
+    if (!priorMatch) {
+      return
+    }
     if (match.rank > priorMatch.rank) {
       return 'win'
     }
