@@ -3,6 +3,7 @@ import isElectron from 'is-electron'
 import AccountDeleteForm from './AccountDeleteForm'
 import AccountForm from './AccountForm'
 import CsvExporter from '../models/CsvExporter'
+import Match from '../models/Match'
 import FileUtil from '../models/FileUtil'
 import MatchRankImage from './MatchRankImage'
 import HeroImage from './HeroImage'
@@ -37,6 +38,22 @@ class AccountListItem extends Component {
     account.topHeroes(season).then(topHeroes => {
       this.setState(prevState => ({ topHeroes }))
     })
+  }
+
+  wipeSeason = () => {
+    const { totalMatches } = this.state
+    if (totalMatches < 0) {
+      return
+    }
+
+    const unit = totalMatches === 1 ? 'match' : 'matches'
+    const { account, season } = this.props
+    const message = `Are you sure you want to delete all ${totalMatches} ${unit} from season ${season} for ${account.battletag}? This cannot be undone.`
+    if (!window.confirm(message)) {
+      return
+    }
+
+    Match.wipeSeason(account._id, season).then(() => this.refreshMatchData())
   }
 
   componentDidMount() {
@@ -97,10 +114,10 @@ class AccountListItem extends Component {
     return (
       <li className="Box mb-3 p-3 account-list-item">
         <div className="d-flex flex-justify-between flex-items-center">
-          <div className="width-full">
+          <div className="width-full mb-2 mt-1">
             <div className="d-flex flex-items-center flex-justify-between">
               {showEditForm ? (
-                <div className="mb-2">
+                <>
                   <AccountForm
                     _id={_id}
                     battletag={battletag}
@@ -112,21 +129,13 @@ class AccountListItem extends Component {
                     type="button"
                     onClick={this.toggleEditForm}
                   >Cancel rename</button>
-                </div>
+                </>
               ) : (
-                <div className="width-full d-flex flex-items-center">
-                  <button
-                    type="button"
-                    className="btn-link h2 text-bold text-left d-block flex-auto"
-                    onClick={this.onAccountClick}
-                  >{battletag}</button>
-                  <button
-                    className="btn-link link-gray-dark account-edit-button tooltipped-w tooltipped"
-                    type="button"
-                    aria-label="Rename account"
-                    onClick={this.toggleEditForm}
-                  ><span className="ion ion-md-create" /></button>
-                </div>
+                <button
+                  type="button"
+                  className="btn-link h1 text-bold text-left d-block flex-auto"
+                  onClick={this.onAccountClick}
+                >{battletag}</button>
               )}
               <AccountDeleteForm
                 id={_id}
@@ -134,41 +143,53 @@ class AccountListItem extends Component {
                 battletag={battletag}
               />
             </div>
-            <div className="text-gray account-meta d-flex flex-items-center">
+            <div className="text-gray f4 account-meta d-flex flex-items-center">
               {haveLatestResult && !haveLatestRank ? (
                 <span>Last match: {latestMatch.result}</span>
               ) : null}
               {latestMatch && latestMatch.playedAt ? (
-                <span>
+                <>
                   {haveLatestResult && !haveLatestRank ? (
                     <span className="separator" />
                   ) : null}
                   Last played {latestMatch.playedAt.toLocaleDateString()}
-                </span>
+                </>
               ) : latestMatch && latestMatch.createdAt ? (
-                <span>
+                <>
                   {haveLatestResult && !haveLatestRank ? (
                     <span className="separator" />
                   ) : null}
                   Last logged {latestMatch.createdAt.toLocaleDateString()}
-                </span>
+                </>
               ) : null}
               {totalMatches > 0 ? (
-                <span>
+                <>
                   <span className="separator" />
-                  {totalMatches} match{totalMatches === 1 ? null : 'es'}
-                </span>
+                  <span>{totalMatches} match{totalMatches === 1 ? null : 'es'}</span>
+                </>
               ) : (
                 <span>No matches in season {season}</span>
               )}
             </div>
+            <button
+              className="btn-link link-gray-dark f6 show-on-hover"
+              type="button"
+              onClick={this.toggleEditForm}
+            >Rename account</button>
             {totalMatches > 0 ? (
-              <button
-                type="button"
-                aria-label="Save season as a CSV file"
-                className="btn-link tooltipped tooltipped-n text-bold link-gray-dark f6"
-                onClick={this.exportSeason}
-              >Export season {season}</button>
+              <>
+                <button
+                  type="button"
+                  aria-label="Save season as a CSV file"
+                  className="ml-3 btn-link tooltipped show-on-hover tooltipped-n link-gray-dark f6"
+                  onClick={this.exportSeason}
+                >Export season {season}</button>
+                <button
+                  type="button"
+                  className="btn-link text-red show-on-hover f6 ml-3"
+                  onClick={this.wipeSeason}
+                >Delete matches</button>
+              </>
             ) : null}
           </div>
           <div className="d-flex flex-items-center">

@@ -3,6 +3,7 @@
 ## Version 0.2.7
 
 - Fixed bug that could happen when deleting matches that would cause the season to just show a loading spinner indefinitely
+- Add ability to delete all matches in a season for an account via the accounts page
 
 ## [Version 0.2.6](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.6)
 

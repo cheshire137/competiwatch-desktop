@@ -4,8 +4,8 @@
 
 .account-meta .separator {
   display: inline-block;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
 }
 
 .btn-rank.btn-link:hover,
@@ -58,10 +58,10 @@
   background-color: #2f363d;
 }
 
-.account-edit-button {
+.show-on-hover {
   visibility: hidden;
 }
 
-.account-list-item:hover .account-edit-button {
+.account-list-item:hover .show-on-hover {
   visibility: visible;
 }

@@ -9,8 +9,7 @@ class SeasonsPage extends Component {
   }
 
   render() {
-    const { latestSeason, onCreate, firstNonDeletableSeason,
-            onDelete } = this.props
+    const { latestSeason, onCreate, firstNonDeletableSeason, onDelete } = this.props
 
     return (
       <div className="container layout-children-container">
