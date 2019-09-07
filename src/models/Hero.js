@@ -51,6 +51,8 @@ export default {
     Damage: ['Pharah', 'Reaper', 'Doomfist', 'Junkrat', 'Genji', 'Sombra', 'Tracer', 'Ashe', 'McCree', 'Soldier: 76', 'Widowmaker', 'Bastion', 'Hanzo', 'Mei', 'Symmetra', 'Torbjörn'],
     Support: ['Ana', 'Baptiste', 'Brigitte', 'Lúcio', 'Mercy', 'Moira', 'Zenyatta']
   },
+
+  // What's the first competitive season that a hero was playable in, if it was added after launch?
   firstSeasons: {
     Moira: 7,
     Brigitte: 10,

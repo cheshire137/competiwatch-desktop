@@ -1,5 +1,6 @@
 import Database from './Database'
 import Season from './Season'
+import Hero from './Hero'
 import DayTimeApproximator from './DayTimeApproximator'
 
 const getPriorMatch = (match, prevMatches) => {
@@ -87,6 +88,37 @@ const getLossStreak = (index, matches, count) => {
 
 const defaultSort = { playedAt: 1, createdAt: 1 }
 
+function guessRoleFromHeroesPlayed(season, heroList) {
+  if (season < Season.roleQueueSeasonStart) {
+    return null;
+  }
+  if (heroList.length < 1) {
+    return null;
+  }
+  let playedSupport = false
+  let playedDamage = false
+  let playedTank = false
+  for (const hero of heroList) {
+    if (Hero.byRole.Tank.indexOf(hero) > -1) {
+      playedTank = true
+    } else if (Hero.byRole.Support.indexOf(hero) > -1) {
+      playedSupport = true
+    } else if (Hero.byRole.Damage.indexOf(hero) > -1) {
+      playedDamage = true
+    }
+  }
+  if (playedSupport && !playedDamage && !playedTank) {
+    return 'Support'
+  }
+  if (playedDamage && !playedSupport && !playedTank) {
+    return 'Damage'
+  }
+  if (playedTank && !playedDamage && !playedSupport) {
+    return 'Tank'
+  }
+  return null
+}
+
 class Match {
   static wipeSeason(accountID, season) {
     return Match.findAll(accountID, season).then(matches => {
@@ -135,11 +167,6 @@ class Match {
     this.isPlacement = data.isPlacement
     this.result = data.result
 
-    this.role = data.role
-    if (typeof this.role === 'string' && this.role.length < 1) {
-      this.role = null;
-    }
-
     if (typeof data.groupSize === 'number' && !isNaN(data.groupSize)) {
       this.groupSize = data.groupSize
     } else if (typeof data.groupSize === 'string') {
@@ -166,6 +193,11 @@ class Match {
     this.heroList = []
     if (this.heroes.length > 0) {
       this.heroList = this.heroes.split(',')
+    }
+
+    this.role = data.role || guessRoleFromHeroesPlayed(this.season, this.heroList)
+    if (typeof this.role === 'string' && this.role.length < 1) {
+      this.role = null;
     }
 
     if (typeof data.playedAt === 'string') {
