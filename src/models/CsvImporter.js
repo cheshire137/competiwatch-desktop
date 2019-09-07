@@ -73,6 +73,7 @@ class CsvImporter {
       accountID: this.accountID,
       season: this.season,
       rank: data.rank,
+      role: data.role,
       comment: data.comment,
       map: data.map,
       isPlacement: data.placement,

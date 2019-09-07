@@ -3,7 +3,7 @@ import Match from './Match'
 import isElectron from 'is-electron'
 
 const headers = [
-  'Battletag', 'Season', 'Rank', 'Rank Change', 'Result', 'Win Streak', 'Loss Streak',
+  'Battletag', 'Season', 'Role', 'Rank', 'Rank Change', 'Result', 'Win Streak', 'Loss Streak',
   'Placement', 'Map', 'Comment', 'Date', 'Day', 'Time', 'Heroes', 'Group', 'Group Size',
   'Play of the Game', 'Ally Leaver', 'Ally Thrower', 'Enemy Leaver', 'Enemy Thrower',
   'Joined Voice'
@@ -46,6 +46,9 @@ class CsvExporter {
   getValueFor = (header, match) => {
     if (header === 'Rank') {
       return match.rank
+    }
+    if (header === 'Role') {
+      return match.role
     }
     if (header === 'Rank Change') {
       return match.rankChange

@@ -2,6 +2,7 @@
 
 ## Version 0.2.8
 
+- Role is now included when exporting and importing matches
 - The match result field is now focused for you once you choose a role when logging a match
 
 ## [Version 0.2.7](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.7)
