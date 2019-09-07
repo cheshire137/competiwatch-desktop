@@ -536,6 +536,7 @@ class MatchForm extends Component {
                     className="form-select select-lg"
                     value={result}
                     required
+                    autoFocus={season < Season.roleQueueSeasonStart}
                     id="match-result"
                     onChange={this.onResultChange}
                     ref={el => this.placementMatchResultField = el}
@@ -550,6 +551,7 @@ class MatchForm extends Component {
                     id="match-rank"
                     type="number"
                     required
+                    autoFocus={season < Season.roleQueueSeasonStart}
                     ref={el => this.matchRankField = el}
                     className="form-control sr-field"
                     value={rank}
