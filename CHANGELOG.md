@@ -2,6 +2,8 @@
 
 ## Version 0.2.8
 
+- The match result field is now focused for you once you choose a role when logging a match
+
 ## [Version 0.2.7](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.7)
 
 - Fixed bug that could happen when deleting matches that would cause the season to just show a loading spinner indefinitely [#75](https://github.com/cheshire137/competiwatch-desktop/issues/75)

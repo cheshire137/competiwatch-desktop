@@ -89,6 +89,9 @@ class MatchForm extends Component {
   constructor(props) {
     super(props)
 
+    this.placementMatchResultField = null
+    this.matchRankField = null
+
     let playedAt = props.playedAt
     let dayOfWeek = props.dayOfWeek
     let timeOfDay = props.timeOfDay
@@ -379,6 +382,12 @@ class MatchForm extends Component {
   onRoleChange = (role) => {
     const { season } = this.props
 
+    if (this.placementMatchResultField) {
+      this.placementMatchResultField.focus()
+    } else if (this.matchRankField) {
+      this.matchRankField.focus()
+    }
+
     this.setState(prevState => {
       const heroesInRole = Hero.byRole[role]
       const oldSelectedHeroes = explodeHeroesString(prevState.heroes)
@@ -526,8 +535,8 @@ class MatchForm extends Component {
                     value={result}
                     required
                     id="match-result"
-                    autoFocus
                     onChange={this.onResultChange}
+                    ref={el => this.placementMatchResultField = el}
                   >
                     <option value=""></option>
                     <option value="win">Win</option>
@@ -539,11 +548,11 @@ class MatchForm extends Component {
                     id="match-rank"
                     type="number"
                     required
+                    ref={el => this.matchRankField = el}
                     className="form-control sr-field"
                     value={rank}
                     onChange={this.onRankChange}
                     placeholder={latestRank}
-                    autoFocus
                     disabled={!enableRankField}
                   />
                 )}
