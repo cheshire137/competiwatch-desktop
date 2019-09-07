@@ -382,12 +382,6 @@ class MatchForm extends Component {
   onRoleChange = (role) => {
     const { season } = this.props
 
-    if (this.placementMatchResultField) {
-      this.placementMatchResultField.focus()
-    } else if (this.matchRankField) {
-      this.matchRankField.focus()
-    }
-
     this.setState(prevState => {
       const heroesInRole = Hero.byRole[role]
       const oldSelectedHeroes = explodeHeroesString(prevState.heroes)
@@ -412,7 +406,15 @@ class MatchForm extends Component {
       }
 
       return newState
-    }, this.onFormFieldUpdate)
+    }, () => {
+      this.onFormFieldUpdate()
+
+      if (this.placementMatchResultField) {
+        this.placementMatchResultField.focus()
+      } else if (this.matchRankField) {
+        this.matchRankField.focus()
+      }
+    })
   }
 
   onHeroChange = (hero, isSelected) => {
