@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "chart.js": "^2.8.0",
-    "csv-parse": "^4.4.3",
+    "csv-parse": "^4.4.6",
     "csv-stringify": "^5.3.0",
     "electron": "^5.0.6",
     "electron-packager": "^12.2.0",
