@@ -1,10 +1,10 @@
 import React from 'react'
-import AccountsButton from './AccountsButton';
-import MatchesButton from './MatchesButton';
+import AccountsTab from './AccountsTab';
+import MatchesTab from './MatchesTab';
 import LogMatchTab from './LogMatchTab';
 import EditMatchButton from './EditMatchButton';
 import ImportButton from './ImportButton';
-import TrendsButton from './TrendsButton';
+import TrendsTab from './TrendsTab';
 import ExportButton from './ExportButton';
 import LogMatchButton from './LogMatchButton';
 
@@ -35,12 +35,12 @@ const underlineNavItemClass = (page: string, isButton: boolean, activePage?: str
 const MainNavigation = ({ activeAccountID, onPageChange, activeSeason, activePage, onExport }: Props) => (
   <nav className="ml-3 border-0 UnderlineNav width-full d-flex flex-justify-between flex-items-center">
     <div className="UnderlineNav-body">
-      <AccountsButton
+      <AccountsTab
         onPageChange={onPageChange}
         activePage={activePage}
         underlineNavItemClass={underlineNavItemClass}
       />
-      <MatchesButton
+      <MatchesTab
         activeAccountID={activeAccountID}
         onPageChange={onPageChange}
         activePage={activePage}
@@ -59,7 +59,7 @@ const MainNavigation = ({ activeAccountID, onPageChange, activeSeason, activePag
         activePage={activePage}
         underlineNavItemClass={underlineNavItemClass}
       />
-      <TrendsButton
+      <TrendsTab
         activePage={activePage}
         activeAccountID={activeAccountID}
         underlineNavItemClass={underlineNavItemClass}

@@ -6,7 +6,7 @@ interface Props {
   underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 
-const AccountsButton = ({ activePage, onPageChange, underlineNavItemClass }: Props) => {
+const AccountsTab = ({ activePage, onPageChange, underlineNavItemClass }: Props) => {
   if (activePage === 'accounts') {
     return null;
   }
@@ -20,4 +20,4 @@ const AccountsButton = ({ activePage, onPageChange, underlineNavItemClass }: Pro
   );
 };
 
-export default AccountsButton;
+export default AccountsTab;

@@ -9,7 +9,7 @@ interface Props {
   underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 
-const MatchesButton = ({ activePage, activeSeason, activeAccountID, onPageChange, underlineNavItemClass }: Props) => {
+const MatchesTab = ({ activePage, activeSeason, activeAccountID, onPageChange, underlineNavItemClass }: Props) => {
   const [totalMatches, setTotalMatches] = useState<number | null>(null);
 
   if (!activeAccountID) {
@@ -41,4 +41,4 @@ const MatchesButton = ({ activePage, activeSeason, activeAccountID, onPageChange
   );
 };
 
-export default MatchesButton;
+export default MatchesTab;

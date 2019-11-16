@@ -9,7 +9,7 @@ interface Props {
   underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 
-const TrendsButton = ({ activePage, activeSeason, activeAccountID, onPageChange, underlineNavItemClass }: Props) => {
+const TrendsTab = ({ activePage, activeSeason, activeAccountID, onPageChange, underlineNavItemClass }: Props) => {
   const [hasMatches, setHasMatches] = useState(false);
   const account = new Account({ _id: activeAccountID });
   account.hasMatches(activeSeason).then(hasMatches => {
@@ -37,4 +37,4 @@ const TrendsButton = ({ activePage, activeSeason, activeAccountID, onPageChange,
   )
 };
 
-export default TrendsButton;
+export default TrendsTab;
