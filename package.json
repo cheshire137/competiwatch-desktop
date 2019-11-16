@@ -5,13 +5,13 @@
   "version": "0.2.9",
   "private": true,
   "dependencies": {
-    "@types/node": "^12.7.2",
-    "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.8.5",
+    "@types/node": "^12.12.8",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.4",
     "electron-log": "^3.0.9",
     "is-electron": "^2.2.0",
     "nedb": "^1.8.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.7.2"
   },
   "bugs": {
     "url": "https://github.com/cheshire137/competiwatch-desktop/issues"
@@ -43,22 +43,22 @@
   "devDependencies": {
     "chart.js": "^2.8.0",
     "csv-parse": "^4.4.6",
-    "csv-stringify": "^5.3.0",
+    "csv-stringify": "^5.3.3",
     "electron": "^7.1.1",
     "electron-packager": "^14.1.0",
     "electron-winstaller": "^4.0.0",
-    "enzyme": "^3.9.0",
+    "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "foreman": "^3.0.1",
     "ionicons": "^4.5.5",
     "jest-enzyme": "^7.1.2",
     "primer": "^11.0.0",
-    "react": "^16.8.4",
+    "react": "^16.12.0",
     "react-autocomplete": "^1.8.1",
     "react-chartjs-2": "^2.7.4",
     "react-click-outside": "^3.0.1",
-    "react-dom": "^16.8.4",
-    "react-scripts": "^3.1.1",
+    "react-dom": "^16.12.0",
+    "react-scripts": "^3.2.0",
     "react-scroll-to-component": "^1.0.2"
   },
   "jest": {
