@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 jest.mock('react-chartjs-2', () => ({ Pie: () => null }))
-import WinLossChart from '../../components/WinLossChart'
+import WinLossChart from '../../../components/Charts/WinLossChart'
 
 it('renders', () => {
   const div = document.createElement('div')

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Bar } from 'react-chartjs-2'
-import Color from '../models/Color'
-import Hero from '../models/Hero'
-import ChartUtils from '../models/ChartUtils'
+import Color from '../../models/Color'
+import Hero from '../../models/Hero'
+import ChartUtils from '../../models/ChartUtils'
 
 class HeroesChart extends Component {
   getCountsByHero = (heroes, filteredMatches) => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Bar } from 'react-chartjs-2'
-import Color from '../models/Color'
-import ChartUtils from '../models/ChartUtils'
+import Color from '../../models/Color'
+import ChartUtils from '../../models/ChartUtils'
 
 class VoiceChatChart extends Component {
   getWins = () => {

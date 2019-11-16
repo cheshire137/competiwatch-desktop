@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Radar } from 'react-chartjs-2'
-import Color from '../models/Color'
-import Hero from '../models/Hero'
+import Color from '../../models/Color'
+import Hero from '../../models/Hero'
 
 const roleFor = hero => {
   if (Hero.byType.DPS.indexOf(hero) > -1) {

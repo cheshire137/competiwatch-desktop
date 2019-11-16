@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Bar } from 'react-chartjs-2'
-import Color from '../models/Color'
-import ChartUtils from '../models/ChartUtils'
-import Map from '../models/Map'
+import Color from '../../models/Color'
+import ChartUtils from '../../models/ChartUtils'
+import Map from '../../models/Map'
 
 class MapChart extends Component {
   getCountsByMap = (matchesWithMaps, filterer) => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Pie } from 'react-chartjs-2'
-import Color from '../models/Color'
+import Color from '../../models/Color'
 
 class WinLossChart extends Component {
   getCounts = () => {

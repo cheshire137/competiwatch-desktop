@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 jest.mock('react-chartjs-2', () => ({ Line: () => null }))
-import StreaksChart from '../../components/StreaksChart'
+import StreaksChart from '../../../components/Charts/StreaksChart'
 
 it('renders', () => {
   const div = document.createElement('div')

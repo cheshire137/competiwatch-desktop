@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Bar } from 'react-chartjs-2'
-import Color from '../models/Color'
-import ChartUtils from '../models/ChartUtils'
+import Color from '../../models/Color'
+import ChartUtils from '../../models/ChartUtils'
 
 const simpleLabels = [ // must be in the same order as `labels`
   'weekday morning',
@@ -25,7 +25,7 @@ const labels = [ // must be in the same order as `simpleLabels`
   ['🎉 🌝', 'Weekend Night']
 ]
 
-class DayTimeChart extends Component {
+class ThrowerLeaverTimeChart extends Component {
   getCountsByDayTime = filteredMatches => {
     const countsByDayTime = {}
 
@@ -43,19 +43,14 @@ class DayTimeChart extends Component {
     return Object.values(countsByDayTime)
   }
 
-  getWins = () => {
-    const wonMatches = this.props.matches.filter(match => match.isWin())
-    return this.getCountsByDayTime(wonMatches)
+  getThrowers = () => {
+    const thrownMatches = this.props.matches.filter(match => match.hasThrower())
+    return this.getCountsByDayTime(thrownMatches)
   }
 
-  getLosses = () => {
-    const lostMatches = this.props.matches.filter(match => match.isLoss())
-    return this.getCountsByDayTime(lostMatches)
-  }
-
-  getDraws = () => {
-    const drawnMatches = this.props.matches.filter(match => match.isDraw())
-    return this.getCountsByDayTime(drawnMatches)
+  getLeavers = () => {
+    const leaverMatches = this.props.matches.filter(match => match.hasLeaver())
+    return this.getCountsByDayTime(leaverMatches)
   }
 
   render() {
@@ -68,32 +63,24 @@ class DayTimeChart extends Component {
       responsive: true,
       maintainAspectRatio: false
     }
-    const wins = this.getWins()
-    const losses = this.getLosses()
-    const draws = this.getDraws()
+    const throwers = this.getThrowers()
+    const leavers = this.getLeavers()
     const data = {
       labels,
       datasets: [
         {
-          backgroundColor: Color.transparentWin,
-          borderColor: Color.win,
+          backgroundColor: Color.transparentAlly,
+          borderColor: Color.ally,
           borderWidth: 2,
-          label: 'Wins',
-          data: wins
+          label: 'Throwers',
+          data: throwers
         },
         {
-          backgroundColor: Color.transparentLoss,
-          borderColor: Color.loss,
+          backgroundColor: Color.transparentEnemy,
+          borderColor: Color.enemy,
           borderWidth: 2,
-          label: 'Losses',
-          data: losses
-        },
-        {
-          backgroundColor: Color.transparentDraw,
-          borderColor: Color.draw,
-          borderWidth: 2,
-          label: 'Draws',
-          data: draws
+          label: 'Leavers',
+          data: leavers
         }
       ]
     }
@@ -101,7 +88,7 @@ class DayTimeChart extends Component {
     return (
       <div>
         <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
-          Wins/Losses by Day and Time
+          Throwers/Leavers by Day and Time
           <span className="text-gray text-normal h4 d-inline-block ml-2">Season {season}</span>
         </h3>
         <div className="chart-container">
@@ -112,4 +99,4 @@ class DayTimeChart extends Component {
   }
 }
 
-export default DayTimeChart
+export default ThrowerLeaverTimeChart

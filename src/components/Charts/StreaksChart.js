@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Line } from 'react-chartjs-2'
-import Color from '../models/Color'
-import ChartUtils from '../models/ChartUtils'
+import Color from '../../models/Color'
+import ChartUtils from '../../models/ChartUtils'
 
 class StreaksChart extends Component {
   lossStreaks = () => {
