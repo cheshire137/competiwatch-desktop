@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import HeroImage from './HeroImage'
-import HeroUtil from '../models/HeroUtil'
+import HeroImage from '../HeroImage'
+import HeroUtil from '../../models/HeroUtil'
 import './HeroCheckbox.css'
 
 class HeroCheckbox extends Component {
