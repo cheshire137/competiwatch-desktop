@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import SeasonSelect from './SeasonSelect'
 import AccountSelect from './AccountSelect'
-import MainNavigation from './MainNavigation'
+import MainNavigation from './MainNavigation/index'
 import './Header.css'
 
 class Header extends Component {
