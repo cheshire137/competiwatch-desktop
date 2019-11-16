@@ -13,7 +13,6 @@ interface Props {
   activeAccountID: string;
   activeSeason: number;
   onPageChange: (activePage: string, val1?: any, val2?: any) => {};
-  changeToMatchFormPage: () => {};
   onExport: () => {};
 }
 
