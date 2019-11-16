@@ -6,12 +6,14 @@ import EditMatchButton from './EditMatchButton';
 import ImportButton from './ImportButton';
 import TrendsButton from './TrendsButton';
 import ExportButton from './ExportButton';
+import LogMatchButton from './LogMatchButton';
 
 interface Props {
   activePage: string;
   activeAccountID: string;
   activeSeason: number;
-  onPageChange: (event: any) => {};
+  onPageChange: (activePage: string, val1?: any, val2?: any) => {};
+  changeToMatchFormPage: () => {};
   onExport: () => {};
 }
 
@@ -69,6 +71,12 @@ const MainNavigation = ({ activeAccountID, onPageChange, activeSeason, activePag
     <ExportButton
       onExport={onExport}
       activePage={activePage}
+    />
+    <LogMatchButton
+      activePage={activePage}
+      activeSeason={activeSeason}
+      onPageChange={onPageChange}
+      activeAccountID={activeAccountID}
     />
     {activePage === 'log-match' && (<div
       className="text-gray text-small"

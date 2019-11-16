@@ -5,16 +5,8 @@ import MainNavigation from './MainNavigation/index'
 import './Header.css'
 
 class Header extends Component {
-  changeActivePage = event => {
-    const button = event.currentTarget
-    const active = button.name
-
-    button.blur()
-    this.props.onPageChange(active)
-  }
-
   render() {
-    const { activeSeason, latestSeason, onSeasonChange, accounts,
+    const { activeSeason, latestSeason, onSeasonChange, accounts, onPageChange,
             activeAccountID, onAccountChange, activePage, onExport } = this.props
 
     return (
@@ -25,7 +17,7 @@ class Header extends Component {
               activeSeason={activeSeason}
               latestSeason={latestSeason}
               onChange={onSeasonChange}
-              onPageChange={this.changeActivePage}
+              onPageChange={onPageChange}
             />
           ) : null}
           {activeAccountID ? (
@@ -33,11 +25,11 @@ class Header extends Component {
               accounts={accounts}
               activeAccountID={activeAccountID}
               onChange={onAccountChange}
-              onPageChange={this.changeActivePage}
+              onPageChange={onPageChange}
             />
           ) : null}
           <MainNavigation
-            onPageChange={this.changeActivePage}
+            onPageChange={onPageChange}
             activePage={activePage}
             activeSeason={activeSeason}
             activeAccountID={activeAccountID}

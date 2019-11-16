@@ -2,7 +2,7 @@ import React from 'react';
 
 interface Props {
   activePage: string;
-  onPageChange: (event: any) => {};
+  onPageChange: (activePage: string, val1?: any, val2?: any) => {};
   underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 
@@ -13,10 +13,9 @@ const AccountsButton = ({ activePage, onPageChange, underlineNavItemClass }: Pro
 
   return (
     <button
-      name="accounts"
       type="button"
       className={underlineNavItemClass('accounts', true)}
-      onClick={onPageChange}
+      onClick={() => onPageChange('accounts')}
     >Accounts</button>
   );
 };

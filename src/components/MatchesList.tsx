@@ -19,15 +19,6 @@ const MatchesList = ({ account, season, onPageChange, scrollToMatch, theme, scro
 
   Match.findAll(account._id, season).then(m => setMatches(m));
 
-  const changeToMatchFormPage = () => {
-    if (matches.length > 0) {
-      const latestMatch = matches[matches.length - 1];
-      onPageChange('log-match', latestMatch.rank, latestMatch.group);
-    } else {
-      onPageChange('log-match');
-    }
-  };
-
   const anyMatches = matches.length > 0
   if (!anyMatches) {
     return <LoadingPage />;
@@ -35,15 +26,6 @@ const MatchesList = ({ account, season, onPageChange, scrollToMatch, theme, scro
 
   return (
     <div className="mb-4">
-      {anyMatches && (
-        <div className="d-flex mb-2 flex-items-center flex-justify-end">
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={changeToMatchFormPage}
-          >Log a match</button>
-        </div>
-      )}
       {anyMatches ? (
         <div>
           <MatchesTable
@@ -64,11 +46,6 @@ const MatchesList = ({ account, season, onPageChange, scrollToMatch, theme, scro
               >importing them</button>
               <span> from a CSV file.</span>
             </div>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={changeToMatchFormPage}
-            >Log a match</button>
           </div>
         </div>
       ) : (
@@ -80,7 +57,7 @@ const MatchesList = ({ account, season, onPageChange, scrollToMatch, theme, scro
             <button
               type="button"
               className="btn-large btn btn-primary"
-              onClick={changeToMatchFormPage}
+              onClick={() => onPageChange('log-match')}
             >Log a match</button>
             or
             <button

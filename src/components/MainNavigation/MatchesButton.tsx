@@ -5,7 +5,7 @@ interface Props {
   activeAccountID: string;
   activeSeason: number;
   activePage: string;
-  onPageChange: (event: any) => {};
+  onPageChange: (activePage: string, val1?: any, val2?: any) => {};
   underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 
@@ -34,10 +34,9 @@ const MatchesButton = ({ activePage, activeSeason, activeAccountID, onPageChange
 
   return (
     <button
-      name="matches"
       type="button"
       className={underlineNavItemClass('matches', true)}
-      onClick={onPageChange}
+      onClick={() => onPageChange('matches')}
     >Matches {totalBadge}</button>
   );
 };

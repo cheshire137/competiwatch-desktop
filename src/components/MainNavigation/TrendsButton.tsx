@@ -5,7 +5,7 @@ interface Props {
   activePage: string;
   activeAccountID: string;
   activeSeason: number;
-  onPageChange: (event: any) => {};
+  onPageChange: (activePage: string, val1?: any, val2?: any) => {};
   underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 
@@ -30,10 +30,9 @@ const TrendsButton = ({ activePage, activeSeason, activeAccountID, onPageChange,
 
   return (
     <button
-      name="trends"
       type="button"
       className={underlineNavItemClass('trends', true)}
-      onClick={onPageChange}
+      onClick={() => onPageChange('trends')}
     >Trends</button>
   )
 };
