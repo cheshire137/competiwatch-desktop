@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import Hero from '../models/Hero'
-import HeroCheckboxList from './HeroCheckboxList'
-import RoleImage from './RoleImage'
+import Hero from '../../models/Hero'
+import HeroCheckboxList from '../HeroCheckboxList'
+import RoleImage from '../RoleImage'
 import './HeroSelect.css'
 
 class HeroSelect extends Component {
