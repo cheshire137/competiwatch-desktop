@@ -138,7 +138,6 @@ class TrendsPage extends Component {
             </div>
           </div>
         ) : null}
-        <hr className="mb-4 pt-4" />
         <GroupSizeChart season={season} matches={matches} />
         {showHeroesCharts || showVoiceCharts ? (
           <div>

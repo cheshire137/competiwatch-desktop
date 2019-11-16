@@ -38,7 +38,22 @@ class GroupSizeChart extends Component {
     return this.getCountsByGroupSize(drawnMatches)
   }
 
+  moreThanOneGroupSize = () => {
+    const countsByGroupSize = this.getCountsByGroupSize(this.props.matches);
+    let numGroupSizes = 0;
+    for (const groupSize in countsByGroupSize) {
+      if (countsByGroupSize[groupSize] > 0) {
+        numGroupSizes++;
+      }
+    }
+    return numGroupSizes > 1;
+  }
+
   render() {
+    if (!this.moreThanOneGroupSize()) {
+      return null;
+    }
+
     const { season } = this.props
     const numberAxisOptions = [{ ticks: { callback: ChartUtils.wholeTicks, beginAtZero: true } }]
     const labelAxisOptions = [{ ticks: { autoSkip: false } }]
@@ -79,7 +94,8 @@ class GroupSizeChart extends Component {
     }
 
     return (
-      <div>
+      <>
+        <hr className="mb-4 pt-4" />
         <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
           Wins/Losses by Group Size
           <span className="text-gray text-normal h4 d-inline-block ml-2">Season {season}</span>
@@ -87,7 +103,7 @@ class GroupSizeChart extends Component {
         <div className="small-chart-container">
           <Bar data={data} options={options} />
         </div>
-      </div>
+      </>
     )
   }
 }
