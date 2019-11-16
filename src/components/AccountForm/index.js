@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Account from '../models/Account'
+import Account from '../../models/Account'
 import './AccountForm.css'
 
 const isValidBattletag = battletag => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import isElectron from 'is-electron'
 import AccountDeleteForm from './AccountDeleteForm'
-import AccountForm from './AccountForm'
+import AccountForm from './AccountForm/index'
 import CsvExporter from '../models/CsvExporter'
 import Match from '../models/Match'
 import FileUtil from '../models/FileUtil'

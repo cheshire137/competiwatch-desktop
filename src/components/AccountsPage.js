@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import AccountForm from './AccountForm'
+import AccountForm from './AccountForm/index'
 import AccountsList from './AccountsList'
 
 class AccountsPage extends Component {
