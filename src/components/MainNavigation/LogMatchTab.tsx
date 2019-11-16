@@ -5,7 +5,7 @@ interface Props {
   underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 
-const LogMatchButton = ({ activePage, underlineNavItemClass }: Props) => {
+const LogMatchTab = ({ activePage, underlineNavItemClass }: Props) => {
   if (activePage !== 'log-match') {
     return null;
   }
@@ -16,4 +16,4 @@ const LogMatchButton = ({ activePage, underlineNavItemClass }: Props) => {
   )
 };
 
-export default LogMatchButton;
+export default LogMatchTab;

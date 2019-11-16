@@ -1,7 +1,7 @@
 import React from 'react'
 import AccountsButton from './AccountsButton';
 import MatchesButton from './MatchesButton';
-import LogMatchButton from './LogMatchButton';
+import LogMatchTab from './LogMatchTab';
 import EditMatchButton from './EditMatchButton';
 import ImportButton from './ImportButton';
 import TrendsButton from './TrendsButton';
@@ -46,7 +46,7 @@ const MainNavigation = ({ activeAccountID, onPageChange, activeSeason, activePag
         activeSeason={activeSeason}
         underlineNavItemClass={underlineNavItemClass}
       />
-      <LogMatchButton
+      <LogMatchTab
         activePage={activePage}
         underlineNavItemClass={underlineNavItemClass}
       />
