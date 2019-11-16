@@ -42,6 +42,23 @@
   background-color: #efefef;
 }
 
+.options-cell,
+.match-placement-row .match-cell.options-cell,
+.options-header {
+  border: none;
+  background-color: transparent;
+  padding: 0.4em 0 0 7px;
+  display: block;
+  margin-right: -18px;
+  visibility: hidden;
+}
+
+.match-row:hover .options-cell,
+.match-placement-row:hover .match-cell.options-cell,
+.match-header-row:hover .options-header {
+  visibility: visible;
+}
+
 .match-cell.group-cell span + span {
   margin-left: 0.5em;
 }

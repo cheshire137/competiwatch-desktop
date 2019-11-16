@@ -120,7 +120,7 @@ class MatchesTable extends Component {
     return (
       <table className="width-full">
         <thead>
-          <tr>
+          <tr className="match-header-row">
             <th
               className="match-header hide-sm"
             >#</th>
@@ -178,7 +178,7 @@ class MatchesTable extends Component {
               >Other</th>
             ) : null}
             <th
-              className="match-header"
+              className="match-header options-header"
             ></th>
           </tr>
         </thead>

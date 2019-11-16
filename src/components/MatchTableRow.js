@@ -32,7 +32,7 @@ class MatchTableRow extends Component {
     let classes = []
 
     if (!isLast) {
-      classes = classes.concat(['border-bottom', 'pb-2', 'mb-2'])
+      classes = classes.concat(['match-row', 'pb-2', 'mb-2'])
     }
     if (match.isPlacement) {
       classes.push('match-placement-row')
@@ -469,7 +469,7 @@ class MatchTableRow extends Component {
           <button
             type="button"
             onClick={this.editMatch}
-            className="btn-link link-gray-dark tooltipped tooltipped-w"
+            className="btn-link link-gray tooltipped tooltipped-w"
             aria-label="Edit this match"
             value={_id}
           >
