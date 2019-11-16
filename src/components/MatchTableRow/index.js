@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import ColorGradient from '../models/ColorGradient'
-import Season from '../models/Season'
-import MatchRankImage from './MatchRankImage'
-import HeroImage from './HeroImage'
-import RoleImage from './RoleImage'
-import TimeOfDayEmoji from './TimeOfDayEmoji'
-import DayOfWeekEmoji from './DayOfWeekEmoji'
+import ColorGradient from '../../models/ColorGradient'
+import Season from '../../models/Season'
+import MatchRankImage from '../MatchRankImage'
+import HeroImage from '../HeroImage'
+import RoleImage from '../RoleImage'
+import TimeOfDayEmoji from '../TimeOfDayEmoji'
+import DayOfWeekEmoji from '../DayOfWeekEmoji'
 import './MatchTableRow.css'
 
 const winColors = [[178,212,132], [102,189,125]]
