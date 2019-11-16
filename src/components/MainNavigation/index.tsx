@@ -43,6 +43,7 @@ const MainNavigation = ({ activeAccountID, onPageChange, activeSeason, activePag
         activeAccountID={activeAccountID}
         onPageChange={onPageChange}
         activePage={activePage}
+        activeSeason={activeSeason}
         underlineNavItemClass={underlineNavItemClass}
       />
       <LogMatchButton

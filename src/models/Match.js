@@ -127,6 +127,11 @@ class Match {
     })
   }
 
+  static totalInSeason(number) {
+    const season = new Season({ number });
+    return season.totalMatches();
+  }
+
   static find(id) {
     return Database.find('matches', id).then(data => new Match(data))
   }
