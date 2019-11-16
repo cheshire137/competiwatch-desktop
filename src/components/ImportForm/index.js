@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import CsvImporter from '../models/CsvImporter'
-import Match from '../models/Match'
+import CsvImporter from '../../models/CsvImporter'
+import Match from '../../models/Match'
 import './ImportForm.css'
 
 class ImportForm extends Component {
