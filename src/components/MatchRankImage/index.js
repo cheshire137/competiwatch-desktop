@@ -41,7 +41,7 @@ const MatchRankImage = props => {
     return null
   }
 
-  const src = require(`../images/ranks/${rankTier}.png`)
+  const src = require(`../../images/ranks/${rankTier}.png`)
   const imgClass = `rank-image rank-${rankTier} ${className}`
   return (
     <span
