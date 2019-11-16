@@ -1,6 +1,6 @@
 # Competiwatch Desktop
 
-[![Actions Status](https://github.com/cheshire137/competiwatch-desktop/workflows/nodejs/badge.svg)](https://github.com/cheshire137/competiwatch-desktop/actions)
+[![Actions Status](https://github.com/cheshire137/competiwatch-desktop/workflows/Node%20CI/badge.svg)](https://github.com/cheshire137/competiwatch-desktop/actions)
 
 **[Download the app](https://github.com/cheshire137/competiwatch-desktop/releases/latest)** - [see what's new](./CHANGELOG.md)
 
