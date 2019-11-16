@@ -49,7 +49,7 @@
     "electron-packager": "^12.2.0",
     "electron-winstaller": "^2.6.4",
     "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.11.2",
+    "enzyme-adapter-react-16": "^1.15.1",
     "foreman": "^3.0.1",
     "ionicons": "^4.5.5",
     "jest-enzyme": "^7.1.2",
