@@ -1,7 +1,7 @@
 import React from 'react'
 import SeasonSelect from './SeasonSelect'
 import AccountSelect from './AccountSelect'
-import MainNavigation from './MainNavigation/index'
+import MainNavigation from './MainNavigation';
 import Account from "../models/Account";
 import './Header.css'
 
