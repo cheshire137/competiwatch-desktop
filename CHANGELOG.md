@@ -1,5 +1,9 @@
 # Change log
 
+## Version 0.2.9
+
+- Added competitive season 19
+
 ## Version 0.2.8
 
 - Role is now included when exporting and importing matches

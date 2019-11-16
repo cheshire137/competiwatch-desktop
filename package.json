@@ -2,17 +2,16 @@
   "name": "Competiwatch",
   "productName": "Competiwatch",
   "description": "A desktop app to track and visualize your competitive match history in Overwatch.",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "private": true,
   "dependencies": {
-    "@types/jest": "^24.0.17",
-    "@types/node": "^12.7.2",
-    "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.8.5",
-    "electron-log": "^2.2.17",
+    "@types/node": "^12.12.8",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.4",
+    "electron-log": "^3.0.9",
     "is-electron": "^2.2.0",
     "nedb": "^1.8.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.7.2"
   },
   "bugs": {
     "url": "https://github.com/cheshire137/competiwatch-desktop/issues"
@@ -41,25 +40,29 @@
     "electron-build-windows": "npm run build && node node_modules\\electron-packager\\cli.js . --out=dist --overwrite --asar=true --icon=icon-files/win/icon.ico --prune=true --version-string.CompanyName=SV --version-string.FileDescription=SV --version-string.ProductName=Competiwatch --platform=win32 --arch=x64 --ignore=setupTests.js --ignore=__mocks__ --ignore=docs --ignore=win-installer-config.json --ignore=__tests__ --ignore=TestHelpers.js --ignore=icon-files --ignore=screenshots",
     "electron-build-windows-installer": "node dist/installers/create-windows-installer.js"
   },
+  "resolutions": {
+    "babel-preset-react-app": "7.0.0"
+  },
   "devDependencies": {
+    "babel-preset-react-app": "^7.0.0",
     "chart.js": "^2.8.0",
-    "csv-parse": "^4.4.3",
-    "csv-stringify": "^5.3.0",
-    "electron": "^5.0.6",
-    "electron-packager": "^12.2.0",
-    "electron-winstaller": "^2.6.4",
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.11.2",
+    "csv-parse": "^4.4.6",
+    "csv-stringify": "^5.3.3",
+    "electron": "^7.1.1",
+    "electron-packager": "^14.1.0",
+    "electron-winstaller": "^4.0.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
     "foreman": "^3.0.1",
     "ionicons": "^4.5.5",
-    "jest-enzyme": "^6.1.2",
+    "jest-enzyme": "^7.1.2",
     "primer": "^11.0.0",
-    "react": "^16.8.4",
+    "react": "^16.12.0",
     "react-autocomplete": "^1.8.1",
     "react-chartjs-2": "^2.7.4",
     "react-click-outside": "^3.0.1",
-    "react-dom": "^16.8.4",
-    "react-scripts": "^3.1.1",
+    "react-dom": "^16.12.0",
+    "react-scripts": "^3.2.0",
     "react-scroll-to-component": "^1.0.2"
   },
   "jest": {
