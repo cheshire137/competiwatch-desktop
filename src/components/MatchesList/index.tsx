@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import MatchesTable from './MatchesTable'
-import LoadingPage from './LoadingPage'
-import Match from '../models/Match'
-import Account from '../models/Account'
+import MatchesTable from '../MatchesTable'
+import LoadingPage from '../LoadingPage'
+import Match from '../../models/Match'
+import Account from '../../models/Account'
 import './MatchesList.css'
 
 interface Props {
