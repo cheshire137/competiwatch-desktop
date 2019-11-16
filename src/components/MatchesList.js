@@ -71,7 +71,7 @@ class MatchesList extends Component {
           {anyMatches ? (
             <button
               type="button"
-              className="btn btn-primary btn-sm"
+              className="btn btn-primary"
               onClick={this.changeToMatchFormPage}
             >Log a match</button>
           ) : null}
@@ -98,7 +98,7 @@ class MatchesList extends Component {
               </div>
               <button
                 type="button"
-                className="btn btn-primary btn-sm"
+                className="btn btn-primary"
                 onClick={this.changeToMatchFormPage}
               >Log a match</button>
             </div>
