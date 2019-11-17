@@ -5,7 +5,7 @@ import Season from '../models/Season'
 interface Props {
   seasonNumber: number;
   index: number;
-  onDelete: () => void;
+  onDelete: (season: number) => void;
   firstNonDeletableSeason: number;
 }
 
@@ -29,7 +29,7 @@ const SeasonListItem = ({ seasonNumber, index, firstNonDeletableSeason, onDelete
         <span className="text-bold">Season {seasonNumber}</span>
         {seasonNumber > firstNonDeletableSeason && index === 0 ? (
           <SeasonDeleteForm
-            season={seasonNumber}
+            seasonNumber={seasonNumber}
             onDelete={onDelete}
           />
         ) : null}
