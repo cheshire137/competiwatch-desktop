@@ -195,14 +195,14 @@ class Match {
   }
 
   static find(id: string) {
-    return Database.find('matches', id).then(data => new Match(data))
+    return Database.find('matches', id).then((data: MatchData) => new Match(data))
   }
 
-  static findAll(accountID: string, season: number) {
+  static findAll(accountID: string, season: number): Promise<Match[]> {
     const conditions = { accountID, season };
 
-    return Database.findAll('matches', defaultSort, conditions).then(rows => {
-      const matches: Match[] = rows.map((data: MatchData) => new Match(data))
+    return Database.findAll('matches', defaultSort, conditions).then((rows: MatchData[]) => {
+      const matches: Match[] = rows.map(data => new Match(data))
 
       for (let i = 0; i < matches.length; i++) {
         const match = matches[i]

@@ -83,7 +83,7 @@ class Account {
       const heroCounts: HeroToNumber = {};
 
       for (const match of matches) {
-        const matchHeroes: Hero[] = match.heroList;
+        const matchHeroes = match.heroList;
 
         for (const hero of matchHeroes) {
           if (!(hero in heroCounts)) {
@@ -96,10 +96,10 @@ class Account {
 
       const sortableHeroCounts = []
       for (const hero in heroCounts) {
-        sortableHeroCounts.push([hero, heroCounts[hero]])
+        sortableHeroCounts.push([hero, heroCounts[hero as Hero]])
       }
       sortableHeroCounts.sort((a, b) => {
-        return b[1] - a[1]
+        return (b[1] as number) - (a[1] as number);
       })
 
       return sortableHeroCounts.map(arr => arr[0]).slice(0, 3)
