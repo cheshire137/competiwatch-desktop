@@ -64,11 +64,11 @@ class App extends Component {
 
   refreshLatestSeason = () => {
     Season.latest().then(season => {
-      if (season) {
-        this.changeActiveSeason(season.number)
-      } else {
-        this.changeActiveSeason(latestKnownSeason)
+      let latestNumber = latestKnownSeason;
+      if (season && season.number > latestNumber) {
+        latestNumber = season.number;
       }
+      this.changeActiveSeason(latestNumber);
     })
   }
 
