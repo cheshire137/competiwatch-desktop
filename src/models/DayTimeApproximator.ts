@@ -1,5 +1,9 @@
+export type DayOfWeek = "weekend" | "weekday";
+
+export type TimeOfDay = "morning" | "evening" | "afternoon" | "night";
+
 class DayTimeApproximator {
-  static dayOfWeek(date) {
+  static dayOfWeek(date: string | Date): DayOfWeek {
     if (typeof date === 'string') {
       date = new Date(date)
     }
@@ -12,7 +16,7 @@ class DayTimeApproximator {
     return 'weekday'
   }
 
-  static timeOfDay(date) {
+  static timeOfDay(date: string | Date): TimeOfDay {
     if (typeof date === 'string') {
       date = new Date(date)
     }

@@ -1,9 +1,11 @@
 import Database from './Database'
 import Season from './Season'
-import { HeroesByRole } from './Hero'
-import DayTimeApproximator from './DayTimeApproximator'
+import { HeroesByRole, HeroRole, Hero, Heroes } from './Hero'
+import DayTimeApproximator, { DayOfWeek, TimeOfDay } from './DayTimeApproximator'
 
-const getPriorMatch = (match, prevMatches) => {
+type MatchResult = "win" | "loss" | "draw";
+
+const getPriorMatch = (match: Match, prevMatches: Match[]) => {
   if (match.season >= Season.roleQueueSeasonStart) {
     const prevMatchesInRole = prevMatches.filter(m => m.role === match.role)
     return prevMatchesInRole[prevMatchesInRole.length - 1]
@@ -12,7 +14,7 @@ const getPriorMatch = (match, prevMatches) => {
   return prevMatches[prevMatches.length - 1]
 }
 
-const matchRankChange = (match, prevMatches) => {
+const matchRankChange = (match: Match, prevMatches: Match[]) => {
   if (!match || prevMatches.length < 1) {
     return
   }
@@ -25,7 +27,7 @@ const matchRankChange = (match, prevMatches) => {
   }
 }
 
-const matchResult = (match, prevMatches) => {
+const matchResult = (match: Match, prevMatches: Match[]) => {
   if (match.result) {
     return match.result
   }
@@ -35,7 +37,7 @@ const matchResult = (match, prevMatches) => {
     if (!priorMatch) {
       return
     }
-    if (match.rank > priorMatch.rank) {
+    if (match.rank && priorMatch.rank && match.rank > priorMatch.rank) {
       return 'win'
     }
 
@@ -47,48 +49,48 @@ const matchResult = (match, prevMatches) => {
   }
 }
 
-const cleanupCommaList = str => {
+const cleanupCommaList = (str?: string) => {
   if (!str) {
-    return ''
+    return '';
   }
 
   const items = str.split(',').map(str => str.trim())
-    .filter(str => str && str.length > 0)
-  items.sort()
-  return items.join(',')
+    .filter(str => str && str.length > 0);
+  items.sort();
+  return items.join(',');
 }
 
-const getWinStreak = (index, matches, count) => {
-  const match = matches[index]
+const getWinStreak = (index: number, matches: Match[], count: number): number => {
+  const match = matches[index];
   if (!match || !match.isWin()) {
-    return count
+    return count;
   }
 
-  const prevMatch = matches[index - 1]
+  const prevMatch = matches[index - 1];
   if (prevMatch && prevMatch.isWin()) {
-    return getWinStreak(index - 1, matches, count + 1)
+    return getWinStreak(index - 1, matches, count + 1);
   }
 
-  return getWinStreak(index - 1, matches, count)
+  return getWinStreak(index - 1, matches, count);
 }
 
-const getLossStreak = (index, matches, count) => {
-  const match = matches[index]
+const getLossStreak = (index: number, matches: Match[], count: number): number => {
+  const match = matches[index];
   if (!match || !match.isLoss()) {
-    return count
+    return count;
   }
 
-  const prevMatch = matches[index - 1]
+  const prevMatch = matches[index - 1];
   if (prevMatch && prevMatch.isLoss()) {
-    return getLossStreak(index - 1, matches, count + 1)
+    return getLossStreak(index - 1, matches, count + 1);
   }
 
-  return getLossStreak(index - 1, matches, count)
+  return getLossStreak(index - 1, matches, count);
 }
 
 const defaultSort = { playedAt: 1, createdAt: 1 }
 
-function guessRoleFromHeroesPlayed(season, heroList) {
+function guessRoleFromHeroesPlayed(season: number, heroList: Hero[]) {
   if (season < Season.roleQueueSeasonStart) {
     return null;
   }
@@ -119,28 +121,88 @@ function guessRoleFromHeroesPlayed(season, heroList) {
   return null
 }
 
+interface MatchConditions {
+  isPlacement?: boolean;
+  season?: number;
+  accountID?: string;
+  role?: HeroRole | null;
+}
+
+export interface MatchData {
+  _id: string;
+  accountID: string;
+  comment?: string;
+  season: string | number;
+  map?: string;
+  isPlacement?: boolean;
+  result?: MatchResult;
+  rank?: number | string;
+  groupSize?: number | string;
+  group?: string;
+  heroes?: string;
+  role?: HeroRole;
+  createdAt?: string | Date;
+  playedAt?: string | Date;
+  dayOfWeek?: DayOfWeek;
+  timeOfDay?: TimeOfDay;
+  enemyThrower?: boolean;
+  allyThrower?: boolean;
+  enemyLeaver?: boolean;
+  allyLeaver?: boolean;
+  playOfTheGame?: boolean;
+  joinedVoice?: boolean;
+}
+
 class Match {
-  static wipeSeason(accountID, season) {
+  result?: MatchResult;
+  rank?: number;
+  season: number;
+  accountID: string;
+  _id: string;
+  createdAt?: Date;
+  rankChange?: number;
+  comment?: string;
+  map?: string;
+  isPlacement?: boolean;
+  winStreak?: number;
+  lossStreak?: number;
+  groupSize?: number;
+  group?: string;
+  heroes?: string;
+  heroList: Hero[];
+  groupList: string[];
+  role: HeroRole | null;
+  playedAt?: Date;
+  dayOfWeek?: DayOfWeek;
+  timeOfDay?: TimeOfDay;
+  enemyThrower?: boolean;
+  allyThrower?: boolean;
+  enemyLeaver?: boolean;
+  allyLeaver?: boolean;
+  playOfTheGame?: boolean;
+  joinedVoice?: boolean;
+
+  static wipeSeason(accountID: string, season: number) {
     return Match.findAll(accountID, season).then(matches => {
       const promises = matches.map(match => match.delete())
       return Promise.all(promises)
     })
   }
 
-  static totalInSeason(number) {
+  static totalInSeason(number: number) {
     const season = new Season({ number });
     return season.totalMatches();
   }
 
-  static find(id) {
+  static find(id: string) {
     return Database.find('matches', id).then(data => new Match(data))
   }
 
-  static findAll(accountID, season) {
-    const conditions = { accountID, season }
+  static findAll(accountID: string, season: number) {
+    const conditions = { accountID, season };
 
     return Database.findAll('matches', defaultSort, conditions).then(rows => {
-      const matches = rows.map(data => new Match(data))
+      const matches: Match[] = rows.map((data: MatchData) => new Match(data))
 
       for (let i = 0; i < matches.length; i++) {
         const match = matches[i]
@@ -163,11 +225,15 @@ class Match {
     })
   }
 
-  constructor(data) {
+  constructor(data: MatchData) {
     this.accountID = data.accountID
     this._id = data._id
     this.comment = data.comment
-    this.season = parseInt(data.season, 10)
+    if (typeof data.season === "number") {
+      this.season = data.season;
+    } else {
+      this.season = parseInt(data.season, 10);
+    }
     this.map = data.map
     this.isPlacement = data.isPlacement
     this.result = data.result
@@ -197,7 +263,7 @@ class Match {
     this.heroes = cleanupCommaList(data.heroes)
     this.heroList = []
     if (this.heroes.length > 0) {
-      this.heroList = this.heroes.split(',')
+      this.heroList = this.heroes.split(',').map(str => str as Hero);
     }
 
     this.role = data.role || guessRoleFromHeroesPlayed(this.season, this.heroList)
@@ -230,9 +296,10 @@ class Match {
     this.playOfTheGame = data.playOfTheGame
     this.joinedVoice = data.joinedVoice
 
-    this.createdAt = data.createdAt
     if (typeof data.createdAt === 'string') {
       this.createdAt = new Date(data.createdAt)
+    } else if (data.createdAt && typeof data.createdAt === 'object' && data.createdAt.constructor.name === 'Date') {
+      this.createdAt = data.createdAt
     }
   }
 
@@ -265,7 +332,7 @@ class Match {
       return false
     }
 
-    const conditions = {
+    const conditions: MatchConditions = {
       isPlacement: true,
       season: this.season,
       accountID: this.accountID
@@ -308,7 +375,7 @@ class Match {
       result: this.result,
       role: this.role
     }
-    return Database.upsert('matches', data, this._id).then(newMatch => {
+    return Database.upsert('matches', data, this._id).then((newMatch: Match) => {
       this._id = newMatch._id
       if (newMatch.createdAt) {
         this.createdAt = newMatch.createdAt

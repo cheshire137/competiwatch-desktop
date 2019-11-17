@@ -1,7 +1,8 @@
 import React from 'react';
+import { TimeOfDay } from "../models/DayTimeApproximator";
 
 interface Props {
-  timeOfDay: "morning" | "evening" | "afternoon" | "night";
+  timeOfDay: TimeOfDay;
 }
 
 const TimeOfDayEmoji = ({ timeOfDay }: Props) => {

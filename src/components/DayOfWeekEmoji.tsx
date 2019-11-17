@@ -1,7 +1,8 @@
 import React from 'react';
+import { DayOfWeek } from "../models/DayTimeApproximator";
 
 interface Props {
-  dayOfWeek: "weekend" | "weekday";
+  dayOfWeek: DayOfWeek;
 }
 
 const DayOfWeekEmoji = ({ dayOfWeek }: Props) => {
