@@ -4,7 +4,7 @@ import { Hero } from "../models/Hero";
 
 interface Props {
   heroes: Hero[];
-  isChecked: (hero: Hero) => void;
+  isChecked: (hero: Hero) => boolean;
   onToggle: (hero: Hero, isSelected: boolean) => void;
   getUnavailableReason: (hero: Hero) => string | undefined;
 }
