@@ -4,7 +4,7 @@ import LoadingPage from './LoadingPage'
 import Account from '../models/Account'
 
 interface Props {
-  accountID: string;
+  account: Account;
   season: number;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   scrollToMatch: boolean;
@@ -12,14 +12,7 @@ interface Props {
   theme: string;
 }
 
-const MatchesPage = ({ accountID, onPageChange, season, scrollToMatch, scrollToMatchID, theme }: Props) => {
-  const [account, setAccount] = useState<Account | null>(null);
-  Account.find(accountID).then(a => setAccount(a));
-
-  if (!account) {
-    return <LoadingPage />;
-  }
-
+const MatchesPage = ({ account, onPageChange, season, scrollToMatch, scrollToMatchID, theme }: Props) => {
   return (
     <div className="container layout-children-container">
       <MatchesList

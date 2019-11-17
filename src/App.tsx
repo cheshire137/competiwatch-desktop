@@ -302,7 +302,7 @@ const App = () => {
 
       {activePage === 'matches' && haveActiveSeason && activeAccount && (
         <MatchesPage
-          accountID={activeAccount._id}
+          account={activeAccount}
           season={activeSeason}
           onPageChange={changeActivePage}
           scrollToMatch={scrollToMatch}
@@ -333,8 +333,8 @@ const App = () => {
 
       {activePage === 'import' && haveActiveSeason && activeAccount && (
         <ImportPage
-          season={activeSeason}
-          accountID={activeAccount._id}
+          seasonNumber={activeSeason}
+          account={activeAccount}
           onImport={onMatchesImported}
         />)}
 

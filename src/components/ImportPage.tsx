@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import ImportForm from './ImportForm'
 import LoadingPage from './LoadingPage'
 import Account from '../models/Account'
+import Match from '../models/Match'
 
 interface Props {
   account: Account;
   seasonNumber: number;
-  onImport: () => void;
+  onImport: (matches: Array<Match>) => void;
 }
 
 const ImportPage = ({ account, seasonNumber, onImport }: Props) => {
@@ -14,7 +15,7 @@ const ImportPage = ({ account, seasonNumber, onImport }: Props) => {
   const [activeSample, setActiveSample] = useState("sample1");
 
   useEffect(() => {
-    account.totalMatches(seasonNumber).then(total => setTotalMatches(total));
+    account.totalMatches(seasonNumber).then((total: number) => setTotalMatches(total));
   }, [setTotalMatches, seasonNumber]);
 
   if (totalMatches < 0) {
