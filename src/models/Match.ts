@@ -1,6 +1,6 @@
 import Database from './Database'
 import Season from './Season'
-import { HeroesByRole, HeroRole, Hero, Heroes } from './Hero'
+import { HeroesByRole, HeroRole, Hero } from './Hero'
 import DayTimeApproximator, { DayOfWeek, TimeOfDay } from './DayTimeApproximator'
 
 type MatchResult = "win" | "loss" | "draw";

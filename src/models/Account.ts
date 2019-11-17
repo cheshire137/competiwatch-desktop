@@ -1,5 +1,5 @@
 import Database from './Database'
-import Match from './Match'
+import Match, { MatchData } from './Match'
 import { Hero } from "./Hero"
 
 type HeroToNumber = {
@@ -32,12 +32,12 @@ class Account {
   static findAll() {
     const sort = { battletag: 1 } // not case-insensitive
     return Database.findAll('accounts', sort)
-                   .then(rows => rows.map((data: AccountData) => new Account(data)))
-                   .then(accounts => accounts.sort(accountSort))
+                   .then((rows: AccountData[]) => rows.map(data => new Account(data)))
+                   .then((accounts: Account[]) => accounts.sort(accountSort))
   }
 
   static find(id: string) {
-    return Database.find('accounts', id).then(data => new Account(data))
+    return Database.find('accounts', id).then((data: AccountData) => new Account(data))
   }
 
   constructor(data: AccountData) {
@@ -55,8 +55,8 @@ class Account {
       conditions.season = season
     }
 
-    return Database.findAll('matches', sort, conditions).then(matchRows => {
-      const matches = matchRows.map((data: any) => new Match(data))
+    return Database.findAll('matches', sort, conditions).then((matchRows: MatchData[]) => {
+      const matches = matchRows.map(data => new Match(data))
       const groupMembers: any = {};
 
       for (const match of matches) {
@@ -78,8 +78,8 @@ class Account {
       conditions.season = season
     }
 
-    return Database.findAll('matches', sort, conditions).then(matchRows => {
-      const matches: Match[] = matchRows.map((data: any) => new Match(data));
+    return Database.findAll('matches', sort, conditions).then((matchRows: MatchData[]) => {
+      const matches: Match[] = matchRows.map(data => new Match(data));
       const heroCounts: HeroToNumber = {};
 
       for (const match of matches) {
@@ -90,7 +90,7 @@ class Account {
             heroCounts[hero] = 0
           }
 
-          heroCounts[hero]++
+          heroCounts[hero] = (heroCounts[hero] || 0) + 1;
         }
       }
 
@@ -110,14 +110,14 @@ class Account {
     const conditions = { accountID: this._id, season };
     const sort = { date: -1, createdAt: -1 };
 
-    return Database.latest('matches', conditions, sort).then(data => {
+    return Database.latest('matches', conditions, sort).then((data: MatchData) => {
       if (data) {
         return new Match(data);
       }
     })
   }
 
-  totalMatches(season: number) {
+  totalMatches(season: number): Promise<number> {
     const conditions: any = { accountID: this._id }
     if (typeof season === 'number') {
       conditions.season = season
@@ -131,10 +131,10 @@ class Account {
 
   save() {
     const data = { battletag: this.battletag }
-    return Database.upsert('accounts', data, this._id).then(newAccount => {
+    return Database.upsert('accounts', data, this._id).then((newAccount: AccountData) => {
       this._id = newAccount._id
-      if (newAccount.createdAt) {
-        this.createdAt = newAccount.createdAt
+      if (typeof newAccount.createdAt === "string") {
+        this.createdAt = new Date(newAccount.createdAt);
       }
       return this
     })
