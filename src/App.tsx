@@ -17,11 +17,10 @@ import AboutPage from './components/AboutPage'
 import ImportPage from './components/ImportPage'
 import MatchEditPage from './components/MatchEditPage'
 import SettingsPage from './components/SettingsPage'
-import LoadingPage from './components/LoadingPage'
 import './primer.css'
 import './ionicons.min.css'
 import './App.css'
-import { setTitle, showSaveDialog } from "./utils/ipcRenderer";
+import { setTitle, showSaveDialog } from "./utils/electronUtils";
 
 const latestKnownSeason = 19;
 
