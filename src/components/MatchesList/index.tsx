@@ -15,14 +15,15 @@ interface Props {
 }
 
 const MatchesList = ({ account, season, onPageChange, scrollToMatch, theme, scrollToMatchID }: Props) => {
-  const [matches, setMatches] = useState<Array<Match>>([]);
+  const [matches, setMatches] = useState<Array<Match> | null>(null);
 
   Match.findAll(account._id, season).then(m => setMatches(m));
 
-  const anyMatches = matches.length > 0
-  if (!anyMatches) {
+  if (!matches) {
     return <LoadingPage />;
   }
+
+  const anyMatches = matches.length > 0;
 
   return (
     <div className="mb-4">

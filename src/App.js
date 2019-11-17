@@ -440,7 +440,7 @@ class App extends Component {
     const { activePage, activeAccountID, activeSeason, latestSeason,
             accounts, theme } = this.state
     const showHeader = activePage !== 'about' && activePage !== 'settings' &&
-      activePage !== 'manage-seasons' && activePage !== 'help'
+      activePage !== 'manage-seasons' && activePage !== 'help';
 
     return (
       <div className={`layout-container theme-${theme}`}>
