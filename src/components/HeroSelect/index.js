@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Hero from '../../models/Hero'
+import { HeroFirstSeasons, HeroesByRole, HeroesByType } from '../../models/Hero'
 import HeroCheckboxList from '../HeroCheckboxList'
 import RoleImage from '../RoleImage'
 import './HeroSelect.css'
@@ -7,10 +7,10 @@ import './HeroSelect.css'
 class HeroSelect extends Component {
   getUnavailableReason = hero => {
     const { role, season } = this.props
-    if (hero in Hero.firstSeasons && Hero.firstSeasons[hero] > season) {
+    if (hero in HeroFirstSeasons && HeroFirstSeasons[hero] > season) {
       return 'Not available in this season'
     }
-    if (role in Hero.byRole && Hero.byRole[role].indexOf(hero) < 0) {
+    if (role in HeroesByRole && HeroesByRole[role].indexOf(hero) < 0) {
       return `Not a ${role.toLowerCase()} hero`
     }
     return
@@ -46,7 +46,7 @@ class HeroSelect extends Component {
           Defense
         </h5>
         <HeroCheckboxList
-          heroes={Hero.byType.Defense}
+          heroes={HeroesByType.Defense}
           getUnavailableReason={this.getUnavailableReason}
           isChecked={this.isChecked}
           onToggle={onToggle}
@@ -64,7 +64,7 @@ class HeroSelect extends Component {
                 Flankers
               </h5>
               <HeroCheckboxList
-                heroes={Hero.byType.Flanker}
+                heroes={HeroesByType.Flanker}
                 getUnavailableReason={this.getUnavailableReason}
                 isChecked={this.isChecked}
                 onToggle={onToggle}
@@ -79,7 +79,7 @@ class HeroSelect extends Component {
                 Off-tanks
               </h5>
               <HeroCheckboxList
-                heroes={Hero.byType['Off-tank']}
+                heroes={HeroesByType['Off-tank']}
                 getUnavailableReason={this.getUnavailableReason}
                 isChecked={this.isChecked}
                 onToggle={onToggle}
@@ -93,7 +93,7 @@ class HeroSelect extends Component {
                 Off-healers
               </h5>
               <HeroCheckboxList
-                heroes={Hero.byType['Off-healer']}
+                heroes={HeroesByType['Off-healer']}
                 getUnavailableReason={this.getUnavailableReason}
                 isChecked={this.isChecked}
                 onToggle={onToggle}
@@ -109,7 +109,7 @@ class HeroSelect extends Component {
                 Hitscan
               </h5>
               <HeroCheckboxList
-                heroes={Hero.byType.Hitscan}
+                heroes={HeroesByType.Hitscan}
                 getUnavailableReason={this.getUnavailableReason}
                 isChecked={this.isChecked}
                 onToggle={onToggle}
@@ -123,7 +123,7 @@ class HeroSelect extends Component {
                 Main tanks
               </h5>
               <HeroCheckboxList
-                heroes={Hero.byType['Main Tank']}
+                heroes={HeroesByType['Main Tank']}
                 getUnavailableReason={this.getUnavailableReason}
                 isChecked={this.isChecked}
                 onToggle={onToggle}
@@ -137,7 +137,7 @@ class HeroSelect extends Component {
                 Main healers
               </h5>
               <HeroCheckboxList
-                heroes={Hero.byType['Main Healer']}
+                heroes={HeroesByType['Main Healer']}
                 getUnavailableReason={this.getUnavailableReason}
                 isChecked={this.isChecked}
                 onToggle={onToggle}
@@ -152,7 +152,7 @@ class HeroSelect extends Component {
               DPS
             </h5>
             <HeroCheckboxList
-              heroes={Hero.byType.DPS}
+              heroes={HeroesByType.DPS}
               getUnavailableReason={this.getUnavailableReason}
               isChecked={this.isChecked}
               onToggle={onToggle}

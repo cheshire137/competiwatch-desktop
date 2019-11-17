@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Match from '../../models/Match'
-import Hero from '../../models/Hero'
+import { HeroesByRole } from '../../models/Hero'
 import Season from '../../models/Season'
 import Account from '../../models/Account'
 import DayTimeApproximator from '../../models/DayTimeApproximator'
@@ -13,8 +13,8 @@ import GroupMembersField from '../GroupMembersField'
 import './MatchForm.css'
 
 const roleForHero = hero => {
-  for (const role in Hero.byRole) {
-    if (Hero.byRole[role].indexOf(hero) > -1) {
+  for (const role in HeroesByRole) {
+    if (HeroesByRole[role].indexOf(hero) > -1) {
       return role
     }
   }
@@ -383,7 +383,7 @@ class MatchForm extends Component {
     const { season } = this.props
 
     this.setState(prevState => {
-      const heroesInRole = Hero.byRole[role]
+      const heroesInRole = HeroesByRole[role]
       const oldSelectedHeroes = explodeHeroesString(prevState.heroes)
       const selectedHeroes = oldSelectedHeroes
         .filter(hero => heroesInRole.indexOf(hero) > -1)

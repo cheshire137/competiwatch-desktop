@@ -1,31 +1,31 @@
 import React, { Component } from 'react'
 import { Radar } from 'react-chartjs-2'
 import Color from '../../models/Color'
-import Hero from '../../models/Hero'
+import { HeroesByType, HeroDetailedRoles } from '../../models/Hero'
 
 const roleFor = hero => {
-  if (Hero.byType.DPS.indexOf(hero) > -1) {
+  if (HeroesByType.DPS.indexOf(hero) > -1) {
     return 'DPS'
   }
-  if (Hero.byType['Main Healer'].indexOf(hero) > -1) {
+  if (HeroesByType['Main Healer'].indexOf(hero) > -1) {
     return 'Main Healer'
   }
-  if (Hero.byType['Off-healer'].indexOf(hero) > -1) {
+  if (HeroesByType['Off-healer'].indexOf(hero) > -1) {
     return 'Off-healer'
   }
-  if (Hero.byType.Flanker.indexOf(hero) > -1) {
+  if (HeroesByType.Flanker.indexOf(hero) > -1) {
     return 'Flanker'
   }
-  if (Hero.byType.Defense.indexOf(hero) > -1) {
+  if (HeroesByType.Defense.indexOf(hero) > -1) {
     return 'Defense'
   }
-  if (Hero.byType.Hitscan.indexOf(hero) > -1) {
+  if (HeroesByType.Hitscan.indexOf(hero) > -1) {
     return 'Hitscan'
   }
-  if (Hero.byType['Main Tank'].indexOf(hero) > -1) {
+  if (HeroesByType['Main Tank'].indexOf(hero) > -1) {
     return 'Main Tank'
   }
-  if (Hero.byType['Off-tank'].indexOf(hero) > -1) {
+  if (HeroesByType['Off-tank'].indexOf(hero) > -1) {
     return 'Off-tank'
   }
 }
@@ -34,7 +34,7 @@ class RoleChart extends Component {
   getCountsByRole = filteredMatches => {
     const countsByRole = {}
 
-    for (const role of Hero.roles) {
+    for (const role of HeroDetailedRoles) {
       countsByRole[role] = 0
     }
 
@@ -92,7 +92,7 @@ class RoleChart extends Component {
     const pointBackgroundColor = isDarkTheme ? 'rgba(36, 41, 46, 0.8)' : 'rgba(255, 255, 255, 0.8)'
     const lineTension = 0.1
     const data = {
-      labels: Hero.roles,
+      labels: HeroDetailedRoles,
       datasets: [
         {
           label: '# Wins',

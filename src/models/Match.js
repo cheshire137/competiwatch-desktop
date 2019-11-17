@@ -1,6 +1,6 @@
 import Database from './Database'
 import Season from './Season'
-import Hero from './Hero'
+import { HeroesByRole } from './Hero'
 import DayTimeApproximator from './DayTimeApproximator'
 
 const getPriorMatch = (match, prevMatches) => {
@@ -99,11 +99,11 @@ function guessRoleFromHeroesPlayed(season, heroList) {
   let playedDamage = false
   let playedTank = false
   for (const hero of heroList) {
-    if (Hero.byRole.Tank.indexOf(hero) > -1) {
+    if (HeroesByRole.Tank.indexOf(hero) > -1) {
       playedTank = true
-    } else if (Hero.byRole.Support.indexOf(hero) > -1) {
+    } else if (HeroesByRole.Support.indexOf(hero) > -1) {
       playedSupport = true
-    } else if (Hero.byRole.Damage.indexOf(hero) > -1) {
+    } else if (HeroesByRole.Damage.indexOf(hero) > -1) {
       playedDamage = true
     }
   }

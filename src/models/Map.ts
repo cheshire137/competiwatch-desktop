@@ -1,7 +1,7 @@
 export type MapType = "Assault" | "Escort" | "Control" | "Hybrid";
 
 type MapTypeToString = {
-  [type in MapType]: string;
+  [type in MapType]?: string;
 };
 
 type MapTypeToStrings = {
@@ -13,8 +13,7 @@ export const MapTypes: MapType[] = ["Assault", "Escort", "Control", "Hybrid"];
 export const MapTypeAliases: MapTypeToString = {
   Assault: "2CP",
   Control: "KotH",
-  Escort: "Payload",
-  Hybrid: "Hybrid"
+  Escort: "Payload"
 };
 
 export const MapsByType: MapTypeToStrings = {
