@@ -23,4 +23,17 @@ export function getAppName() {
     return window.remote.app.getName();
   }
   return "";
-}
+};
+
+export function openInExplorer(dbPath) {
+  if (isElectron()) {
+    window.shell.showItemInFolder(dbPath);
+  }
+};
+
+export function getDbPath(replyTo, dbName, handler) {
+  if (isElectron()) {
+    window.ipcRenderer.once(replyTo, handler);
+    window.ipcRenderer.send('get-db-path', replyTo, dbName);
+  }
+};
