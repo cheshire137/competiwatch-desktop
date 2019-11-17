@@ -8,17 +8,17 @@ import './Header.css'
 interface Props {
   activeSeason: number;
   latestSeason: number;
-  onSeasonChange: () => {};
+  onSeasonChange: (newNumber: number) => void;
   accounts: Array<Account>;
-  onPageChange: (activePage: string, val1?: any, val2?: any) => {};
-  activeAccountID: string;
-  onAccountChange: () => {};
+  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
+  activeAccount: Account | null;
+  onAccountChange: (id: string) => void;
   activePage: string;
-  onExport: () => {};
+  onExport: () => void;
 }
 
 const Header = ({ activeSeason, latestSeason, onSeasonChange, accounts, onPageChange,
-  activeAccountID, onAccountChange, activePage, onExport }: Props) => (
+  activeAccount, onAccountChange, activePage, onExport }: Props) => (
   <div className="mb-3 sticky-bar border-bottom">
     <div className="d-flex flex-items-center container">
       {accounts && accounts.length > 0 && (
@@ -29,10 +29,10 @@ const Header = ({ activeSeason, latestSeason, onSeasonChange, accounts, onPageCh
           onPageChange={onPageChange}
         />
       )}
-      {activeAccountID && (
+      {activeAccount && (
         <AccountSelect
           accounts={accounts}
-          activeAccountID={activeAccountID}
+          activeAccount={activeAccount}
           onChange={onAccountChange}
           onPageChange={onPageChange}
         />
@@ -41,7 +41,7 @@ const Header = ({ activeSeason, latestSeason, onSeasonChange, accounts, onPageCh
         onPageChange={onPageChange}
         activePage={activePage}
         activeSeason={activeSeason}
-        activeAccountID={activeAccountID}
+        activeAccount={activeAccount}
         onExport={onExport}
       />
     </div>

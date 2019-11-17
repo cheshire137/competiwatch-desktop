@@ -2,21 +2,18 @@ import React, { useState } from 'react';
 import Account from '../models/Account';
 
 interface Props {
-  activeAccountID: string;
-  onChange: (val: string) => {};
-  onPageChange: (activePage: string, val1?: any, val2?: any) => {};
+  activeAccount: Account | null;
+  onChange: (val: string) => void;
+  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   accounts: Array<Account>;
 }
 
-const AccountSelect = ({ activeAccountID, onChange, onPageChange, accounts }: Props) => {
+const AccountSelect = ({ activeAccount, onChange, onPageChange, accounts }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeAccount, setActiveAccount] = useState<Account | null>(null);
 
   if (accounts.length < 1) {
     return null;
   }
-
-  Account.find(activeAccountID).then(account => setActiveAccount(account));
 
   const containerClass = () => {
     const classes = ['select-menu', 'd-inline-block'];
@@ -36,7 +33,7 @@ const AccountSelect = ({ activeAccountID, onChange, onPageChange, accounts }: Pr
 
   const accountButtonClass = (accountID: string) => {
     const classes = ['select-menu-item', 'text-left', 'width-full', 'btn-link'];
-    if (activeAccountID === accountID) {
+    if (activeAccount && activeAccount._id === accountID) {
       classes.push('selected');
     }
     return classes.join(' ');

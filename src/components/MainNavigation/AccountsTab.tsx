@@ -2,7 +2,7 @@ import React from 'react';
 
 interface Props {
   activePage: string;
-  onPageChange: (activePage: string, val1?: any, val2?: any) => {};
+  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 

@@ -5,13 +5,14 @@ import ImportButton from './ImportButton';
 import TrendsTab from './TrendsTab';
 import ExportButton from './ExportButton';
 import LogMatchButton from './LogMatchButton';
+import Account from "../../models/Account";
 
 interface Props {
   activePage: string;
-  activeAccountID: string;
+  activeAccount: Account | null;
   activeSeason: number;
-  onPageChange: (activePage: string, val1?: any, val2?: any) => {};
-  onExport: () => {};
+  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
+  onExport: () => void;
 }
 
 const underlineNavItemClass = (page: string, isButton: boolean, activePage?: string): string => {
@@ -30,7 +31,7 @@ const underlineNavItemClass = (page: string, isButton: boolean, activePage?: str
   return classes.join(' ')
 };
 
-const MainNavigation = ({ activeAccountID, onPageChange, activeSeason, activePage, onExport }: Props) => (
+const MainNavigation = ({ activeAccount, onPageChange, activeSeason, activePage, onExport }: Props) => (
   <nav className="ml-3 border-0 UnderlineNav width-full d-flex flex-justify-between flex-items-center">
     <div className="UnderlineNav-body">
       <AccountsTab
@@ -38,36 +39,41 @@ const MainNavigation = ({ activeAccountID, onPageChange, activeSeason, activePag
         activePage={activePage}
         underlineNavItemClass={underlineNavItemClass}
       />
-      <MatchesTab
-        activeAccountID={activeAccountID}
-        onPageChange={onPageChange}
-        activePage={activePage}
-        activeSeason={activeSeason}
-        underlineNavItemClass={underlineNavItemClass}
-      />
+      {activeAccount && (
+        <MatchesTab
+          onPageChange={onPageChange}
+          activePage={activePage}
+          activeSeason={activeSeason}
+          underlineNavItemClass={underlineNavItemClass}
+        />
+      )}
       <ImportButton
         activePage={activePage}
         underlineNavItemClass={underlineNavItemClass}
       />
-      <TrendsTab
-        activePage={activePage}
-        activeAccountID={activeAccountID}
-        underlineNavItemClass={underlineNavItemClass}
-        activeSeason={activeSeason}
-        onPageChange={onPageChange}
-      />
+      {activeAccount && (
+        <TrendsTab
+          activePage={activePage}
+          activeAccount={activeAccount}
+          underlineNavItemClass={underlineNavItemClass}
+          activeSeason={activeSeason}
+          onPageChange={onPageChange}
+        />
+      )}
     </div>
     <div>
       <ExportButton
         onExport={onExport}
         activePage={activePage}
       />
-      <LogMatchButton
-        activePage={activePage}
-        activeSeason={activeSeason}
-        onPageChange={onPageChange}
-        activeAccountID={activeAccountID}
-      />
+      {activeAccount && (
+        <LogMatchButton
+          activePage={activePage}
+          activeSeason={activeSeason}
+          onPageChange={onPageChange}
+          activeAccount={activeAccount}
+        />
+      )}
     </div>
     {activePage === 'log-match' && (<div
       className="text-gray text-small"

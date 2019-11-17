@@ -6,9 +6,9 @@ import Account from '../models/Account'
 interface Props {
   accountID: string;
   season: number;
-  onPageChange: (activePage: string, val1?: any, val2?: any) => {};
+  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   scrollToMatch: boolean;
-  scrollToMatchID?: string;
+  scrollToMatchID: string | null;
   theme: string;
 }
 

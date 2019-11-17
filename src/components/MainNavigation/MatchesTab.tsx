@@ -2,19 +2,14 @@ import React, { useState } from 'react';
 import Match from '../../models/Match';
 
 interface Props {
-  activeAccountID: string;
   activeSeason: number;
   activePage: string;
-  onPageChange: (activePage: string, val1?: any, val2?: any) => {};
+  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 
-const MatchesTab = ({ activePage, activeSeason, activeAccountID, onPageChange, underlineNavItemClass }: Props) => {
+const MatchesTab = ({ activePage, activeSeason, onPageChange, underlineNavItemClass }: Props) => {
   const [totalMatches, setTotalMatches] = useState<number | null>(null);
-
-  if (!activeAccountID) {
-    return null;
-  }
 
   Match.totalInSeason(activeSeason).then(total => {
     setTotalMatches(total);

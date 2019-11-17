@@ -4,17 +4,17 @@ import Account from "../../models/Account";
 interface Props {
   activePage: string;
   activeSeason: number;
-  activeAccountID: string;
-  onPageChange: (activePage: string, val1?: any, val2?: any) => {};
+  activeAccount: Account;
+  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }
 
-const LogMatchButton = ({ activePage, activeSeason, activeAccountID, onPageChange }: Props) => {
+const LogMatchButton = ({ activePage, activeSeason, activeAccount, onPageChange }: Props) => {
   if (activePage === 'log-match') {
     return null;
   }
 
   const changeToMatchFormPage = () => {
-    const account = new Account({ _id: activeAccountID });
+    const account = new Account({ _id: activeAccount._id });
     account.latestMatch(activeSeason).then(latestMatch => {
       if (latestMatch) {
         onPageChange('log-match', latestMatch.rank, latestMatch.group);

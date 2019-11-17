@@ -3,20 +3,20 @@ import Account from '../../models/Account'
 
 interface Props {
   activePage: string;
-  activeAccountID: string;
+  activeAccount: Account;
   activeSeason: number;
-  onPageChange: (activePage: string, val1?: any, val2?: any) => {};
+  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 
-const TrendsTab = ({ activePage, activeSeason, activeAccountID, onPageChange, underlineNavItemClass }: Props) => {
+const TrendsTab = ({ activePage, activeSeason, activeAccount, onPageChange, underlineNavItemClass }: Props) => {
   const [hasMatches, setHasMatches] = useState(false);
-  const account = new Account({ _id: activeAccountID });
+  const account = new Account({ _id: activeAccount._id });
   account.hasMatches(activeSeason).then(hasMatches => {
     setHasMatches(hasMatches);
   });
 
-  if (!hasMatches || !activeAccountID) {
+  if (!hasMatches) {
     return null;
   }
 

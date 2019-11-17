@@ -8,9 +8,9 @@ import './MatchesList.css'
 interface Props {
   account: Account;
   season: number;
-  onPageChange: (activePage: string, val1?: any, val2?: any) => {};
+  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   scrollToMatch: boolean;
-  scrollToMatchID?: string;
+  scrollToMatchID: string | null;
   theme: string;
 }
 

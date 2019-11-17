@@ -2,7 +2,7 @@ import React from 'react';
 
 interface Props {
   activePage: string;
-  onExport: () => {};
+  onExport: () => void;
 }
 
 const ExportButton = ({ activePage, onExport }: Props) => {
