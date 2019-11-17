@@ -25,7 +25,7 @@ const Header = ({ activeSeason, latestSeason, onSeasonChange, accounts, onPageCh
         <SeasonSelect
           activeSeason={activeSeason}
           latestSeason={latestSeason}
-          onChange={onSeasonChange}
+          onSeasonChange={onSeasonChange}
           onPageChange={onPageChange}
         />
       )}
