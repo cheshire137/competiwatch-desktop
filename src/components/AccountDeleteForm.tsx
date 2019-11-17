@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Account from '../models/Account';
 
 interface Props {
@@ -10,16 +10,11 @@ interface Props {
 const AccountDeleteForm = ({ battletag, id, onDelete }: Props) => {
   const [showForm, setShowForm] = useState(false);
   const account = new Account({ _id: id })
-
-  useEffect(() => {
-    async function getHasMatches() {
-      const hasMatches = await account.hasMatches();
-      if (!hasMatches) {
-        setShowForm(true);
-      }
+  account.hasMatches().then(hasMatches => {
+    if (!hasMatches) {
+      setShowForm(true);
     }
-    getHasMatches();
-  }, [setShowForm]);
+  })
 
   if (!showForm) {
     return null;
