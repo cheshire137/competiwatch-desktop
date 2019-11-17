@@ -4,7 +4,7 @@ import Account from './models/Account'
 import Match from './models/Match';
 import Season from './models/Season'
 import Setting from './models/Setting'
-import Settings from './models/Settings'
+import Settings from './models/Setting';
 import AppMenu from './models/AppMenu'
 import CsvExporter from './models/CsvExporter'
 import FileUtil from './models/FileUtil'

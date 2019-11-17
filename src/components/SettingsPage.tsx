@@ -2,7 +2,7 @@ import React from 'react'
 import SettingsForm from './SettingsForm'
 import DatabaseFileLink from './DatabaseFileLink'
 import Account from "../models/Account";
-import Settings from "../models/Settings";
+import Setting from "../models/Setting";
 
 const dbNames = ['accounts', 'matches', 'seasons', 'settings'];
 
@@ -24,8 +24,8 @@ function dbLabelFor(name: string): string {
 
 interface Props {
   accounts: Array<Account>;
-  settings: Settings;
-  onSave: (newSettings: Settings) => void;
+  settings: Setting;
+  onSave: (newSettings: Setting) => void;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }
 
