@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { Bar } from 'react-chartjs-2'
 import Color from '../../models/Color'
 import ChartUtils from '../../models/ChartUtils'
-import Map from '../../models/Map'
+import Map, { MapsByType, MapTypes, MapTypeAliases } from '../../models/Map'
 
 function mapTypeFor(map) {
-  for (const mapType in Map.byType) {
-    if (Map.byType[mapType].indexOf(map) > -1) {
+  for (const mapType in MapsByType) {
+    if (MapsByType[mapType].indexOf(map) > -1) {
       return mapType
     }
   }
@@ -15,9 +15,8 @@ function mapTypeFor(map) {
 class MapTypeChart extends Component {
   getCountsByMapType = (matchesWithMaps, filterer) => {
     const countsByMapType = {}
-    const types = Object.keys(Map.byType)
 
-    for (const mapType of types) {
+    for (const mapType of MapTypes) {
       countsByMapType[mapType] = 0
     }
 
@@ -47,13 +46,12 @@ class MapTypeChart extends Component {
   }
 
   getLabels = () => {
-    const types = Object.keys(Map.byType)
     const labels = []
 
-    for (const mapType of types) {
+    for (const mapType of MapTypes) {
       let label = mapType
-      if (mapType in Map.typeAliases) {
-        label += ` (${Map.typeAliases[mapType]})`
+      if (mapType in MapTypeAliases && MapTypeAliases[mapType] !== mapType) {
+        label += ` (${MapTypeAliases[mapType]})`
       }
       labels.push(label)
     }
