@@ -8,8 +8,8 @@ const isValidBattletag = (battletag: string) => {
 
 interface Props {
   battletag?: string | null;
-  buttonClass: string;
-  onCreate: () => void;
+  buttonClass?: string;
+  onCreate?: () => void;
   _id?: string | null;
   onUpdate: (battletag: string) => void;
   totalAccounts: number;
@@ -39,7 +39,7 @@ const AccountForm = (props: Props) => {
     setError(null);
     if (_id) {
       onUpdate(battletag)
-    } else {
+    } else if (typeof onCreate === "function") {
       onCreate()
     }
   };
@@ -51,7 +51,7 @@ const AccountForm = (props: Props) => {
     }
 
     const { _id } = props;
-    const data: AccountData = { battletag };
+    const data: AccountData = { battletag, _id: "" };
     if (_id) {
       data._id = _id
     }

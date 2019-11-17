@@ -4,13 +4,13 @@ import Account from '../models/Account';
 interface Props {
   battletag: string;
   id: string;
-  onDelete: () => {};
+  onDelete: () => void;
 }
 
 const AccountDeleteForm = ({ battletag, id, onDelete }: Props) => {
   const [showForm, setShowForm] = useState(false);
   const account = new Account({ _id: id })
-  account.hasMatches().then(hasMatches => {
+  account.hasMatches().then((hasMatches: boolean) => {
     if (!hasMatches) {
       setShowForm(true);
     }

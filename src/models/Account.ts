@@ -1,5 +1,10 @@
 import Database from './Database'
 import Match from './Match'
+import { Hero } from "./Hero"
+
+type HeroToNumber = {
+  [hero in Hero]?: number;
+}
 
 const accountSort = (a: Account, b: Account) => {
   if (!a.battletag) {
@@ -14,14 +19,14 @@ const accountSort = (a: Account, b: Account) => {
 };
 
 export interface AccountData {
-  _id?: string;
+  _id: string;
   battletag: string;
   createdAt?: string;
 }
 
 class Account {
   battletag: string;
-  _id?: string;
+  _id: string;
   createdAt?: Date;
 
   static findAll() {
@@ -66,7 +71,7 @@ class Account {
     })
   }
 
-  topHeroes(season: number) {
+  topHeroes(season: number): Promise<Hero[]> {
     const sort = {}
     const conditions: any = { accountID: this._id, heroes: { $ne: '' } }
     if (typeof season === 'number' && !isNaN(season)) {
@@ -74,11 +79,13 @@ class Account {
     }
 
     return Database.findAll('matches', sort, conditions).then(matchRows => {
-      const matches = matchRows.map((data: any) => new Match(data))
-      const heroCounts: any = {}
+      const matches: Match[] = matchRows.map((data: any) => new Match(data));
+      const heroCounts: HeroToNumber = {};
 
       for (const match of matches) {
-        for (const hero of match.heroList) {
+        const matchHeroes: Hero[] = match.heroList;
+
+        for (const hero of matchHeroes) {
           if (!(hero in heroCounts)) {
             heroCounts[hero] = 0
           }
