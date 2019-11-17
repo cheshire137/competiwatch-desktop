@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 import RoleImage from './RoleImage'
 
 const roles = ['Tank', 'Damage', 'Support'];

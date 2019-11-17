@@ -4,6 +4,7 @@ import Account from './models/Account'
 import Match from './models/Match';
 import Season from './models/Season'
 import Setting from './models/Setting'
+import Settings from './models/Settings'
 import AppMenu from './models/AppMenu'
 import CsvExporter from './models/CsvExporter'
 import FileUtil from './models/FileUtil'
@@ -29,11 +30,6 @@ const isNighttime = () => {
   const hours = currentTime.getHours();
   return hours >= 20 || hours <= 5;
 };
-
-interface Settings {
-  defaultAccountID?: string | null;
-  theme?: string | null;
-}
 
 const App = () => {
   const [latestRank, setLatestRank] = useState(2500);
@@ -367,7 +363,7 @@ const App = () => {
           theme={theme}
         />)}
 
-      {activePage === 'settings' && (
+      {activePage === 'settings' && settings && (
         <SettingsPage
           onPageChange={changeActivePage}
           accounts={accounts}
