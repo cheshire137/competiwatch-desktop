@@ -509,7 +509,7 @@ class MatchForm extends Component {
               <div className="form-group mt-0">
                 <span className="f3 mr-4">Role played:</span>
                 <RoleSelect
-                  role={role}
+                  selectedRole={role}
                   season={season}
                   theme={theme}
                   onChange={this.onRoleChange}
