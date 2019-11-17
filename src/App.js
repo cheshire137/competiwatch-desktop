@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import isElectron from 'is-electron'
 import Header from './components/Header'
 import Account from './models/Account'
 import Season from './models/Season'
@@ -21,6 +20,7 @@ import LoadingPage from './components/LoadingPage'
 import './primer.css'
 import './ionicons.min.css'
 import './App.css'
+import { setTitle, showSaveDialog } from "./utils/ipcRenderer";
 
 const latestKnownSeason = 19
 
@@ -142,13 +142,12 @@ class App extends Component {
     const defaultPath = FileUtil.defaultCsvExportFilename(account.battletag, activeSeason)
     const options = { defaultPath }
 
-    if (isElectron()) {
-      window.remote.dialog.showSaveDialog(options, path => {
-        if (path && path.length > 0) {
-          this.exportSeasonTo(path)
-        }
-      })
-    }
+
+    showSaveDialog(options, path => {
+      if (path && path.length > 0) {
+        this.exportSeasonTo(path);
+      }
+    });
   }
 
   changeActivePage = (activePage, val1, val2) => {
@@ -254,9 +253,7 @@ class App extends Component {
       }
     }
 
-    if (isElectron()) {
-      window.ipcRenderer.send('title', titleParts.join(' / '))
-    }
+    setTitle(titleParts.join(' / '));
   }
 
   changeActiveSeason = activeSeason => {
