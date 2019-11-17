@@ -1,31 +1,41 @@
 import Database from './Database'
 import Match from './Match'
 
-const accountSort = (a, b) => {
+const accountSort = (a: Account, b: Account) => {
   if (!a.battletag) {
-    return -1
+    return -1;
   }
   if (!b.battletag) {
-    return 1
+    return 1;
   }
-  const battletagA = a.battletag.toLowerCase()
-  const battletagB = b.battletag.toLowerCase()
-  return battletagA.localeCompare(battletagB)
+  const battletagA = a.battletag.toLowerCase();
+  const battletagB = b.battletag.toLowerCase();
+  return battletagA.localeCompare(battletagB);
+};
+
+export interface AccountData {
+  _id?: string;
+  battletag: string;
+  createdAt?: string;
 }
 
 class Account {
+  battletag: string;
+  _id?: string;
+  createdAt?: Date;
+
   static findAll() {
     const sort = { battletag: 1 } // not case-insensitive
     return Database.findAll('accounts', sort)
-                   .then(rows => rows.map(data => new Account(data)))
+                   .then(rows => rows.map((data: AccountData) => new Account(data)))
                    .then(accounts => accounts.sort(accountSort))
   }
 
-  static find(id) {
+  static find(id: string) {
     return Database.find('accounts', id).then(data => new Account(data))
   }
 
-  constructor(data) {
+  constructor(data: AccountData) {
     this.battletag = data.battletag
     this._id = data._id
     if (data.createdAt) {
@@ -33,16 +43,16 @@ class Account {
     }
   }
 
-  findAllGroupMembers(season) {
+  findAllGroupMembers(season: number) {
     const sort = {}
-    const conditions = { accountID: this._id, group: { $ne: '' } }
+    const conditions: any = { accountID: this._id, group: { $ne: '' } }
     if (typeof season === 'number' && !isNaN(season)) {
       conditions.season = season
     }
 
     return Database.findAll('matches', sort, conditions).then(matchRows => {
-      const matches = matchRows.map(data => new Match(data))
-      const groupMembers = {}
+      const matches = matchRows.map((data: any) => new Match(data))
+      const groupMembers: any = {};
 
       for (const match of matches) {
         for (const groupMember of match.groupList) {
@@ -56,16 +66,16 @@ class Account {
     })
   }
 
-  topHeroes(season) {
+  topHeroes(season: number) {
     const sort = {}
-    const conditions = { accountID: this._id, heroes: { $ne: '' } }
+    const conditions: any = { accountID: this._id, heroes: { $ne: '' } }
     if (typeof season === 'number' && !isNaN(season)) {
       conditions.season = season
     }
 
     return Database.findAll('matches', sort, conditions).then(matchRows => {
-      const matches = matchRows.map(data => new Match(data))
-      const heroCounts = {}
+      const matches = matchRows.map((data: any) => new Match(data))
+      const heroCounts: any = {}
 
       for (const match of matches) {
         for (const hero of match.heroList) {
@@ -89,26 +99,26 @@ class Account {
     })
   }
 
-  latestMatch(season) {
-    const conditions = { accountID: this._id, season }
-    const sort = { date: -1, createdAt: -1 }
+  latestMatch(season: number) {
+    const conditions = { accountID: this._id, season };
+    const sort = { date: -1, createdAt: -1 };
 
     return Database.latest('matches', conditions, sort).then(data => {
       if (data) {
-        return new Match(data)
+        return new Match(data);
       }
     })
   }
 
-  totalMatches(season) {
-    const conditions = { accountID: this._id }
+  totalMatches(season: number) {
+    const conditions: any = { accountID: this._id }
     if (typeof season === 'number') {
       conditions.season = season
     }
     return Database.count('matches', conditions)
   }
 
-  hasMatches(season) {
+  hasMatches(season: number) {
     return this.totalMatches(season).then(count => count > 0)
   }
 
@@ -128,4 +138,4 @@ class Account {
   }
 }
 
-export default Account
+export default Account;
