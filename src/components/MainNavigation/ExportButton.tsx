@@ -18,7 +18,7 @@ const ExportButton = ({ activePage, onExport }: Props) => {
   return (
     <button
       type="button"
-      className="btn-link text-small"
+      className="btn-link text-small mr-3"
       onClick={exportSeason}
     >Export matches</button>
   );

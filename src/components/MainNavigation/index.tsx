@@ -67,16 +67,18 @@ const MainNavigation = ({ activeAccountID, onPageChange, activeSeason, activePag
         onPageChange={onPageChange}
       />
     </div>
-    <ExportButton
-      onExport={onExport}
-      activePage={activePage}
-    />
-    <LogMatchButton
-      activePage={activePage}
-      activeSeason={activeSeason}
-      onPageChange={onPageChange}
-      activeAccountID={activeAccountID}
-    />
+    <div>
+      <ExportButton
+        onExport={onExport}
+        activePage={activePage}
+      />
+      <LogMatchButton
+        activePage={activePage}
+        activeSeason={activeSeason}
+        onPageChange={onPageChange}
+        activeAccountID={activeAccountID}
+      />
+    </div>
     {activePage === 'log-match' && (<div
       className="text-gray text-small"
     >* All fields optional except match result</div>)}
