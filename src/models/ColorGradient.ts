@@ -1,18 +1,20 @@
+type Color = number[];
+
 class ColorGradient {
-  constructor(colors, stepCount) {
+  colors: Color[];
+  gradientCount: number;
+  substepCount: number;
+  remainder: number;
+
+  constructor(colors: Color[], stepCount: number) {
     this.colors = colors
     this.gradientCount = colors.length - 1
     this.substepCount = stepCount / this.gradientCount
     this.remainder = stepCount % this.gradientCount
   }
 
-  rgb() {
-    return this.generate()
-               .map(rgbColor => rgbColor.map(part => parseInt(part, 10)))
-  }
-
-  generate() {
-    let memo = []
+  rgb(): Color[] {
+    let memo: Color[] = []
 
     for (let i = 0; i < this.gradientCount; i++) {
       let stepCount = this.substepCount
@@ -30,7 +32,7 @@ class ColorGradient {
   }
 
   // Calculate a single color-to-color gradient
-  gradientFor(color1, color2, stepCount) {
+  gradientFor(color1: Color, color2: Color, stepCount: number) {
     const gradient = []
 
     for (let i = 0; i < stepCount; i++) {
