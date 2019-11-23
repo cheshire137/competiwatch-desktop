@@ -7,6 +7,7 @@
   "dependencies": {
     "@types/node": "^12.12.8",
     "@types/react": "^16.9.11",
+    "@types/react-autocomplete": "^1.8.5",
     "@types/react-dom": "^16.9.4",
     "electron-log": "^3.0.9",
     "is-electron": "^2.2.0",
