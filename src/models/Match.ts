@@ -384,8 +384,8 @@ class Match {
     })
   }
 
-  delete() {
-    return Database.delete('matches', this._id)
+  static delete(id: string) {
+    return Database.delete('matches', id)
   }
 }
 
