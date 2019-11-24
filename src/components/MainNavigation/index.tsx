@@ -1,10 +1,10 @@
-import React from 'react'
-import AccountsTab from './AccountsTab';
-import MatchesTab from './MatchesTab';
-import ImportButton from './ImportButton';
-import TrendsTab from './TrendsTab';
-import ExportButton from './ExportButton';
-import LogMatchButton from './LogMatchButton';
+import React from "react";
+import AccountsTab from "./AccountsTab";
+import MatchesTab from "./MatchesTab";
+import ImportButton from "./ImportButton";
+import TrendsTab from "./TrendsTab";
+import ExportButton from "./ExportButton";
+import LogMatchButton from "./LogMatchButton";
 import Account from "../../models/Account";
 
 interface Props {
@@ -15,23 +15,34 @@ interface Props {
   onExport: () => void;
 }
 
-const underlineNavItemClass = (page: string, isButton: boolean, activePage?: string): string => {
-  const pageIsFirstInNav = page === 'accounts'
-  const activePageIsNotInNav = pageIsFirstInNav && activePage === 'manage-seasons'
-  const classes = ['UnderlineNav-item']
+const underlineNavItemClass = (
+  page: string,
+  isButton: boolean,
+  activePage?: string
+): string => {
+  const pageIsFirstInNav = page === "accounts";
+  const activePageIsNotInNav =
+    pageIsFirstInNav && activePage === "manage-seasons";
+  const classes = ["UnderlineNav-item"];
 
   if (activePage === page || activePageIsNotInNav) {
-    classes.push('selected')
+    classes.push("selected");
   }
 
   if (isButton) {
-    classes.push('btn-link')
+    classes.push("btn-link");
   }
 
-  return classes.join(' ')
+  return classes.join(" ");
 };
 
-const MainNavigation = ({ activeAccount, onPageChange, activeSeason, activePage, onExport }: Props) => (
+const MainNavigation = ({
+  activeAccount,
+  onPageChange,
+  activeSeason,
+  activePage,
+  onExport
+}: Props) => (
   <nav className="ml-3 border-0 UnderlineNav width-full d-flex flex-justify-between flex-items-center">
     <div className="UnderlineNav-body">
       <AccountsTab
@@ -62,10 +73,7 @@ const MainNavigation = ({ activeAccount, onPageChange, activeSeason, activePage,
       )}
     </div>
     <div>
-      <ExportButton
-        onExport={onExport}
-        activePage={activePage}
-      />
+      <ExportButton onExport={onExport} activePage={activePage} />
       {activeAccount && (
         <LogMatchButton
           activePage={activePage}
@@ -75,10 +83,12 @@ const MainNavigation = ({ activeAccount, onPageChange, activeSeason, activePage,
         />
       )}
     </div>
-    {activePage === 'log-match' && (<div
-      className="text-gray text-small"
-    >* All fields optional except match result</div>)}
+    {activePage === "log-match" && (
+      <div className="text-gray text-small">
+        * All fields optional except match result
+      </div>
+    )}
   </nav>
 );
 
-export default MainNavigation
+export default MainNavigation;

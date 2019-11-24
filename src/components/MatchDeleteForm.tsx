@@ -1,14 +1,17 @@
-import React from 'react'
-import Match from '../models/Match'
+import React from "react";
+import Match from "../models/Match";
 
-const deleteMatch = (event: React.FormEvent<HTMLFormElement>, { id, onDelete }: Props) => {
-  event.preventDefault()
-  const message = 'Are you sure you want to delete this match?'
+const deleteMatch = (
+  event: React.FormEvent<HTMLFormElement>,
+  { id, onDelete }: Props
+) => {
+  event.preventDefault();
+  const message = "Are you sure you want to delete this match?";
 
   if (window.confirm(message)) {
-    Match.delete(id).then(onDelete)
+    Match.delete(id).then(onDelete);
   }
-}
+};
 
 interface Props {
   id: string;
@@ -17,10 +20,9 @@ interface Props {
 
 const MatchDeleteForm = (props: Props) => (
   <form className="mb-4" onSubmit={evt => deleteMatch(evt, props)}>
-    <button
-      type="submit"
-      className="btn-link text-red text-small"
-    >Delete match</button>
+    <button type="submit" className="btn-link text-red text-small">
+      Delete match
+    </button>
   </form>
 );
 

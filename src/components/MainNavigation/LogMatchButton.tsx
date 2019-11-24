@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import Account from "../../models/Account";
 
 interface Props {
@@ -8,8 +8,13 @@ interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }
 
-const LogMatchButton = ({ activePage, activeSeason, activeAccount, onPageChange }: Props) => {
-  if (activePage === 'log-match') {
+const LogMatchButton = ({
+  activePage,
+  activeSeason,
+  activeAccount,
+  onPageChange
+}: Props) => {
+  if (activePage === "log-match") {
     return null;
   }
 
@@ -17,9 +22,9 @@ const LogMatchButton = ({ activePage, activeSeason, activeAccount, onPageChange 
     const account = new Account({ _id: activeAccount._id });
     account.latestMatch(activeSeason).then(latestMatch => {
       if (latestMatch) {
-        onPageChange('log-match', latestMatch.rank, latestMatch.group);
+        onPageChange("log-match", latestMatch.rank, latestMatch.group);
       } else {
-        onPageChange('log-match');
+        onPageChange("log-match");
       }
     });
   };
@@ -29,8 +34,10 @@ const LogMatchButton = ({ activePage, activeSeason, activeAccount, onPageChange 
       type="button"
       className="btn btn-primary"
       onClick={changeToMatchFormPage}
-    >Log a match</button>
-  )
+    >
+      Log a match
+    </button>
+  );
 };
 
 export default LogMatchButton;

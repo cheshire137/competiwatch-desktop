@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Account from '../models/Account';
+import React, { useState } from "react";
+import Account from "../models/Account";
 
 interface Props {
   activeAccount: Account | null;
@@ -8,7 +8,12 @@ interface Props {
   accounts: Array<Account>;
 }
 
-const AccountSelect = ({ activeAccount, onChange, onPageChange, accounts }: Props) => {
+const AccountSelect = ({
+  activeAccount,
+  onChange,
+  onPageChange,
+  accounts
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   if (accounts.length < 1) {
@@ -16,30 +21,32 @@ const AccountSelect = ({ activeAccount, onChange, onPageChange, accounts }: Prop
   }
 
   const containerClass = () => {
-    const classes = ['select-menu', 'd-inline-block'];
+    const classes = ["select-menu", "d-inline-block"];
     if (isOpen) {
-      classes.push('active');
+      classes.push("active");
     }
-    return classes.join(' ');
+    return classes.join(" ");
   };
 
   const toggleButtonClass = () => {
-    const classes = ['btn', 'select-menu-button'];
+    const classes = ["btn", "select-menu-button"];
     if (isOpen) {
-      classes.push('selected');
+      classes.push("selected");
     }
-    return classes.join(' ');
+    return classes.join(" ");
   };
 
   const accountButtonClass = (accountID: string) => {
-    const classes = ['select-menu-item', 'text-left', 'width-full', 'btn-link'];
+    const classes = ["select-menu-item", "text-left", "width-full", "btn-link"];
     if (activeAccount && activeAccount._id === accountID) {
-      classes.push('selected');
+      classes.push("selected");
     }
-    return classes.join(' ');
-  }
+    return classes.join(" ");
+  };
 
-  const onAccountClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const onAccountClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     const button = event.currentTarget;
 
     button.blur();
@@ -61,7 +68,7 @@ const AccountSelect = ({ activeAccount, onChange, onPageChange, accounts }: Prop
         aria-haspopup="true"
         aria-expanded="false"
       >
-        {activeAccount ? activeAccount.battletag : 'Select an account'}
+        {activeAccount ? activeAccount.battletag : "Select an account"}
       </button>
       <div className="select-menu-modal-holder">
         <div className="select-menu-modal">
@@ -75,7 +82,9 @@ const AccountSelect = ({ activeAccount, onChange, onPageChange, accounts }: Prop
                 onClick={onAccountClick}
               >
                 <span className="ion ion-ios-checkmark select-menu-item-icon" />
-                <span className="select-menu-item-text">{account.battletag}</span>
+                <span className="select-menu-item-text">
+                  {account.battletag}
+                </span>
               </button>
             ))}
             <button

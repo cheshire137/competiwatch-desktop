@@ -1,8 +1,8 @@
-import React from 'react'
-import HeroImage from '../HeroImage'
-import HeroUtil from '../../models/HeroUtil'
-import './HeroCheckbox.css'
-import { Hero } from '../../models/Hero'
+import React from "react";
+import HeroImage from "../HeroImage";
+import HeroUtil from "../../models/HeroUtil";
+import "./HeroCheckbox.css";
+import { Hero } from "../../models/Hero";
 
 interface Props {
   isAvailable: boolean;
@@ -12,39 +12,43 @@ interface Props {
   onToggle: (hero: Hero, isSelected: boolean) => void;
 }
 
-const HeroCheckbox = ({ isAvailable, hero, onToggle, unavailableReason, isChecked }: Props) => {
+const HeroCheckbox = ({
+  isAvailable,
+  hero,
+  onToggle,
+  unavailableReason,
+  isChecked
+}: Props) => {
   const containerClass = () => {
-    let classes = ['form-checkbox', 'mb-0', 'mt-1']
+    let classes = ["form-checkbox", "mb-0", "mt-1"];
     if (!isAvailable) {
-      classes = classes.concat(['tooltipped', 'tooltipped-n', 'unavailable-hero'])
+      classes = classes.concat([
+        "tooltipped",
+        "tooltipped-n",
+        "unavailable-hero"
+      ]);
     }
-    return classes.join(' ')
+    return classes.join(" ");
   };
 
   const labelClass = () => {
-    const classes = ['d-flex', 'flex-items-center']
+    const classes = ["d-flex", "flex-items-center"];
     if (!isAvailable) {
-      classes.push('disabled')
+      classes.push("disabled");
     }
-    return classes.join(' ');
-  }
+    return classes.join(" ");
+  };
 
   const nameClass = () => {
-    const classes = [`text-${HeroUtil.slugify(hero)}`, 'hero-name']
-    return classes.join(' ');
-  }
+    const classes = [`text-${HeroUtil.slugify(hero)}`, "hero-name"];
+    return classes.join(" ");
+  };
 
-  const domID = `hero-${HeroUtil.slugify(hero)}`
+  const domID = `hero-${HeroUtil.slugify(hero)}`;
 
   return (
-    <div
-      className={containerClass()}
-      aria-label={unavailableReason}
-    >
-      <label
-        htmlFor={domID}
-        className={labelClass()}
-      >
+    <div className={containerClass()} aria-label={unavailableReason}>
+      <label htmlFor={domID} className={labelClass()}>
         <input
           disabled={!isAvailable}
           checked={isChecked}
@@ -65,4 +69,4 @@ const HeroCheckbox = ({ isAvailable, hero, onToggle, unavailableReason, isChecke
   );
 };
 
-export default HeroCheckbox
+export default HeroCheckbox;

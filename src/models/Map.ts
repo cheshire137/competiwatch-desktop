@@ -12,45 +12,66 @@ export const MapTypeAliases: MapTypeToString = {
   Escort: "Payload"
 };
 
-export type AssaultMap = 'Hanamura' | 'Horizon Lunar Colony' | 'Paris' | 'Temple of Anubis' | 'Volskaya Industries';
+export type AssaultMap =
+  | "Hanamura"
+  | "Horizon Lunar Colony"
+  | "Paris"
+  | "Temple of Anubis"
+  | "Volskaya Industries";
 
 export const AssaultMaps: AssaultMap[] = [
-  'Hanamura',
-  'Horizon Lunar Colony',
-  'Paris',
-  'Temple of Anubis',
-  'Volskaya Industries'
+  "Hanamura",
+  "Horizon Lunar Colony",
+  "Paris",
+  "Temple of Anubis",
+  "Volskaya Industries"
 ];
 
-export type ControlMap = 'Busan' | 'Ilios' | 'Lijiang Tower' | 'Nepal' | 'Oasis';
+export type ControlMap =
+  | "Busan"
+  | "Ilios"
+  | "Lijiang Tower"
+  | "Nepal"
+  | "Oasis";
 
 export const ControlMaps: ControlMap[] = [
-  'Busan',
-  'Ilios',
-  'Lijiang Tower',
-  'Nepal',
-  'Oasis'
+  "Busan",
+  "Ilios",
+  "Lijiang Tower",
+  "Nepal",
+  "Oasis"
 ];
 
-export type EscortMap = 'Dorado' | 'Havana' | 'Junkertown' | 'Rialto' | 'Route 66' | 'Watchpoint: Gibraltar';
+export type EscortMap =
+  | "Dorado"
+  | "Havana"
+  | "Junkertown"
+  | "Rialto"
+  | "Route 66"
+  | "Watchpoint: Gibraltar";
 
 export const EscortMaps: EscortMap[] = [
-  'Dorado',
-  'Havana',
-  'Junkertown',
-  'Rialto',
-  'Route 66',
-  'Watchpoint: Gibraltar'
+  "Dorado",
+  "Havana",
+  "Junkertown",
+  "Rialto",
+  "Route 66",
+  "Watchpoint: Gibraltar"
 ];
 
-export type HybridMap = 'Blizzard World' | 'Eichenwalde' | 'Hollywood' | "King's Row" | 'Numbani';
+export type HybridMap =
+  | "Blizzard World"
+  | "Eichenwalde"
+  | "Hollywood"
+  | "King's Row"
+  | "Numbani";
 
 export const HybridMaps: HybridMap[] = [
-  'Blizzard World',
-  'Eichenwalde',
-  'Hollywood',
+  "Blizzard World",
+  "Eichenwalde",
+  "Hollywood",
   "King's Row",
-  'Numbani'
+  "Numbani"
 ];
 
 export type Map = AssaultMap | ControlMap | EscortMap | HybridMap;
@@ -60,27 +81,27 @@ type MapTypeToMaps = {
 };
 
 export const Maps: Map[] = [
-  'Blizzard World',
-  'Busan',
-  'Dorado',
-  'Eichenwalde',
-  'Hanamura',
-  'Havana',
-  'Hollywood',
-  'Horizon Lunar Colony',
-  'Ilios',
-  'Junkertown',
+  "Blizzard World",
+  "Busan",
+  "Dorado",
+  "Eichenwalde",
+  "Hanamura",
+  "Havana",
+  "Hollywood",
+  "Horizon Lunar Colony",
+  "Ilios",
+  "Junkertown",
   "King's Row",
-  'Lijiang Tower',
-  'Nepal',
-  'Numbani',
-  'Oasis',
-  'Paris',
-  'Rialto',
-  'Route 66',
-  'Temple of Anubis',
-  'Volskaya Industries',
-  'Watchpoint: Gibraltar'
+  "Lijiang Tower",
+  "Nepal",
+  "Numbani",
+  "Oasis",
+  "Paris",
+  "Rialto",
+  "Route 66",
+  "Temple of Anubis",
+  "Volskaya Industries",
+  "Watchpoint: Gibraltar"
 ];
 
 export const MapsByType: MapTypeToMaps = {
@@ -95,9 +116,9 @@ type MapNameToShortName = {
 };
 
 export const MapShortNames: MapNameToShortName = {
-  'Blizzard World': 'B. World',
-  'Horizon Lunar Colony': 'H. Lunar Colony',
-  'Temple of Anubis': 'Anubis',
-  'Volskaya Industries': 'Volskaya',
-  'Watchpoint: Gibraltar': 'WP: Gibraltar'
+  "Blizzard World": "B. World",
+  "Horizon Lunar Colony": "H. Lunar Colony",
+  "Temple of Anubis": "Anubis",
+  "Volskaya Industries": "Volskaya",
+  "Watchpoint: Gibraltar": "WP: Gibraltar"
 };

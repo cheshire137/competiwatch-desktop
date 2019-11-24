@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Account from '../../models/Account'
+import React, { useState } from "react";
+import Account from "../../models/Account";
 
 interface Props {
   activePage: string;
@@ -9,7 +9,13 @@ interface Props {
   underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 
-const TrendsTab = ({ activePage, activeSeason, activeAccount, onPageChange, underlineNavItemClass }: Props) => {
+const TrendsTab = ({
+  activePage,
+  activeSeason,
+  activeAccount,
+  onPageChange,
+  underlineNavItemClass
+}: Props) => {
   const [hasMatches, setHasMatches] = useState(false);
   const account = new Account({ _id: activeAccount._id });
   account.hasMatches(activeSeason).then(hasMatches => {
@@ -20,21 +26,21 @@ const TrendsTab = ({ activePage, activeSeason, activeAccount, onPageChange, unde
     return null;
   }
 
-  if (activePage === 'trends') {
+  if (activePage === "trends") {
     return (
-      <span className={underlineNavItemClass('trends', false)}>
-        Trends
-      </span>
+      <span className={underlineNavItemClass("trends", false)}>Trends</span>
     );
   }
 
   return (
     <button
       type="button"
-      className={underlineNavItemClass('trends', true)}
-      onClick={() => onPageChange('trends')}
-    >Trends</button>
-  )
+      className={underlineNavItemClass("trends", true)}
+      onClick={() => onPageChange("trends")}
+    >
+      Trends
+    </button>
+  );
 };
 
 export default TrendsTab;

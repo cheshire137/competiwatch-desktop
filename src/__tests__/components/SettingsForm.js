@@ -1,11 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import SettingsForm from '../../components/SettingsForm'
+import React from "react";
+import ReactDOM from "react-dom";
+import SettingsForm from "../../components/SettingsForm";
 
-it('renders', () => {
-  const div = document.createElement('div')
-  const settings = {}
-  const accounts = []
-  ReactDOM.render(<SettingsForm settings={settings} accounts={accounts} />, div)
-  ReactDOM.unmountComponentAtNode(div)
-})
+it("renders", () => {
+  const div = document.createElement("div");
+  const settings = {};
+  const accounts = [];
+  ReactDOM.render(
+    <SettingsForm settings={settings} accounts={accounts} />,
+    div
+  );
+  ReactDOM.unmountComponentAtNode(div);
+});

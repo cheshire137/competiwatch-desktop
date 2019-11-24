@@ -1,10 +1,10 @@
-import Database from './Database'
-import Match, { MatchData } from './Match'
-import { Hero } from "./Hero"
+import Database from "./Database";
+import Match, { MatchData } from "./Match";
+import { Hero } from "./Hero";
 
 type HeroToNumber = {
   [hero in Hero]?: number;
-}
+};
 
 const accountSort = (a: Account, b: Account) => {
   if (!a.battletag) {
@@ -30,118 +30,128 @@ class Account {
   createdAt?: Date;
 
   static findAll() {
-    const sort = { battletag: 1 } // not case-insensitive
-    return Database.findAll('accounts', sort)
-                   .then((rows: AccountData[]) => rows.map(data => new Account(data)))
-                   .then((accounts: Account[]) => accounts.sort(accountSort))
+    const sort = { battletag: 1 }; // not case-insensitive
+    return Database.findAll("accounts", sort)
+      .then((rows: AccountData[]) => rows.map(data => new Account(data)))
+      .then((accounts: Account[]) => accounts.sort(accountSort));
   }
 
   static find(id: string) {
-    return Database.find('accounts', id).then((data: AccountData) => new Account(data))
+    return Database.find("accounts", id).then(
+      (data: AccountData) => new Account(data)
+    );
   }
 
   constructor(data: AccountData) {
-    this.battletag = data.battletag
-    this._id = data._id
+    this.battletag = data.battletag;
+    this._id = data._id;
     if (data.createdAt) {
-      this.createdAt = new Date(data.createdAt)
+      this.createdAt = new Date(data.createdAt);
     }
   }
 
   findAllGroupMembers(season: number) {
-    const sort = {}
-    const conditions: any = { accountID: this._id, group: { $ne: '' } }
-    if (typeof season === 'number' && !isNaN(season)) {
-      conditions.season = season
+    const sort = {};
+    const conditions: any = { accountID: this._id, group: { $ne: "" } };
+    if (typeof season === "number" && !isNaN(season)) {
+      conditions.season = season;
     }
 
-    return Database.findAll('matches', sort, conditions).then((matchRows: MatchData[]) => {
-      const matches = matchRows.map(data => new Match(data))
-      const groupMembers: any = {};
+    return Database.findAll("matches", sort, conditions).then(
+      (matchRows: MatchData[]) => {
+        const matches = matchRows.map(data => new Match(data));
+        const groupMembers: any = {};
 
-      for (const match of matches) {
-        for (const groupMember of match.groupList) {
-          if (!(groupMember in groupMembers)) {
-            groupMembers[groupMember] = 1
+        for (const match of matches) {
+          for (const groupMember of match.groupList) {
+            if (!(groupMember in groupMembers)) {
+              groupMembers[groupMember] = 1;
+            }
           }
         }
-      }
 
-      return Object.keys(groupMembers).sort()
-    })
+        return Object.keys(groupMembers).sort();
+      }
+    );
   }
 
   topHeroes(season: number): Promise<Hero[]> {
-    const sort = {}
-    const conditions: any = { accountID: this._id, heroes: { $ne: '' } }
-    if (typeof season === 'number' && !isNaN(season)) {
-      conditions.season = season
+    const sort = {};
+    const conditions: any = { accountID: this._id, heroes: { $ne: "" } };
+    if (typeof season === "number" && !isNaN(season)) {
+      conditions.season = season;
     }
 
-    return Database.findAll('matches', sort, conditions).then((matchRows: MatchData[]) => {
-      const matches: Match[] = matchRows.map(data => new Match(data));
-      const heroCounts: HeroToNumber = {};
+    return Database.findAll("matches", sort, conditions).then(
+      (matchRows: MatchData[]) => {
+        const matches: Match[] = matchRows.map(data => new Match(data));
+        const heroCounts: HeroToNumber = {};
 
-      for (const match of matches) {
-        const matchHeroes = match.heroList;
+        for (const match of matches) {
+          const matchHeroes = match.heroList;
 
-        for (const hero of matchHeroes) {
-          if (!(hero in heroCounts)) {
-            heroCounts[hero] = 0
+          for (const hero of matchHeroes) {
+            if (!(hero in heroCounts)) {
+              heroCounts[hero] = 0;
+            }
+
+            heroCounts[hero] = (heroCounts[hero] || 0) + 1;
           }
-
-          heroCounts[hero] = (heroCounts[hero] || 0) + 1;
         }
-      }
 
-      const sortableHeroCounts = []
-      for (const hero in heroCounts) {
-        sortableHeroCounts.push([hero, heroCounts[hero as Hero]])
-      }
-      sortableHeroCounts.sort((a, b) => {
-        return (b[1] as number) - (a[1] as number);
-      })
+        const sortableHeroCounts = [];
+        for (const hero in heroCounts) {
+          sortableHeroCounts.push([hero, heroCounts[hero as Hero]]);
+        }
+        sortableHeroCounts.sort((a, b) => {
+          return (b[1] as number) - (a[1] as number);
+        });
 
-      return sortableHeroCounts.map(arr => arr[0]).slice(0, 3)
-    })
+        return sortableHeroCounts.map(arr => arr[0]).slice(0, 3);
+      }
+    );
   }
 
   latestMatch(season: number) {
     const conditions = { accountID: this._id, season };
     const sort = { date: -1, createdAt: -1 };
 
-    return Database.latest('matches', conditions, sort).then((data: MatchData) => {
-      if (data) {
-        return new Match(data);
+    return Database.latest("matches", conditions, sort).then(
+      (data: MatchData) => {
+        if (data) {
+          return new Match(data);
+        }
       }
-    })
+    );
   }
 
   totalMatches(season: number): Promise<number> {
-    const conditions: any = { accountID: this._id }
-    if (typeof season === 'number') {
-      conditions.season = season
+    const conditions: any = { accountID: this._id };
+    if (typeof season === "number") {
+      conditions.season = season;
     }
-    return Database.count('matches', conditions)
+    return Database.count("matches", conditions);
   }
 
   hasMatches(season: number) {
-    return this.totalMatches(season).then(count => count > 0)
+    return this.totalMatches(season).then(count => count > 0);
   }
 
   save() {
-    const data = { battletag: this.battletag }
-    return Database.upsert('accounts', data, this._id).then((newAccount: AccountData) => {
-      this._id = newAccount._id
-      if (typeof newAccount.createdAt === "string") {
-        this.createdAt = new Date(newAccount.createdAt);
+    const data = { battletag: this.battletag };
+    return Database.upsert("accounts", data, this._id).then(
+      (newAccount: AccountData) => {
+        this._id = newAccount._id;
+        if (typeof newAccount.createdAt === "string") {
+          this.createdAt = new Date(newAccount.createdAt);
+        }
+        return this;
       }
-      return this
-    })
+    );
   }
 
   delete() {
-    return Database.delete('accounts', this._id)
+    return Database.delete("accounts", this._id);
   }
 }
 

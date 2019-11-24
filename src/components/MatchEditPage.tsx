@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import MatchDeleteForm from './MatchDeleteForm'
-import MatchForm from './MatchForm'
-import Match from '../models/Match'
+import React, { useState } from "react";
+import MatchDeleteForm from "./MatchDeleteForm";
+import MatchForm from "./MatchForm";
+import Match from "../models/Match";
 
 interface Props {
   accountID: string;
@@ -12,17 +12,23 @@ interface Props {
 }
 
 const getPriorMatches = (matches: Match[], id: string) => {
-  let index = 0
+  let index = 0;
   for (const match of matches) {
     if (match._id === id) {
-      break
+      break;
     }
-    index++
+    index++;
   }
-  return matches.slice(0, index)
-}
+  return matches.slice(0, index);
+};
 
-const MatchEditPage = ({ accountID, season, theme, id, onPageChange }: Props) => {
+const MatchEditPage = ({
+  accountID,
+  season,
+  theme,
+  id,
+  onPageChange
+}: Props) => {
   const [matches, setMatches] = useState<Match[]>([]);
   const [match, setMatch] = useState<Match | null>(null);
   const [isLastPlacement, setIsLastPlacement] = useState<boolean | null>(null);
@@ -38,7 +44,7 @@ const MatchEditPage = ({ accountID, season, theme, id, onPageChange }: Props) =>
 
   return (
     <div className="container layout-children-container">
-      {match && typeof isLastPlacement === 'boolean' && (
+      {match && typeof isLastPlacement === "boolean" && (
         <MatchForm
           id={id}
           priorMatches={getPriorMatches(matches, id)}
@@ -48,7 +54,7 @@ const MatchEditPage = ({ accountID, season, theme, id, onPageChange }: Props) =>
           isPlacement={match.isPlacement}
           isLastPlacement={isLastPlacement}
           latestRank={match.rank}
-          onUpdate={() => onPageChange('matches', true, id)}
+          onUpdate={() => onPageChange("matches", true, id)}
           rank={match.rank}
           comment={match.comment}
           map={match.map}
@@ -68,10 +74,7 @@ const MatchEditPage = ({ accountID, season, theme, id, onPageChange }: Props) =>
         />
       )}
       <div className="border-top pt-2 mt-4">
-        <MatchDeleteForm
-          id={id}
-          onDelete={() => onPageChange('matches')}
-        />
+        <MatchDeleteForm id={id} onDelete={() => onPageChange("matches")} />
       </div>
     </div>
   );

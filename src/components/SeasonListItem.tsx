@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import SeasonDeleteForm from './SeasonDeleteForm'
-import Season from '../models/Season'
+import React, { useState } from "react";
+import SeasonDeleteForm from "./SeasonDeleteForm";
+import Season from "../models/Season";
 
 interface Props {
   seasonNumber: number;
@@ -9,16 +9,21 @@ interface Props {
   firstNonDeletableSeason: number;
 }
 
-const SeasonListItem = ({ seasonNumber, index, firstNonDeletableSeason, onDelete }: Props) => {
+const SeasonListItem = ({
+  seasonNumber,
+  index,
+  firstNonDeletableSeason,
+  onDelete
+}: Props) => {
   const [totalMatches, setTotalMatches] = useState(-1);
 
   const listItemClass = (index: number) => {
     let classes: string[] = [];
     if (index > 0) {
-      classes = classes.concat(['border-top', 'pt-2', 'mt-2']);
+      classes = classes.concat(["border-top", "pt-2", "mt-2"]);
     }
-    return classes.join(' ');
-  }
+    return classes.join(" ");
+  };
 
   const season = new Season({ number: seasonNumber });
   season.totalMatches().then(total => setTotalMatches(total));
@@ -28,15 +33,12 @@ const SeasonListItem = ({ seasonNumber, index, firstNonDeletableSeason, onDelete
       <div className="d-flex mb-1 flex-justify-between flex-items-center">
         <span className="text-bold">Season {seasonNumber}</span>
         {seasonNumber > firstNonDeletableSeason && index === 0 ? (
-          <SeasonDeleteForm
-            seasonNumber={seasonNumber}
-            onDelete={onDelete}
-          />
+          <SeasonDeleteForm seasonNumber={seasonNumber} onDelete={onDelete} />
         ) : null}
       </div>
       {totalMatches > 0 ? (
         <div className="text-gray text-small">
-          {totalMatches} match{totalMatches === 1 ? null : 'es'}
+          {totalMatches} match{totalMatches === 1 ? null : "es"}
         </div>
       ) : null}
     </li>

@@ -1,5 +1,5 @@
-import React from 'react';
-import SeasonListItem from './SeasonListItem';
+import React from "react";
+import SeasonListItem from "./SeasonListItem";
 
 interface Props {
   latestSeason: number;
@@ -7,8 +7,15 @@ interface Props {
   onDelete: (season: number) => void;
 }
 
-const SeasonsList = ({ latestSeason, firstNonDeletableSeason, onDelete }: Props) => {
-  const seasons = Array.from({ length: latestSeason }, (v, k) => k + 1).reverse();
+const SeasonsList = ({
+  latestSeason,
+  firstNonDeletableSeason,
+  onDelete
+}: Props) => {
+  const seasons = Array.from(
+    { length: latestSeason },
+    (v, k) => k + 1
+  ).reverse();
 
   return (
     <ul className="list-style-none mb-4">

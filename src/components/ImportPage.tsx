@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import ImportForm from './ImportForm'
-import LoadingPage from './LoadingPage'
-import Account from '../models/Account'
-import Match from '../models/Match'
+import React, { useState, useEffect } from "react";
+import ImportForm from "./ImportForm";
+import LoadingPage from "./LoadingPage";
+import Account from "../models/Account";
+import Match from "../models/Match";
 
 interface Props {
   account: Account;
@@ -15,7 +15,9 @@ const ImportPage = ({ account, seasonNumber, onImport }: Props) => {
   const [activeSample, setActiveSample] = useState("sample1");
 
   useEffect(() => {
-    account.totalMatches(seasonNumber).then((total: number) => setTotalMatches(total));
+    account
+      .totalMatches(seasonNumber)
+      .then((total: number) => setTotalMatches(total));
   }, [setTotalMatches, seasonNumber]);
 
   if (totalMatches < 0) {
@@ -27,28 +29,43 @@ const ImportPage = ({ account, seasonNumber, onImport }: Props) => {
       {totalMatches > 0 ? (
         <p className="flash-warn p-3 f3">
           Importing matches will <strong>delete</strong> your
-          <strong> {totalMatches} match{totalMatches === 1 ? null : 'es'} </strong>
+          <strong>
+            {" "}
+            {totalMatches} match{totalMatches === 1 ? null : "es"}{" "}
+          </strong>
           in season {seasonNumber}.
         </p>
       ) : null}
-      <ImportForm
-        season={seasonNumber}
-        onImport={onImport}
-        account={account}
-      />
+      <ImportForm season={seasonNumber} onImport={onImport} account={account} />
 
       <h4 className="h4 mt-4 mb-2">Requirements:</h4>
       <div className="clearfix">
         <div className="col-6 float-left">
           <ul className="ml-4 mr-4 mb-4 mt-0">
-            <li><span className="text-bold">Valid columns:</span> rank, heroes, map, comment, time, day, date, ally thrower, ally leaver, enemy thrower, enemy leaver, group, group size, result, placement, play of the game, joined voice</li>
+            <li>
+              <span className="text-bold">Valid columns:</span> rank, heroes,
+              map, comment, time, day, date, ally thrower, ally leaver, enemy
+              thrower, enemy leaver, group, group size, result, placement, play
+              of the game, joined voice
+            </li>
             <li>Rank is required for non-placement matches</li>
             <li>Valid values for 'day' column: weekday, weekend</li>
-            <li>Valid values for 'time' column: morning, afternoon, evening, night</li>
-            <li>Valid values for thrower, leaver, play of the game, joined voice, and placement columns: Y, N</li>
+            <li>
+              Valid values for 'time' column: morning, afternoon, evening, night
+            </li>
+            <li>
+              Valid values for thrower, leaver, play of the game, joined voice,
+              and placement columns: Y, N
+            </li>
             <li>Valid values for result column: win, loss, draw</li>
-            <li>'Group' should be a comma-separated list of the people who grouped with you</li>
-            <li>'Group Size' should be an integer between 1-6 indicating how many people, including yourself, were in your group</li>
+            <li>
+              'Group' should be a comma-separated list of the people who grouped
+              with you
+            </li>
+            <li>
+              'Group Size' should be an integer between 1-6 indicating how many
+              people, including yourself, were in your group
+            </li>
           </ul>
         </div>
         <div className="col-6 float-left">
@@ -58,7 +75,10 @@ const ImportPage = ({ account, seasonNumber, onImport }: Props) => {
                 <li>'Date' represents when you played the match</li>
                 <li>Should be a date that can optionally include the time</li>
                 <li>Should be in the format YYYY-MM-DD or ISO 8601</li>
-                <li>Sample values: <code>2017-02-27</code> and <code>2018-07-29T21:36:43.977Z</code></li>
+                <li>
+                  Sample values: <code>2017-02-27</code> and{" "}
+                  <code>2018-07-29T21:36:43.977Z</code>
+                </li>
               </ul>
             </li>
             <li>Column order does not matter</li>
@@ -80,22 +100,38 @@ const ImportPage = ({ account, seasonNumber, onImport }: Props) => {
           <button
             onClick={() => setActiveSample("sample1")}
             type="button"
-            className={`tabnav-tab btn-link ${activeSample === 'sample1' ? 'selected' : null}`}
-          >Sample file #1</button>
+            className={`tabnav-tab btn-link ${
+              activeSample === "sample1" ? "selected" : null
+            }`}
+          >
+            Sample file #1
+          </button>
           <button
             onClick={() => setActiveSample("sample2")}
             type="button"
-            className={`tabnav-tab btn-link ${activeSample === 'sample2' ? 'selected' : null}`}
-          >Sample file #2</button>
+            className={`tabnav-tab btn-link ${
+              activeSample === "sample2" ? "selected" : null
+            }`}
+          >
+            Sample file #2
+          </button>
           <button
             onClick={() => setActiveSample("sample3")}
             type="button"
-            className={`tabnav-tab btn-link ${activeSample === 'sample3' ? 'selected' : null}`}
-          >Sample file #3</button>
+            className={`tabnav-tab btn-link ${
+              activeSample === "sample3" ? "selected" : null
+            }`}
+          >
+            Sample file #3
+          </button>
         </nav>
       </div>
 
-      <div className={`border p-3 border-top-0 mb-4 ${activeSample === 'sample1' ? null : 'd-none'}`}>
+      <div
+        className={`border p-3 border-top-0 mb-4 ${
+          activeSample === "sample1" ? null : "d-none"
+        }`}
+      >
         <p>In this example, 3929 is where you placed:</p>
         <pre className="mb-2">{`day,Rank,Map,Comment,Group,group size
 ,3929,,,
@@ -107,11 +143,18 @@ weekday,3953,Temple of Anubis,leaver on my team,,1
 weekend,3925,Junkertown,"slightly favored, PotG",,1`}</pre>
 
         <div className="col-md-6">
-          Includes whether you played on a weekday or the weekend, your SR, which map you played on, a comment about the game, which players you grouped with whose names you know, and how many people were in your group.
+          Includes whether you played on a weekday or the weekend, your SR,
+          which map you played on, a comment about the game, which players you
+          grouped with whose names you know, and how many people were in your
+          group.
         </div>
       </div>
 
-      <div className={`border p-3 border-top-0 mb-4 ${activeSample === 'sample2' ? null : 'd-none'}`}>
+      <div
+        className={`border p-3 border-top-0 mb-4 ${
+          activeSample === "sample2" ? null : "d-none"
+        }`}
+      >
         <p>In this example, 3249 is where you placed:</p>
         <pre className="mb-2">{`rank,Time,map,heroes
 3249,,,
@@ -123,11 +166,16 @@ weekend,3925,Junkertown,"slightly favored, PotG",,1`}</pre>
 3474,evening,Hollywood,`}</pre>
 
         <div className="col-md-6">
-          Includes your SR, what general time you played, which map you played on, and which heroes you played.
+          Includes your SR, what general time you played, which map you played
+          on, and which heroes you played.
         </div>
       </div>
 
-      <div className={`border p-3 border-top-0 mb-4 ${activeSample === 'sample3' ? null : 'd-none'}`}>
+      <div
+        className={`border p-3 border-top-0 mb-4 ${
+          activeSample === "sample3" ? null : "d-none"
+        }`}
+      >
         <p>This file includes 10 placement matches and a regular match:</p>
         <pre className="mb-2">{`placement,result,rank,map,comment
 Y,win,,Hanamura,""
@@ -143,11 +191,13 @@ Y,loss,3115,Ilios,"couldn't stop Junkrat"
 N,,3135,Numbani,"good teamwork"`}</pre>
 
         <div className="col-md-6">
-          Includes whether the match was a placement match or not, what the outcome of the placement match was, your SR, which map you played on, and a comment about the match.
+          Includes whether the match was a placement match or not, what the
+          outcome of the placement match was, your SR, which map you played on,
+          and a comment about the match.
         </div>
       </div>
     </div>
   );
 };
 
-export default ImportPage
+export default ImportPage;

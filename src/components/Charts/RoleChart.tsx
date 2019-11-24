@@ -1,35 +1,40 @@
-import React from 'react'
-import { Radar } from 'react-chartjs-2'
-import Color from '../../models/Color'
-import Match from '../../models/Match'
-import { HeroesByType, HeroDetailedRoles, Hero, HeroDetailedRole } from '../../models/Hero'
+import React from "react";
+import { Radar } from "react-chartjs-2";
+import Color from "../../models/Color";
+import Match from "../../models/Match";
+import {
+  HeroesByType,
+  HeroDetailedRoles,
+  Hero,
+  HeroDetailedRole
+} from "../../models/Hero";
 
 const roleFor = (hero: Hero): HeroDetailedRole | undefined => {
   if (HeroesByType.DPS.includes(hero)) {
-    return 'DPS'
+    return "DPS";
   }
-  if (HeroesByType['Main Healer'].includes(hero)) {
-    return 'Main Healer'
+  if (HeroesByType["Main Healer"].includes(hero)) {
+    return "Main Healer";
   }
-  if (HeroesByType['Off-healer'].includes(hero)) {
-    return 'Off-healer'
+  if (HeroesByType["Off-healer"].includes(hero)) {
+    return "Off-healer";
   }
   if (HeroesByType.Flanker.includes(hero)) {
-    return 'Flanker'
+    return "Flanker";
   }
   if (HeroesByType.Defense.includes(hero)) {
-    return 'Defense'
+    return "Defense";
   }
   if (HeroesByType.Hitscan.includes(hero)) {
-    return 'Hitscan'
+    return "Hitscan";
   }
-  if (HeroesByType['Main Tank'].includes(hero)) {
-    return 'Main Tank'
+  if (HeroesByType["Main Tank"].includes(hero)) {
+    return "Main Tank";
   }
-  if (HeroesByType['Off-tank'].includes(hero)) {
-    return 'Off-tank'
+  if (HeroesByType["Off-tank"].includes(hero)) {
+    return "Off-tank";
   }
-}
+};
 
 interface Props {
   matches: Match[];
@@ -39,10 +44,10 @@ interface Props {
 
 type Counts = {
   [role: string]: number;
-}
+};
 
 const getCountsByRole = (filteredMatches: Match[]) => {
-  const countsByRole: Counts = {}
+  const countsByRole: Counts = {};
 
   for (const match of filteredMatches) {
     for (const hero of match.heroList) {
@@ -53,24 +58,25 @@ const getCountsByRole = (filteredMatches: Match[]) => {
     }
   }
 
-  return Object.values(countsByRole)
+  return Object.values(countsByRole);
 };
 
-const borderWidth = 2
-const pointRadius = 3
-const pointHoverRadius = 6
-const pointBorderWidth = 2
+const borderWidth = 2;
+const pointRadius = 3;
+const pointHoverRadius = 6;
+const pointBorderWidth = 2;
 const lineTension = 0.1;
 
 const RoleChart = ({ matches, season, theme }: Props) => {
-  const winCounts = getCountsByRole(matches.filter(match => match.isWin()))
-  const lossCounts = getCountsByRole(matches.filter(match => match.isLoss()))
-  let maxCount = Math.max(...winCounts.concat(lossCounts))
-  maxCount = maxCount + Math.floor(maxCount * 0.1)
-  const isDarkTheme = theme === 'dark'
+  const winCounts = getCountsByRole(matches.filter(match => match.isWin()));
+  const lossCounts = getCountsByRole(matches.filter(match => match.isLoss()));
+  let maxCount = Math.max(...winCounts.concat(lossCounts));
+  maxCount = maxCount + Math.floor(maxCount * 0.1);
+  const isDarkTheme = theme === "dark";
   const options = {
-    responsive: true, maintainAspectRatio: false,
-    legend: { position: 'left' },
+    responsive: true,
+    maintainAspectRatio: false,
+    legend: { position: "left" },
     scale: {
       ticks: {
         showLabelBackdrop: false,
@@ -88,13 +94,15 @@ const RoleChart = ({ matches, season, theme }: Props) => {
       },
       pointLabels: { fontSize: 14 }
     }
-  }
-  const pointBackgroundColor = isDarkTheme ? 'rgba(36, 41, 46, 0.8)' : 'rgba(255, 255, 255, 0.8)'
+  };
+  const pointBackgroundColor = isDarkTheme
+    ? "rgba(36, 41, 46, 0.8)"
+    : "rgba(255, 255, 255, 0.8)";
   const data = {
     labels: HeroDetailedRoles,
     datasets: [
       {
-        label: '# Wins',
+        label: "# Wins",
         backgroundColor: Color.veryTransparentWin,
         pointBackgroundColor,
         pointBorderColor: Color.win,
@@ -109,7 +117,7 @@ const RoleChart = ({ matches, season, theme }: Props) => {
         data: winCounts
       },
       {
-        label: '# Losses',
+        label: "# Losses",
         backgroundColor: Color.veryTransparentLoss,
         pointBackgroundColor,
         pointBorderColor: Color.loss,
@@ -124,13 +132,15 @@ const RoleChart = ({ matches, season, theme }: Props) => {
         data: lossCounts
       }
     ]
-  }
+  };
 
   return (
     <div>
       <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
         Wins/Losses by Role
-        <span className="text-gray text-normal h4 d-inline-block ml-2">Season {season}</span>
+        <span className="text-gray text-normal h4 d-inline-block ml-2">
+          Season {season}
+        </span>
       </h3>
       <div className="tall-chart-container">
         <Radar data={data} options={options} />

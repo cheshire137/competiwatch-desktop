@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const getSeasonsList = (latestSeason: number) => {
   const seasons = [];
@@ -6,7 +6,7 @@ const getSeasonsList = (latestSeason: number) => {
     seasons.push(season);
   }
   return seasons;
-}
+};
 
 interface Props {
   latestSeason: number;
@@ -15,33 +15,40 @@ interface Props {
   onSeasonChange: (season: number) => void;
 }
 
-const SeasonSelect = ({ latestSeason, activeSeason, onPageChange, onSeasonChange }: Props) => {
+const SeasonSelect = ({
+  latestSeason,
+  activeSeason,
+  onPageChange,
+  onSeasonChange
+}: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [seasons, setSeasons] = useState<number[]>(getSeasonsList(latestSeason));
+  const [seasons, setSeasons] = useState<number[]>(
+    getSeasonsList(latestSeason)
+  );
 
   const containerClass = () => {
-    const classes = ['select-menu', 'd-inline-block'];
+    const classes = ["select-menu", "d-inline-block"];
     if (isOpen) {
-      classes.push('active');
+      classes.push("active");
     }
-    return classes.join(' ');
+    return classes.join(" ");
   };
 
   const toggleButtonClass = () => {
-    const classes = ['btn', 'select-menu-button'];
+    const classes = ["btn", "select-menu-button"];
     if (isOpen) {
-      classes.push('selected');
+      classes.push("selected");
     }
-    return classes.join(' ');
+    return classes.join(" ");
   };
 
   const seasonButtonClass = (season: number) => {
-    const classes = ['select-menu-item', 'text-left', 'width-full', 'btn-link'];
+    const classes = ["select-menu-item", "text-left", "width-full", "btn-link"];
     if (activeSeason === season) {
-      classes.push('selected');
+      classes.push("selected");
     }
-    return classes.join(' ');
-  }
+    return classes.join(" ");
+  };
 
   const onChange = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const button = event.currentTarget;
@@ -50,12 +57,12 @@ const SeasonSelect = ({ latestSeason, activeSeason, onPageChange, onSeasonChange
     button.blur();
     onSeasonChange(season);
     setIsOpen(false);
-  }
+  };
 
   const manageSeasons = () => {
     setIsOpen(false);
     onPageChange("manage-seasons");
-  }
+  };
 
   return (
     <div className="mr-2 my-2">
@@ -66,7 +73,9 @@ const SeasonSelect = ({ latestSeason, activeSeason, onPageChange, onSeasonChange
           onClick={() => setIsOpen(!isOpen)}
           aria-haspopup="true"
           aria-expanded="false"
-        >Season {activeSeason}</button>
+        >
+          Season {activeSeason}
+        </button>
         <div className="select-menu-modal-holder">
           <div className="select-menu-modal">
             <div className="select-menu-list">

@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react'
-import Header from './components/Header'
-import Account from './models/Account'
-import Match from './models/Match';
-import Season from './models/Season'
-import Setting from './models/Setting'
-import Settings from './models/Setting';
-import AppMenu from './models/AppMenu'
-import CsvExporter from './models/CsvExporter'
-import FileUtil from './models/FileUtil'
-import AccountsPage from './components/AccountsPage'
-import MatchesPage from './components/MatchesPage'
-import HelpPage from './components/HelpPage'
-import MatchCreatePage from './components/MatchCreatePage'
-import SeasonsPage from './components/SeasonsPage'
-import TrendsPage from './components/TrendsPage'
-import AboutPage from './components/AboutPage'
-import ImportPage from './components/ImportPage'
-import MatchEditPage from './components/MatchEditPage'
-import SettingsPage from './components/SettingsPage'
-import './primer.css'
-import './ionicons.min.css'
-import './App.css'
+import React, { useState, useEffect } from "react";
+import Header from "./components/Header";
+import Account from "./models/Account";
+import Match from "./models/Match";
+import Season from "./models/Season";
+import Setting from "./models/Setting";
+import Settings from "./models/Setting";
+import AppMenu from "./models/AppMenu";
+import CsvExporter from "./models/CsvExporter";
+import FileUtil from "./models/FileUtil";
+import AccountsPage from "./components/AccountsPage";
+import MatchesPage from "./components/MatchesPage";
+import HelpPage from "./components/HelpPage";
+import MatchCreatePage from "./components/MatchCreatePage";
+import SeasonsPage from "./components/SeasonsPage";
+import TrendsPage from "./components/TrendsPage";
+import AboutPage from "./components/AboutPage";
+import ImportPage from "./components/ImportPage";
+import MatchEditPage from "./components/MatchEditPage";
+import SettingsPage from "./components/SettingsPage";
+import "./primer.css";
+import "./ionicons.min.css";
+import "./App.css";
 import { setTitle, showSaveDialog } from "./utils/electronUtils";
 
 const latestKnownSeason = 19;
@@ -41,7 +41,7 @@ const App = () => {
   const [activeSeason, setActiveSeason] = useState<number>(latestKnownSeason);
   const [accounts, setAccounts] = useState<Array<Account>>([]);
   const [activeMatchID, setActiveMatchID] = useState<string | null>(null);
-  const [activePage, setActivePage] = useState<string>('accounts');
+  const [activePage, setActivePage] = useState<string>("accounts");
   const [settings, setSettings] = useState<Settings | null>(null);
   const [latestGroup, setLatestGroup] = useState<string | null>(null);
 
@@ -49,7 +49,7 @@ const App = () => {
     if (activeMatchID) {
       setActiveMatchID(null);
     }
-    if (activePage === 'edit-match' || activePage === 'log-match') {
+    if (activePage === "edit-match" || activePage === "log-match") {
       setActivePage("matches");
     }
     if (newNumber > latestSeason) {
@@ -76,7 +76,9 @@ const App = () => {
     setSettings(loadedSettings);
 
     if (!activeAccount && loadedSettings.defaultAccountID) {
-      const defaultAccount = accounts.filter(a => a._id === loadedSettings.defaultAccountID)[0];
+      const defaultAccount = accounts.filter(
+        a => a._id === loadedSettings.defaultAccountID
+      )[0];
 
       if (defaultAccount) {
         setActiveAccount(defaultAccount);
@@ -92,16 +94,22 @@ const App = () => {
 
     const exporter = new CsvExporter(path, activeSeason, activeAccount);
     exporter.export().then(() => {
-      console.log(`exported ${activeAccount.battletag}'s season ${activeSeason}`, path);
+      console.log(
+        `exported ${activeAccount.battletag}'s season ${activeSeason}`,
+        path
+      );
     });
-  }
+  };
 
   const exportSeason = () => {
     if (!activeAccount || !activeSeason) {
       return;
     }
 
-    const defaultPath = FileUtil.defaultCsvExportFilename(activeAccount.battletag, activeSeason);
+    const defaultPath = FileUtil.defaultCsvExportFilename(
+      activeAccount.battletag,
+      activeSeason
+    );
     const options = { defaultPath };
 
     showSaveDialog(options, (path: string) => {
@@ -114,12 +122,12 @@ const App = () => {
   const changeActivePage = (activePage: string, val1?: any, val2?: any) => {
     setActivePage(activePage);
 
-    if (activePage === 'log-match') {
-      if (typeof val1 === 'number') {
+    if (activePage === "log-match") {
+      if (typeof val1 === "number") {
         setLatestRank(val1);
       }
 
-      if (typeof val2 === 'string') {
+      if (typeof val2 === "string") {
         setLatestGroup(val2);
       } else {
         setLatestGroup(null);
@@ -128,19 +136,19 @@ const App = () => {
       setLatestGroup(null);
     }
 
-    if (activePage === 'accounts') {
+    if (activePage === "accounts") {
       setActiveAccount(null);
       setLatestRank(2500);
     }
 
-    if (activePage === 'matches') {
-      if (typeof val1 === 'boolean') {
+    if (activePage === "matches") {
+      if (typeof val1 === "boolean") {
         setScrollToMatch(val1);
       } else {
         setScrollToMatch(false);
       }
 
-      if (typeof val2 === 'string') {
+      if (typeof val2 === "string") {
         setScrollToMatchID(val2);
       } else {
         setScrollToMatchID(null);
@@ -150,7 +158,7 @@ const App = () => {
       setScrollToMatchID(null);
     }
 
-    if (activePage === 'edit-match') {
+    if (activePage === "edit-match") {
       setActiveMatchID(val1);
     } else {
       setActiveMatchID(null);
@@ -162,11 +170,11 @@ const App = () => {
       return;
     }
 
-    let newTheme = 'light'
-    if (settings.theme === 'dark') {
-      newTheme = 'dark'
-    } else if (settings.theme === 'auto' && isNighttime()) {
-      newTheme = 'dark'
+    let newTheme = "light";
+    if (settings.theme === "dark") {
+      newTheme = "dark";
+    } else if (settings.theme === "auto" && isNighttime()) {
+      newTheme = "dark";
     }
 
     setTheme(newTheme);
@@ -186,49 +194,68 @@ const App = () => {
   }, [setTheme]);
 
   useEffect(() => {
-    const haveActiveSeason = typeof activeSeason === 'number' && !isNaN(activeSeason);
-    const isSeasonRelevant = ['matches', 'log-match', 'trends', 'edit-match', 'import'].includes(activePage);
-    const isAccountRelevant = ['matches', 'log-match', 'trends', 'edit-match', 'import'].includes(activePage);
+    const haveActiveSeason =
+      typeof activeSeason === "number" && !isNaN(activeSeason);
+    const isSeasonRelevant = [
+      "matches",
+      "log-match",
+      "trends",
+      "edit-match",
+      "import"
+    ].includes(activePage);
+    const isAccountRelevant = [
+      "matches",
+      "log-match",
+      "trends",
+      "edit-match",
+      "import"
+    ].includes(activePage);
     let titleParts = [];
 
-    if (activePage === 'matches') {
-      titleParts.push('Matches')
-    } else if (activePage === 'log-match') {
-      titleParts.push('Log a Match')
-    } else if (activePage === 'trends') {
-      titleParts.push('Trends')
-    } else if (activePage === 'manage-seasons') {
-      titleParts.push('Manage Seasons')
-    } else if (activePage === 'edit-match') {
-      titleParts.push('Edit Match')
-    } else if (activePage === 'import') {
-      titleParts.push('Import Matches')
-    } else if (activePage === 'about') {
-      titleParts.push('About')
-    } else if (activePage === 'settings') {
-      titleParts.push('Settings')
-    } else if (activePage === 'accounts') {
-      titleParts.push('Accounts')
-    } else if (activePage === 'help') {
-      titleParts.push('Help')
+    if (activePage === "matches") {
+      titleParts.push("Matches");
+    } else if (activePage === "log-match") {
+      titleParts.push("Log a Match");
+    } else if (activePage === "trends") {
+      titleParts.push("Trends");
+    } else if (activePage === "manage-seasons") {
+      titleParts.push("Manage Seasons");
+    } else if (activePage === "edit-match") {
+      titleParts.push("Edit Match");
+    } else if (activePage === "import") {
+      titleParts.push("Import Matches");
+    } else if (activePage === "about") {
+      titleParts.push("About");
+    } else if (activePage === "settings") {
+      titleParts.push("Settings");
+    } else if (activePage === "accounts") {
+      titleParts.push("Accounts");
+    } else if (activePage === "help") {
+      titleParts.push("Help");
     }
 
     if (haveActiveSeason && isSeasonRelevant) {
-      titleParts.push(`Season ${activeSeason}`)
+      titleParts.push(`Season ${activeSeason}`);
     }
 
     if (activeAccount && isAccountRelevant) {
-      titleParts.push(activeAccount.battletag)
+      titleParts.push(activeAccount.battletag);
     }
 
-    setTitle(titleParts.join(' / '));
+    setTitle(titleParts.join(" / "));
   }, [activeAccount && activeAccount._id, activeSeason, activePage]);
 
   const onMatchesImported = (matches: Array<Match>) => {
-    console.log('imported', matches.length, 'match(es) into season', activeSeason, 'in account',
-      activeAccount && activeAccount._id)
-    changeActivePage('matches');
-  }
+    console.log(
+      "imported",
+      matches.length,
+      "match(es) into season",
+      activeSeason,
+      "in account",
+      activeAccount && activeAccount._id
+    );
+    changeActivePage("matches");
+  };
 
   const onSeasonDelete = (deletedNumber: number) => {
     if (latestSeason === deletedNumber) {
@@ -255,7 +282,7 @@ const App = () => {
       latestSeason,
       accountID: activeAccount ? activeAccount._id : null,
       accounts
-    })
+    });
   }, [accounts.length, latestSeason, activeSeason]);
 
   const changeActiveAccount = (accountID: string) => {
@@ -274,15 +301,21 @@ const App = () => {
     setSettings(newSettings);
     setActivePage("matches");
 
-    const defaultAccount = accounts.filter(a => a._id === newSettings.defaultAccountID)[0];
+    const defaultAccount = accounts.filter(
+      a => a._id === newSettings.defaultAccountID
+    )[0];
     if (defaultAccount) {
       setActiveAccount(defaultAccount);
     }
   };
 
-  const showHeader = activePage !== 'about' && activePage !== 'settings' &&
-    activePage !== 'manage-seasons' && activePage !== 'help';
-  const haveActiveSeason = typeof activeSeason === 'number' && !isNaN(activeSeason);
+  const showHeader =
+    activePage !== "about" &&
+    activePage !== "settings" &&
+    activePage !== "manage-seasons" &&
+    activePage !== "help";
+  const haveActiveSeason =
+    typeof activeSeason === "number" && !isNaN(activeSeason);
 
   return (
     <div className={`layout-container theme-${theme}`}>
@@ -300,7 +333,7 @@ const App = () => {
         />
       )}
 
-      {activePage === 'matches' && haveActiveSeason && activeAccount && (
+      {activePage === "matches" && haveActiveSeason && activeAccount && (
         <MatchesPage
           account={activeAccount}
           season={activeSeason}
@@ -308,9 +341,10 @@ const App = () => {
           scrollToMatch={scrollToMatch}
           scrollToMatchID={scrollToMatchID}
           theme={theme}
-        />)}
+        />
+      )}
 
-      {activePage === 'log-match' && haveActiveSeason && activeAccount && (
+      {activePage === "log-match" && haveActiveSeason && activeAccount && (
         <MatchCreatePage
           accountID={activeAccount._id}
           onPageChange={changeActivePage}
@@ -320,58 +354,60 @@ const App = () => {
           season={activeSeason}
           theme={theme}
           latestSeason={latestSeason}
-        />)}
+        />
+      )}
 
-      {activePage === 'manage-seasons' && (
+      {activePage === "manage-seasons" && (
         <SeasonsPage
           latestSeason={latestSeason}
           firstNonDeletableSeason={latestKnownSeason}
           onCreate={changeActiveSeason}
           onDelete={onSeasonDelete}
           onPageChange={changeActivePage}
-        />)}
+        />
+      )}
 
-      {activePage === 'import' && haveActiveSeason && activeAccount && (
+      {activePage === "import" && haveActiveSeason && activeAccount && (
         <ImportPage
           seasonNumber={activeSeason}
           account={activeAccount}
           onImport={onMatchesImported}
-        />)}
+        />
+      )}
 
-      {activePage === 'edit-match' && activeMatchID && activeAccount && (
+      {activePage === "edit-match" && activeMatchID && activeAccount && (
         <MatchEditPage
           id={activeMatchID}
           season={activeSeason}
           accountID={activeAccount._id}
           theme={theme}
           onPageChange={changeActivePage}
-        />)}
-
-      {activePage === 'about' && (
-        <AboutPage onPageChange={changeActivePage} />
+        />
       )}
 
-      {activePage === 'help' && (
-        <HelpPage onPageChange={changeActivePage} />
-      )}
+      {activePage === "about" && <AboutPage onPageChange={changeActivePage} />}
 
-      {activePage === 'trends' && activeAccount && (
+      {activePage === "help" && <HelpPage onPageChange={changeActivePage} />}
+
+      {activePage === "trends" && activeAccount && (
         <TrendsPage
           accountID={activeAccount._id}
           season={activeSeason}
           onPageChange={changeActivePage}
           theme={theme}
-        />)}
+        />
+      )}
 
-      {activePage === 'settings' && settings && (
+      {activePage === "settings" && settings && (
         <SettingsPage
           onPageChange={changeActivePage}
           accounts={accounts}
           settings={settings}
           onSave={onSettingsSaved}
-        />)}
+        />
+      )}
 
-      {activePage === 'accounts' && haveActiveSeason && (
+      {activePage === "accounts" && haveActiveSeason && (
         <AccountsPage
           accounts={accounts}
           season={activeSeason}
@@ -379,7 +415,8 @@ const App = () => {
           onDelete={refreshAccounts}
           onAccountChange={changeActiveAccount}
           onAccountUpdate={refreshAccounts}
-        />)}
+        />
+      )}
     </div>
   );
 };

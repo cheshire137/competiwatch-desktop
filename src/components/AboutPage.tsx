@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import PackageInfo from '../../package.json'
+import React, { useState } from "react";
+import PackageInfo from "../../package.json";
 import { openLinkInBrowser, getAppName } from "../utils/electronUtils";
-import GithubApi from '../models/GithubApi'
+import GithubApi from "../models/GithubApi";
 
 interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
@@ -11,8 +11,8 @@ const AboutPage = ({ onPageChange }: Props) => {
   const [latestVersion, setLatestVersion] = useState<any>();
 
   const openLink = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    event.preventDefault()
-    const link = event.currentTarget
+    event.preventDefault();
+    const link = event.currentTarget;
     openLinkInBrowser(link.href);
   };
 
@@ -20,7 +20,7 @@ const AboutPage = ({ onPageChange }: Props) => {
     GithubApi.latestVersion().then(versionInfo => {
       setLatestVersion(versionInfo);
     });
-  }
+  };
 
   const openLatestVersion = () => {
     if (latestVersion && latestVersion.url) {
@@ -36,54 +36,61 @@ const AboutPage = ({ onPageChange }: Props) => {
       <div className="mt-4">
         <button
           type="button"
-          onClick={() => onPageChange('accounts')}
+          onClick={() => onPageChange("accounts")}
           className="btn-link"
-        >&larr; Back to your accounts</button>
+        >
+          &larr; Back to your accounts
+        </button>
       </div>
-      <h1
-        className="h1 mb-2 mt-4"
-      >About {appName}</h1>
+      <h1 className="h1 mb-2 mt-4">About {appName}</h1>
       <div className="clearfix mb-4">
         <div className="col-md-6 float-left">
           <div className="pr-4">
             <p>
-              I built {appName} because I got tired of tracking my games in Google
-              Sheets each competitive season. Initially {appName} was a web app,
-              but I wanted a way to let people store their own data without the need
-              for it to be hosted online. Hence this desktop app was born.
+              I built {appName} because I got tired of tracking my games in
+              Google Sheets each competitive season. Initially {appName} was a
+              web app, but I wanted a way to let people store their own data
+              without the need for it to be hosted online. Hence this desktop
+              app was born.
             </p>
             <p>
               {appName} is built
               <span> using </span>
-              <a
-                href="https://electronjs.org/"
-                onClick={openLink}
-              >Electron</a><span>, </span>
-              <a
-                href="https://primer.github.io/"
-                onClick={openLink}
-              >Primer</a><span>, </span>
+              <a href="https://electronjs.org/" onClick={openLink}>
+                Electron
+              </a>
+              <span>, </span>
+              <a href="https://primer.github.io/" onClick={openLink}>
+                Primer
+              </a>
+              <span>, </span>
               <span> and </span>
-              <a
-                href="https://reactjs.org/"
-                onClick={openLink}
-              >React</a>. You can view its source code and contribute
-              yourself, if you like,
+              <a href="https://reactjs.org/" onClick={openLink}>
+                React
+              </a>
+              . You can view its source code and contribute yourself, if you
+              like,
               <span> on </span>
               <a
                 href="https://github.com/cheshire137/competiwatch-desktop/"
                 onClick={openLink}
-              >GitHub</a>.
+              >
+                GitHub
+              </a>
+              .
             </p>
             <p>
               Thank you to Blizzard for making Overwatch.
-              <span> <span role="img" aria-label="Heart">❤️</span> </span>
-              I own none of the concepts, hero images, or competitive rank images,
-              that's all Blizzard.
+              <span>
+                {" "}
+                <span role="img" aria-label="Heart">
+                  ❤️
+                </span>{" "}
+              </span>
+              I own none of the concepts, hero images, or competitive rank
+              images, that's all Blizzard.
             </p>
-            <p>
-              &mdash; Sarah
-            </p>
+            <p>&mdash; Sarah</p>
           </div>
         </div>
         <div className="col-md-6 float-left">
@@ -100,7 +107,9 @@ const AboutPage = ({ onPageChange }: Props) => {
                         type="button"
                         className="btn-link"
                         onClick={openLatestVersion}
-                      >Version {latestVersion.version} is available</button>
+                      >
+                        Version {latestVersion.version} is available
+                      </button>
                     )}
                   </span>
                 ) : (
@@ -108,26 +117,34 @@ const AboutPage = ({ onPageChange }: Props) => {
                     type="button"
                     className="btn-link"
                     onClick={checkLatestVersion}
-                  >Check for new version</button>
+                  >
+                    Check for new version
+                  </button>
                 )}
               </li>
               <li>
                 <a
                   href="https://github.com/cheshire137/competiwatch-desktop/blob/master/CHANGELOG.md"
                   onClick={openLink}
-                >See what's new</a>
+                >
+                  See what's new
+                </a>
               </li>
               <li>
                 <a
                   href="https://github.com/cheshire137/competiwatch-desktop/"
                   onClick={openLink}
-                >View source</a>
+                >
+                  View source
+                </a>
               </li>
               <li>
                 <a
                   href="https://github.com/cheshire137/competiwatch-desktop/issues/"
                   onClick={openLink}
-                >Report a bug</a>
+                >
+                  Report a bug
+                </a>
               </li>
             </ul>
           </div>

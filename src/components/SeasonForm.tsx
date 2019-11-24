@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import Season from '../models/Season'
-import PackageInfo from '../../package.json'
+import React, { useState } from "react";
+import Season from "../models/Season";
+import PackageInfo from "../../package.json";
 import { openLinkInBrowser, getAppName } from "../utils/electronUtils";
 
 interface Props {
@@ -13,16 +13,16 @@ const SeasonForm = ({ onCreate, latestSeason }: Props) => {
   const [isValid, setIsValid] = useState(false);
 
   const saveSeason = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+    event.preventDefault();
     if (!isValid) {
-      return
+      return;
     }
 
     const seasonNumber = parseInt(season, 10);
     new Season({ number: seasonNumber }).save().then(() => {
       setSeason("");
       onCreate(seasonNumber);
-    })
+    });
   };
 
   const onSeasonChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +39,7 @@ const SeasonForm = ({ onCreate, latestSeason }: Props) => {
 
   const openReleasesPage = () => {
     const repoUrl = PackageInfo.repository.url;
-    const joiner = repoUrl.substr(-1) === '/' ? '' : '/';
+    const joiner = repoUrl.substr(-1) === "/" ? "" : "/";
     const releasesUrl = `${repoUrl}${joiner}releases`;
 
     openLinkInBrowser(releasesUrl);
@@ -48,30 +48,20 @@ const SeasonForm = ({ onCreate, latestSeason }: Props) => {
   const appName = getAppName();
 
   return (
-    <form
-      className="Box p-3"
-      onSubmit={saveSeason}
-    >
-      <h2
-        className="h2 text-normal mb-2"
-      >Add a season</h2>
+    <form className="Box p-3" onSubmit={saveSeason}>
+      <h2 className="h2 text-normal mb-2">Add a season</h2>
       <p>
         <span>A </span>
-        <button
-          type="button"
-          className="btn-link"
-          onClick={openReleasesPage}
-        >new version</button>
+        <button type="button" className="btn-link" onClick={openReleasesPage}>
+          new version
+        </button>
         <span> of </span>
-        {appName} may have the latest competitive
-        season. If you can't update for some reason, you can add
-        a season to continue logging matches.
+        {appName} may have the latest competitive season. If you can't update
+        for some reason, you can add a season to continue logging matches.
       </p>
       <dl className="form-group mt-0">
         <dt>
-          <label
-            htmlFor="season-number"
-          >Season number:</label>
+          <label htmlFor="season-number">Season number:</label>
         </dt>
         <dd>
           <input
@@ -87,11 +77,9 @@ const SeasonForm = ({ onCreate, latestSeason }: Props) => {
         </dd>
       </dl>
       <div className="form-actions">
-        <button
-          type="submit"
-          className="btn"
-          disabled={!isValid}
-        >Add season</button>
+        <button type="submit" className="btn" disabled={!isValid}>
+          Add season
+        </button>
       </div>
     </form>
   );

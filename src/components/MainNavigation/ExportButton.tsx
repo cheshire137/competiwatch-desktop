@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface Props {
   activePage: string;
@@ -6,11 +6,13 @@ interface Props {
 }
 
 const ExportButton = ({ activePage, onExport }: Props) => {
-  if (['matches', 'import', 'trends'].indexOf(activePage) < 0) {
+  if (["matches", "import", "trends"].indexOf(activePage) < 0) {
     return null;
   }
 
-  const exportSeason = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const exportSeason = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     event.currentTarget.blur();
     onExport();
   };
@@ -20,7 +22,9 @@ const ExportButton = ({ activePage, onExport }: Props) => {
       type="button"
       className="btn-link text-small mr-3"
       onClick={exportSeason}
-    >Export matches</button>
+    >
+      Export matches
+    </button>
   );
 };
 

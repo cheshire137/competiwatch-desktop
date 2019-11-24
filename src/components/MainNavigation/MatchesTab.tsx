@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Match from '../../models/Match';
+import React, { useState } from "react";
+import Match from "../../models/Match";
 
 interface Props {
   activeSeason: number;
@@ -8,7 +8,12 @@ interface Props {
   underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 
-const MatchesTab = ({ activePage, activeSeason, onPageChange, underlineNavItemClass }: Props) => {
+const MatchesTab = ({
+  activePage,
+  activeSeason,
+  onPageChange,
+  underlineNavItemClass
+}: Props) => {
   const [totalMatches, setTotalMatches] = useState<number | null>(null);
 
   Match.totalInSeason(activeSeason).then(total => {
@@ -19,9 +24,9 @@ const MatchesTab = ({ activePage, activeSeason, onPageChange, underlineNavItemCl
     <span className="Counter">{totalMatches}</span>
   );
 
-  if (activePage === 'matches') {
+  if (activePage === "matches") {
     return (
-      <span className={underlineNavItemClass('matches', false)}>
+      <span className={underlineNavItemClass("matches", false)}>
         Matches {totalBadge}
       </span>
     );
@@ -30,9 +35,11 @@ const MatchesTab = ({ activePage, activeSeason, onPageChange, underlineNavItemCl
   return (
     <button
       type="button"
-      className={underlineNavItemClass('matches', true)}
-      onClick={() => onPageChange('matches')}
-    >Matches {totalBadge}</button>
+      className={underlineNavItemClass("matches", true)}
+      onClick={() => onPageChange("matches")}
+    >
+      Matches {totalBadge}
+    </button>
   );
 };
 

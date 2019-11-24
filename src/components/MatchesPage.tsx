@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import MatchesList from './MatchesList'
-import LoadingPage from './LoadingPage'
-import Account from '../models/Account'
+import React, { useState } from "react";
+import MatchesList from "./MatchesList";
+import LoadingPage from "./LoadingPage";
+import Account from "../models/Account";
 
 interface Props {
   account: Account;
@@ -12,7 +12,14 @@ interface Props {
   theme: string;
 }
 
-const MatchesPage = ({ account, onPageChange, season, scrollToMatch, scrollToMatchID, theme }: Props) => {
+const MatchesPage = ({
+  account,
+  onPageChange,
+  season,
+  scrollToMatch,
+  scrollToMatchID,
+  theme
+}: Props) => {
   return (
     <div className="container layout-children-container">
       <MatchesList
@@ -27,4 +34,4 @@ const MatchesPage = ({ account, onPageChange, season, scrollToMatch, scrollToMat
   );
 };
 
-export default MatchesPage
+export default MatchesPage;

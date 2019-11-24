@@ -1,5 +1,5 @@
-import React from 'react'
-import HeroCheckbox from './HeroCheckbox'
+import React from "react";
+import HeroCheckbox from "./HeroCheckbox";
 import { Hero } from "../models/Hero";
 
 interface Props {
@@ -9,20 +9,25 @@ interface Props {
   getUnavailableReason: (hero: Hero) => string | undefined;
 }
 
-const HeroCheckboxList = ({ heroes, getUnavailableReason, isChecked, onToggle }: Props) => (
+const HeroCheckboxList = ({
+  heroes,
+  getUnavailableReason,
+  isChecked,
+  onToggle
+}: Props) => (
   <>
     {heroes.map(hero => {
-      const unavailableReason = getUnavailableReason(hero)
+      const unavailableReason = getUnavailableReason(hero);
       return (
         <HeroCheckbox
           key={hero}
-          isAvailable={typeof unavailableReason !== 'string'}
+          isAvailable={typeof unavailableReason !== "string"}
           unavailableReason={unavailableReason}
           isChecked={isChecked(hero)}
           onToggle={onToggle}
           hero={hero}
         />
-      )
+      );
     })}
   </>
 );

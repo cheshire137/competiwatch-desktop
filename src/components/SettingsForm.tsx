@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import Setting from "../models/Setting";
 import Account from "../models/Account";
 
@@ -9,8 +9,14 @@ interface Props {
 }
 
 const SettingsForm = ({ settings, onSave, accounts }: Props) => {
-  const [defaultAccountID, setDefaultAccountID] = useState<string>(settings && settings.defaultAccountID || accounts[0] && accounts[0]._id || "");
-  const [theme, setTheme] = useState<string>(settings && settings.theme || "light");
+  const [defaultAccountID, setDefaultAccountID] = useState<string>(
+    (settings && settings.defaultAccountID) ||
+      (accounts[0] && accounts[0]._id) ||
+      ""
+  );
+  const [theme, setTheme] = useState<string>(
+    (settings && settings.theme) || "light"
+  );
 
   if (!settings) {
     return (
@@ -30,15 +36,12 @@ const SettingsForm = ({ settings, onSave, accounts }: Props) => {
   };
 
   return (
-    <form
-      onSubmit={onSubmit}
-    >
+    <form onSubmit={onSubmit}>
       <dl className="form-group">
         <dt>
-          <label
-            htmlFor="default-account"
-            className="label-lg"
-          >Default Battle.net account:</label>
+          <label htmlFor="default-account" className="label-lg">
+            Default Battle.net account:
+          </label>
         </dt>
         <dd>
           <select
@@ -50,10 +53,9 @@ const SettingsForm = ({ settings, onSave, accounts }: Props) => {
           >
             <option value="">none</option>
             {accounts.map(account => (
-              <option
-                key={account._id}
-                value={account._id}
-              >{account.battletag}</option>
+              <option key={account._id} value={account._id}>
+                {account.battletag}
+              </option>
             ))}
           </select>
           <p className="note">
@@ -63,10 +65,9 @@ const SettingsForm = ({ settings, onSave, accounts }: Props) => {
       </dl>
       <dl className="form-group">
         <dt>
-          <label
-            htmlFor="theme"
-            className="label-lg"
-          >App theme:</label>
+          <label htmlFor="theme" className="label-lg">
+            App theme:
+          </label>
         </dt>
         <dd>
           <select
@@ -80,15 +81,15 @@ const SettingsForm = ({ settings, onSave, accounts }: Props) => {
             <option value="auto">Auto</option>
           </select>
           <p className="note">
-            Choose an appearance for the app. 'Auto' will use the dark theme at night and the light theme during the day.
+            Choose an appearance for the app. 'Auto' will use the dark theme at
+            night and the light theme during the day.
           </p>
         </dd>
       </dl>
       <div className="mb-4">
-        <button
-          type="submit"
-          className="btn btn-primary btn-large"
-        >Save settings</button>
+        <button type="submit" className="btn btn-primary btn-large">
+          Save settings
+        </button>
       </div>
     </form>
   );

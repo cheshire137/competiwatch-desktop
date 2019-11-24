@@ -7,45 +7,47 @@ class ColorGradient {
   remainder: number;
 
   constructor(colors: Color[], stepCount: number) {
-    this.colors = colors
-    this.gradientCount = colors.length - 1
-    this.substepCount = stepCount / this.gradientCount
-    this.remainder = stepCount % this.gradientCount
+    this.colors = colors;
+    this.gradientCount = colors.length - 1;
+    this.substepCount = stepCount / this.gradientCount;
+    this.remainder = stepCount % this.gradientCount;
   }
 
   rgb(): Color[] {
-    let memo: Color[] = []
+    let memo: Color[] = [];
 
     for (let i = 0; i < this.gradientCount; i++) {
-      let stepCount = this.substepCount
+      let stepCount = this.substepCount;
       if (this.remainder > 0) {
-        stepCount++
-        this.remainder = this.remainder - 1
+        stepCount++;
+        this.remainder = this.remainder - 1;
       }
-      memo = memo.concat(this.gradientFor(this.colors[i], this.colors[i + 1], stepCount))
+      memo = memo.concat(
+        this.gradientFor(this.colors[i], this.colors[i + 1], stepCount)
+      );
     }
 
-    const lastColor = this.colors[this.colors.length - 1]
-    memo.push(lastColor)
+    const lastColor = this.colors[this.colors.length - 1];
+    memo.push(lastColor);
 
-    return memo
+    return memo;
   }
 
   // Calculate a single color-to-color gradient
   gradientFor(color1: Color, color2: Color, stepCount: number) {
-    const gradient = []
+    const gradient = [];
 
     for (let i = 0; i < stepCount; i++) {
-      const ratio = i / stepCount
-      const r = color2[0] * ratio + color1[0] * (1 - ratio)
-      const g = color2[1] * ratio + color1[1] * (1 - ratio)
-      const b = color2[2] * ratio + color1[2] * (1 - ratio)
+      const ratio = i / stepCount;
+      const r = color2[0] * ratio + color1[0] * (1 - ratio);
+      const g = color2[1] * ratio + color1[1] * (1 - ratio);
+      const b = color2[2] * ratio + color1[2] * (1 - ratio);
 
-      gradient.push([r, g, b])
+      gradient.push([r, g, b]);
     }
 
-    return gradient
+    return gradient;
   }
 }
 
-export default ColorGradient
+export default ColorGradient;

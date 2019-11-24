@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface Props {
   activePage: string;
@@ -6,15 +6,11 @@ interface Props {
 }
 
 const ImportButton = ({ activePage, underlineNavItemClass }: Props) => {
-  if (activePage !== 'import') {
-    return null
+  if (activePage !== "import") {
+    return null;
   }
 
-  return (
-    <span
-      className={underlineNavItemClass('import', false)}
-    >Import</span>
-  );
+  return <span className={underlineNavItemClass("import", false)}>Import</span>;
 };
 
 export default ImportButton;

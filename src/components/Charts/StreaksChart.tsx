@@ -1,8 +1,8 @@
-import React from 'react'
-import Match from '../../models/Match'
-import { Line } from 'react-chartjs-2'
-import Color from '../../models/Color'
-import ChartUtils from '../../models/ChartUtils'
+import React from "react";
+import Match from "../../models/Match";
+import { Line } from "react-chartjs-2";
+import Color from "../../models/Color";
+import ChartUtils from "../../models/ChartUtils";
 
 interface Props {
   matches: Match[];
@@ -14,26 +14,27 @@ const options = {
     xAxes: [{ ticks: { autoSkip: true } }],
     yAxes: [{ ticks: { callback: ChartUtils.wholeTicks } }]
   },
-  responsive: true, maintainAspectRatio: false
+  responsive: true,
+  maintainAspectRatio: false
 };
 
 const StreaksChart = ({ matches, season }: Props) => {
   const gameNumbers = () => {
-    const numbers = []
+    const numbers = [];
 
     for (let number = 1; number <= matches.length; number++) {
-      numbers.push(number)
+      numbers.push(number);
     }
 
-    return numbers
-  }
+    return numbers;
+  };
 
   const data = {
     labels: gameNumbers(),
     datasets: [
       {
-        fill: 'origin',
-        label: 'Win Streak',
+        fill: "origin",
+        label: "Win Streak",
         backgroundColor: Color.transparentWin,
         borderColor: Color.win,
         borderWidth: 2,
@@ -41,8 +42,8 @@ const StreaksChart = ({ matches, season }: Props) => {
         pointRadius: 0
       },
       {
-        fill: 'origin',
-        label: 'Loss Streak',
+        fill: "origin",
+        label: "Loss Streak",
         backgroundColor: Color.transparentLoss,
         borderColor: Color.loss,
         borderWidth: 2,
@@ -50,13 +51,15 @@ const StreaksChart = ({ matches, season }: Props) => {
         pointRadius: 0
       }
     ]
-  }
+  };
 
   return (
     <div>
       <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
         Streaks
-        <span className="text-gray text-normal h4 d-inline-block ml-2">Season {season}</span>
+        <span className="text-gray text-normal h4 d-inline-block ml-2">
+          Season {season}
+        </span>
       </h3>
       <div className="small-chart-container">
         <Line data={data} options={options} />

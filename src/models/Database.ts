@@ -1,13 +1,21 @@
-import { findOne, count, findAll, deleteSome, update, insert, findLatest } from "../utils/electronUtils";
+import {
+  findOne,
+  count,
+  findAll,
+  deleteSome,
+  update,
+  insert,
+  findLatest
+} from "../utils/electronUtils";
 
 class Database {
   static findOne(dbName: string, conditions: any) {
-    return findOne(dbName, conditions)
+    return findOne(dbName, conditions);
   }
 
   static find(dbName: string, id: string) {
-    const conditions = { _id: id }
-    return Database.findOne(dbName, conditions)
+    const conditions = { _id: id };
+    return Database.findOne(dbName, conditions);
   }
 
   static count(dbName: string, conditions: any): Promise<number> {
@@ -38,11 +46,11 @@ class Database {
   static upsert(dbName: string, data: any, id: string) {
     return new Promise((resolve, reject) => {
       if (id) {
-        this.update(dbName, data, id).then(resolve, reject)
+        this.update(dbName, data, id).then(resolve, reject);
       } else {
-        this.insert(dbName, data).then(resolve, reject)
+        this.insert(dbName, data).then(resolve, reject);
       }
-    })
+    });
   }
 
   static latest(dbName: string, conditions: any, sort: any) {
@@ -50,4 +58,4 @@ class Database {
   }
 }
 
-export default Database
+export default Database;

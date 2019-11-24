@@ -1,204 +1,209 @@
-const path = require('path')
-const { ipcMain, app } = require('electron')
-const log = require('electron-log')
-const Datastore = require('nedb')
+const path = require("path");
+const { ipcMain, app } = require("electron");
+const log = require("electron-log");
+const Datastore = require("nedb");
 
-const databases = {}
-const env = process.env.ELECTRON_START_URL ? 'development' : 'production'
+const databases = {};
+const env = process.env.ELECTRON_START_URL ? "development" : "production";
 
 const getDatabaseFilename = name => {
-  const dbDir = app.getPath('userData')
-  const dbFile = `competiwatch-${name}-${env}.json`
+  const dbDir = app.getPath("userData");
+  const dbFile = `competiwatch-${name}-${env}.json`;
 
-  return path.join(dbDir, dbFile)
-}
+  return path.join(dbDir, dbFile);
+};
 
 const loadAccountsDatabase = () => {
-  const filename = getDatabaseFilename('accounts')
-  const db = new Datastore({ filename })
+  const filename = getDatabaseFilename("accounts");
+  const db = new Datastore({ filename });
 
-  db.loadDatabase()
-  db.ensureIndex({ fieldName: 'battletag', unique: true }, err => {
+  db.loadDatabase();
+  db.ensureIndex({ fieldName: "battletag", unique: true }, err => {
     if (err) {
-      log.error('failed to add accounts.battletag index', err)
+      log.error("failed to add accounts.battletag index", err);
     }
-  })
+  });
 
-  databases.accounts = db
-}
+  databases.accounts = db;
+};
 
 const loadMatchesDatabase = () => {
-  const filename = getDatabaseFilename('matches')
-  const db = new Datastore({ filename })
+  const filename = getDatabaseFilename("matches");
+  const db = new Datastore({ filename });
 
-  db.loadDatabase()
+  db.loadDatabase();
 
-  databases.matches = db
-}
+  databases.matches = db;
+};
 
 const loadSeasonsDatabase = () => {
-  const filename = getDatabaseFilename('seasons')
-  const db = new Datastore({ filename })
+  const filename = getDatabaseFilename("seasons");
+  const db = new Datastore({ filename });
 
-  db.loadDatabase()
-  db.ensureIndex({ fieldName: 'number', unique: true }, err => {
+  db.loadDatabase();
+  db.ensureIndex({ fieldName: "number", unique: true }, err => {
     if (err) {
-      log.error('failed to add seasons.number index', err)
+      log.error("failed to add seasons.number index", err);
     }
-  })
+  });
 
-  databases.seasons = db
-}
+  databases.seasons = db;
+};
 
 const loadSettingsDatabase = () => {
-  const filename = getDatabaseFilename('settings')
-  const db = new Datastore({ filename })
+  const filename = getDatabaseFilename("settings");
+  const db = new Datastore({ filename });
 
-  db.loadDatabase()
+  db.loadDatabase();
 
-  databases.settings = db
-}
+  databases.settings = db;
+};
 
 const databaseFor = name => {
-  if (name === 'accounts') {
+  if (name === "accounts") {
     if (!databases.accounts) {
-      loadAccountsDatabase()
+      loadAccountsDatabase();
     }
-    return databases.accounts
+    return databases.accounts;
   }
-  if (name === 'matches') {
+  if (name === "matches") {
     if (!databases.matches) {
-      loadMatchesDatabase()
+      loadMatchesDatabase();
     }
-    return databases.matches
+    return databases.matches;
   }
-  if (name === 'seasons') {
+  if (name === "seasons") {
     if (!databases.seasons) {
-      loadSeasonsDatabase()
+      loadSeasonsDatabase();
     }
-    return databases.seasons
+    return databases.seasons;
   }
-  if (name === 'settings') {
+  if (name === "settings") {
     if (!databases.settings) {
-      loadSettingsDatabase()
+      loadSettingsDatabase();
     }
-    return databases.settings
+    return databases.settings;
   }
-}
+};
 
-ipcMain.on('get-db-path', (event, replyTo, dbName) => {
-  const dbPath = getDatabaseFilename(dbName)
-  event.sender.send(replyTo, dbPath)
-})
+ipcMain.on("get-db-path", (event, replyTo, dbName) => {
+  const dbPath = getDatabaseFilename(dbName);
+  event.sender.send(replyTo, dbPath);
+});
 
-ipcMain.on('find-one', (event, replyTo, dbName, conditions) => {
-  const db = databaseFor(dbName)
+ipcMain.on("find-one", (event, replyTo, dbName, conditions) => {
+  const db = databaseFor(dbName);
   if (!db) {
-    log.error(dbName, 'database not loaded for find-one')
-    event.sender.send(replyTo, 'database not loaded')
-    return
+    log.error(dbName, "database not loaded for find-one");
+    event.sender.send(replyTo, "database not loaded");
+    return;
   }
 
   db.findOne(conditions, (err, data) => {
     if (err) {
-      log.error('find-one error', err)
+      log.error("find-one error", err);
     }
-    event.sender.send(replyTo, err, data)
-  })
-})
+    event.sender.send(replyTo, err, data);
+  });
+});
 
-ipcMain.on('find-all', (event, replyTo, dbName, sort, conditions) => {
-  const db = databaseFor(dbName)
+ipcMain.on("find-all", (event, replyTo, dbName, sort, conditions) => {
+  const db = databaseFor(dbName);
   if (!db) {
-    log.error(dbName, 'database not loaded for find-all')
-    event.sender.send(replyTo, 'database not loaded')
-    return
+    log.error(dbName, "database not loaded for find-all");
+    event.sender.send(replyTo, "database not loaded");
+    return;
   }
 
-  db.find(conditions || {}).sort(sort).exec((err, rows) => {
-    if (err) {
-      log.error('find-all error', err)
-    }
-    event.sender.send(replyTo, err, rows)
-  })
-})
+  db.find(conditions || {})
+    .sort(sort)
+    .exec((err, rows) => {
+      if (err) {
+        log.error("find-all error", err);
+      }
+      event.sender.send(replyTo, err, rows);
+    });
+});
 
-ipcMain.on('count', (event, replyTo, dbName, conditions) => {
-  const db = databaseFor(dbName)
+ipcMain.on("count", (event, replyTo, dbName, conditions) => {
+  const db = databaseFor(dbName);
   if (!db) {
-    log.error(dbName, 'database not loaded for count')
-    event.sender.send(replyTo, 'database not loaded')
-    return
+    log.error(dbName, "database not loaded for count");
+    event.sender.send(replyTo, "database not loaded");
+    return;
   }
 
   db.count(conditions, (err, count) => {
     if (err) {
-      log.error('count error', err)
+      log.error("count error", err);
     }
-    event.sender.send(replyTo, err, count)
-  })
-})
+    event.sender.send(replyTo, err, count);
+  });
+});
 
-ipcMain.on('delete', (event, replyTo, dbName, conditions, options) => {
-  const db = databaseFor(dbName)
+ipcMain.on("delete", (event, replyTo, dbName, conditions, options) => {
+  const db = databaseFor(dbName);
   if (!db) {
-    log.error(dbName, 'database not loaded for delete')
-    event.sender.send(replyTo, 'database not loaded')
-    return
+    log.error(dbName, "database not loaded for delete");
+    event.sender.send(replyTo, "database not loaded");
+    return;
   }
 
   db.remove(conditions, options, (err, numRemoved) => {
     if (err) {
-      log.error('delete error', err)
+      log.error("delete error", err);
     }
-    event.sender.send(replyTo, err, numRemoved)
-  })
-})
+    event.sender.send(replyTo, err, numRemoved);
+  });
+});
 
-ipcMain.on('update', (event, replyTo, dbName, conditions, update, options) => {
-  const db = databaseFor(dbName)
+ipcMain.on("update", (event, replyTo, dbName, conditions, update, options) => {
+  const db = databaseFor(dbName);
   if (!db) {
-    log.error(dbName, 'database not loaded for update')
-    event.sender.send(replyTo, 'database not loaded')
-    return
+    log.error(dbName, "database not loaded for update");
+    event.sender.send(replyTo, "database not loaded");
+    return;
   }
 
   db.update(conditions, update, options, (err, numReplaced) => {
     if (err) {
-      log.error('update error', err)
+      log.error("update error", err);
     }
-    event.sender.send(replyTo, err, numReplaced)
-  })
-})
+    event.sender.send(replyTo, err, numReplaced);
+  });
+});
 
-ipcMain.on('insert', (event, replyTo, dbName, rows) => {
-  const db = databaseFor(dbName)
+ipcMain.on("insert", (event, replyTo, dbName, rows) => {
+  const db = databaseFor(dbName);
   if (!db) {
-    log.error(dbName, 'database not loaded for insert')
-    event.sender.send(replyTo, 'database not loaded')
-    return
+    log.error(dbName, "database not loaded for insert");
+    event.sender.send(replyTo, "database not loaded");
+    return;
   }
 
   db.insert(rows, (err, newRecords) => {
     if (err) {
-      log.error('insert error', err)
+      log.error("insert error", err);
     }
-    event.sender.send(replyTo, err, newRecords)
-  })
-})
+    event.sender.send(replyTo, err, newRecords);
+  });
+});
 
-ipcMain.on('find-latest', (event, replyTo, dbName, conditions, sort) => {
-  const db = databaseFor(dbName)
+ipcMain.on("find-latest", (event, replyTo, dbName, conditions, sort) => {
+  const db = databaseFor(dbName);
   if (!db) {
-    log.error(dbName, 'database not loaded for find-latest')
-    event.sender.send(replyTo, 'database not loaded')
-    return
+    log.error(dbName, "database not loaded for find-latest");
+    event.sender.send(replyTo, "database not loaded");
+    return;
   }
 
-  db.find(conditions).sort(sort).limit(1).exec((err, rows) => {
-    if (err) {
-      log.error('find-latest error', err)
-    }
-    event.sender.send(replyTo, err, rows)
-  })
-})
+  db.find(conditions)
+    .sort(sort)
+    .limit(1)
+    .exec((err, rows) => {
+      if (err) {
+        log.error("find-latest error", err);
+      }
+      event.sender.send(replyTo, err, rows);
+    });
+});

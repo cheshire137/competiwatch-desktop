@@ -1,6 +1,6 @@
-import React from 'react';
-import AccountListItem from './AccountListItem';
-import Account from '../models/Account'
+import React from "react";
+import AccountListItem from "./AccountListItem";
+import Account from "../models/Account";
 
 interface Props {
   accounts: Account[];
@@ -9,7 +9,12 @@ interface Props {
   onAccountUpdate: () => void;
 }
 
-const AccountsList = ({ onAccountChange, onAccountUpdate, season, accounts }: Props) => (
+const AccountsList = ({
+  onAccountChange,
+  onAccountUpdate,
+  season,
+  accounts
+}: Props) => (
   <ul className="list-style-none mb-4">
     {accounts.map(account => (
       <AccountListItem
@@ -21,9 +26,7 @@ const AccountsList = ({ onAccountChange, onAccountUpdate, season, accounts }: Pr
       />
     ))}
     {accounts.length < 1 && (
-      <li className="text-gray text-italic">
-        No accounts have been added.
-      </li>
+      <li className="text-gray text-italic">No accounts have been added.</li>
     )}
   </ul>
 );

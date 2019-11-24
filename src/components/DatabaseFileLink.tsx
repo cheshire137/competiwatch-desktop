@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { openInExplorer, getDbPath } from "../utils/electronUtils";
 
 interface Props {
@@ -16,10 +16,10 @@ const DatabaseFileLink = ({ dbName, label }: Props) => {
 
   const onDbPathClick = () => {
     if (!dbPath || dbPath.length < 1) {
-      return
+      return;
     }
     openInExplorer(dbPath);
-  }
+  };
 
   return (
     <div className="d-flex">
@@ -28,7 +28,9 @@ const DatabaseFileLink = ({ dbName, label }: Props) => {
         type="button"
         onClick={onDbPathClick}
         className="btn-link text-left ws-normal"
-      >{dbPath}</button>
+      >
+        {dbPath}
+      </button>
     </div>
   );
 };

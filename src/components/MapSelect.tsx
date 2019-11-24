@@ -1,5 +1,5 @@
-import React from 'react';
-import { MapsByType, MapTypes } from '../models/Map';
+import React from "react";
+import { MapsByType, MapTypes } from "../models/Map";
 
 interface Props {
   map?: string | null;
@@ -16,7 +16,9 @@ const MapSelect = ({ map, onChange }: Props) => (
     {MapTypes.map(mapType => (
       <optgroup label={mapType} key={mapType}>
         {MapsByType[mapType].map(mapName => (
-          <option key={mapName} value={mapName}>{mapName}</option>
+          <option key={mapName} value={mapName}>
+            {mapName}
+          </option>
         ))}
       </optgroup>
     ))}

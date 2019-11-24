@@ -1,242 +1,301 @@
-import React, { Component } from 'react'
-import Match from '../../models/Match'
-import { HeroesByRole } from '../../models/Hero'
-import Season from '../../models/Season'
-import Account from '../../models/Account'
-import DayTimeApproximator from '../../models/DayTimeApproximator'
-import MapSelect from '../MapSelect'
-import HeroSelect from '../HeroSelect'
-import RoleSelect from '../RoleSelect'
-import TimeOfDayEmoji from '../TimeOfDayEmoji'
-import DayOfWeekEmoji from '../DayOfWeekEmoji'
-import GroupMembersField from '../GroupMembersField'
-import './MatchForm.css'
+import React, { Component } from "react";
+import Match from "../../models/Match";
+import { HeroesByRole } from "../../models/Hero";
+import Season from "../../models/Season";
+import Account from "../../models/Account";
+import DayTimeApproximator from "../../models/DayTimeApproximator";
+import MapSelect from "../MapSelect";
+import HeroSelect from "../HeroSelect";
+import RoleSelect from "../RoleSelect";
+import TimeOfDayEmoji from "../TimeOfDayEmoji";
+import DayOfWeekEmoji from "../DayOfWeekEmoji";
+import GroupMembersField from "../GroupMembersField";
+import "./MatchForm.css";
 
 const roleForHero = hero => {
   for (const role in HeroesByRole) {
     if (HeroesByRole[role].indexOf(hero) > -1) {
-      return role
+      return role;
     }
   }
-  return null
-}
+  return null;
+};
 
 const dateTimeStrFrom = date => {
-  const year = date.getFullYear()
+  const year = date.getFullYear();
 
-  let month = date.getMonth() + 1
+  let month = date.getMonth() + 1;
   if (month <= 9) {
-    month = `0${month}`
+    month = `0${month}`;
   }
 
-  let day = date.getDate()
+  let day = date.getDate();
   if (day <= 9) {
-    day = `0${day}`
+    day = `0${day}`;
   }
 
-  let hour = date.getHours()
+  let hour = date.getHours();
   if (hour <= 9) {
-    hour = `0${hour}`
+    hour = `0${hour}`;
   }
 
-  let minute = date.getMinutes()
+  let minute = date.getMinutes();
   if (minute <= 9) {
-    minute = `0${minute}`
+    minute = `0${minute}`;
   }
 
-  return `${year}-${month}-${day}T${hour}:${minute}`
-}
+  return `${year}-${month}-${day}T${hour}:${minute}`;
+};
 
-const minRank = 0
-const maxRank = 5000
-const maxGroupSize = 6
+const minRank = 0;
+const maxRank = 5000;
+const maxGroupSize = 6;
 
 const isMatchValid = data => {
-  if (typeof data.rank !== 'number' ||
-      data.rank < minRank ||
-      data.rank > maxRank) {
+  if (
+    typeof data.rank !== "number" ||
+    data.rank < minRank ||
+    data.rank > maxRank
+  ) {
     if (data.isPlacement && !data.result) {
-      return false
+      return false;
     }
 
     if (!data.isPlacement) {
-      return false
+      return false;
     }
   }
 
-  if (data.season >= Season.roleQueueSeasonStart && (typeof data.role !== 'string' || data.role.length < 1)) {
+  if (
+    data.season >= Season.roleQueueSeasonStart &&
+    (typeof data.role !== "string" || data.role.length < 1)
+  ) {
     return false;
   }
 
   if (data.groupSize && data.groupSize > maxGroupSize) {
-    return false
+    return false;
   }
 
-  if (data.group && data.group.split(',').length > maxGroupSize) {
-    return false
+  if (data.group && data.group.split(",").length > maxGroupSize) {
+    return false;
   }
 
-  return true
-}
+  return true;
+};
 
-const explodeHeroesString = (heroesStr) => {
-  return heroesStr.split(',')
+const explodeHeroesString = heroesStr => {
+  return heroesStr
+    .split(",")
     .map(str => str.trim())
-    .filter(str => str && str.length > 0)
-}
+    .filter(str => str && str.length > 0);
+};
 
 class MatchForm extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.placementMatchResultField = null
-    this.matchRankField = null
+    this.placementMatchResultField = null;
+    this.matchRankField = null;
 
-    let playedAt = props.playedAt
-    let dayOfWeek = props.dayOfWeek
-    let timeOfDay = props.timeOfDay
+    let playedAt = props.playedAt;
+    let dayOfWeek = props.dayOfWeek;
+    let timeOfDay = props.timeOfDay;
     if (!props.id && !playedAt) {
-      playedAt = new Date()
-      dayOfWeek = DayTimeApproximator.dayOfWeek(playedAt)
-      timeOfDay = DayTimeApproximator.timeOfDay(playedAt)
+      playedAt = new Date();
+      dayOfWeek = DayTimeApproximator.dayOfWeek(playedAt);
+      timeOfDay = DayTimeApproximator.timeOfDay(playedAt);
     }
 
-    let isPlacement = props.isPlacement
-    let isLastPlacement = props.isLastPlacement
-    if (typeof isPlacement !== 'boolean') {
-      const priorPlacements = props.priorMatches.filter(m => m.isPlacement)
-      if (props.season < Season.roleQueueSeasonStart) { // no role queue
-        isPlacement = priorPlacements.length < 10
-        isLastPlacement = priorPlacements.length === 9
-      } else { // role queue
-        const placementCountsByRole = {}
+    let isPlacement = props.isPlacement;
+    let isLastPlacement = props.isLastPlacement;
+    if (typeof isPlacement !== "boolean") {
+      const priorPlacements = props.priorMatches.filter(m => m.isPlacement);
+      if (props.season < Season.roleQueueSeasonStart) {
+        // no role queue
+        isPlacement = priorPlacements.length < 10;
+        isLastPlacement = priorPlacements.length === 9;
+      } else {
+        // role queue
+        const placementCountsByRole = {};
         for (const placement of priorPlacements) {
           if (placement.role in placementCountsByRole) {
-            placementCountsByRole[placement.role]++
+            placementCountsByRole[placement.role]++;
           } else {
-            placementCountsByRole[placement.role] = 1
+            placementCountsByRole[placement.role] = 1;
           }
         }
         // definitely logging a placement match because haven't finished placements for any role
-        isPlacement = Object.values(placementCountsByRole).every(count => count < 5)
+        isPlacement = Object.values(placementCountsByRole).every(
+          count => count < 5
+        );
       }
     }
 
     this.state = {
       enableRankField: props.season < Season.roleQueueSeasonStart,
-      latestRank: props.rank || '',
-      rank: props.rank || '',
-      result: props.result || '',
-      comment: props.comment || '',
-      map: props.map || '',
-      group: props.group || '',
+      latestRank: props.rank || "",
+      rank: props.rank || "",
+      result: props.result || "",
+      comment: props.comment || "",
+      map: props.map || "",
+      group: props.group || "",
       groupSize: props.groupSize || 1,
       groupMembers: [],
-      heroes: props.heroes || '',
-      role: props.role || '',
+      heroes: props.heroes || "",
+      role: props.role || "",
       playedAt,
       dayOfWeek,
       timeOfDay,
       isPlacement,
       isLastPlacement,
-      joinedVoice: typeof props.joinedVoice === 'boolean' ? props.joinedVoice : false,
-      playOfTheGame: typeof props.playOfTheGame === 'boolean' ? props.playOfTheGame : false,
-      allyThrower: typeof props.allyThrower === 'boolean' ? props.allyThrower : false,
-      allyLeaver: typeof props.allyLeaver === 'boolean' ? props.allyLeaver : false,
-      enemyThrower: typeof props.enemyThrower === 'boolean' ? props.enemyThrower : false,
-      enemyLeaver: typeof props.enemyLeaver === 'boolean' ? props.enemyLeaver : false,
+      joinedVoice:
+        typeof props.joinedVoice === "boolean" ? props.joinedVoice : false,
+      playOfTheGame:
+        typeof props.playOfTheGame === "boolean" ? props.playOfTheGame : false,
+      allyThrower:
+        typeof props.allyThrower === "boolean" ? props.allyThrower : false,
+      allyLeaver:
+        typeof props.allyLeaver === "boolean" ? props.allyLeaver : false,
+      enemyThrower:
+        typeof props.enemyThrower === "boolean" ? props.enemyThrower : false,
+      enemyLeaver:
+        typeof props.enemyLeaver === "boolean" ? props.enemyLeaver : false,
       isValid: isMatchValid(props)
-    }
+    };
   }
 
   refreshGroupMembers = () => {
-    const { accountID, season } = this.props
-    const account = new Account({ _id: accountID })
+    const { accountID, season } = this.props;
+    const account = new Account({ _id: accountID });
 
     account.findAllGroupMembers(season).then(groupMembers => {
-      this.setState(prevState => ({ groupMembers }))
-    })
-  }
+      this.setState(prevState => ({ groupMembers }));
+    });
+  };
 
   componentDidMount() {
-    this.refreshGroupMembers()
+    this.refreshGroupMembers();
   }
 
   componentDidUpdate(prevProps) {
-    const isValid = isMatchValid(this.props)
+    const isValid = isMatchValid(this.props);
 
     if (prevProps.season !== this.props.season) {
       this.setState(prevState => ({
         enableRankField: this.props.season < Season.roleQueueSeasonStart
-      }))
+      }));
     }
     if (prevProps.accountID !== this.props.accountID) {
-      this.refreshGroupMembers()
+      this.refreshGroupMembers();
     }
     if (prevProps.rank !== this.props.rank) {
-      this.setState(prevState => ({ rank: this.props.rank, isValid }))
+      this.setState(prevState => ({ rank: this.props.rank, isValid }));
     }
     if (prevProps.latestRank !== this.props.latestRank) {
-      this.setState(prevState => ({latestRank: this.props.latestRank, isValid}))
+      this.setState(prevState => ({
+        latestRank: this.props.latestRank,
+        isValid
+      }));
     }
     if (prevProps.isPlacement !== this.props.isPlacement) {
-      this.setState(prevState => ({isPlacement: this.props.isPlacement, isValid}))
+      this.setState(prevState => ({
+        isPlacement: this.props.isPlacement,
+        isValid
+      }));
     }
     if (prevProps.isLastPlacement !== this.props.isLastPlacement) {
-      this.setState(prevState => ({isLastPlacement: this.props.isLastPlacement, isValid}))
+      this.setState(prevState => ({
+        isLastPlacement: this.props.isLastPlacement,
+        isValid
+      }));
     }
     if (prevProps.result !== this.props.result) {
-      this.setState(prevState => ({ result: this.props.result, isValid }))
+      this.setState(prevState => ({ result: this.props.result, isValid }));
     }
     if (prevProps.role !== this.props.role) {
-      this.setState(prevState => ({role: this.props.role, isValid}))
+      this.setState(prevState => ({ role: this.props.role, isValid }));
     }
     if (prevProps.comment !== this.props.comment) {
-      this.setState(prevState => ({ comment: this.props.comment, isValid }))
+      this.setState(prevState => ({ comment: this.props.comment, isValid }));
     }
     if (prevProps.map !== this.props.map) {
-      this.setState(prevState => ({ map: this.props.map, isValid }))
+      this.setState(prevState => ({ map: this.props.map, isValid }));
     }
     if (prevProps.group !== this.props.group) {
-      this.setState(prevState => ({ group: this.props.group, isValid }))
+      this.setState(prevState => ({ group: this.props.group, isValid }));
     }
     if (prevProps.heroes !== this.props.heroes) {
-      this.setState(prevState => ({ heroes: this.props.heroes, isValid }))
+      this.setState(prevState => ({ heroes: this.props.heroes, isValid }));
     }
     if (prevProps.playedAt !== this.props.playedAt) {
-      this.setState(prevState => ({ playedAt: this.props.playedAt, isValid }))
+      this.setState(prevState => ({ playedAt: this.props.playedAt, isValid }));
     }
     if (prevProps.playOfTheGame !== this.props.playOfTheGame) {
-      this.setState(prevState => ({ playOfTheGame: this.props.playOfTheGame, isValid }))
+      this.setState(prevState => ({
+        playOfTheGame: this.props.playOfTheGame,
+        isValid
+      }));
     }
     if (prevProps.joinedVoice !== this.props.joinedVoice) {
-      this.setState(prevState => ({ joinedVoice: this.props.joinedVoice, isValid }))
+      this.setState(prevState => ({
+        joinedVoice: this.props.joinedVoice,
+        isValid
+      }));
     }
     if (prevProps.allyThrower !== this.props.allyThrower) {
-      this.setState(prevState => ({ allyThrower: this.props.allyThrower, isValid }))
+      this.setState(prevState => ({
+        allyThrower: this.props.allyThrower,
+        isValid
+      }));
     }
     if (prevProps.allyLeaver !== this.props.allyLeaver) {
-      this.setState(prevState => ({ allyLeaver: this.props.allyLeaver, isValid }))
+      this.setState(prevState => ({
+        allyLeaver: this.props.allyLeaver,
+        isValid
+      }));
     }
     if (prevProps.enemyThrower !== this.props.enemyThrower) {
-      this.setState(prevState => ({ enemyThrower: this.props.enemyThrower, isValid }))
+      this.setState(prevState => ({
+        enemyThrower: this.props.enemyThrower,
+        isValid
+      }));
     }
     if (prevProps.enemyLeaver !== this.props.enemyLeaver) {
-      this.setState(prevState => ({ enemyLeaver: this.props.enemyLeaver, isValid }))
+      this.setState(prevState => ({
+        enemyLeaver: this.props.enemyLeaver,
+        isValid
+      }));
     }
   }
 
   onSubmit = event => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const { rank, comment, map, group, heroes, playedAt, joinedVoice,
-            allyThrower, allyLeaver, enemyThrower, enemyLeaver,
-            playOfTheGame, result, isValid, groupSize, role, isPlacement } = this.state
+    const {
+      rank,
+      comment,
+      map,
+      group,
+      heroes,
+      playedAt,
+      joinedVoice,
+      allyThrower,
+      allyLeaver,
+      enemyThrower,
+      enemyLeaver,
+      playOfTheGame,
+      result,
+      isValid,
+      groupSize,
+      role,
+      isPlacement
+    } = this.state;
     if (!isValid) {
-      return
+      return;
     }
 
-    const { accountID, season, id } = this.props
+    const { accountID, season, id } = this.props;
     const data = {
       comment,
       map,
@@ -255,254 +314,291 @@ class MatchForm extends Component {
       role,
       isPlacement,
       _id: id,
-      result: result === '' ? null : result
+      result: result === "" ? null : result
+    };
+
+    if (typeof rank === "string" && rank.length > 0) {
+      data.rank = parseFloat(rank);
+    } else if (typeof rank === "number") {
+      data.rank = rank;
     }
 
-    if (typeof rank === 'string' && rank.length > 0) {
-      data.rank = parseFloat(rank)
-    } else if (typeof rank === 'number') {
-      data.rank = rank
-    }
-
-    const match = new Match(data)
+    const match = new Match(data);
     match.save().then(() => {
       if (id) {
-        this.props.onUpdate()
+        this.props.onUpdate();
       } else {
-        this.props.onCreate()
+        this.props.onCreate();
       }
-    })
-  }
+    });
+  };
 
   onFormFieldUpdate = () => {
-    const data = Object.assign({}, this.props, this.state)
-    const isValid = isMatchValid(data)
+    const data = Object.assign({}, this.props, this.state);
+    const isValid = isMatchValid(data);
 
     if (isValid !== this.state.isValid) {
-      this.setState(prevState => ({ isValid }))
+      this.setState(prevState => ({ isValid }));
     }
-  }
+  };
 
   onCommentChange = event => {
-    const comment = event.target.value
-    this.setState(prevState => ({ comment }), this.onFormFieldUpdate)
-  }
+    const comment = event.target.value;
+    this.setState(prevState => ({ comment }), this.onFormFieldUpdate);
+  };
 
   onMapChange = map => {
-    this.setState(prevState => ({ map }), this.onFormFieldUpdate)
-  }
+    this.setState(prevState => ({ map }), this.onFormFieldUpdate);
+  };
 
   onRankChange = event => {
-    let rank = event.target.value
+    let rank = event.target.value;
     if (rank.length > 0) {
-      rank = parseInt(rank, 10)
+      rank = parseInt(rank, 10);
     }
-    this.setState(prevState => ({ rank }), this.onFormFieldUpdate)
-  }
+    this.setState(prevState => ({ rank }), this.onFormFieldUpdate);
+  };
 
   onResultChange = event => {
-    const result = event.target.value
-    this.setState(prevState => ({ result }), this.onFormFieldUpdate)
-  }
+    const result = event.target.value;
+    this.setState(prevState => ({ result }), this.onFormFieldUpdate);
+  };
 
   onGroupChange = (group, groupSize) => {
-    this.setState(prevState => ({ group, groupSize }), this.onFormFieldUpdate)
-  }
+    this.setState(prevState => ({ group, groupSize }), this.onFormFieldUpdate);
+  };
 
   onGroupSizeChange = event => {
-    let groupSize = event.target.value
+    let groupSize = event.target.value;
     if (groupSize && groupSize.length > 0) {
-      groupSize = parseInt(groupSize, 10)
+      groupSize = parseInt(groupSize, 10);
     }
-    this.setState(prevState => ({ groupSize }), this.onFormFieldUpdate)
-  }
+    this.setState(prevState => ({ groupSize }), this.onFormFieldUpdate);
+  };
 
   onPlayedAtChange = event => {
-    let playedAt = event.target.value
+    let playedAt = event.target.value;
     if (playedAt && playedAt.length > 0) {
-      playedAt = new Date(playedAt)
+      playedAt = new Date(playedAt);
     }
-    const dayOfWeek = DayTimeApproximator.dayOfWeek(playedAt)
-    const timeOfDay = DayTimeApproximator.timeOfDay(playedAt)
+    const dayOfWeek = DayTimeApproximator.dayOfWeek(playedAt);
+    const timeOfDay = DayTimeApproximator.timeOfDay(playedAt);
 
-    this.setState(prevState => ({ playedAt, dayOfWeek, timeOfDay }),
-                  this.onFormFieldUpdate)
-  }
+    this.setState(
+      prevState => ({ playedAt, dayOfWeek, timeOfDay }),
+      this.onFormFieldUpdate
+    );
+  };
 
   onDayOfWeekTimeOfDayChange = event => {
-    const dayOfWeekTimeOfDay = event.target.value
-    if (dayOfWeekTimeOfDay.indexOf('-') < 0) {
-      this.setState(prevState => ({ dayOfWeek: null, timeOfDay: null }),
-                    this.onFormFieldUpdate)
-      return
+    const dayOfWeekTimeOfDay = event.target.value;
+    if (dayOfWeekTimeOfDay.indexOf("-") < 0) {
+      this.setState(
+        prevState => ({ dayOfWeek: null, timeOfDay: null }),
+        this.onFormFieldUpdate
+      );
+      return;
     }
 
-    const parts = dayOfWeekTimeOfDay.split('-')
-    const dayOfWeek = parts[0]
-    const timeOfDay = parts[1]
+    const parts = dayOfWeekTimeOfDay.split("-");
+    const dayOfWeek = parts[0];
+    const timeOfDay = parts[1];
 
     this.setState(prevState => {
-      const newState = { dayOfWeek, timeOfDay }
-      if (prevState.dayOfWeek !== dayOfWeek ||
-          prevState.timeOfDay !== timeOfDay) {
-        newState.playedAt = null
+      const newState = { dayOfWeek, timeOfDay };
+      if (
+        prevState.dayOfWeek !== dayOfWeek ||
+        prevState.timeOfDay !== timeOfDay
+      ) {
+        newState.playedAt = null;
       }
-      return newState
-    }, this.onFormFieldUpdate)
-  }
+      return newState;
+    }, this.onFormFieldUpdate);
+  };
 
   changeHeroesString = (heroesStr, hero, isSelected) => {
-    const heroes = explodeHeroesString(heroesStr)
-    const heroIndex = heroes.indexOf(hero)
+    const heroes = explodeHeroesString(heroesStr);
+    const heroIndex = heroes.indexOf(hero);
     if (isSelected && heroIndex < 0) {
-      heroes.push(hero)
+      heroes.push(hero);
     }
     if (!isSelected && heroIndex > -1) {
-      delete heroes[heroIndex]
+      delete heroes[heroIndex];
     }
-    return heroes.join(', ')
-  }
+    return heroes.join(", ");
+  };
 
   getPriorPlacementsInRole = role => {
-    return this.props.priorMatches.filter(m => m.role === role && m.isPlacement)
-  }
+    return this.props.priorMatches.filter(
+      m => m.role === role && m.isPlacement
+    );
+  };
 
   getLatestRankInRole = role => {
-    const priorMatchesInRole = this.props.priorMatches
-      .filter(m => m.role === role && typeof m.rank === 'number')
-    const latestMatchInRole = priorMatchesInRole[priorMatchesInRole.length - 1]
+    const priorMatchesInRole = this.props.priorMatches.filter(
+      m => m.role === role && typeof m.rank === "number"
+    );
+    const latestMatchInRole = priorMatchesInRole[priorMatchesInRole.length - 1];
 
     if (latestMatchInRole) {
-      return latestMatchInRole.rank
+      return latestMatchInRole.rank;
     }
 
-    return ''
-  }
+    return "";
+  };
 
-  onRoleChange = (role) => {
-    const { season } = this.props
+  onRoleChange = role => {
+    const { season } = this.props;
 
-    this.setState(prevState => {
-      const heroesInRole = HeroesByRole[role]
-      const oldSelectedHeroes = explodeHeroesString(prevState.heroes)
-      const selectedHeroes = oldSelectedHeroes
-        .filter(hero => heroesInRole.indexOf(hero) > -1)
-      const priorPlacementMatchesInRole = this.getPriorPlacementsInRole(role)
-      const newState = { role, heroes: selectedHeroes.join(', ') }
+    this.setState(
+      prevState => {
+        const heroesInRole = HeroesByRole[role];
+        const oldSelectedHeroes = explodeHeroesString(prevState.heroes);
+        const selectedHeroes = oldSelectedHeroes.filter(
+          hero => heroesInRole.indexOf(hero) > -1
+        );
+        const priorPlacementMatchesInRole = this.getPriorPlacementsInRole(role);
+        const newState = { role, heroes: selectedHeroes.join(", ") };
 
-      if (season >= Season.roleQueueSeasonStart) {
-        if (priorPlacementMatchesInRole.length < 5) {
-          newState.isPlacement = true
-          newState.isLastPlacement = priorPlacementMatchesInRole.length === 4
+        if (season >= Season.roleQueueSeasonStart) {
+          if (priorPlacementMatchesInRole.length < 5) {
+            newState.isPlacement = true;
+            newState.isLastPlacement = priorPlacementMatchesInRole.length === 4;
+          } else {
+            newState.isPlacement = false;
+            newState.isLastPlacement = false;
+          }
+
+          newState.latestRank = this.getLatestRankInRole(role);
+          newState.enableRankField =
+            typeof newState.role === "string" && newState.role.length > 0;
         } else {
-          newState.isPlacement = false
-          newState.isLastPlacement = false
+          newState.enableRankField = true;
         }
 
-        newState.latestRank = this.getLatestRankInRole(role)
-        newState.enableRankField = typeof newState.role === 'string' && newState.role.length > 0
-      } else {
-        newState.enableRankField = true
-      }
+        return newState;
+      },
+      () => {
+        this.onFormFieldUpdate();
 
-      return newState
-    }, () => {
-      this.onFormFieldUpdate()
-
-      if (this.placementMatchResultField) {
-        this.placementMatchResultField.focus()
-      } else if (this.matchRankField) {
-        this.matchRankField.focus()
+        if (this.placementMatchResultField) {
+          this.placementMatchResultField.focus();
+        } else if (this.matchRankField) {
+          this.matchRankField.focus();
+        }
       }
-    })
-  }
+    );
+  };
 
   onHeroChange = (hero, isSelected) => {
     this.setState(prevState => {
       const newState = {
         heroes: this.changeHeroesString(prevState.heroes, hero, isSelected)
-      }
-      const { season } = this.props
+      };
+      const { season } = this.props;
 
       if (season >= Season.roleQueueSeasonStart) {
-        if (isSelected && (prevState.role !== 'string' || prevState.role.length < 1)) {
-          newState.role = roleForHero(hero)
+        if (
+          isSelected &&
+          (prevState.role !== "string" || prevState.role.length < 1)
+        ) {
+          newState.role = roleForHero(hero);
 
-          const priorPlacementMatchesInRole = this.getPriorPlacementsInRole(newState.role)
+          const priorPlacementMatchesInRole = this.getPriorPlacementsInRole(
+            newState.role
+          );
           if (priorPlacementMatchesInRole.length < 5) {
-            newState.isPlacement = true
-            newState.isLastPlacement = priorPlacementMatchesInRole.length === 4
+            newState.isPlacement = true;
+            newState.isLastPlacement = priorPlacementMatchesInRole.length === 4;
           } else {
-            newState.isPlacement = false
-            newState.isLastPlacement = false
+            newState.isPlacement = false;
+            newState.isLastPlacement = false;
           }
 
-          const latestRank = this.getLatestRankInRole(newState.role)
-          if (typeof latestRank === 'number') {
-            newState.latestRank = latestRank
+          const latestRank = this.getLatestRankInRole(newState.role);
+          if (typeof latestRank === "number") {
+            newState.latestRank = latestRank;
           }
         } else if (!isSelected && newState.heroes.length < 1) {
-          newState.role = null
-          newState.isLastPlacement = false
-          newState.latestRank = ''
+          newState.role = null;
+          newState.isLastPlacement = false;
+          newState.latestRank = "";
         }
       } else {
-        newState.role = null
+        newState.role = null;
       }
 
-      return newState
-    }, this.onFormFieldUpdate)
-  }
+      return newState;
+    }, this.onFormFieldUpdate);
+  };
 
   onAllyThrowerChange = event => {
-    const allyThrower = event.target.checked
-    this.setState(prevState => ({ allyThrower }), this.onFormFieldUpdate)
-  }
+    const allyThrower = event.target.checked;
+    this.setState(prevState => ({ allyThrower }), this.onFormFieldUpdate);
+  };
 
   onAllyLeaverChange = event => {
-    const allyLeaver = event.target.checked
-    this.setState(prevState => ({ allyLeaver }), this.onFormFieldUpdate)
-  }
+    const allyLeaver = event.target.checked;
+    this.setState(prevState => ({ allyLeaver }), this.onFormFieldUpdate);
+  };
 
   onEnemyThrowerChange = event => {
-    const enemyThrower = event.target.checked
-    this.setState(prevState => ({ enemyThrower }), this.onFormFieldUpdate)
-  }
+    const enemyThrower = event.target.checked;
+    this.setState(prevState => ({ enemyThrower }), this.onFormFieldUpdate);
+  };
 
   onEnemyLeaverChange = event => {
-    const enemyLeaver = event.target.checked
-    this.setState(prevState => ({ enemyLeaver }), this.onFormFieldUpdate)
-  }
+    const enemyLeaver = event.target.checked;
+    this.setState(prevState => ({ enemyLeaver }), this.onFormFieldUpdate);
+  };
 
   onPlayOfTheGameChange = event => {
-    const playOfTheGame = event.target.checked
-    this.setState(prevState => ({ playOfTheGame }), this.onFormFieldUpdate)
-  }
+    const playOfTheGame = event.target.checked;
+    this.setState(prevState => ({ playOfTheGame }), this.onFormFieldUpdate);
+  };
 
   onJoinedVoiceChange = event => {
-    const joinedVoice = event.target.checked
-    this.setState(prevState => ({ joinedVoice }), this.onFormFieldUpdate)
-  }
+    const joinedVoice = event.target.checked;
+    this.setState(prevState => ({ joinedVoice }), this.onFormFieldUpdate);
+  };
 
   render() {
-    const { rank, comment, map, group, heroes, playedAt, groupSize, joinedVoice,
-            allyThrower, allyLeaver, enemyThrower, enemyLeaver, groupMembers,
-            playOfTheGame, result, isValid, dayOfWeek, timeOfDay, role,
-            isPlacement, isLastPlacement, latestRank, enableRankField } = this.state
-    const { season, latestGroup, theme } = this.props
-    let playedAtStr = playedAt
-    if (playedAt && typeof playedAt === 'object') {
-      playedAtStr = dateTimeStrFrom(playedAt)
+    const {
+      rank,
+      comment,
+      map,
+      group,
+      heroes,
+      playedAt,
+      groupSize,
+      joinedVoice,
+      allyThrower,
+      allyLeaver,
+      enemyThrower,
+      enemyLeaver,
+      groupMembers,
+      playOfTheGame,
+      result,
+      isValid,
+      dayOfWeek,
+      timeOfDay,
+      role,
+      isPlacement,
+      isLastPlacement,
+      latestRank,
+      enableRankField
+    } = this.state;
+    const { season, latestGroup, theme } = this.props;
+    let playedAtStr = playedAt;
+    if (playedAt && typeof playedAt === "object") {
+      playedAtStr = dateTimeStrFrom(playedAt);
     } else {
-      playedAtStr = ''
+      playedAtStr = "";
     }
-    const dayOfWeekTimeOfDay = `${dayOfWeek}-${timeOfDay}`
+    const dayOfWeekTimeOfDay = `${dayOfWeek}-${timeOfDay}`;
 
     return (
-      <form
-        onSubmit={this.onSubmit}
-        className="mb-4"
-      >
+      <form onSubmit={this.onSubmit} className="mb-4">
         <div className="clearfix">
           <div className="col-md-12 col-lg-6 float-left pr-3-lg">
             {season >= Season.roleQueueSeasonStart && (
@@ -522,13 +618,19 @@ class MatchForm extends Component {
                   <label
                     htmlFor="match-result"
                     className="label-lg mr-2 no-wrap"
-                  >Placement match result:</label>
-                ) : (
-                  <label
-                    htmlFor="match-rank"
-                    className="label-lg mr-2 no-wrap"
                   >
-                    New <span className="tooltipped tooltipped-n" aria-label="Skill Rating">SR</span>:
+                    Placement match result:
+                  </label>
+                ) : (
+                  <label htmlFor="match-rank" className="label-lg mr-2 no-wrap">
+                    New{" "}
+                    <span
+                      className="tooltipped tooltipped-n"
+                      aria-label="Skill Rating"
+                    >
+                      SR
+                    </span>
+                    :
                   </label>
                 )}
                 {isPlacement ? (
@@ -539,7 +641,7 @@ class MatchForm extends Component {
                     autoFocus={season < Season.roleQueueSeasonStart}
                     id="match-result"
                     onChange={this.onResultChange}
-                    ref={el => this.placementMatchResultField = el}
+                    ref={el => (this.placementMatchResultField = el)}
                   >
                     <option value=""></option>
                     <option value="win">Win</option>
@@ -552,7 +654,7 @@ class MatchForm extends Component {
                     type="number"
                     required
                     autoFocus={season < Season.roleQueueSeasonStart}
-                    ref={el => this.matchRankField = el}
+                    ref={el => (this.matchRankField = el)}
                     className="form-control sr-field"
                     value={rank}
                     onChange={this.onRankChange}
@@ -563,9 +665,7 @@ class MatchForm extends Component {
               </div>
               <dl className="form-group my-0 ml-4">
                 <dt>
-                  <label
-                    htmlFor="match-map"
-                  >
+                  <label htmlFor="match-map">
                     <span className="ion ion-md-pin mr-1" />
                     Map:
                   </label>
@@ -578,11 +678,10 @@ class MatchForm extends Component {
             {isPlacement && isLastPlacement ? (
               <dl className="form-group mt-0">
                 <dt>
-                  <label
-                    htmlFor="match-rank"
-                    className="sr-field-label"
-                  >
-                    {role && season >= Season.roleQueueSeasonStart ? `Where did you place as a ${role}?` : 'Where did you place?'}
+                  <label htmlFor="match-rank" className="sr-field-label">
+                    {role && season >= Season.roleQueueSeasonStart
+                      ? `Where did you place as a ${role}?`
+                      : "Where did you place?"}
                   </label>
                 </dt>
                 <dd>
@@ -596,12 +695,12 @@ class MatchForm extends Component {
                   />
                 </dd>
               </dl>
-            ) : ''}
+            ) : (
+              ""
+            )}
             <dl className="form-group mt-0">
               <dt>
-                <label
-                  htmlFor="match-comment"
-                >
+                <label htmlFor="match-comment">
                   <span className="ion ion-md-list mr-1" />
                   Comment:
                 </label>
@@ -630,9 +729,9 @@ class MatchForm extends Component {
               />
               <dl className="form-group mb-0">
                 <dt>
-                  <label
-                    htmlFor="match-group-size"
-                  >How many people did you queue with?</label>
+                  <label htmlFor="match-group-size">
+                    How many people did you queue with?
+                  </label>
                 </dt>
                 <dd>
                   <select
@@ -742,10 +841,7 @@ class MatchForm extends Component {
             </dl>
             <dl className="form-group mt-0">
               <dt>
-                <label
-                  className="f6"
-                  htmlFor="match-played-at"
-                >
+                <label className="f6" htmlFor="match-played-at">
                   <span className="ion ion-md-time mr-1" />
                   When did you play?
                 </label>
@@ -760,7 +856,8 @@ class MatchForm extends Component {
                 />
                 {dayOfWeek && timeOfDay ? (
                   <span className="d-inline-block ml-2">
-                    <DayOfWeekEmoji dayOfWeek={dayOfWeek} /> <TimeOfDayEmoji timeOfDay={timeOfDay} />
+                    <DayOfWeekEmoji dayOfWeek={dayOfWeek} />{" "}
+                    <TimeOfDayEmoji timeOfDay={timeOfDay} />
                   </span>
                 ) : null}
                 <select
@@ -788,11 +885,13 @@ class MatchForm extends Component {
             type="submit"
             className="btn btn-primary btn-large"
             disabled={!isValid}
-          >Save match</button>
+          >
+            Save match
+          </button>
         </div>
       </form>
-    )
+    );
   }
 }
 
-export default MatchForm
+export default MatchForm;

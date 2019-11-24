@@ -1,8 +1,8 @@
-import React from 'react'
-import { Bar } from 'react-chartjs-2'
-import Color from '../../models/Color'
-import Match from '../../models/Match'
-import ChartUtils from '../../models/ChartUtils'
+import React from "react";
+import { Bar } from "react-chartjs-2";
+import Color from "../../models/Color";
+import Match from "../../models/Match";
+import ChartUtils from "../../models/ChartUtils";
 
 interface Props {
   matches: Match[];
@@ -10,7 +10,8 @@ interface Props {
 }
 
 const options = {
-  responsive: true, maintainAspectRatio: false,
+  responsive: true,
+  maintainAspectRatio: false,
   scales: {
     yAxes: [{ ticks: { callback: ChartUtils.wholeTicks } }]
   }
@@ -18,62 +19,64 @@ const options = {
 
 const ThrowerLeaverChart = ({ matches, season }: Props) => {
   const getThrowers = () => {
-    let allyCount = 0
-    let enemyCount = 0
+    let allyCount = 0;
+    let enemyCount = 0;
 
     for (const match of matches) {
       if (match.enemyThrower) {
-        enemyCount++
+        enemyCount++;
       }
       if (match.allyThrower) {
-        allyCount++
+        allyCount++;
       }
     }
 
-    return [allyCount, enemyCount]
-  }
+    return [allyCount, enemyCount];
+  };
 
   const getLeavers = () => {
-    let allyCount = 0
-    let enemyCount = 0
+    let allyCount = 0;
+    let enemyCount = 0;
 
     for (const match of matches) {
       if (match.enemyLeaver) {
-        enemyCount++
+        enemyCount++;
       }
       if (match.allyLeaver) {
-        allyCount++
+        allyCount++;
       }
     }
 
-    return [allyCount, enemyCount]
-  }
+    return [allyCount, enemyCount];
+  };
 
   const data = {
-    labels: ['My Team', 'Enemy Team'],
+    labels: ["My Team", "Enemy Team"],
     datasets: [
       {
         backgroundColor: Color.transparentAlly,
         borderColor: Color.ally,
         borderWidth: 2,
-        label: 'Throwers',
+        label: "Throwers",
         data: getThrowers()
       },
       {
         backgroundColor: Color.transparentEnemy,
         borderColor: Color.enemy,
         borderWidth: 2,
-        label: 'Leavers',
+        label: "Leavers",
         data: getLeavers()
       }
     ]
-  }
+  };
 
   return (
     <div>
       <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
         Throwers/Leavers
-        <span className="text-gray text-normal h4 d-inline-block ml-2">Season {season}</span>
+        <span className="text-gray text-normal h4 d-inline-block ml-2">
+          Season {season}
+        </span>
       </h3>
       <div className="small-chart-container">
         <Bar data={data} options={options} />

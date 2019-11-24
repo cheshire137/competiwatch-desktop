@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import AccountDeleteForm from '../AccountDeleteForm'
-import AccountForm from '../AccountForm'
-import CsvExporter from '../../models/CsvExporter'
-import Match from '../../models/Match'
-import FileUtil from '../../models/FileUtil'
-import MatchRankImage from '../MatchRankImage'
-import HeroImage from '../HeroImage'
-import './AccountListItem.css'
-import Account from '../../models/Account'
+import React, { useState } from "react";
+import AccountDeleteForm from "../AccountDeleteForm";
+import AccountForm from "../AccountForm";
+import CsvExporter from "../../models/CsvExporter";
+import Match from "../../models/Match";
+import FileUtil from "../../models/FileUtil";
+import MatchRankImage from "../MatchRankImage";
+import HeroImage from "../HeroImage";
+import "./AccountListItem.css";
+import Account from "../../models/Account";
 import { Hero } from "../../models/Hero";
 import { showSaveDialog } from "../../utils/electronUtils";
 
@@ -18,7 +18,12 @@ interface Props {
   season: number;
 }
 
-const AccountListItem = ({ account, onAccountChange, season, onAccountUpdate }: Props) => {
+const AccountListItem = ({
+  account,
+  onAccountChange,
+  season,
+  onAccountUpdate
+}: Props) => {
   const [totalMatches, setTotalMatches] = useState(-1);
   const [showEditForm, setShowEditForm] = useState(false);
   const [battletag, setBattletag] = useState(account.battletag);
@@ -34,8 +39,8 @@ const AccountListItem = ({ account, onAccountChange, season, onAccountUpdate }: 
       return;
     }
 
-    const unit = totalMatches === 1 ? 'match' : 'matches'
-    const message = `Are you sure you want to delete all ${totalMatches} ${unit} from season ${season} for ${account.battletag}? This cannot be undone.`
+    const unit = totalMatches === 1 ? "match" : "matches";
+    const message = `Are you sure you want to delete all ${totalMatches} ${unit} from season ${season} for ${account.battletag}? This cannot be undone.`;
     if (!window.confirm(message)) {
       return;
     }
@@ -43,7 +48,9 @@ const AccountListItem = ({ account, onAccountChange, season, onAccountUpdate }: 
     Match.wipeSeason(account._id, season).then(() => {
       account.latestMatch(season).then(match => setLatestMatch(match || null));
       account.totalMatches(season).then(count => setTotalMatches(count));
-      account.topHeroes(season).then(newTopHeroes => setTopHeroes(newTopHeroes));
+      account
+        .topHeroes(season)
+        .then(newTopHeroes => setTopHeroes(newTopHeroes));
     });
   };
 
@@ -51,12 +58,15 @@ const AccountListItem = ({ account, onAccountChange, season, onAccountUpdate }: 
     const exporter = new CsvExporter(path, season, account);
 
     exporter.export().then(() => {
-      console.log(`exported ${account.battletag}'s season ${season}`, path)
+      console.log(`exported ${account.battletag}'s season ${season}`, path);
     });
   };
 
   const exportSeason = () => {
-    const defaultPath = FileUtil.defaultCsvExportFilename(account.battletag, season);
+    const defaultPath = FileUtil.defaultCsvExportFilename(
+      account.battletag,
+      season
+    );
     const options = { defaultPath };
 
     showSaveDialog(options, (path: string) => {
@@ -72,9 +82,9 @@ const AccountListItem = ({ account, onAccountChange, season, onAccountUpdate }: 
     setShowEditForm(false);
   };
 
-  const { _id } = account
-  const haveLatestRank = latestMatch && typeof latestMatch.rank === 'number'
-  const haveLatestResult = latestMatch && latestMatch.result
+  const { _id } = account;
+  const haveLatestRank = latestMatch && typeof latestMatch.rank === "number";
+  const haveLatestResult = latestMatch && latestMatch.result;
 
   return (
     <li className="Box mb-3 p-3 account-list-item">
@@ -93,14 +103,18 @@ const AccountListItem = ({ account, onAccountChange, season, onAccountUpdate }: 
                   className="btn-link f6"
                   type="button"
                   onClick={() => setShowEditForm(!showEditForm)}
-                >Cancel rename</button>
+                >
+                  Cancel rename
+                </button>
               </>
             ) : (
               <button
                 type="button"
                 className="btn-link h1 text-bold text-left d-block flex-auto"
                 onClick={() => onAccountChange(account._id)}
-              >{battletag}</button>
+              >
+                {battletag}
+              </button>
             )}
             <AccountDeleteForm
               id={_id}
@@ -130,7 +144,9 @@ const AccountListItem = ({ account, onAccountChange, season, onAccountUpdate }: 
             {totalMatches > 0 ? (
               <>
                 <span className="separator" />
-                <span>{totalMatches} match{totalMatches === 1 ? null : 'es'}</span>
+                <span>
+                  {totalMatches} match{totalMatches === 1 ? null : "es"}
+                </span>
               </>
             ) : (
               <span>No matches in season {season}</span>
@@ -140,7 +156,9 @@ const AccountListItem = ({ account, onAccountChange, season, onAccountUpdate }: 
             className="btn-link link-gray-dark f6 show-on-hover"
             type="button"
             onClick={() => setShowEditForm(!showEditForm)}
-          >Rename account</button>
+          >
+            Rename account
+          </button>
           {totalMatches > 0 ? (
             <>
               <button
@@ -148,12 +166,16 @@ const AccountListItem = ({ account, onAccountChange, season, onAccountUpdate }: 
                 aria-label="Save season as a CSV file"
                 className="ml-3 btn-link tooltipped show-on-hover tooltipped-n link-gray-dark f6"
                 onClick={exportSeason}
-              >Export season {season}</button>
+              >
+                Export season {season}
+              </button>
               <button
                 type="button"
                 className="btn-link text-red show-on-hover f6 ml-3"
                 onClick={wipeSeason}
-              >Delete matches</button>
+              >
+                Delete matches
+              </button>
             </>
           ) : null}
         </div>
@@ -170,13 +192,24 @@ const AccountListItem = ({ account, onAccountChange, season, onAccountUpdate }: 
                   className="d-inline-block"
                 />
               )}
-              <h3 className="h4 text-normal lh-condensed text-gray-dark my-0">{latestMatch.rank}</h3>
+              <h3 className="h4 text-normal lh-condensed text-gray-dark my-0">
+                {latestMatch.rank}
+              </h3>
             </button>
           )}
           <div className="ml-3 text-right">
             {topHeroes && topHeroes.length > 0 ? (
-              <div className={`AvatarStack account-avatar-stack AvatarStack--right ${topHeroes.length >= 3 ? 'AvatarStack--three-plus' : 'AvatarStack--two'}`}>
-                <div className="AvatarStack-body tooltipped tooltipped-n" aria-label={topHeroes.join(', ')}>
+              <div
+                className={`AvatarStack account-avatar-stack AvatarStack--right ${
+                  topHeroes.length >= 3
+                    ? "AvatarStack--three-plus"
+                    : "AvatarStack--two"
+                }`}
+              >
+                <div
+                  className="AvatarStack-body tooltipped tooltipped-n"
+                  aria-label={topHeroes.join(", ")}
+                >
                   {topHeroes.map(hero => (
                     <HeroImage
                       key={hero}

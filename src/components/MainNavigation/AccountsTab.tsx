@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface Props {
   activePage: string;
@@ -6,17 +6,23 @@ interface Props {
   underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 
-const AccountsTab = ({ activePage, onPageChange, underlineNavItemClass }: Props) => {
-  if (activePage === 'accounts') {
+const AccountsTab = ({
+  activePage,
+  onPageChange,
+  underlineNavItemClass
+}: Props) => {
+  if (activePage === "accounts") {
     return null;
   }
 
   return (
     <button
       type="button"
-      className={underlineNavItemClass('accounts', true)}
-      onClick={() => onPageChange('accounts')}
-    >Accounts</button>
+      className={underlineNavItemClass("accounts", true)}
+      onClick={() => onPageChange("accounts")}
+    >
+      Accounts
+    </button>
   );
 };
 

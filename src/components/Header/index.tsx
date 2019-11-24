@@ -1,9 +1,9 @@
-import React from 'react'
-import SeasonSelect from '../SeasonSelect'
-import AccountSelect from '../AccountSelect'
-import MainNavigation from '../MainNavigation';
+import React from "react";
+import SeasonSelect from "../SeasonSelect";
+import AccountSelect from "../AccountSelect";
+import MainNavigation from "../MainNavigation";
 import Account from "../../models/Account";
-import './Header.css'
+import "./Header.css";
 
 interface Props {
   activeSeason: number;
@@ -17,8 +17,17 @@ interface Props {
   onExport: () => void;
 }
 
-const Header = ({ activeSeason, latestSeason, onSeasonChange, accounts, onPageChange,
-  activeAccount, onAccountChange, activePage, onExport }: Props) => (
+const Header = ({
+  activeSeason,
+  latestSeason,
+  onSeasonChange,
+  accounts,
+  onPageChange,
+  activeAccount,
+  onAccountChange,
+  activePage,
+  onExport
+}: Props) => (
   <div className="mb-3 sticky-bar border-bottom">
     <div className="d-flex flex-items-center container">
       {accounts && accounts.length > 0 && (
@@ -48,4 +57,4 @@ const Header = ({ activeSeason, latestSeason, onSeasonChange, accounts, onPageCh
   </div>
 );
 
-export default Header
+export default Header;

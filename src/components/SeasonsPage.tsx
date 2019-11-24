@@ -1,6 +1,6 @@
-import React from 'react';
-import SeasonForm from './SeasonForm';
-import SeasonsList from './SeasonsList';
+import React from "react";
+import SeasonForm from "./SeasonForm";
+import SeasonsList from "./SeasonsList";
 
 interface Props {
   onCreate: (season: number) => void;
@@ -10,18 +10,24 @@ interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }
 
-const SeasonsPage = ({ latestSeason, onCreate, onPageChange, firstNonDeletableSeason, onDelete }: Props) => (
+const SeasonsPage = ({
+  latestSeason,
+  onCreate,
+  onPageChange,
+  firstNonDeletableSeason,
+  onDelete
+}: Props) => (
   <div className="container layout-children-container">
     <div className="mt-4">
       <button
         type="button"
-        onClick={() => onPageChange('accounts')}
+        onClick={() => onPageChange("accounts")}
         className="btn-link"
-      >&larr; Back to your accounts</button>
+      >
+        &larr; Back to your accounts
+      </button>
     </div>
-    <h1
-      className="h1 mb-2 mt-4"
-    >Manage Seasons</h1>
+    <h1 className="h1 mb-2 mt-4">Manage Seasons</h1>
     <div className="clearfix">
       <div className="col-7 float-left">
         <SeasonsList
@@ -31,10 +37,7 @@ const SeasonsPage = ({ latestSeason, onCreate, onPageChange, firstNonDeletableSe
         />
       </div>
       <div className="col-4 float-right">
-        <SeasonForm
-          latestSeason={latestSeason}
-          onCreate={onCreate}
-        />
+        <SeasonForm latestSeason={latestSeason} onCreate={onCreate} />
       </div>
     </div>
   </div>

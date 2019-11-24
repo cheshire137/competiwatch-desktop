@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import Match from '../models/Match'
-import MatchForm from './MatchForm'
+import React, { useState } from "react";
+import Match from "../models/Match";
+import MatchForm from "./MatchForm";
 
 interface Props {
   accountID: string;
@@ -13,13 +13,22 @@ interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }
 
-const MatchCreatePage = ({ accountID, latestGroup, latestRank, theme, season, latestSeason, onSeasonChange, onPageChange }: Props) => {
+const MatchCreatePage = ({
+  accountID,
+  latestGroup,
+  latestRank,
+  theme,
+  season,
+  latestSeason,
+  onSeasonChange,
+  onPageChange
+}: Props) => {
   const [matches, setMatches] = useState<Match[] | null>(null);
 
   Match.findAll(accountID, season).then(m => setMatches(m));
 
   if (!matches) {
-    return null
+    return null;
   }
 
   return (
@@ -32,7 +41,10 @@ const MatchCreatePage = ({ accountID, latestGroup, latestRank, theme, season, la
             type="button"
             className="btn-link"
             onClick={() => onSeasonChange(latestSeason)}
-          >log a match in season {latestSeason}</button>?
+          >
+            log a match in season {latestSeason}
+          </button>
+          ?
         </p>
       ) : null}
       <MatchForm
@@ -41,7 +53,7 @@ const MatchCreatePage = ({ accountID, latestGroup, latestRank, theme, season, la
         latestRank={latestRank}
         latestGroup={latestGroup}
         theme={theme}
-        onCreate={() => onPageChange('matches', true)}
+        onCreate={() => onPageChange("matches", true)}
         priorMatches={matches}
       />
     </div>

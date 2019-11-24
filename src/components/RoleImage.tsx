@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-const knownRoles = ['tank', 'support', 'damage']
+const knownRoles = ["tank", "support", "damage"];
 
 interface Props {
   role: string;
@@ -10,16 +10,16 @@ interface Props {
 }
 
 const RoleImage = (props: Props) => {
-  const {role, className, size, theme} = props
-  const slug = role.toLowerCase()
+  const { role, className, size, theme } = props;
+  const slug = role.toLowerCase();
   if (knownRoles.indexOf(slug) < 0) {
-    return <span>{role}</span>
+    return <span>{role}</span>;
   }
-  let color = ''
-  if (theme === 'dark') {
-    color = '-invert'
+  let color = "";
+  if (theme === "dark") {
+    color = "-invert";
   }
-  const src = require(`../images/roles/${slug}${color}.png`)
+  const src = require(`../images/roles/${slug}${color}.png`);
 
   return (
     <img
@@ -29,7 +29,7 @@ const RoleImage = (props: Props) => {
       width={size || 20}
       height={size || 20}
     />
-  )
-}
+  );
+};
 
-export default RoleImage
+export default RoleImage;
