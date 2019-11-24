@@ -1,7 +1,7 @@
 import React from 'react'
 import './MatchRankImage.css'
 
-const rankTierFor = rank => {
+const rankTierFor = (rank: number) => {
   if (rank < 1500) {
     return 'bronze'
   }
@@ -25,13 +25,13 @@ const rankTierFor = rank => {
   }
 }
 
-const MatchRankImage = props => {
-  const { rank, priorRank, className } = props
+interface Props {
+  rank: number;
+  priorRank?: number;
+  className?: string;
+}
 
-  if (typeof rank !== 'number') {
-    return null
-  }
-
+const MatchRankImage = ({ rank, priorRank, className }: Props) => {
   const rankTier = rankTierFor(rank)
   if (!rankTier) {
     return null

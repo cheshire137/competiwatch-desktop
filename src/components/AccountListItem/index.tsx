@@ -164,10 +164,12 @@ const AccountListItem = ({ account, onAccountChange, season, onAccountUpdate }: 
               className="text-center btn-link btn-rank"
               onClick={() => onAccountChange(account._id)}
             >
-              <MatchRankImage
-                rank={latestMatch.rank}
-                className="d-inline-block"
-              />
+              {typeof latestMatch.rank === "number" && (
+                <MatchRankImage
+                  rank={latestMatch.rank}
+                  className="d-inline-block"
+                />
+              )}
               <h3 className="h4 text-normal lh-condensed text-gray-dark my-0">{latestMatch.rank}</h3>
             </button>
           )}

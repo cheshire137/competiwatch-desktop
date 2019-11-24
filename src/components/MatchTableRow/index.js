@@ -348,11 +348,13 @@ class MatchTableRow extends Component {
         </td>
         <td className={this.rankClass()}>
           <div className="d-flex flex-items-center flex-justify-center">
-            <MatchRankImage
-              rank={rank}
-              priorRank={priorRank}
-              className="d-inline-block mr-1 hide-sm"
-            />
+            {typeof rank === 'number' && (
+              <MatchRankImage
+                rank={rank}
+                priorRank={priorRank}
+                className="d-inline-block mr-1 hide-sm"
+              />
+            )}
             {typeof rank === 'number' ? rank : (
               <span>&mdash;</span>
             )}
