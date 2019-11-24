@@ -1,5 +1,5 @@
 class ChartUtils {
-  static wholeTicks(value) {
+  static wholeTicks(value: number) {
     if (Number.isInteger(value)) {
       return value;
     }
