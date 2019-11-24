@@ -13,22 +13,23 @@ class CsvImporter {
     this.accountID = accountID;
   }
 
-  readFile = (): Promise<string[]> => {
+  readFile = (): Promise<string> => {
     return readFile(this.path);
   };
 
   parseCsv = (): Promise<any[]> => {
     return new Promise((resolve, reject) => {
       this.readFile().then(lines => {
-        const options = { columns: true };
-        parse(lines, options, (err: Error, data: any) => {
+        const options: parse.Options = { columns: true };
+        const callback: parse.Callback = (err, data) => {
           if (err) {
             console.error("failed to parse CSV file", this.path, err);
             reject(err);
           } else {
             resolve(data);
           }
-        });
+        };
+        parse(lines, options, callback);
       });
     });
   };
