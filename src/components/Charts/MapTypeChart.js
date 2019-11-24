@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Bar } from 'react-chartjs-2'
 import Color from '../../models/Color'
 import ChartUtils from '../../models/ChartUtils'
-import Map, { MapsByType, MapTypes, MapTypeAliases } from '../../models/Map'
+import { MapsByType, MapTypes, MapTypeAliases } from '../../models/Map'
 
 function mapTypeFor(map) {
   for (const mapType in MapsByType) {
