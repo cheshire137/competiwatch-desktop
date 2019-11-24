@@ -50,9 +50,9 @@ class Account {
     }
   }
 
-  findAllGroupMembers(season: number) {
+  static findAllGroupMembers(accountID: string, season?: number) {
     const sort = {};
-    const conditions: any = { accountID: this._id, group: { $ne: "" } };
+    const conditions: any = { accountID, group: { $ne: "" } };
     if (typeof season === "number" && !isNaN(season)) {
       conditions.season = season;
     }

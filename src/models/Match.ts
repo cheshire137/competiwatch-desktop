@@ -7,7 +7,7 @@ import DayTimeApproximator, {
   TimeOfDay
 } from "./DayTimeApproximator";
 
-type MatchResult = "win" | "loss" | "draw";
+export type MatchResult = "win" | "loss" | "draw";
 
 const getPriorMatch = (match: Match, prevMatches: Match[]) => {
   if (match.season >= Season.roleQueueSeasonStart) {
@@ -411,7 +411,7 @@ class Match {
       role: this.role
     };
     if (!this._id) {
-      return;
+      return Promise.resolve(this);
     }
     return Database.upsert("matches", data, this._id).then(record => {
       const newMatch: Match = record as Match;

@@ -10,6 +10,8 @@ export type HeroDetailedRole =
 
 export type HeroRole = "Damage" | "Tank" | "Support";
 
+export const HeroRoles: HeroRole[] = ["Damage", "Tank", "Support"];
+
 type HeroDetailedRoleToHeroes = {
   [role in HeroDetailedRole]: Hero[];
 };
