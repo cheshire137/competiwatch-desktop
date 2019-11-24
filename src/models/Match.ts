@@ -1,5 +1,6 @@
 import Database from './Database'
 import Season from './Season'
+import { Map } from './Map'
 import { HeroesByRole, HeroRole, Hero } from './Hero'
 import DayTimeApproximator, { DayOfWeek, TimeOfDay } from './DayTimeApproximator'
 
@@ -133,7 +134,7 @@ export interface MatchData {
   accountID: string;
   comment?: string;
   season: string | number;
-  map?: string;
+  map?: Map;
   isPlacement?: boolean;
   result?: MatchResult;
   rank?: number | string;
@@ -162,7 +163,7 @@ class Match {
   createdAt?: Date;
   rankChange?: number;
   comment?: string;
-  map?: string;
+  map?: Map;
   isPlacement?: boolean;
   winStreak?: number;
   lossStreak?: number;
@@ -184,7 +185,7 @@ class Match {
 
   static wipeSeason(accountID: string, season: number) {
     return Match.findAll(accountID, season).then(matches => {
-      const promises = matches.map(match => match.delete())
+      const promises = matches.map(match => Match.delete(match._id))
       return Promise.all(promises)
     })
   }
@@ -375,7 +376,8 @@ class Match {
       result: this.result,
       role: this.role
     }
-    return Database.upsert('matches', data, this._id).then((newMatch: Match) => {
+    return Database.upsert('matches', data, this._id).then(record => {
+      const newMatch: Match = record as Match;
       this._id = newMatch._id
       if (newMatch.createdAt) {
         this.createdAt = newMatch.createdAt

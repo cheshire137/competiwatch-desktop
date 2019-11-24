@@ -4,10 +4,6 @@ type MapTypeToString = {
   [type in MapType]?: string;
 };
 
-type MapTypeToStrings = {
-  [type in MapType]: string[];
-};
-
 export const MapTypes: MapType[] = ["Assault", "Escort", "Control", "Hybrid"];
 
 export const MapTypeAliases: MapTypeToString = {
@@ -59,6 +55,10 @@ export const HybridMaps: HybridMap[] = [
 
 export type Map = AssaultMap | ControlMap | EscortMap | HybridMap;
 
+type MapTypeToMaps = {
+  [type in MapType]: Map[];
+};
+
 export const Maps: Map[] = [
   'Blizzard World',
   'Busan',
@@ -83,7 +83,7 @@ export const Maps: Map[] = [
   'Watchpoint: Gibraltar'
 ];
 
-export const MapsByType: MapTypeToStrings = {
+export const MapsByType: MapTypeToMaps = {
   Assault: AssaultMaps,
   Control: ControlMaps,
   Escort: EscortMaps,
