@@ -143,7 +143,7 @@ interface MatchConditions {
 }
 
 export interface MatchData {
-  _id: string;
+  _id?: string;
   accountID: string;
   comment?: string;
   season: string | number;
@@ -172,7 +172,7 @@ class Match {
   rank?: number;
   season: number;
   accountID: string;
-  _id: string;
+  _id?: string;
   createdAt?: Date;
   rankChange?: number;
   comment?: string;
@@ -198,7 +198,7 @@ class Match {
 
   static wipeSeason(accountID: string, season: number) {
     return Match.findAll(accountID, season).then(matches => {
-      const promises = matches.map(match => Match.delete(match._id));
+      const promises = matches.map(match => match._id && Match.delete(match._id));
       return Promise.all(promises);
     });
   }
@@ -245,7 +245,9 @@ class Match {
 
   constructor(data: MatchData) {
     this.accountID = data.accountID;
-    this._id = data._id;
+    if (data._id) {
+      this._id = data._id;
+    }
     this.comment = data.comment;
     if (typeof data.season === "number") {
       this.season = data.season;
@@ -406,6 +408,9 @@ class Match {
       result: this.result,
       role: this.role
     };
+    if (!this._id) {
+      return;
+    }
     return Database.upsert("matches", data, this._id).then(record => {
       const newMatch: Match = record as Match;
       this._id = newMatch._id;

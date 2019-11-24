@@ -1,38 +1,27 @@
 import parse from "../lib/csv-parse/lib/es5";
-import Match from "./Match";
-import isElectron from "is-electron";
+import Match, { MatchData } from "./Match";
+import { readFile } from "../utils/electronUtils";
 
 class CsvImporter {
-  constructor(path, season, accountID) {
+  path: string;
+  season: number;
+  accountID: string;
+
+  constructor(path: string, season: number, accountID: string) {
     this.path = path;
     this.season = season;
     this.accountID = accountID;
   }
 
-  readFile = () => {
-    return new Promise((resolve, reject) => {
-      console.log("reading", this.path);
-
-      if (isElectron()) {
-        window.fs.readFile(this.path, "utf8", (err, data) => {
-          if (err) {
-            console.error("failed to read file", this.path, err);
-            reject(err);
-          } else {
-            resolve(data);
-          }
-        });
-      } else {
-        reject("not electron, cannot read file from filesystem");
-      }
-    });
+  readFile = (): Promise<string[]> => {
+    return readFile(this.path);
   };
 
-  parseCsv = () => {
+  parseCsv = (): Promise<any[]> => {
     return new Promise((resolve, reject) => {
       this.readFile().then(lines => {
         const options = { columns: true };
-        parse(lines, options, (err, data) => {
+        parse(lines, options, (err: Error, data: any) => {
           if (err) {
             console.error("failed to parse CSV file", this.path, err);
             reject(err);
@@ -44,7 +33,7 @@ class CsvImporter {
     });
   };
 
-  normalizeData = hash => {
+  normalizeData = (hash: any) => {
     const keys = Object.keys(hash);
 
     for (const key of keys) {
@@ -67,9 +56,9 @@ class CsvImporter {
     return hash;
   };
 
-  importMatch = async rawData => {
+  importMatch = async (rawData: any) => {
     const data = this.normalizeData(rawData);
-    const matchData = {
+    const matchData: MatchData = {
       accountID: this.accountID,
       season: this.season,
       rank: data.rank,
@@ -96,8 +85,8 @@ class CsvImporter {
     return match;
   };
 
-  import(onSave) {
-    return this.parseCsv().then(async rows => {
+  import(onSave: (match: Match) => void) {
+    return this.parseCsv().then(async (rows: any[]) => {
       const matches = [];
 
       for (const row of rows) {
