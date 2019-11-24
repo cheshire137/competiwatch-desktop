@@ -1,6 +1,14 @@
 import Database from "./Database";
 
+interface SeasonData {
+  _id: string;
+  number: string;
+  createdAt?: string;
+}
+
 class Season {
+  public static roleQueueSeasonStart: number = 18;
+
   static latest() {
     const conditions = {};
     const sort = { number: -1 };
@@ -12,7 +20,11 @@ class Season {
     });
   }
 
-  constructor(data) {
+  _id: string;
+  number: number;
+  createdAt?: Date;
+
+  constructor(data: SeasonData) {
     this._id = data._id;
     this.number = parseInt(data.number, 10);
     if (data.createdAt) {
@@ -27,7 +39,8 @@ class Season {
 
   save() {
     const data = { number: this.number };
-    return Database.upsert("seasons", data, this._id).then(newSeason => {
+    return Database.upsert("seasons", data, this._id).then(record => {
+      const newSeason: Season = record as Season;
       this._id = newSeason._id;
       if (newSeason.createdAt) {
         this.createdAt = newSeason.createdAt;
@@ -41,7 +54,5 @@ class Season {
     return Database.deleteSome("seasons", conditions);
   }
 }
-
-Season.roleQueueSeasonStart = 18;
 
 export default Season;
