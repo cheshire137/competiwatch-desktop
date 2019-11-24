@@ -79,11 +79,15 @@ terminal from `npm run dev` to monitor Electron logs while the app is running.
 ```bash
 npm install
 npm test
+npm run check-format
 ```
 
 To see test coverage, run `npm test -- --coverage`. A coverage report will
 display in your terminal or you can open coverage/lcov-report/index.html in
 your browser.
+
+Please run `npm run fix-format` on your files before opening a pull request.
+This will format your JavaScript, TypeScript, and JSON.
 
 ## How to Build Executables
 
