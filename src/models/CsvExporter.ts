@@ -1,6 +1,7 @@
 import stringify from "csv-stringify";
 import Match from "./Match";
-import isElectron from "is-electron";
+import Account from "./Account";
+import { writeFile } from "../utils/electronUtils";
 
 const headers = [
   "Battletag",
@@ -28,41 +29,32 @@ const headers = [
   "Joined Voice"
 ];
 
-const charForBoolean = boolean => {
-  return boolean ? "Y" : "N";
+const charForBoolean = (bool?: boolean) => {
+  return bool ? "Y" : "N";
 };
 
 class CsvExporter {
-  constructor(path, season, account) {
+  path: string;
+  season: number;
+  battletag: string;
+  accountID: string;
+
+  constructor(path: string, season: number, account: Account) {
     this.path = path;
     this.season = season;
     this.battletag = account.battletag;
     this.accountID = account._id;
   }
 
-  writeFile = contents => {
-    return new Promise((resolve, reject) => {
-      console.log("saving", this.path);
-      if (isElectron()) {
-        window.fs.writeFile(this.path, contents, err => {
-          if (err) {
-            console.error("failed to save file", this.path);
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
-      } else {
-        reject("not electron, cannot write to filesystem");
-      }
-    });
+  writeFile = (contents: string) => {
+    return writeFile(this.path, contents);
   };
 
   getMatches = () => {
     return Match.findAll(this.accountID, this.season);
   };
 
-  getValueFor = (header, match) => {
+  getValueFor = (header: string, match: Match) => {
     if (header === "Rank") {
       return match.rank;
     }
@@ -136,7 +128,7 @@ class CsvExporter {
     }
   };
 
-  getRowFrom = match => {
+  getRowFrom = (match: Match) => {
     const row = [];
     for (const header of headers) {
       row.push(this.getValueFor(header, match));
@@ -144,15 +136,15 @@ class CsvExporter {
     return row;
   };
 
-  getRowsFrom = matches => {
-    const rows = [headers];
+  getRowsFrom = (matches: Match[]) => {
+    const rows: (string | number | null | undefined)[][] = [headers];
     for (const match of matches) {
       rows.push(this.getRowFrom(match));
     }
     return rows;
   };
 
-  generateCsv = matches => {
+  generateCsv = (matches: Match[]): Promise<string> => {
     return new Promise((resolve, reject) => {
       const rows = this.getRowsFrom(matches);
 
@@ -169,7 +161,6 @@ class CsvExporter {
 
   async export() {
     const matches = await this.getMatches();
-
     return this.generateCsv(matches).then(csv => this.writeFile(csv));
   }
 }

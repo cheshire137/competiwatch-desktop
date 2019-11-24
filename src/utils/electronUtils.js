@@ -215,3 +215,21 @@ export function readFile(path) {
     }
   });
 }
+
+export function writeFile(path, contents) {
+  return new Promise((resolve, reject) => {
+    console.log("saving", path);
+    if (isElectron()) {
+      window.fs.writeFile(path, contents, err => {
+        if (err) {
+          console.error("failed to save file", path);
+          reject(err);
+        } else {
+          resolve();
+        }
+      });
+    } else {
+      reject("not electron, cannot write to filesystem");
+    }
+  });
+}
