@@ -199,19 +199,19 @@ export function insert(dbName, data) {
 }
 
 export function readFile(path) {
-    return new Promise((resolve, reject) => {
-      console.log("reading", path);
-      if (isElectron()) {
-        window.fs.readFile(path, "utf8", (err, data) => {
-          if (err) {
-            console.error("failed to read file", path, err);
-            reject(err);
-          } else {
-            resolve(data);
-          }
-        });
-      } else {
-        reject("not electron, cannot read file from filesystem");
-      }
-    });
-  };
+  return new Promise((resolve, reject) => {
+    console.log("reading", path);
+    if (isElectron()) {
+      window.fs.readFile(path, "utf8", (err, data) => {
+        if (err) {
+          console.error("failed to read file", path, err);
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      });
+    } else {
+      reject("not electron, cannot read file from filesystem");
+    }
+  });
+}

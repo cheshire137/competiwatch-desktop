@@ -198,7 +198,9 @@ class Match {
 
   static wipeSeason(accountID: string, season: number) {
     return Match.findAll(accountID, season).then(matches => {
-      const promises = matches.map(match => match._id && Match.delete(match._id));
+      const promises = matches.map(
+        match => match._id && Match.delete(match._id)
+      );
       return Promise.all(promises);
     });
   }
