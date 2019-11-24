@@ -1,4 +1,4 @@
-import stringify from "../lib/csv-stringify";
+import stringify from "csv-stringify";
 import Match from "./Match";
 import isElectron from "is-electron";
 

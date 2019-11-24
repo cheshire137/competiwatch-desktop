@@ -1,4 +1,4 @@
-import parse from "../lib/csv-parse/lib/es5";
+import parse from "csv-parse";
 import Match, { MatchData } from "./Match";
 import { readFile } from "../utils/electronUtils";
 

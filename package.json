@@ -49,7 +49,7 @@
   "devDependencies": {
     "babel-preset-react-app": "^7.0.0",
     "chart.js": "^2.8.0",
-    "csv-parse": "^4.4.6",
+    "csv-parse": "^4.8.2",
     "csv-stringify": "^5.3.3",
     "electron": "^7.1.1",
     "electron-packager": "^14.1.0",
