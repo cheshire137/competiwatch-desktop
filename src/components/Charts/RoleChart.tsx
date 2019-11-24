@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Radar } from 'react-chartjs-2'
 import Color from '../../models/Color'
 import Match from '../../models/Match'
-import { HeroesByType, HeroRole, HeroDetailedRoles, Hero, HeroDetailedRole } from '../../models/Hero'
+import { HeroesByType, HeroDetailedRoles, Hero, HeroDetailedRole } from '../../models/Hero'
 
 const roleFor = (hero: Hero): HeroDetailedRole | undefined => {
   if (HeroesByType.DPS.includes(hero)) {
