@@ -233,3 +233,22 @@ export function writeFile(path, contents) {
     }
   });
 }
+
+export function setAppMenu(template) {
+  if (isElectron()) {
+    const menu = window.remote.Menu.buildFromTemplate(template);
+    window.remote.Menu.setApplicationMenu(menu);
+  }
+}
+
+export function quit() {
+  if (isElectron()) {
+    window.remote.app.quit();
+  }
+}
+
+export function toggleDevTools(win) {
+  if (win) {
+    win.webContents.toggleDevTools();
+  }
+}

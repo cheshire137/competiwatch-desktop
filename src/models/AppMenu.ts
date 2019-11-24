@@ -1,9 +1,37 @@
 import os from "os";
 import PackageInfo from "../../package.json";
-import isElectron from "is-electron";
+import { setAppMenu, getAppName, quit, openLinkInBrowser, toggleDevTools } from "../utils/electronUtils";
+import Account from "./Account";
+
+interface AppMenuOptions {
+  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
+  onSeasonChange: (season: number) => void;
+  onAccountChange: (id: string) => void;
+  onExport: () => void;
+  latestSeason: number;
+  accounts: Account[];
+  accountID: string;
+  season: number;
+}
 
 class AppMenu {
-  constructor(options) {
+  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
+  onSeasonChange: (season: number) => void;
+  onAccountChange: (id: string) => void;
+  onExport: () => void;
+  latestSeason: number;
+  accounts: Account[];
+  accountID: string;
+  season: number;
+  showMatchesMenuItem: boolean;
+  showLogMatchMenuItem: boolean;
+  showTrendsMenuItem: boolean;
+  showImportMatchesMenuItem: boolean;
+  showExportMatchesMenuItem: boolean;
+  isMac: boolean;
+  altOrOption: "Option" | "Alt";
+
+  constructor(options: AppMenuOptions) {
     this.onPageChange = options.onPageChange;
     this.onSeasonChange = options.onSeasonChange;
     this.onAccountChange = options.onAccountChange;
@@ -12,7 +40,10 @@ class AppMenu {
     this.accounts = options.accounts;
     this.accountID = options.accountID;
     this.season = options.season;
-    this.showMatchesMenuItem = this.season && this.accountID;
+    this.showMatchesMenuItem = false;
+    if (this.season && this.accountID) {
+      this.showMatchesMenuItem = true;
+    }
     this.showLogMatchMenuItem = this.showMatchesMenuItem;
     this.showTrendsMenuItem = this.showMatchesMenuItem;
     this.showImportMatchesMenuItem = this.showMatchesMenuItem;
@@ -21,10 +52,7 @@ class AppMenu {
     this.altOrOption = this.isMac ? "Option" : "Alt";
 
     const template = this.getMenuTemplate();
-    if (isElectron()) {
-      const menu = window.remote.Menu.buildFromTemplate(template);
-      window.remote.Menu.setApplicationMenu(menu);
-    }
+    setAppMenu(template);
   }
 
   getMenuTemplate() {
@@ -36,9 +64,9 @@ class AppMenu {
   }
 
   getMacMenuTemplate() {
-    const menuItems = [
+    const menuItems: Electron.MenuItemConstructorOptions[] = [
       {
-        label: isElectron() ? window.remote.app.getName() : "",
+        label: getAppName(),
         submenu: [
           this.aboutMenuItem(),
           this.settingsMenuItem(),
@@ -47,9 +75,7 @@ class AppMenu {
             label: "Quit",
             accelerator: "Command+Q",
             click() {
-              if (isElectron()) {
-                window.remote.app.quit();
-              }
+              quit();
             }
           }
         ]
@@ -86,7 +112,7 @@ class AppMenu {
   }
 
   getNonMacMenuTemplate() {
-    const menuItems = [
+    const menuItems: Electron.MenuItemConstructorOptions[] = [
       {
         label: "Edit",
         submenu: this.editSubmenu()
@@ -126,7 +152,7 @@ class AppMenu {
     const self = this;
 
     return {
-      label: `About ${isElectron() ? window.remote.app.getName() : ""}`,
+      label: `About ${getAppName()}`,
       click() {
         self.onPageChange("about");
       }
@@ -149,9 +175,7 @@ class AppMenu {
     return {
       label: "Report a Bug",
       click() {
-        if (isElectron()) {
-          window.shell.openExternal(PackageInfo.bugs.url);
-        }
+        openLinkInBrowser(PackageInfo.bugs.url);
       }
     };
   }
@@ -160,7 +184,7 @@ class AppMenu {
     const self = this;
 
     return {
-      label: `${isElectron() ? window.remote.app.getName() : ""} Help`,
+      label: `${getAppName()} Help`,
       click() {
         self.onPageChange("help");
       }
@@ -171,10 +195,8 @@ class AppMenu {
     return {
       label: "Toggle Developer Tools",
       accelerator: `CmdOrCtrl+${this.altOrOption}+I`,
-      click(item, win) {
-        if (win) {
-          win.webContents.toggleDevTools();
-        }
+      click(item: any, win: any) {
+        toggleDevTools(win);
       }
     };
   }
@@ -228,7 +250,7 @@ class AppMenu {
     };
   }
 
-  seasonMenuItem(season) {
+  seasonMenuItem(season: number) {
     const self = this;
 
     return {
@@ -283,7 +305,7 @@ class AppMenu {
     return submenu;
   }
 
-  accountMenuItem(account) {
+  accountMenuItem(account: Account) {
     const self = this;
 
     return {
@@ -315,19 +337,19 @@ class AppMenu {
   }
 
   editSubmenu() {
-    const submenu = [];
+    const submenu: Electron.MenuItemConstructorOptions[] = [];
     submenu.push({ role: "undo" });
     submenu.push({ role: "redo" });
     submenu.push({ type: "separator" });
     submenu.push({ role: "cut" });
     submenu.push({ role: "copy" });
     submenu.push({ role: "paste" });
-    submenu.push({ role: "selectall" });
+    submenu.push({ role: "selectAll" });
     return submenu;
   }
 
   toolsSubmenu() {
-    const submenu = [];
+    const submenu: Electron.MenuItemConstructorOptions[] = [];
     if (this.showImportMatchesMenuItem) {
       submenu.push(this.importMatchesMenuItem());
     }
