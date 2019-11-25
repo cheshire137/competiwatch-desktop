@@ -4,7 +4,10 @@ import { Map } from "../../models/Map";
 import { HeroesByRole, Hero, HeroRoles, HeroRole } from "../../models/Hero";
 import Season from "../../models/Season";
 import Account from "../../models/Account";
-import DayTimeApproximator, { DayOfWeek, TimeOfDay } from "../../models/DayTimeApproximator";
+import DayTimeApproximator, {
+  DayOfWeek,
+  TimeOfDay
+} from "../../models/DayTimeApproximator";
 import MapSelect from "../MapSelect";
 import HeroSelect from "../HeroSelect";
 import RoleSelect from "../RoleSelect";
@@ -97,12 +100,16 @@ const minRank = 0;
 const maxRank = 5000;
 const maxGroupSize = 6;
 
-const isMatchValid = ({ rank, isPlacement, result, role, season, groupSize, group }: MatchValidityProps) => {
-  if (
-    typeof rank !== "number" ||
-    rank < minRank ||
-    rank > maxRank
-  ) {
+const isMatchValid = ({
+  rank,
+  isPlacement,
+  result,
+  role,
+  season,
+  groupSize,
+  group
+}: MatchValidityProps) => {
+  if (typeof rank !== "number" || rank < minRank || rank > maxRank) {
     if (isPlacement && !result) {
       return false;
     }
@@ -145,7 +152,7 @@ type PlayTimes = {
   initialPlayedAt?: Date;
   initialDayOfWeek?: DayOfWeek;
   initialTimeOfDay?: TimeOfDay;
-}
+};
 
 const getPlayTimes = (props: Props): PlayTimes => {
   let playedAt = props.playedAt;
@@ -182,7 +189,8 @@ const getPlacementStatus = (props: Props): PlacementStatus => {
       const placementCountsByRole: RoleCounts = {};
       for (const placement of priorPlacements) {
         if (placement.role) {
-          placementCountsByRole[placement.role] = (placementCountsByRole[placement.role] || 0) + 1;
+          placementCountsByRole[placement.role] =
+            (placementCountsByRole[placement.role] || 0) + 1;
         }
       }
       // definitely logging a placement match because haven't finished placements for any role
@@ -198,18 +206,26 @@ const getPlacementStatus = (props: Props): PlacementStatus => {
 };
 
 const MatchForm = (props: Props) => {
-    // this.placementMatchResultField = null;
-    // this.matchRankField = null;
+  // this.placementMatchResultField = null;
+  // this.matchRankField = null;
 
-  const { initialPlayedAt, initialTimeOfDay, initialDayOfWeek } = getPlayTimes(props);
-  const { initialIsLastPlacement, initialIsPlacement } = getPlacementStatus(props);
+  const { initialPlayedAt, initialTimeOfDay, initialDayOfWeek } = getPlayTimes(
+    props
+  );
+  const { initialIsLastPlacement, initialIsPlacement } = getPlacementStatus(
+    props
+  );
 
   const [playedAt, setPlayedAt] = useState(initialPlayedAt);
   const [timeOfDay, setTimeOfDay] = useState(initialTimeOfDay);
   const [dayOfWeek, setDayOfWeek] = useState(initialDayOfWeek);
   const [isPlacement, setIsPlacement] = useState(initialIsPlacement);
-  const [isLastPlacement, setIsLastPlacement] = useState(initialIsLastPlacement);
-  const [enableRankField, setEnableRankField] = useState(props.season < Season.roleQueueSeasonStart);
+  const [isLastPlacement, setIsLastPlacement] = useState(
+    initialIsLastPlacement
+  );
+  const [enableRankField, setEnableRankField] = useState(
+    props.season < Season.roleQueueSeasonStart
+  );
   const [rank, setRank] = useState<number | undefined>(props.rank);
   const [latestRank, setLatestRank] = useState<number | undefined>(props.rank);
   const [result, setResult] = useState<MatchResult | undefined>(props.result);
@@ -220,13 +236,35 @@ const MatchForm = (props: Props) => {
   const [groupMembers, setGroupMembers] = useState<string[]>([]);
   const [heroes, setHeroes] = useState(props.heroes || "");
   const [role, setRole] = useState<HeroRole | null>(props.role);
-  const [joinedVoice, setJoinedVoice] = useState(typeof props.joinedVoice === "boolean" ? props.joinedVoice : false);
-  const [playOfTheGame, setPlayOfTheGame] = useState(typeof props.playOfTheGame === "boolean" ? props.playOfTheGame : false);
-  const [allyThrower, setAllyThrower] = useState(typeof props.allyThrower === "boolean" ? props.allyThrower : false);
-  const [allyLeaver, setAllyLeaver] = useState(typeof props.allyLeaver === "boolean" ? props.allyLeaver : false);
-  const [enemyThrower, setEnemyThrower] = useState(typeof props.enemyThrower === "boolean" ? props.enemyThrower : false);
-  const [enemyLeaver, setEnemyLeaver] = useState(typeof props.enemyLeaver === "boolean" ? props.enemyLeaver : false);
-  const [isValid, setIsValid] = useState(isMatchValid({ rank, isPlacement, result, role, season: props.season, groupSize, group }));
+  const [joinedVoice, setJoinedVoice] = useState(
+    typeof props.joinedVoice === "boolean" ? props.joinedVoice : false
+  );
+  const [playOfTheGame, setPlayOfTheGame] = useState(
+    typeof props.playOfTheGame === "boolean" ? props.playOfTheGame : false
+  );
+  const [allyThrower, setAllyThrower] = useState(
+    typeof props.allyThrower === "boolean" ? props.allyThrower : false
+  );
+  const [allyLeaver, setAllyLeaver] = useState(
+    typeof props.allyLeaver === "boolean" ? props.allyLeaver : false
+  );
+  const [enemyThrower, setEnemyThrower] = useState(
+    typeof props.enemyThrower === "boolean" ? props.enemyThrower : false
+  );
+  const [enemyLeaver, setEnemyLeaver] = useState(
+    typeof props.enemyLeaver === "boolean" ? props.enemyLeaver : false
+  );
+  const [isValid, setIsValid] = useState(
+    isMatchValid({
+      rank,
+      isPlacement,
+      result,
+      role,
+      season: props.season,
+      groupSize,
+      group
+    })
+  );
 
   const refreshGroupMembers = () => {
     const { accountID, season } = props;
@@ -241,8 +279,39 @@ const MatchForm = (props: Props) => {
   useEffect(() => {
     setEnableRankField(props.season < Season.roleQueueSeasonStart);
     refreshGroupMembers();
-    setIsValid(isMatchValid({ rank, role, isPlacement, season: props.season, groupSize, group, result }));
-  }, [props.accountID, rank, role, isPlacement, props.season, groupSize, group, result, latestRank, isLastPlacement, comment, map, heroes, playedAt, playOfTheGame, joinedVoice, allyThrower, allyLeaver, enemyThrower, enemyLeaver]);
+    setIsValid(
+      isMatchValid({
+        rank,
+        role,
+        isPlacement,
+        season: props.season,
+        groupSize,
+        group,
+        result
+      })
+    );
+  }, [
+    props.accountID,
+    rank,
+    role,
+    isPlacement,
+    props.season,
+    groupSize,
+    group,
+    result,
+    latestRank,
+    isLastPlacement,
+    comment,
+    map,
+    heroes,
+    playedAt,
+    playOfTheGame,
+    joinedVoice,
+    allyThrower,
+    allyLeaver,
+    enemyThrower,
+    enemyLeaver
+  ]);
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -289,7 +358,17 @@ const MatchForm = (props: Props) => {
   };
 
   const onFormFieldUpdate = () => {
-    setIsValid(isMatchValid({ rank, isPlacement, result, role, season: props.season, groupSize, group }));
+    setIsValid(
+      isMatchValid({
+        rank,
+        isPlacement,
+        result,
+        role,
+        season: props.season,
+        groupSize,
+        group
+      })
+    );
   };
 
   const onCommentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -356,7 +435,9 @@ const MatchForm = (props: Props) => {
     onFormFieldUpdate();
   };
 
-  const onDayOfWeekTimeOfDayChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const onDayOfWeekTimeOfDayChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const dayOfWeekTimeOfDay = event.target.value;
     if (dayOfWeekTimeOfDay.indexOf("-") < 0) {
       setDayOfWeek(undefined);
@@ -375,7 +456,11 @@ const MatchForm = (props: Props) => {
     onFormFieldUpdate();
   };
 
-  const changeHeroesString = (heroesStr: string, hero: Hero, isSelected: boolean) => {
+  const changeHeroesString = (
+    heroesStr: string,
+    hero: Hero,
+    isSelected: boolean
+  ) => {
     const heroes = explodeHeroesString(heroesStr);
     const heroIndex = heroes.indexOf(hero);
     if (isSelected && heroIndex < 0) {
@@ -388,9 +473,7 @@ const MatchForm = (props: Props) => {
   };
 
   const getPriorPlacementsInRole = (role: HeroRole) => {
-    return props.priorMatches.filter(
-      m => m.role === role && m.isPlacement
-    );
+    return props.priorMatches.filter(m => m.role === role && m.isPlacement);
   };
 
   const getLatestRankInRole = (role: HeroRole) => {
@@ -426,7 +509,7 @@ const MatchForm = (props: Props) => {
       }
 
       setLatestRank(getLatestRankInRole(newRole));
-      setEnableRankField(typeof newRole === "string" && newRole.length > 0)
+      setEnableRankField(typeof newRole === "string" && newRole.length > 0);
     } else {
       setEnableRankField(true);
     }
@@ -445,10 +528,7 @@ const MatchForm = (props: Props) => {
     const { season } = props;
 
     if (season >= Season.roleQueueSeasonStart) {
-      if (
-        isSelected &&
-        (typeof role !== "string" || role.length < 1)
-      ) {
+      if (isSelected && (typeof role !== "string" || role.length < 1)) {
         const newRole = roleForHero(hero);
         setRole(newRole);
 
@@ -496,7 +576,9 @@ const MatchForm = (props: Props) => {
     onFormFieldUpdate();
   };
 
-  const onPlayOfTheGameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onPlayOfTheGameChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setPlayOfTheGame(event.target.checked);
     onFormFieldUpdate();
   };
@@ -526,10 +608,7 @@ const MatchForm = (props: Props) => {
           <div className="d-flex-md mb-2 flex-items-center-md flex-justify-between-md">
             <div className="form-group my-0 d-flex flex-items-center">
               {isPlacement ? (
-                <label
-                  htmlFor="match-result"
-                  className="label-lg mr-2 no-wrap"
-                >
+                <label htmlFor="match-result" className="label-lg mr-2 no-wrap">
                   Placement match result:
                 </label>
               ) : (
@@ -569,7 +648,9 @@ const MatchForm = (props: Props) => {
                   className="form-control sr-field"
                   value={rank}
                   onChange={onRankChange}
-                  placeholder={typeof latestRank === "number" ? latestRank.toString() : ""}
+                  placeholder={
+                    typeof latestRank === "number" ? latestRank.toString() : ""
+                  }
                   disabled={!enableRankField}
                 />
               )}

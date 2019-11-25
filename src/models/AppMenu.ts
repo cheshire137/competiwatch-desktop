@@ -1,6 +1,12 @@
 import os from "os";
 import PackageInfo from "../../package.json";
-import { setAppMenu, getAppName, quit, openLinkInBrowser, toggleDevTools } from "../utils/electronUtils";
+import {
+  setAppMenu,
+  getAppName,
+  quit,
+  openLinkInBrowser,
+  toggleDevTools
+} from "../utils/electronUtils";
 import Account from "./Account";
 
 interface AppMenuOptions {

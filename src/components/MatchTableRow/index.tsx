@@ -1,5 +1,5 @@
 import React, { forwardRef, MutableRefObject } from "react";
-import CSS from 'csstype';
+import CSS from "csstype";
 import ColorGradient from "../../models/ColorGradient";
 import Season from "../../models/Season";
 import MatchRankImage from "../MatchRankImage";
@@ -64,7 +64,30 @@ type MutableForwardedRef<T> =
   | ((ref: T | null) => void)
   | null;
 
-const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, rankChanges, index, priorMatches, longestWinStreak, longestLossStreak, onEdit, showThrowerLeaver, showPlayOfTheGame, showJoinedVoice, showComment, showDayTime, showHeroes, showGroup, showRole, theme }: Props, ref: MutableForwardedRef<HTMLTableRowElement>) => {
+const MatchTableRow = (
+  {
+    isLast,
+    match,
+    firstRankedMatchID,
+    firstMatchWithRank,
+    rankChanges,
+    index,
+    priorMatches,
+    longestWinStreak,
+    longestLossStreak,
+    onEdit,
+    showThrowerLeaver,
+    showPlayOfTheGame,
+    showJoinedVoice,
+    showComment,
+    showDayTime,
+    showHeroes,
+    showGroup,
+    showRole,
+    theme
+  }: Props,
+  ref: MutableForwardedRef<HTMLTableRowElement>
+) => {
   const outerClass = () => {
     let classes: string[] = [];
 
@@ -113,7 +136,7 @@ const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, 
   };
 
   const mapBackgroundClass = () => {
-    const { map }  = match;
+    const { map } = match;
     if (!map) {
       return "";
     }
@@ -174,7 +197,10 @@ const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, 
       const colorRange = match.result === "win" ? winColors : lossColors;
       const gradient = new ColorGradient(colorRange, rankChanges.length);
       const rgbColors = gradient.rgb();
-      const index = typeof match.rankChange === "number" ? rankChanges.indexOf(match.rankChange) : -1;
+      const index =
+        typeof match.rankChange === "number"
+          ? rankChanges.indexOf(match.rankChange)
+          : -1;
 
       if (typeof index === "number") {
         color = rgbColors[index];
@@ -281,7 +307,8 @@ const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, 
       }
       const gradient = new ColorGradient(colors, stepCount);
       const rgbColors = gradient.rgb();
-      const index = typeof streak === "number" ? streakList.indexOf(streak) : -1;
+      const index =
+        typeof streak === "number" ? streakList.indexOf(streak) : -1;
       const color = rgbColors[index];
       style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
     }
@@ -289,7 +316,9 @@ const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, 
     return style;
   };
 
-  const editMatch = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const editMatch = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     const button = event.currentTarget;
     const matchID = button.value;
 
@@ -422,14 +451,9 @@ const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, 
           <span className="position-relative">{match.lossStreak}</span>
         ) : null}
       </td>
-      <td className={`match-cell no-wrap ${mapBackgroundClass()}`}>
-        {map}
-      </td>
+      <td className={`match-cell no-wrap ${mapBackgroundClass()}`}>{map}</td>
       {showComment && (
-        <td
-          className={commentClass()}
-          aria-label={commentTooltip()}
-        >
+        <td className={commentClass()} aria-label={commentTooltip()}>
           <span className="css-truncate-target comment-truncate-target">
             {comment}
           </span>
@@ -469,9 +493,10 @@ const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, 
               {groupList.join(", ")}{" "}
             </span>
           )}
-          {typeof groupSize === "number" && groupList.length + 1 !== groupSize && (
-            <span className="Counter">{groupSizeDescription(groupSize)}</span>
-          )}
+          {typeof groupSize === "number" &&
+            groupList.length + 1 !== groupSize && (
+              <span className="Counter">{groupSizeDescription(groupSize)}</span>
+            )}
         </td>
       )}
       {showThrowerLeaver && (

@@ -10,7 +10,11 @@ const MapSelect = ({ map, onChange }: Props) => (
   <select
     className="form-select"
     value={map || ""}
-    onChange={evt => evt.target.value.length > 0 ? onChange(evt.target.value as Map) : onChange(undefined)}
+    onChange={evt =>
+      evt.target.value.length > 0
+        ? onChange(evt.target.value as Map)
+        : onChange(undefined)
+    }
   >
     <option value=""></option>
     {MapTypes.map(mapType => (

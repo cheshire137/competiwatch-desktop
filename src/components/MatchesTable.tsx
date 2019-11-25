@@ -14,19 +14,30 @@ interface Props {
 
 type MatchResultToRankChange = {
   [result: string]: number[];
-}
+};
 
 type MatchRowsByID = {
   [id: string]: React.MutableRefObject<HTMLTableRowElement>;
-}
+};
 
-const MatchesTable = ({ matches, season, onEdit, theme, scrollToMatch, scrollToMatchID }: Props) => {
+const MatchesTable = ({
+  matches,
+  season,
+  onEdit,
+  theme,
+  scrollToMatch,
+  scrollToMatchID
+}: Props) => {
   const lastMatchRow = useRef<HTMLTableRowElement>();
   const matchRowsByID: MatchRowsByID = {};
 
   const matchRankChangesByResult = () => {
     const results: MatchResult[] = ["win", "loss"];
-    const rankChanges: MatchResultToRankChange = { win: [], loss: [], draw: [] };
+    const rankChanges: MatchResultToRankChange = {
+      win: [],
+      loss: [],
+      draw: []
+    };
 
     for (const result of results) {
       const matchesWithResult = matches.filter(
@@ -50,13 +61,15 @@ const MatchesTable = ({ matches, season, onEdit, theme, scrollToMatch, scrollToM
   };
 
   const showThrowerLeaverColumn = () => {
-    return matches.filter(
-      match =>
-        match.allyThrower ||
-        match.allyLeaver ||
-        match.enemyThrower ||
-        match.enemyLeaver
-    ).length > 0;
+    return (
+      matches.filter(
+        match =>
+          match.allyThrower ||
+          match.allyLeaver ||
+          match.enemyThrower ||
+          match.enemyLeaver
+      ).length > 0
+    );
   };
 
   const showPlayOfTheGameColumn = () => {
@@ -69,29 +82,27 @@ const MatchesTable = ({ matches, season, onEdit, theme, scrollToMatch, scrollToM
 
   const showCommentColumn = () => {
     return (
-      matches.filter(
-        match => match.comment && match.comment.trim().length > 0
-      ).length > 0
+      matches.filter(match => match.comment && match.comment.trim().length > 0)
+        .length > 0
     );
   };
 
   const showDayTimeColumn = () => {
     return (
-      matches.filter(match => match.dayOfWeek && match.timeOfDay)
-        .length > 0
+      matches.filter(match => match.dayOfWeek && match.timeOfDay).length > 0
     );
   };
 
   const showHeroesColumn = () => {
-    return (
-      matches.filter(match => match.heroList.length > 0).length > 0
-    );
+    return matches.filter(match => match.heroList.length > 0).length > 0;
   };
 
   const showGroupColumn = () => {
     return (
       matches.filter(
-        match => match.groupList.length > 0 || (typeof match.groupSize === "number" && match.groupSize > 1)
+        match =>
+          match.groupList.length > 0 ||
+          (typeof match.groupSize === "number" && match.groupSize > 1)
       ).length > 0
     );
   };
@@ -136,7 +147,10 @@ const MatchesTable = ({ matches, season, onEdit, theme, scrollToMatch, scrollToM
   const scrollToComponent = require("react-scroll-to-component");
 
   if (scrollToMatchID) {
-    if (matchRowsByID[scrollToMatchID] && matchRowsByID[scrollToMatchID].current) {
+    if (
+      matchRowsByID[scrollToMatchID] &&
+      matchRowsByID[scrollToMatchID].current
+    ) {
       scrollToComponent(matchRowsByID[scrollToMatchID].current);
     }
   } else if (lastMatchRow.current) {
@@ -169,9 +183,7 @@ const MatchesTable = ({ matches, season, onEdit, theme, scrollToMatch, scrollToM
           {showComment ? (
             <th className="match-header hide-sm">Comment</th>
           ) : null}
-          {showHeroes ? (
-            <th className="match-header hide-sm">Heroes</th>
-          ) : null}
+          {showHeroes ? <th className="match-header hide-sm">Heroes</th> : null}
           {showDayTime ? (
             <th className="match-header hide-sm">Day/Time</th>
           ) : null}
@@ -195,7 +207,9 @@ const MatchesTable = ({ matches, season, onEdit, theme, scrollToMatch, scrollToM
       <tbody>
         {matches.map((match, i) => {
           const isLast = i === matches.length - 1;
-          const matchRankChanges = match.result ? rankChanges[match.result] || [] : [];
+          const matchRankChanges = match.result
+            ? rankChanges[match.result] || []
+            : [];
 
           return (
             <MatchTableRow
