@@ -2,9 +2,14 @@ import Database from "./Database";
 import Match, { MatchData } from "./Match";
 import { Hero } from "./Hero";
 
-type HeroToNumber = {
-  [hero in Hero]?: number;
+interface HeroWithCount {
+  hero: Hero;
+  count: number;
 };
+
+type HeroCount = {
+  [hero: string]: number;
+}
 
 const accountSort = (a: Account, b: Account) => {
   if (!a.battletag) {
@@ -83,9 +88,10 @@ class Account {
     }
 
     return Database.findAll("matches", sort, conditions).then(
-      (matchRows: MatchData[]) => {
+      (matchRowsData: any[]) => {
+        const matchRows = matchRowsData as MatchData[];
         const matches: Match[] = matchRows.map(data => new Match(data));
-        const heroCounts: HeroToNumber = {};
+        const heroCounts: HeroCount = {};
 
         for (const match of matches) {
           const matchHeroes = match.heroList;
@@ -99,15 +105,18 @@ class Account {
           }
         }
 
-        const sortableHeroCounts = [];
-        for (const hero in heroCounts) {
-          sortableHeroCounts.push([hero, heroCounts[hero as Hero]]);
+        const sortableHeroCounts: HeroWithCount[] = [];
+        for (const heroStr in heroCounts) {
+          const hero = heroStr as Hero;
+          const heroCount = heroCounts[hero];
+          const heroWithCount: HeroWithCount = { hero, count: heroCount };
+          sortableHeroCounts.push(heroWithCount);
         }
         sortableHeroCounts.sort((a, b) => {
-          return (b[1] as number) - (a[1] as number);
+          return b.count - a.count;
         });
 
-        return sortableHeroCounts.map(arr => arr[0]).slice(0, 3);
+        return sortableHeroCounts.map(arr => arr.hero).slice(0, 3);
       }
     );
   }
@@ -140,7 +149,8 @@ class Account {
   save() {
     const data = { battletag: this.battletag };
     return Database.upsert("accounts", data, this._id).then(
-      (newAccount: AccountData) => {
+      (newAccountData: any) => {
+        const newAccount = newAccountData as AccountData;
         this._id = newAccount._id;
         if (typeof newAccount.createdAt === "string") {
           this.createdAt = new Date(newAccount.createdAt);
