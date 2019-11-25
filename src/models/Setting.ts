@@ -40,17 +40,20 @@ class Setting {
       defaultAccountID: this.defaultAccountID,
       theme: this.theme
     };
-    return Database.upsert("settings", data, this._id).then(newSetting => {
+    return Database.upsert("settings", data, this._id).then((data: any) => {
+      const newSetting = data as SettingData;
       this._id = newSetting._id;
-      if (newSetting.createdAt) {
-        this.createdAt = newSetting.createdAt;
+      if (typeof newSetting.createdAt === "string") {
+        this.createdAt = new Date(newSetting.createdAt);
       }
       return this;
     });
   }
 
   delete() {
-    return Database.delete("settings", this._id);
+    if (this._id) {
+      return Database.delete("settings", this._id);
+    }
   }
 }
 

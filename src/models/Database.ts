@@ -22,7 +22,7 @@ class Database {
     return count(dbName, conditions);
   }
 
-  static findAll(dbName: string, sort: any, conditions: any): Promise<any[]> {
+  static findAll(dbName: string, sort: any, conditions?: any): Promise<any[]> {
     return findAll(dbName, sort, conditions);
   }
 
@@ -43,7 +43,7 @@ class Database {
     return insert(dbName, data);
   }
 
-  static upsert(dbName: string, data: any, id: string) {
+  static upsert(dbName: string, data: any, id?: string) {
     return new Promise((resolve, reject) => {
       if (id) {
         this.update(dbName, data, id).then(resolve, reject);
