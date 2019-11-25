@@ -2,7 +2,7 @@ import Database from "./Database";
 
 interface SeasonData {
   _id: string;
-  number: string;
+  number: string | number;
   createdAt?: string;
 }
 
@@ -26,15 +26,18 @@ class Season {
 
   constructor(data: SeasonData) {
     this._id = data._id;
-    this.number = parseInt(data.number, 10);
+    if (typeof data.number === "string") {
+      this.number = parseInt(data.number, 10);
+    } else {
+      this.number = data.number;
+    }
     if (data.createdAt) {
       this.createdAt = new Date(data.createdAt);
     }
   }
 
-  totalMatches() {
-    const conditions = { season: this.number };
-    return Database.count("matches", conditions);
+  static totalMatches(season: number) {
+    return Database.count("matches", { season });
   }
 
   save() {

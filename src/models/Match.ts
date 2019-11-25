@@ -206,8 +206,7 @@ class Match {
   }
 
   static totalInSeason(number: number) {
-    const season = new Season({ number });
-    return season.totalMatches();
+    return Season.totalMatches(number);
   }
 
   static find(id: string) {
