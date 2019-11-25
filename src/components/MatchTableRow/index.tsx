@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef, MutableRefObject } from "react";
 import CSS from 'csstype';
 import ColorGradient from "../../models/ColorGradient";
 import Season from "../../models/Season";
@@ -36,8 +36,8 @@ const groupSizeDescription = (groupSize: number) => {
 
 interface Props {
   match: Match;
-  firstRankedMatchID: string;
-  firstMatchWithRank: Match;
+  firstRankedMatchID?: string;
+  firstMatchWithRank?: Match;
   isLast: boolean;
   index: number;
   priorMatches: Match[];
@@ -56,7 +56,15 @@ interface Props {
   theme: string;
 }
 
-const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, rankChanges, index, priorMatches, longestWinStreak, longestLossStreak, onEdit, showThrowerLeaver, showPlayOfTheGame, showJoinedVoice, showComment, showDayTime, showHeroes, showGroup, showRole, theme }: Props) => {
+// Define a type that allows a ForwardedRef object to be mutable
+// to workaround a current limitation of TS:
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/31065#issuecomment-457650501).
+type MutableForwardedRef<T> =
+  | MutableRefObject<T | null>
+  | ((ref: T | null) => void)
+  | null;
+
+const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, rankChanges, index, priorMatches, longestWinStreak, longestLossStreak, onEdit, showThrowerLeaver, showPlayOfTheGame, showJoinedVoice, showComment, showDayTime, showHeroes, showGroup, showRole, theme }: Props, ref: MutableForwardedRef<HTMLTableRowElement>) => {
   const outerClass = () => {
     let classes: string[] = [];
 
@@ -369,7 +377,7 @@ const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, 
   const priorRank = getPriorRank();
 
   return (
-    <tr className={outerClass()}>
+    <tr className={outerClass()} ref={ref}>
       <td className={matchNumberClass()}>{matchNumber()}</td>
       {showRole && role && (
         <td className={roleClass()}>
@@ -417,7 +425,7 @@ const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, 
       <td className={`match-cell no-wrap ${mapBackgroundClass()}`}>
         {map}
       </td>
-      {showComment ? (
+      {showComment && (
         <td
           className={commentClass()}
           aria-label={commentTooltip()}
@@ -426,8 +434,8 @@ const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, 
             {comment}
           </span>
         </td>
-      ) : null}
-      {showHeroes ? (
+      )}
+      {showHeroes && (
         <td className="match-cell hide-sm heroes-cell">
           {heroList.map(hero => (
             <span
@@ -439,10 +447,10 @@ const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, 
             </span>
           ))}
         </td>
-      ) : null}
-      {showDayTime ? (
+      )}
+      {showDayTime && (
         <td className="match-cell text-center hide-sm time-cell no-wrap">
-          {timeAndDayPresent && dayOfWeek && timeOfDay ? (
+          {timeAndDayPresent && dayOfWeek && timeOfDay && (
             <div
               className="tooltipped tooltipped-n"
               aria-label={`${capitalize(dayOfWeek)} ${capitalize(timeOfDay)}`}
@@ -451,44 +459,44 @@ const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, 
               <span> </span>
               <TimeOfDayEmoji timeOfDay={timeOfDay} />
             </div>
-          ) : null}
+          )}
         </td>
-      ) : null}
-      {showGroup ? (
+      )}
+      {showGroup && (
         <td className={groupClass()} aria-label={groupTooltip()}>
-          {groupList.length > 0 ? (
+          {groupList.length > 0 && (
             <span className="css-truncate-target group-truncate-target">
               {groupList.join(", ")}{" "}
             </span>
-          ) : null}
+          )}
           {typeof groupSize === "number" && groupList.length + 1 !== groupSize && (
             <span className="Counter">{groupSizeDescription(groupSize)}</span>
           )}
         </td>
-      ) : null}
-      {showThrowerLeaver ? (
+      )}
+      {showThrowerLeaver && (
         <td className="match-cell no-wrap hide-sm throwers-leavers-cell">
-          {allyThrower || enemyThrower ? (
+          {(allyThrower || enemyThrower) && (
             <span
               className="Counter tooltipped tooltipped-n text-white bg-red"
               aria-label={throwerTooltip()}
             >
               T
             </span>
-          ) : null}
-          {allyLeaver || enemyLeaver ? (
+          )}
+          {(allyLeaver || enemyLeaver) && (
             <span
               className="Counter tooltipped tooltipped-n text-white bg-red"
               aria-label={leaverTooltip()}
             >
               L
             </span>
-          ) : null}
+          )}
         </td>
-      ) : null}
-      {showPlayOfTheGame || showJoinedVoice ? (
+      )}
+      {(showPlayOfTheGame || showJoinedVoice) && (
         <td className="match-cell hide-sm potg-cell">
-          {playOfTheGame ? (
+          {playOfTheGame && (
             <span
               className={`tooltipped tooltipped-n ${
                 showJoinedVoice ? "d-inline-block mr-2" : ""
@@ -499,8 +507,8 @@ const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, 
                 🎉
               </span>
             </span>
-          ) : null}
-          {joinedVoice ? (
+          )}
+          {joinedVoice && (
             <span
               className="tooltipped tooltipped-n"
               aria-label="Joined voice chat"
@@ -509,9 +517,9 @@ const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, 
                 🔊
               </span>
             </span>
-          ) : null}
+          )}
         </td>
-      ) : null}
+      )}
       <td className="match-cell options-cell">
         <button
           type="button"
@@ -527,4 +535,4 @@ const MatchTableRow = ({ isLast, match, firstRankedMatchID, firstMatchWithRank, 
   );
 };
 
-export default MatchTableRow;
+export default forwardRef(MatchTableRow);
