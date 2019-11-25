@@ -1,4 +1,4 @@
-name: Node CI
+name: Tests and formatting
 on: [push]
 jobs:
   build:
@@ -9,6 +9,7 @@ jobs:
       with:
         node-version: '12.x'
     - run: npm install
+    - run: npm run tsc
     - run: npm test
       env:
         CI: true
