@@ -4,7 +4,7 @@ import "./GroupMembersField.css";
 
 interface Props {
   group: string;
-  latestGroup: string;
+  latestGroup: string | null;
   groupMembers: string[];
   onGroupChange: (group: string, groupSize: number) => void;
 }
@@ -87,7 +87,9 @@ const GroupMembersField = ({
   };
 
   const copyPreviousMatchGroup = () => {
-    onGroupChange(latestGroup, groupSizeFrom(latestGroup));
+    if (latestGroup) {
+      onGroupChange(latestGroup, groupSizeFrom(latestGroup));
+    }
     setHideCopyGroup(true);
   };
 

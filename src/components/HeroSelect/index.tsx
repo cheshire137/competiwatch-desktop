@@ -11,7 +11,7 @@ import RoleImage from "../RoleImage";
 import "./HeroSelect.css";
 
 interface Props {
-  role: HeroRole;
+  role: HeroRole | null;
   season: number;
   heroes: string;
   onToggle: (hero: Hero, isSelected: boolean) => void;
@@ -23,7 +23,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
     if ((HeroFirstSeasons[hero] || 1) > season) {
       return "Not available in this season";
     }
-    if (!HeroesByRole[role].includes(hero)) {
+    if (role && !HeroesByRole[role].includes(hero)) {
       return `Not a ${role.toLowerCase()} hero`;
     }
     return;
