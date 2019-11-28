@@ -29,14 +29,19 @@ const SettingsForm = ({ settings, onSave, accounts }: Props) => {
     );
   }
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     settings.defaultAccountID = defaultAccountID;
     settings.theme = theme;
-    settings.save().then(() => onSave(settings));
+
+    await settings.save();
+    onSave(settings);
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={evt => {
+      evt.preventDefault();
+      onSubmit();
+    }}>
       <dl className="form-group">
         <dt>
           <label htmlFor="default-account" className="label-lg">
