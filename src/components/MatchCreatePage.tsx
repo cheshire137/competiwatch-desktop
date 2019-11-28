@@ -50,7 +50,7 @@ const MatchCreatePage = ({
       <MatchForm
         season={season}
         accountID={accountID}
-        latestRank={latestRank}
+        rank={latestRank}
         latestGroup={latestGroup}
         theme={theme}
         onCreate={() => onPageChange("matches", true)}

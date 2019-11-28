@@ -4,7 +4,7 @@ import "./GroupMembersField.css";
 
 interface Props {
   group: string;
-  latestGroup: string | null;
+  latestGroup?: string | null;
   groupMembers: string[];
   onGroupChange: (group: string, groupSize: number) => void;
 }

@@ -44,7 +44,7 @@ interface Props {
   rankChanges: number[];
   longestLossStreak: number;
   longestWinStreak: number;
-  onEdit: (id: string) => void;
+  onEdit: (matchID: string) => void;
   showThrowerLeaver: boolean;
   showPlayOfTheGame: boolean;
   showJoinedVoice: boolean;

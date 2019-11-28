@@ -6,7 +6,7 @@ import Match, { MatchResult } from "../models/Match";
 interface Props {
   matches: Match[];
   season: number;
-  onEdit: () => void;
+  onEdit: (matchID: string) => void;
   theme: string;
   scrollToMatch: boolean;
   scrollToMatchID: string | null;

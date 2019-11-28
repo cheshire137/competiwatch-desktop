@@ -25,12 +25,12 @@ const accountSort = (a: Account, b: Account) => {
 
 export interface AccountData {
   _id: string;
-  battletag: string;
+  battletag?: string;
   createdAt?: string;
 }
 
 class Account {
-  battletag: string;
+  battletag?: string;
   _id: string;
   createdAt?: Date;
 
@@ -134,7 +134,7 @@ class Account {
     );
   }
 
-  totalMatches(season: number): Promise<number> {
+  totalMatches(season?: number): Promise<number> {
     const conditions: any = { accountID: this._id };
     if (typeof season === "number") {
       conditions.season = season;
@@ -142,7 +142,7 @@ class Account {
     return Database.count("matches", conditions);
   }
 
-  hasMatches(season: number) {
+  hasMatches(season?: number) {
     return this.totalMatches(season).then(count => count > 0);
   }
 

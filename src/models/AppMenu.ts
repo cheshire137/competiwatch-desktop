@@ -16,7 +16,7 @@ interface AppMenuOptions {
   onExport: () => void;
   latestSeason: number;
   accounts: Account[];
-  accountID: string;
+  accountID?: string | null;
   season: number;
 }
 
@@ -27,7 +27,7 @@ class AppMenu {
   onExport: () => void;
   latestSeason: number;
   accounts: Account[];
-  accountID: string;
+  accountID?: string | null;
   season: number;
   showMatchesMenuItem: boolean;
   showLogMatchMenuItem: boolean;

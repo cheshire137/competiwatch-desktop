@@ -39,11 +39,11 @@ class CsvExporter {
   battletag: string;
   accountID: string;
 
-  constructor(path: string, season: number, account: Account) {
+  constructor(path: string, season: number, accountID: string, battletag: string) {
     this.path = path;
     this.season = season;
-    this.battletag = account.battletag;
-    this.accountID = account._id;
+    this.battletag = battletag;
+    this.accountID = accountID;
   }
 
   writeFile = (contents: string) => {

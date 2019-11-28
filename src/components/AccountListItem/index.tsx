@@ -55,7 +55,10 @@ const AccountListItem = ({
   };
 
   const exportSeasonTo = (path: string) => {
-    const exporter = new CsvExporter(path, season, account);
+    if (!account.battletag) {
+      return;
+    }
+    const exporter = new CsvExporter(path, season, account._id, account.battletag);
 
     exporter.export().then(() => {
       console.log(`exported ${account.battletag}'s season ${season}`, path);
@@ -63,6 +66,9 @@ const AccountListItem = ({
   };
 
   const exportSeason = () => {
+    if (!account.battletag) {
+      return;
+    }
     const defaultPath = FileUtil.defaultCsvExportFilename(
       account.battletag,
       season

@@ -67,13 +67,13 @@ interface Props {
   dayOfWeek?: DayOfWeek;
   timeOfDay?: TimeOfDay;
   isPlacement?: boolean;
-  isLastPlacement: boolean;
+  isLastPlacement?: boolean;
   id?: string;
   comment?: string;
   map?: Map;
   season: number;
   priorMatches: Match[];
-  role: HeroRole | null;
+  role?: HeroRole | null;
   rank?: number;
   accountID: string;
   result?: MatchResult;
@@ -82,7 +82,7 @@ interface Props {
   theme: string;
   heroes?: string;
   group?: string;
-  latestGroup: string | null;
+  latestGroup?: string | null;
   groupSize?: number;
 }
 
@@ -200,7 +200,7 @@ const getPlacementStatus = (props: Props): PlacementStatus => {
     }
   }
   return {
-    initialIsLastPlacement: isLastPlacement,
+    initialIsLastPlacement: isLastPlacement || false,
     initialIsPlacement: isPlacement
   };
 };
@@ -235,7 +235,7 @@ const MatchForm = (props: Props) => {
   const [groupSize, setGroupSize] = useState(props.groupSize || 1);
   const [groupMembers, setGroupMembers] = useState<string[]>([]);
   const [heroes, setHeroes] = useState(props.heroes || "");
-  const [role, setRole] = useState<HeroRole | null>(props.role);
+  const [role, setRole] = useState<HeroRole | null>(props.role || null);
   const [joinedVoice, setJoinedVoice] = useState(
     typeof props.joinedVoice === "boolean" ? props.joinedVoice : false
   );

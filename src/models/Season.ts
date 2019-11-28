@@ -1,7 +1,7 @@
 import Database from "./Database";
 
 interface SeasonData {
-  _id: string;
+  _id?: string;
   number: string | number;
   createdAt?: string;
 }
@@ -20,12 +20,14 @@ class Season {
     });
   }
 
-  _id: string;
+  _id?: string;
   number: number;
   createdAt?: Date;
 
   constructor(data: SeasonData) {
-    this._id = data._id;
+    if (data._id) {
+      this._id = data._id;
+    }
     if (typeof data.number === "string") {
       this.number = parseInt(data.number, 10);
     } else {

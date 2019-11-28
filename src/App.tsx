@@ -88,11 +88,11 @@ const App = () => {
   });
 
   const exportSeasonTo = (path: string) => {
-    if (!activeAccount) {
+    if (!activeAccount || !activeAccount.battletag) {
       return;
     }
 
-    const exporter = new CsvExporter(path, activeSeason, activeAccount);
+    const exporter = new CsvExporter(path, activeSeason, activeAccount._id, activeAccount.battletag);
     exporter.export().then(() => {
       console.log(
         `exported ${activeAccount.battletag}'s season ${activeSeason}`,
@@ -102,7 +102,7 @@ const App = () => {
   };
 
   const exportSeason = () => {
-    if (!activeAccount || !activeSeason) {
+    if (!activeAccount || !activeSeason || !activeAccount.battletag) {
       return;
     }
 
@@ -412,7 +412,6 @@ const App = () => {
           accounts={accounts}
           season={activeSeason}
           onCreate={refreshAccounts}
-          onDelete={refreshAccounts}
           onAccountChange={changeActiveAccount}
           onAccountUpdate={refreshAccounts}
         />

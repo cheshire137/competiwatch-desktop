@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Account from "../models/Account";
 
 interface Props {
-  battletag: string;
+  battletag?: string;
   id: string;
   onDelete: () => void;
 }

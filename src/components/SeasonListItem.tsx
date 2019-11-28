@@ -25,8 +25,7 @@ const SeasonListItem = ({
     return classes.join(" ");
   };
 
-  const season = new Season({ number: seasonNumber });
-  season.totalMatches().then(total => setTotalMatches(total));
+  Season.totalMatches(seasonNumber).then(total => setTotalMatches(total));
 
   return (
     <li className={listItemClass(index)}>
