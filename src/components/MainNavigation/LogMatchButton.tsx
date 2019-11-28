@@ -18,22 +18,22 @@ const LogMatchButton = ({
     return null;
   }
 
-  const changeToMatchFormPage = () => {
+  const changeToMatchFormPage = async () => {
     const account = new Account({ _id: activeAccount._id });
-    account.latestMatch(activeSeason).then(latestMatch => {
-      if (latestMatch) {
-        onPageChange("log-match", latestMatch.rank, latestMatch.group);
-      } else {
-        onPageChange("log-match");
-      }
-    });
+    const latestMatch = await account.latestMatch(activeSeason);
+
+    if (latestMatch) {
+      onPageChange("log-match", latestMatch.rank, latestMatch.group);
+    } else {
+      onPageChange("log-match");
+    }
   };
 
   return (
     <button
       type="button"
       className="btn btn-primary"
-      onClick={changeToMatchFormPage}
+      onClick={() => changeToMatchFormPage()}
     >
       Log a match
     </button>
