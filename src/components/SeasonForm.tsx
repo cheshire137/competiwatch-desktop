@@ -12,17 +12,16 @@ const SeasonForm = ({ onCreate, latestSeason }: Props) => {
   const [season, setSeason] = useState("");
   const [isValid, setIsValid] = useState(false);
 
-  const saveSeason = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const saveSeason = async () => {
     if (!isValid) {
       return;
     }
 
     const seasonNumber = parseInt(season, 10);
-    new Season({ number: seasonNumber }).save().then(() => {
-      setSeason("");
-      onCreate(seasonNumber);
-    });
+    await new Season({ number: seasonNumber }).save();
+
+    setSeason("");
+    onCreate(seasonNumber);
   };
 
   const onSeasonChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +47,10 @@ const SeasonForm = ({ onCreate, latestSeason }: Props) => {
   const appName = getAppName();
 
   return (
-    <form className="Box p-3" onSubmit={saveSeason}>
+    <form className="Box p-3" onSubmit={evt => {
+      evt.preventDefault();
+      saveSeason();
+    }}>
       <h2 className="h2 text-normal mb-2">Add a season</h2>
       <p>
         <span>A </span>
