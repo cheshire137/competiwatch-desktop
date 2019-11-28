@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Match from "../../models/Match";
 
 interface Props {
@@ -16,9 +16,14 @@ const MatchesTab = ({
 }: Props) => {
   const [totalMatches, setTotalMatches] = useState<number | null>(null);
 
-  Match.totalInSeason(activeSeason).then(total => {
-    setTotalMatches(total);
-  });
+  useEffect(() => {
+    async function getTotalMatches() {
+      const total = await Match.totalInSeason(activeSeason)
+      setTotalMatches(total);
+    }
+
+    getTotalMatches();
+  }, [activeSeason]);
 
   const totalBadge = totalMatches !== null && (
     <span className="Counter">{totalMatches}</span>
