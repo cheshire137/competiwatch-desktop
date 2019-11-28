@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Account from "../../models/Account";
 
 interface Props {
@@ -18,9 +18,15 @@ const TrendsTab = ({
 }: Props) => {
   const [hasMatches, setHasMatches] = useState(false);
   const account = new Account({ _id: activeAccount._id });
-  account.hasMatches(activeSeason).then(hasMatches => {
-    setHasMatches(hasMatches);
-  });
+
+  useEffect(() => {
+    async function getHasMatches() {
+      const result = await account.hasMatches(activeSeason)
+      setHasMatches(result);
+    }
+
+    getHasMatches();
+  }, [account._id, activeSeason]);
 
   if (!hasMatches) {
     return null;
