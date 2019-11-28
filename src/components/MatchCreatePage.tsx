@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Match from "../models/Match";
 import MatchForm from "./MatchForm";
 
@@ -25,7 +25,14 @@ const MatchCreatePage = ({
 }: Props) => {
   const [matches, setMatches] = useState<Match[] | null>(null);
 
-  Match.findAll(accountID, season).then(m => setMatches(m));
+  useEffect(() => {
+    async function getMatches() {
+      const allMatches = await Match.findAll(accountID, season);
+      setMatches(allMatches);
+    }
+
+    getMatches();
+  }, [accountID, season]);
 
   if (!matches) {
     return null;
@@ -33,7 +40,7 @@ const MatchCreatePage = ({
 
   return (
     <div className="container layout-children-container">
-      {season < latestSeason ? (
+      {season < latestSeason && (
         <p className="flash flash-warn">
           You are logging a match for a past competitive season. Did you want
           <span> to </span>
@@ -46,7 +53,7 @@ const MatchCreatePage = ({
           </button>
           ?
         </p>
-      ) : null}
+      )}
       <MatchForm
         season={season}
         accountID={accountID}
