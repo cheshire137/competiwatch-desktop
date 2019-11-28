@@ -5,11 +5,11 @@ import { Hero } from "./Hero";
 interface HeroWithCount {
   hero: Hero;
   count: number;
-};
+}
 
 type HeroCount = {
   [hero: string]: number;
-}
+};
 
 const accountSort = (a: Account, b: Account) => {
   if (!a.battletag) {

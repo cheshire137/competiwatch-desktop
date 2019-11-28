@@ -75,7 +75,12 @@ const AccountListItem = ({
     if (!account.battletag) {
       return;
     }
-    const exporter = new CsvExporter(path, season, account._id, account.battletag);
+    const exporter = new CsvExporter(
+      path,
+      season,
+      account._id,
+      account.battletag
+    );
 
     exporter.export().then(() => {
       console.log(`exported ${account.battletag}'s season ${season}`, path);

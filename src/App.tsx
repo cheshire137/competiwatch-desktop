@@ -31,7 +31,11 @@ const isNighttime = () => {
   return hours >= 20 || hours <= 5;
 };
 
-function getTitle(activePage: string, activeSeason?: number, activeAccount?: Account | null) {
+function getTitle(
+  activePage: string,
+  activeSeason?: number,
+  activeAccount?: Account | null
+) {
   const haveActiveSeason =
     typeof activeSeason === "number" && !isNaN(activeSeason);
   const isSeasonRelevant = [
@@ -100,7 +104,7 @@ const App = () => {
   async function refreshAccounts() {
     const allAccounts = await Account.findAll();
     setAccounts(allAccounts);
-  };
+  }
 
   const changeActiveSeason = (newNumber: number) => {
     if (activeMatchID) {
@@ -119,7 +123,12 @@ const App = () => {
       return;
     }
 
-    const exporter = new CsvExporter(path, activeSeason, activeAccount._id, activeAccount.battletag);
+    const exporter = new CsvExporter(
+      path,
+      activeSeason,
+      activeAccount._id,
+      activeAccount.battletag
+    );
     exporter.export().then(() => {
       console.log(
         `exported ${activeAccount.battletag}'s season ${activeSeason}`,
@@ -264,7 +273,7 @@ const App = () => {
 
   useEffect(() => {
     async function loadLatestSeason() {
-      const season = await Season.latest()
+      const season = await Season.latest();
       let latestNumber = latestKnownSeason;
       if (season && season.number > latestNumber) {
         latestNumber = season.number;
@@ -274,7 +283,7 @@ const App = () => {
     }
 
     async function loadSettings() {
-      const loadedSettings = await Setting.load()
+      const loadedSettings = await Setting.load();
       setSettings(loadedSettings);
 
       if (!activeAccount && loadedSettings.defaultAccountID) {

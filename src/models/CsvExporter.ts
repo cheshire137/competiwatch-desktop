@@ -39,7 +39,12 @@ class CsvExporter {
   battletag: string;
   accountID: string;
 
-  constructor(path: string, season: number, accountID: string, battletag: string) {
+  constructor(
+    path: string,
+    season: number,
+    accountID: string,
+    battletag: string
+  ) {
     this.path = path;
     this.season = season;
     this.battletag = battletag;
