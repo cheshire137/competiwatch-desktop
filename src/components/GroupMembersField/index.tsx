@@ -117,6 +117,7 @@ const GroupMembersField = ({
       return;
     }
 
+    // @ts-ignore
     menu.style.width = `${input.clientWidth}px`;
   };
 
