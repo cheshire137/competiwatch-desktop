@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MatchesTable from "../MatchesTable";
 import LoadingPage from "../LoadingPage";
 import Match from "../../models/Match";
@@ -24,7 +24,14 @@ const MatchesList = ({
 }: Props) => {
   const [matches, setMatches] = useState<Array<Match> | null>(null);
 
-  Match.findAll(account._id, season).then(m => setMatches(m));
+  useEffect(() => {
+    async function getMatches() {
+      const m = await Match.findAll(account._id, season);
+      setMatches(m);
+    }
+
+    getMatches();
+  }, [account._id, season]);
 
   if (!matches) {
     return <LoadingPage />;
