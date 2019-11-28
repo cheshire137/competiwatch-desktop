@@ -15,10 +15,13 @@ const ImportPage = ({ account, seasonNumber, onImport }: Props) => {
   const [activeSample, setActiveSample] = useState("sample1");
 
   useEffect(() => {
-    account
-      .totalMatches(seasonNumber)
-      .then((total: number) => setTotalMatches(total));
-  }, [setTotalMatches, seasonNumber]);
+    async function getTotalMatches() {
+      const total = await account.totalMatches(seasonNumber);
+      setTotalMatches(total);
+    }
+
+    getTotalMatches();
+  }, [account._id, seasonNumber]);
 
   if (totalMatches < 0) {
     return <LoadingPage />;
