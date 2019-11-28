@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MatchDeleteForm from "./MatchDeleteForm";
 import MatchForm from "./MatchForm";
 import Match from "../models/Match";
@@ -33,14 +33,22 @@ const MatchEditPage = ({
   const [match, setMatch] = useState<Match | null>(null);
   const [isLastPlacement, setIsLastPlacement] = useState<boolean | null>(null);
 
-  Match.findAll(accountID, season).then(allMatches => {
-    setMatch(allMatches.filter(m => m._id === id)[0]);
-    setMatches(allMatches);
-  });
+  useEffect(() => {
+    async function getMatches() {
+      const allMatches = await Match.findAll(accountID, season);
+      const curMatch = allMatches.filter(m => m._id === id)[0];
 
-  if (match) {
-    match.isLastPlacement().then(isLast => setIsLastPlacement(isLast));
-  }
+      setMatch(curMatch);
+      setMatches(allMatches);
+
+      if (curMatch) {
+        const isLast = await curMatch.isLastPlacement();
+        setIsLastPlacement(isLast);
+      }
+    }
+
+    getMatches();
+  }, [accountID, season, id]);
 
   return (
     <div className="container layout-children-container">
