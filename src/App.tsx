@@ -118,7 +118,7 @@ const App = () => {
     }
   };
 
-  const exportSeasonTo = (path: string) => {
+  const exportSeasonTo = async (path: string) => {
     if (!activeAccount || !activeAccount.battletag) {
       return;
     }
@@ -129,12 +129,12 @@ const App = () => {
       activeAccount._id,
       activeAccount.battletag
     );
-    exporter.export().then(() => {
-      console.log(
-        `exported ${activeAccount.battletag}'s season ${activeSeason}`,
-        path
-      );
-    });
+    await exporter.export();
+
+    console.log(
+      `exported ${activeAccount.battletag}'s season ${activeSeason}`,
+      path
+    );
   };
 
   const exportSeason = () => {
