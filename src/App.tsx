@@ -31,6 +31,58 @@ const isNighttime = () => {
   return hours >= 20 || hours <= 5;
 };
 
+function getTitle(activePage: string, activeSeason?: number, activeAccount?: Account | null) {
+  const haveActiveSeason =
+    typeof activeSeason === "number" && !isNaN(activeSeason);
+  const isSeasonRelevant = [
+    "matches",
+    "log-match",
+    "trends",
+    "edit-match",
+    "import"
+  ].includes(activePage);
+  const isAccountRelevant = [
+    "matches",
+    "log-match",
+    "trends",
+    "edit-match",
+    "import"
+  ].includes(activePage);
+  let titleParts = [];
+
+  if (activePage === "matches") {
+    titleParts.push("Matches");
+  } else if (activePage === "log-match") {
+    titleParts.push("Log a Match");
+  } else if (activePage === "trends") {
+    titleParts.push("Trends");
+  } else if (activePage === "manage-seasons") {
+    titleParts.push("Manage Seasons");
+  } else if (activePage === "edit-match") {
+    titleParts.push("Edit Match");
+  } else if (activePage === "import") {
+    titleParts.push("Import Matches");
+  } else if (activePage === "about") {
+    titleParts.push("About");
+  } else if (activePage === "settings") {
+    titleParts.push("Settings");
+  } else if (activePage === "accounts") {
+    titleParts.push("Accounts");
+  } else if (activePage === "help") {
+    titleParts.push("Help");
+  }
+
+  if (haveActiveSeason && isSeasonRelevant) {
+    titleParts.push(`Season ${activeSeason}`);
+  }
+
+  if (activeAccount && isAccountRelevant) {
+    titleParts.push(activeAccount.battletag);
+  }
+
+  return titleParts.join(" / ");
+}
+
 const App = () => {
   const [latestRank, setLatestRank] = useState(2500);
   const [latestSeason, setLatestSeason] = useState(latestKnownSeason);
@@ -45,6 +97,11 @@ const App = () => {
   const [settings, setSettings] = useState<Settings | null>(null);
   const [latestGroup, setLatestGroup] = useState<string | null>(null);
 
+  async function refreshAccounts() {
+    const allAccounts = await Account.findAll();
+    setAccounts(allAccounts);
+  };
+
   const changeActiveSeason = (newNumber: number) => {
     if (activeMatchID) {
       setActiveMatchID(null);
@@ -56,36 +113,6 @@ const App = () => {
       setLatestSeason(newNumber);
     }
   };
-
-  const refreshAccounts = () => {
-    Account.findAll().then(allAccounts => {
-      setAccounts(allAccounts);
-    });
-  };
-  refreshAccounts();
-
-  Season.latest().then(season => {
-    let latestNumber = latestKnownSeason;
-    if (season && season.number > latestNumber) {
-      latestNumber = season.number;
-    }
-    setActiveSeason(latestNumber);
-    changeActiveSeason(latestNumber);
-  });
-  Setting.load().then(loadedSettings => {
-    setSettings(loadedSettings);
-
-    if (!activeAccount && loadedSettings.defaultAccountID) {
-      const defaultAccount = accounts.filter(
-        a => a._id === loadedSettings.defaultAccountID
-      )[0];
-
-      if (defaultAccount) {
-        setActiveAccount(defaultAccount);
-        setActivePage("matches");
-      }
-    }
-  });
 
   const exportSeasonTo = (path: string) => {
     if (!activeAccount || !activeAccount.battletag) {
@@ -180,71 +207,6 @@ const App = () => {
     setTheme(newTheme);
   };
 
-  let themeInterval: NodeJS.Timeout | null = null;
-
-  useEffect(() => {
-    const millisecondsInHour = 3600000;
-    themeInterval = setInterval(() => updateTheme(), millisecondsInHour);
-
-    return () => {
-      if (themeInterval) {
-        clearInterval(themeInterval);
-      }
-    };
-  }, [setTheme]);
-
-  useEffect(() => {
-    const haveActiveSeason =
-      typeof activeSeason === "number" && !isNaN(activeSeason);
-    const isSeasonRelevant = [
-      "matches",
-      "log-match",
-      "trends",
-      "edit-match",
-      "import"
-    ].includes(activePage);
-    const isAccountRelevant = [
-      "matches",
-      "log-match",
-      "trends",
-      "edit-match",
-      "import"
-    ].includes(activePage);
-    let titleParts = [];
-
-    if (activePage === "matches") {
-      titleParts.push("Matches");
-    } else if (activePage === "log-match") {
-      titleParts.push("Log a Match");
-    } else if (activePage === "trends") {
-      titleParts.push("Trends");
-    } else if (activePage === "manage-seasons") {
-      titleParts.push("Manage Seasons");
-    } else if (activePage === "edit-match") {
-      titleParts.push("Edit Match");
-    } else if (activePage === "import") {
-      titleParts.push("Import Matches");
-    } else if (activePage === "about") {
-      titleParts.push("About");
-    } else if (activePage === "settings") {
-      titleParts.push("Settings");
-    } else if (activePage === "accounts") {
-      titleParts.push("Accounts");
-    } else if (activePage === "help") {
-      titleParts.push("Help");
-    }
-
-    if (haveActiveSeason && isSeasonRelevant) {
-      titleParts.push(`Season ${activeSeason}`);
-    }
-
-    if (activeAccount && isAccountRelevant) {
-      titleParts.push(activeAccount.battletag);
-    }
-
-    setTitle(titleParts.join(" / "));
-  }, [activeAccount && activeAccount._id, activeSeason, activePage]);
-
   const onMatchesImported = (matches: Array<Match>) => {
     console.log(
       "imported",
@@ -265,25 +227,6 @@ const App = () => {
       setActiveSeason(deletedNumber - 1);
     }
   };
-
-  useEffect(() => {
-    if (!accounts) {
-      return;
-    }
-
-    updateTheme();
-
-    new AppMenu({
-      onPageChange: changeActivePage,
-      onSeasonChange: changeActiveSeason,
-      onAccountChange: changeActiveAccount,
-      onExport: exportSeason,
-      season: activeSeason,
-      latestSeason,
-      accountID: activeAccount ? activeAccount._id : null,
-      accounts
-    });
-  }, [accounts.length, latestSeason, activeSeason]);
 
   const changeActiveAccount = (accountID: string) => {
     const account = accounts.filter(a => a._id === accountID)[0];
@@ -316,6 +259,72 @@ const App = () => {
     activePage !== "help";
   const haveActiveSeason =
     typeof activeSeason === "number" && !isNaN(activeSeason);
+
+  let themeInterval: NodeJS.Timeout | null = null;
+
+  useEffect(() => {
+    async function loadLatestSeason() {
+      const season = await Season.latest()
+      let latestNumber = latestKnownSeason;
+      if (season && season.number > latestNumber) {
+        latestNumber = season.number;
+      }
+      setActiveSeason(latestNumber);
+      changeActiveSeason(latestNumber);
+    }
+
+    async function loadSettings() {
+      const loadedSettings = await Setting.load()
+      setSettings(loadedSettings);
+
+      if (!activeAccount && loadedSettings.defaultAccountID) {
+        const defaultAccount = accounts.filter(
+          a => a._id === loadedSettings.defaultAccountID
+        )[0];
+
+        if (defaultAccount) {
+          setActiveAccount(defaultAccount);
+          setActivePage("matches");
+        }
+      }
+    }
+
+    const millisecondsInHour = 3600000;
+    themeInterval = setInterval(() => updateTheme(), millisecondsInHour);
+
+    refreshAccounts();
+    loadLatestSeason();
+    loadSettings();
+
+    return () => {
+      if (themeInterval) {
+        clearInterval(themeInterval);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    setTitle(getTitle(activePage, activeSeason, activeAccount));
+  }, [activeAccount && activeAccount._id, activeSeason, activePage]);
+
+  useEffect(() => {
+    if (!accounts) {
+      return;
+    }
+
+    updateTheme();
+
+    new AppMenu({
+      onPageChange: changeActivePage,
+      onSeasonChange: changeActiveSeason,
+      onAccountChange: changeActiveAccount,
+      onExport: exportSeason,
+      season: activeSeason,
+      latestSeason,
+      accountID: activeAccount ? activeAccount._id : null,
+      accounts
+    });
+  }, [activeAccount && activeAccount._id, latestSeason, activeSeason]);
 
   return (
     <div className={`layout-container theme-${theme}`}>
