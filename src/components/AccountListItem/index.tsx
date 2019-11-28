@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AccountDeleteForm from "../AccountDeleteForm";
 import AccountForm from "../AccountForm";
 import CsvExporter from "../../models/CsvExporter";
@@ -30,9 +30,26 @@ const AccountListItem = ({
   const [latestMatch, setLatestMatch] = useState<Match | null>(null);
   const [topHeroes, setTopHeroes] = useState<Hero[]>([]);
 
-  account.latestMatch(season).then(match => setLatestMatch(match || null));
-  account.totalMatches(season).then(count => setTotalMatches(count));
-  account.topHeroes(season).then(newTopHeroes => setTopHeroes(newTopHeroes));
+  useEffect(() => {
+    async function getLatestMatch() {
+      const match = await account.latestMatch(season);
+      setLatestMatch(match || null);
+    }
+
+    async function getTotalMatches() {
+      const count = await account.totalMatches(season);
+      setTotalMatches(count);
+    }
+
+    async function getTopHeroes() {
+      const newTopHeroes = await account.topHeroes(season);
+      setTopHeroes(newTopHeroes);
+    }
+
+    getLatestMatch();
+    getTotalMatches();
+    getTopHeroes();
+  }, [account._id, season]);
 
   const wipeSeason = () => {
     if (totalMatches < 0) {
