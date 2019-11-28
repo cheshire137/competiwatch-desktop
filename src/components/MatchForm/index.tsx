@@ -266,56 +266,14 @@ const MatchForm = (props: Props) => {
     })
   );
 
-  const refreshGroupMembers = () => {
+  const refreshGroupMembers = async () => {
     const { accountID, season } = props;
 
-    Account.findAllGroupMembers(accountID, season).then(members => {
-      setGroupMembers(members);
-    });
+    const members = await Account.findAllGroupMembers(accountID, season);
+    setGroupMembers(members);
   };
 
-  refreshGroupMembers();
-
-  useEffect(() => {
-    setEnableRankField(props.season < Season.roleQueueSeasonStart);
-    refreshGroupMembers();
-    setIsValid(
-      isMatchValid({
-        rank,
-        role,
-        isPlacement,
-        season: props.season,
-        groupSize,
-        group,
-        result
-      })
-    );
-  }, [
-    props.accountID,
-    rank,
-    role,
-    isPlacement,
-    props.season,
-    groupSize,
-    group,
-    result,
-    latestRank,
-    isLastPlacement,
-    comment,
-    map,
-    heroes,
-    playedAt,
-    playOfTheGame,
-    joinedVoice,
-    allyThrower,
-    allyLeaver,
-    enemyThrower,
-    enemyLeaver
-  ]);
-
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const onSubmit = async () => {
     if (!isValid) {
       return;
     }
@@ -346,15 +304,15 @@ const MatchForm = (props: Props) => {
     }
 
     const match = new Match(data);
-    match.save().then(() => {
-      if (props.id) {
-        if (props.onUpdate) {
-          props.onUpdate();
-        }
-      } else if (props.onCreate) {
-        props.onCreate();
+    await match.save();
+
+    if (props.id) {
+      if (props.onUpdate) {
+        props.onUpdate();
       }
-    });
+    } else if (props.onCreate) {
+      props.onCreate();
+    }
   };
 
   const onFormFieldUpdate = () => {
@@ -591,8 +549,49 @@ const MatchForm = (props: Props) => {
   const { season, latestGroup, theme } = props;
   const dayOfWeekTimeOfDay = `${dayOfWeek}-${timeOfDay}`;
 
+  useEffect(() => {
+    setEnableRankField(props.season < Season.roleQueueSeasonStart);
+    refreshGroupMembers();
+
+    setIsValid(
+      isMatchValid({
+        rank,
+        role,
+        isPlacement,
+        season: props.season,
+        groupSize,
+        group,
+        result
+      })
+    );
+  }, [
+    props.accountID,
+    rank,
+    role,
+    isPlacement,
+    props.season,
+    groupSize,
+    group,
+    result,
+    latestRank,
+    isLastPlacement,
+    comment,
+    map,
+    heroes,
+    playedAt,
+    playOfTheGame,
+    joinedVoice,
+    allyThrower,
+    allyLeaver,
+    enemyThrower,
+    enemyLeaver
+  ]);
+
   return (
-    <form onSubmit={onSubmit} className="mb-4">
+    <form onSubmit={evt => {
+      evt.preventDefault();
+      onSubmit();
+    }} className="mb-4">
       <div className="clearfix">
         <div className="col-md-12 col-lg-6 float-left pr-3-lg">
           {season >= Season.roleQueueSeasonStart && role && (
