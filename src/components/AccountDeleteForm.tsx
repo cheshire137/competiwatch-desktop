@@ -26,18 +26,21 @@ const AccountDeleteForm = ({ battletag, id, onDelete }: Props) => {
     return null;
   }
 
-  const deleteAccount = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const deleteAccount = async () => {
     const message = `Are you sure you want to delete ${battletag}?`;
 
     if (window.confirm(message)) {
       const account = new Account({ _id: id });
-      account.delete().then(onDelete);
+      await account.delete()
+      onDelete();
     }
   };
 
   return (
-    <form onSubmit={deleteAccount}>
+    <form onSubmit={evt => {
+      evt.preventDefault();
+      deleteAccount();
+    }}>
       <button type="submit" className="btn-link text-red text-small">
         Delete account
       </button>
