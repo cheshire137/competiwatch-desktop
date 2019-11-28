@@ -51,7 +51,7 @@ const AccountListItem = ({
     getTopHeroes();
   }, [account._id, season]);
 
-  const wipeSeason = () => {
+  const wipeSeason = async () => {
     if (totalMatches < 0) {
       return;
     }
@@ -62,16 +62,19 @@ const AccountListItem = ({
       return;
     }
 
-    Match.wipeSeason(account._id, season).then(() => {
-      account.latestMatch(season).then(match => setLatestMatch(match || null));
-      account.totalMatches(season).then(count => setTotalMatches(count));
-      account
-        .topHeroes(season)
-        .then(newTopHeroes => setTopHeroes(newTopHeroes));
-    });
+    await Match.wipeSeason(account._id, season);
+
+    const match = await account.latestMatch(season);
+    setLatestMatch(match || null);
+
+    const count = await account.totalMatches(season)
+    setTotalMatches(count);
+
+    const newTopHeroes = await account.topHeroes(season);
+    setTopHeroes(newTopHeroes);
   };
 
-  const exportSeasonTo = (path: string) => {
+  const exportSeasonTo = async (path: string) => {
     if (!account.battletag) {
       return;
     }
@@ -82,9 +85,8 @@ const AccountListItem = ({
       account.battletag
     );
 
-    exporter.export().then(() => {
-      console.log(`exported ${account.battletag}'s season ${season}`, path);
-    });
+    await exporter.export()
+    console.log(`exported ${account.battletag}'s season ${season}`, path);
   };
 
   const exportSeason = () => {
