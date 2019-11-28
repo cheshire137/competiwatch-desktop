@@ -16,10 +16,9 @@ const AboutPage = ({ onPageChange }: Props) => {
     openLinkInBrowser(link.href);
   };
 
-  const checkLatestVersion = () => {
-    GithubApi.latestVersion().then(versionInfo => {
-      setLatestVersion(versionInfo);
-    });
+  const checkLatestVersion = async () => {
+    const versionInfo = await GithubApi.latestVersion();
+    setLatestVersion(versionInfo);
   };
 
   const openLatestVersion = () => {
@@ -116,7 +115,7 @@ const AboutPage = ({ onPageChange }: Props) => {
                   <button
                     type="button"
                     className="btn-link"
-                    onClick={checkLatestVersion}
+                    onClick={() => checkLatestVersion()}
                   >
                     Check for new version
                   </button>
