@@ -43,11 +43,12 @@ const ImportForm = ({ onImport, season, account }: Props) => {
     setImportLogEntries(logEntries);
   };
 
-  const importFromPath = () => {
+  const importFromPath = async () => {
     const importer = new CsvImporter(path, season, account._id);
 
     console.log("wiped season", season, "for account", account._id);
-    importer.import(logMatchImport).then(onImportComplete);
+    const matches = await importer.import(logMatchImport);
+    onImportComplete(matches);
   };
 
   const wipeSeasonAndImport = async () => {
