@@ -22,9 +22,7 @@ const SeasonSelect = ({
   onSeasonChange
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [seasons, setSeasons] = useState<number[]>(
-    getSeasonsList(latestSeason)
-  );
+  const seasons = getSeasonsList(latestSeason);
 
   const containerClass = () => {
     const classes = ["select-menu", "d-inline-block"];

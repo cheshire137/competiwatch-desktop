@@ -106,6 +106,7 @@ const App = () => {
   }
 
   const changeActiveSeason = (newNumber: number) => {
+    setActiveSeason(newNumber);
     if (activeMatchID) {
       setActiveMatchID(null);
     }
