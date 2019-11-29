@@ -13,17 +13,15 @@ class Setting {
   theme: string;
   createdAt?: Date;
 
-  static findAll() {
+  static async findAll() {
     const sort = {};
-    return Database.findAll("settings", sort).then(rows =>
-      rows.map((data: any) => new Setting(data))
-    );
+    const rows = await Database.findAll("settings", sort);
+    return rows.map((data: any) => new Setting(data));
   }
 
-  static load() {
-    return this.findAll().then(settings => {
-      return settings[0] || new Setting({});
-    });
+  static async load() {
+    const settings = await this.findAll();
+    return settings[0] || new Setting({});
   }
 
   constructor(data: SettingData) {
@@ -35,19 +33,18 @@ class Setting {
     }
   }
 
-  save() {
+  async save() {
     const data = {
       defaultAccountID: this.defaultAccountID,
       theme: this.theme
     };
-    return Database.upsert("settings", data, this._id).then((data: any) => {
-      const newSetting = data as SettingData;
-      this._id = newSetting._id;
-      if (typeof newSetting.createdAt === "string") {
-        this.createdAt = new Date(newSetting.createdAt);
-      }
-      return this;
-    });
+    const upsertData = await Database.upsert("settings", data, this._id);
+    const newSetting = upsertData as SettingData;
+    this._id = newSetting._id;
+    if (typeof newSetting.createdAt === "string") {
+      this.createdAt = new Date(newSetting.createdAt);
+    }
+    return this;
   }
 
   delete() {
