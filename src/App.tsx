@@ -330,7 +330,7 @@ const App = () => {
   }, [activeAccount && activeAccount._id, latestSeason, activeSeason]);
 
   return (
-    <LayoutContainer theme={theme}>
+    <LayoutContainer appTheme={theme}>
       {showHeader && (
         <Header
           accounts={accounts}
