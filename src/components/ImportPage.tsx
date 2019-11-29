@@ -29,7 +29,7 @@ const ImportPage = ({ account, seasonNumber, onImport }: Props) => {
 
   return (
     <div className="container layout-children-container">
-      {totalMatches > 0 ? (
+      {totalMatches > 0 && (
         <p className="flash-warn p-3 f3">
           Importing matches will <strong>delete</strong> your
           <strong>
@@ -38,7 +38,7 @@ const ImportPage = ({ account, seasonNumber, onImport }: Props) => {
           </strong>
           in season {seasonNumber}.
         </p>
-      ) : null}
+      )}
       <ImportForm season={seasonNumber} onImport={onImport} account={account} />
 
       <h4 className="h4 mt-4 mb-2">Requirements:</h4>
