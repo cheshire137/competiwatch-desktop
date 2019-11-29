@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MatchDeleteForm from "./MatchDeleteForm";
 import MatchForm from "./MatchForm";
 import Match from "../models/Match";
+import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
 interface Props {
   accountID: string;
@@ -51,7 +52,7 @@ const MatchEditPage = ({
   }, [accountID, season, id]);
 
   return (
-    <div className="container layout-children-container">
+    <LayoutChildrenContainer>
       {match && typeof isLastPlacement === "boolean" && (
         <MatchForm
           id={id}
@@ -83,7 +84,7 @@ const MatchEditPage = ({
       <div className="border-top pt-2 mt-4">
         <MatchDeleteForm id={id} onDelete={() => onPageChange("matches")} />
       </div>
-    </div>
+    </LayoutChildrenContainer>
   );
 };
 

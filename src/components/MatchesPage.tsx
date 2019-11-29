@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MatchesList from "./MatchesList";
 import Account from "../models/Account";
+import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
 interface Props {
   account: Account;
@@ -17,7 +18,7 @@ const MatchesPage = ({
   scrollToMatchID,
   theme
 }: Props) => (
-  <div className="container layout-children-container">
+  <LayoutChildrenContainer>
     <MatchesList
       season={season}
       account={account}
@@ -25,7 +26,7 @@ const MatchesPage = ({
       onPageChange={onPageChange}
       scrollToMatchID={scrollToMatchID}
     />
-  </div>
+  </LayoutChildrenContainer>
 );
 
 export default MatchesPage;

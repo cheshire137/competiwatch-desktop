@@ -3,6 +3,7 @@ import ImportForm from "./ImportForm";
 import LoadingPage from "./LoadingPage";
 import Account from "../models/Account";
 import Match from "../models/Match";
+import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
 interface Props {
   account: Account;
@@ -28,7 +29,7 @@ const ImportPage = ({ account, seasonNumber, onImport }: Props) => {
   }
 
   return (
-    <div className="container layout-children-container">
+    <LayoutChildrenContainer>
       {totalMatches > 0 && (
         <p className="flash-warn p-3 f3">
           Importing matches will <strong>delete</strong> your
@@ -199,7 +200,7 @@ N,,3135,Numbani,"good teamwork"`}</pre>
           and a comment about the match.
         </div>
       </div>
-    </div>
+    </LayoutChildrenContainer>
   );
 };
 

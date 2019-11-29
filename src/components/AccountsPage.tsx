@@ -2,6 +2,7 @@ import React from "react";
 import AccountForm from "./AccountForm";
 import Account from "../models/Account";
 import AccountsList from "./AccountsList";
+import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
 interface Props {
   onAccountChange: (id: string) => void;
@@ -18,7 +19,7 @@ const AccountsPage = ({
   accounts,
   onCreate
 }: Props) => (
-  <div className="container layout-children-container">
+  <LayoutChildrenContainer>
     {accounts.length < 1 ? (
       <div className="Box mb-4 p-3 col-lg-6">
         <h2 className="Subhead-heading mb-2">
@@ -73,7 +74,7 @@ const AccountsPage = ({
         </div>
       </div>
     </div>
-  </div>
+  </LayoutChildrenContainer>
 );
 
 export default AccountsPage;

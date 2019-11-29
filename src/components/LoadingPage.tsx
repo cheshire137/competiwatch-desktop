@@ -1,14 +1,15 @@
 import React from "react";
+import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
 const LoadingPage = () => (
-  <div className="container layout-children-container">
+  <LayoutChildrenContainer>
     <div className="blankslate">
       <h1>
         <span className="ion ion-md-refresh mr-3 ion-spin" />
         Loading...
       </h1>
     </div>
-  </div>
+  </LayoutChildrenContainer>
 );
 
 export default LoadingPage;

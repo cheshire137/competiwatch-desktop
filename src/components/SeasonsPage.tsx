@@ -1,6 +1,7 @@
 import React from "react";
 import SeasonForm from "./SeasonForm";
 import SeasonsList from "./SeasonsList";
+import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
 interface Props {
   onCreate: (season: number) => void;
@@ -17,7 +18,7 @@ const SeasonsPage = ({
   firstNonDeletableSeason,
   onDelete
 }: Props) => (
-  <div className="container layout-children-container">
+  <LayoutChildrenContainer>
     <div className="mt-4">
       <button
         type="button"
@@ -40,7 +41,7 @@ const SeasonsPage = ({
         <SeasonForm latestSeason={latestSeason} onCreate={onCreate} />
       </div>
     </div>
-  </div>
+  </LayoutChildrenContainer>
 );
 
 export default SeasonsPage;

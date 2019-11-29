@@ -3,6 +3,7 @@ import SettingsForm from "./SettingsForm";
 import DatabaseFileLink from "./DatabaseFileLink";
 import Account from "../models/Account";
 import Setting from "../models/Setting";
+import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
 const dbNames = ["accounts", "matches", "seasons", "settings"];
 
@@ -30,7 +31,7 @@ interface Props {
 }
 
 const SettingsPage = ({ accounts, settings, onSave, onPageChange }: Props) => (
-  <div className="container layout-children-container">
+  <LayoutChildrenContainer>
     <div className="mt-4">
       <button
         type="button"
@@ -66,7 +67,7 @@ const SettingsPage = ({ accounts, settings, onSave, onPageChange }: Props) => (
         moving these files can result in losing your competitive match history.
       </p>
     </div>
-  </div>
+  </LayoutChildrenContainer>
 );
 
 export default SettingsPage;

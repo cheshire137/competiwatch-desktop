@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Match from "../models/Match";
 import MatchForm from "./MatchForm";
+import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
 interface Props {
   accountID: string;
@@ -39,7 +40,7 @@ const MatchCreatePage = ({
   }
 
   return (
-    <div className="container layout-children-container">
+    <LayoutChildrenContainer>
       {season < latestSeason && (
         <p className="flash flash-warn">
           You are logging a match for a past competitive season. Did you want
@@ -63,7 +64,7 @@ const MatchCreatePage = ({
         onCreate={(id?: string) => onPageChange("matches", id)}
         priorMatches={matches}
       />
-    </div>
+    </LayoutChildrenContainer>
   );
 };
 

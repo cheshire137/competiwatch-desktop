@@ -1,5 +1,6 @@
 import React from "react";
 import { openLinkInBrowser } from "../utils/electronUtils";
+import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
 interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
@@ -13,7 +14,7 @@ const HelpPage = ({ onPageChange }: Props) => {
   };
 
   return (
-    <div className="container layout-children-container">
+    <LayoutChildrenContainer>
       <div className="mt-4">
         <button
           type="button"
@@ -108,7 +109,7 @@ const HelpPage = ({ onPageChange }: Props) => {
           </p>
         </div>
       </div>
-    </div>
+    </LayoutChildrenContainer>
   );
 };
 

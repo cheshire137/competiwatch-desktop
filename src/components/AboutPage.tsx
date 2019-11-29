@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PackageInfo from "../../package.json";
 import { openLinkInBrowser, getAppName } from "../utils/electronUtils";
 import GithubApi from "../models/GithubApi";
+import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
 interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
@@ -31,7 +32,7 @@ const AboutPage = ({ onPageChange }: Props) => {
   const appName = getAppName();
 
   return (
-    <div className="container layout-children-container">
+    <LayoutChildrenContainer>
       <div className="mt-4">
         <button
           type="button"
@@ -149,7 +150,7 @@ const AboutPage = ({ onPageChange }: Props) => {
           </div>
         </div>
       </div>
-    </div>
+    </LayoutChildrenContainer>
   );
 };
 
