@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { Flex } from "@primer/components";
+import { Box } from "@primer/components";
 
-const LayoutChildrenContainer = styled(Flex)`
+const LayoutChildrenContainer = styled(Box)`
   flex: 1 0 auto;
   width: 95%;
   margin-right: auto;
