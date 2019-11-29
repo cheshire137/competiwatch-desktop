@@ -196,52 +196,46 @@ class Match {
   playOfTheGame?: boolean;
   joinedVoice?: boolean;
 
-  static wipeSeason(accountID: string, season: number) {
-    return Match.findAll(accountID, season).then(matches => {
-      const promises = matches.map(
-        match => match._id && Match.delete(match._id)
-      );
-      return Promise.all(promises);
-    });
+  static async wipeSeason(accountID: string, season: number) {
+    const matches = await Match.findAll(accountID, season);
+    const promises = matches.map(
+      match => match._id && Match.delete(match._id)
+    );
+    return Promise.all(promises);
   }
 
   static totalInSeason(number: number) {
     return Season.totalMatches(number);
   }
 
-  static find(id: string) {
-    return Database.find("matches", id).then(
-      (data: MatchData) => new Match(data)
-    );
+  static async find(id: string) {
+    const data: MatchData = await Database.find("matches", id);
+    return new Match(data);
   }
 
-  static findAll(accountID: string, season: number): Promise<Match[]> {
+  static async findAll(accountID: string, season: number) {
     const conditions = { accountID, season };
+    const rows: MatchData[] = await Database.findAll("matches", defaultSort, conditions);
+    const matches: Match[] = rows.map(data => new Match(data));
 
-    return Database.findAll("matches", defaultSort, conditions).then(
-      (rows: MatchData[]) => {
-        const matches: Match[] = rows.map(data => new Match(data));
+    for (let i = 0; i < matches.length; i++) {
+      const match = matches[i];
+      const prevMatches = matches.slice(0, i);
 
-        for (let i = 0; i < matches.length; i++) {
-          const match = matches[i];
-          const prevMatches = matches.slice(0, i);
+      match.rankChange = matchRankChange(match, prevMatches);
 
-          match.rankChange = matchRankChange(match, prevMatches);
-
-          if (!match.result) {
-            match.result = matchResult(match, prevMatches);
-          }
-
-          if (match.isWin()) {
-            match.winStreak = getWinStreak(i, matches, 1);
-          } else if (match.isLoss()) {
-            match.lossStreak = getLossStreak(i, matches, 1);
-          }
-        }
-
-        return matches;
+      if (!match.result) {
+        match.result = matchResult(match, prevMatches);
       }
-    );
+
+      if (match.isWin()) {
+        match.winStreak = getWinStreak(i, matches, 1);
+      } else if (match.isLoss()) {
+        match.lossStreak = getLossStreak(i, matches, 1);
+      }
+    }
+
+    return matches;
   }
 
   constructor(data: MatchData) {
@@ -386,7 +380,7 @@ class Match {
     return lastPlacement && lastPlacement._id === this._id;
   }
 
-  save() {
+  async save() {
     const data = {
       rank: this.rank,
       comment: this.comment,
@@ -410,16 +404,16 @@ class Match {
       role: this.role
     };
     if (!this._id) {
-      return Promise.resolve(this);
-    }
-    return Database.upsert("matches", data, this._id).then(record => {
-      const newMatch: Match = record as Match;
-      this._id = newMatch._id;
-      if (newMatch.createdAt) {
-        this.createdAt = newMatch.createdAt;
-      }
       return this;
-    });
+    }
+
+    const record = await Database.upsert("matches", data, this._id);
+    const newMatch: Match = record as Match;
+    this._id = newMatch._id;
+    if (newMatch.createdAt) {
+      this.createdAt = newMatch.createdAt;
+    }
+    return this;
   }
 
   static delete(id: string) {
