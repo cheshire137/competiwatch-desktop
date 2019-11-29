@@ -29,22 +29,25 @@ export interface AccountData {
   createdAt?: string;
 }
 
+type GroupMemberCount = {
+  [groupMember: string]: number;
+};
+
 class Account {
   battletag?: string;
   _id: string;
   createdAt?: Date;
 
-  static findAll() {
+  static async findAll() {
     const sort = { battletag: 1 }; // not case-insensitive
-    return Database.findAll("accounts", sort)
-      .then((rows: AccountData[]) => rows.map(data => new Account(data)))
-      .then((accounts: Account[]) => accounts.sort(accountSort));
+    const rows: AccountData[] = await Database.findAll("accounts", sort);
+    const accounts = rows.map(data => new Account(data))
+    return accounts.sort(accountSort);
   }
 
-  static find(id: string) {
-    return Database.find("accounts", id).then(
-      (data: AccountData) => new Account(data)
-    );
+  static async find(id: string) {
+    const data: AccountData = await Database.find("accounts", id);
+    return new Account(data);
   }
 
   constructor(data: AccountData) {
@@ -55,109 +58,99 @@ class Account {
     }
   }
 
-  static findAllGroupMembers(accountID: string, season?: number) {
+  static async findAllGroupMembers(accountID: string, season?: number) {
     const sort = {};
     const conditions: any = { accountID, group: { $ne: "" } };
     if (typeof season === "number" && !isNaN(season)) {
       conditions.season = season;
     }
 
-    return Database.findAll("matches", sort, conditions).then(
-      (matchRows: MatchData[]) => {
-        const matches = matchRows.map(data => new Match(data));
-        const groupMembers: any = {};
+    const matchRows: MatchData[] = await Database.findAll("matches", sort, conditions);
+    const matches = matchRows.map(data => new Match(data));
+    const groupMembers: GroupMemberCount = {};
 
-        for (const match of matches) {
-          for (const groupMember of match.groupList) {
-            if (!(groupMember in groupMembers)) {
-              groupMembers[groupMember] = 1;
-            }
-          }
+    for (const match of matches) {
+      for (const groupMember of match.groupList) {
+        if (!(groupMember in groupMembers)) {
+          groupMembers[groupMember] = 1;
         }
-
-        return Object.keys(groupMembers).sort();
       }
-    );
+    }
+
+    return Object.keys(groupMembers).sort();
   }
 
-  topHeroes(season: number): Promise<Hero[]> {
+  async topHeroes(season: number) {
     const sort = {};
     const conditions: any = { accountID: this._id, heroes: { $ne: "" } };
     if (typeof season === "number" && !isNaN(season)) {
       conditions.season = season;
     }
 
-    return Database.findAll("matches", sort, conditions).then(
-      (matchRowsData: any[]) => {
-        const matchRows = matchRowsData as MatchData[];
-        const matches: Match[] = matchRows.map(data => new Match(data));
-        const heroCounts: HeroCount = {};
+    const matchRowsData: any[] = await Database.findAll("matches", sort, conditions);
+    const matchRows = matchRowsData as MatchData[];
+    const matches: Match[] = matchRows.map(data => new Match(data));
+    const heroCounts: HeroCount = {};
 
-        for (const match of matches) {
-          const matchHeroes = match.heroList;
+    for (const match of matches) {
+      const matchHeroes = match.heroList;
 
-          for (const hero of matchHeroes) {
-            if (!(hero in heroCounts)) {
-              heroCounts[hero] = 0;
-            }
-
-            heroCounts[hero] = (heroCounts[hero] || 0) + 1;
-          }
+      for (const hero of matchHeroes) {
+        if (!(hero in heroCounts)) {
+          heroCounts[hero] = 0;
         }
 
-        const sortableHeroCounts: HeroWithCount[] = [];
-        for (const heroStr in heroCounts) {
-          const hero = heroStr as Hero;
-          const heroCount = heroCounts[hero];
-          const heroWithCount: HeroWithCount = { hero, count: heroCount };
-          sortableHeroCounts.push(heroWithCount);
-        }
-        sortableHeroCounts.sort((a, b) => {
-          return b.count - a.count;
-        });
-
-        return sortableHeroCounts.map(arr => arr.hero).slice(0, 3);
+        heroCounts[hero] = (heroCounts[hero] || 0) + 1;
       }
-    );
+    }
+
+    const sortableHeroCounts: HeroWithCount[] = [];
+    for (const heroStr in heroCounts) {
+      const hero = heroStr as Hero;
+      const heroCount = heroCounts[hero];
+      const heroWithCount: HeroWithCount = { hero, count: heroCount };
+      sortableHeroCounts.push(heroWithCount);
+    }
+    sortableHeroCounts.sort((a, b) => {
+      return b.count - a.count;
+    });
+
+    return sortableHeroCounts.map(arr => arr.hero).slice(0, 3);
   }
 
-  latestMatch(season: number) {
+  async latestMatch(season: number) {
     const conditions = { accountID: this._id, season };
     const sort = { date: -1, createdAt: -1 };
 
-    return Database.latest("matches", conditions, sort).then(
-      (data: MatchData) => {
-        if (data) {
-          return new Match(data);
-        }
-      }
-    );
+    const data: MatchData = await Database.latest("matches", conditions, sort);
+    if (data) {
+      return new Match(data);
+    }
   }
 
-  totalMatches(season?: number): Promise<number> {
+  async totalMatches(season?: number) {
     const conditions: any = { accountID: this._id };
     if (typeof season === "number") {
       conditions.season = season;
     }
-    return Database.count("matches", conditions);
+    const count = await Database.count("matches", conditions);
+    return count;
   }
 
-  hasMatches(season?: number) {
-    return this.totalMatches(season).then(count => count > 0);
+  async hasMatches(season?: number) {
+    const count = await this.totalMatches(season);
+    return count > 0;
   }
 
-  save() {
+  async save() {
     const data = { battletag: this.battletag };
-    return Database.upsert("accounts", data, this._id).then(
-      (newAccountData: any) => {
-        const newAccount = newAccountData as AccountData;
-        this._id = newAccount._id;
-        if (typeof newAccount.createdAt === "string") {
-          this.createdAt = new Date(newAccount.createdAt);
-        }
-        return this;
-      }
-    );
+    const upsertData: any = await Database.upsert("accounts", data, this._id);
+    const newAccountData = upsertData as AccountData;
+    this._id = newAccountData._id;
+    if (typeof newAccountData.createdAt === "string") {
+      this.createdAt = new Date(newAccountData.createdAt);
+    }
+    return this;
   }
 
   delete() {
