@@ -351,7 +351,7 @@ const App = () => {
         />
       )}
 
-      {activePage === "matches" && activeAccount && (
+      {activePage === "matches" && activeAccount && activeAccount._id && (
         <MatchesPage
           account={activeAccount}
           season={activeSeason}
@@ -362,7 +362,7 @@ const App = () => {
         />
       )}
 
-      {activePage === "log-match" && activeAccount && (
+      {activePage === "log-match" && activeAccount && activeAccount._id && (
         <MatchCreatePage
           accountID={activeAccount._id}
           onPageChange={changeActivePage}
@@ -385,7 +385,7 @@ const App = () => {
         />
       )}
 
-      {activePage === "import" && activeAccount && (
+      {activePage === "import" && activeAccount && activeAccount._id && (
         <ImportPage
           seasonNumber={activeSeason}
           account={activeAccount}
@@ -393,7 +393,7 @@ const App = () => {
         />
       )}
 
-      {activePage === "edit-match" && activeMatchID && activeAccount && (
+      {activePage === "edit-match" && activeMatchID && activeAccount && activeAccount._id && (
         <MatchEditPage
           id={activeMatchID}
           season={activeSeason}
@@ -407,7 +407,7 @@ const App = () => {
 
       {activePage === "help" && <HelpPage onPageChange={changeActivePage} />}
 
-      {activePage === "trends" && activeAccount && (
+      {activePage === "trends" && activeAccount && activeAccount._id && (
         <TrendsPage
           accountID={activeAccount._id}
           season={activeSeason}
