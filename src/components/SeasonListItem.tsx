@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SeasonDeleteForm from "./SeasonDeleteForm";
 import Season from "../models/Season";
 
@@ -9,6 +9,14 @@ interface Props {
   firstNonDeletableSeason: number;
 }
 
+const listItemClass = (index: number) => {
+  let classes: string[] = [];
+  if (index > 0) {
+    classes = classes.concat(["border-top", "pt-2", "mt-2"]);
+  }
+  return classes.join(" ");
+};
+
 const SeasonListItem = ({
   seasonNumber,
   index,
@@ -17,15 +25,14 @@ const SeasonListItem = ({
 }: Props) => {
   const [totalMatches, setTotalMatches] = useState(-1);
 
-  const listItemClass = (index: number) => {
-    let classes: string[] = [];
-    if (index > 0) {
-      classes = classes.concat(["border-top", "pt-2", "mt-2"]);
+  useEffect(() => {
+    async function getTotalMatches() {
+      const total = await Season.totalMatches(seasonNumber);
+      setTotalMatches(total);
     }
-    return classes.join(" ");
-  };
 
-  Season.totalMatches(seasonNumber).then(total => setTotalMatches(total));
+    getTotalMatches();
+  }, [seasonNumber]);
 
   return (
     <li className={listItemClass(index)}>
