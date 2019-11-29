@@ -262,7 +262,7 @@ const App = () => {
     activePage !== "manage-seasons" &&
     activePage !== "help";
 
-  let themeInterval: NodeJS.Timeout | null = null;
+  let themeInterval: number | null = null;
 
   useEffect(() => {
     async function loadLatestSeason() {
