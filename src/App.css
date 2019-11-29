@@ -1,9 +1,3 @@
-.layout-container {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
 .layout-children-container {
   flex: 1 0 auto;
 }
@@ -19,11 +13,6 @@ code {
 
 .select-menu-modal {
   font-size: 14px;
-}
-
-.theme-dark {
-  background-color: #24292e;
-  color: #e1e4e8;
 }
 
 .theme-dark .UnderlineNav-item {
