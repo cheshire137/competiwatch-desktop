@@ -5,6 +5,7 @@
   "version": "0.2.9",
   "private": true,
   "dependencies": {
+    "@primer/components": "^15.1.2",
     "@types/node": "^12.12.8",
     "@types/react": "^16.9.11",
     "@types/react-autocomplete": "^1.8.5",
