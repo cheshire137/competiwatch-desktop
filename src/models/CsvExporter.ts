@@ -166,7 +166,8 @@ class CsvExporter {
 
   async export() {
     const matches = await this.getMatches();
-    return this.generateCsv(matches).then(csv => this.writeFile(csv));
+    const csv = await this.generateCsv(matches)
+    return this.writeFile(csv);
   }
 }
 
