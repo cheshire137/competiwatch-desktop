@@ -85,6 +85,7 @@ class CsvExporter {
       if (match.playedAt) {
         return match.playedAt.toISOString();
       }
+      return null;
     }
     if (header === "Day") {
       return match.dayOfWeek;
