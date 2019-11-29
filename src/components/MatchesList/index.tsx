@@ -9,7 +9,6 @@ interface Props {
   account: Account;
   season: number;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
-  scrollToMatch: boolean;
   scrollToMatchID: string | null;
   theme: string;
 }
@@ -18,7 +17,6 @@ const MatchesList = ({
   account,
   season,
   onPageChange,
-  scrollToMatch,
   theme,
   scrollToMatchID
 }: Props) => {
@@ -48,7 +46,6 @@ const MatchesList = ({
             matches={matches}
             theme={theme}
             onEdit={(matchID: string) => onPageChange("edit-match", matchID)}
-            scrollToMatch={scrollToMatch}
             scrollToMatchID={scrollToMatchID}
           />
           <div className="d-flex mb-4 mt-2 flex-items-center flex-justify-between">

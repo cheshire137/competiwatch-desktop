@@ -90,7 +90,6 @@ function getTitle(
 const App = () => {
   const [latestRank, setLatestRank] = useState(2500);
   const [latestSeason, setLatestSeason] = useState(latestKnownSeason);
-  const [scrollToMatch, setScrollToMatch] = useState(false);
   const [scrollToMatchID, setScrollToMatchID] = useState<string | null>(null);
   const [theme, setTheme] = useState("light");
   const [activeAccount, setActiveAccount] = useState<Account | null>(null);
@@ -178,19 +177,12 @@ const App = () => {
     }
 
     if (activePage === "matches") {
-      if (typeof val1 === "boolean") {
-        setScrollToMatch(val1);
-      } else {
-        setScrollToMatch(false);
-      }
-
-      if (typeof val2 === "string") {
-        setScrollToMatchID(val2);
+      if (typeof val1 === "string") {
+        setScrollToMatchID(val1);
       } else {
         setScrollToMatchID(null);
       }
     } else {
-      setScrollToMatch(false);
       setScrollToMatchID(null);
     }
 
@@ -356,7 +348,6 @@ const App = () => {
           account={activeAccount}
           season={activeSeason}
           onPageChange={changeActivePage}
-          scrollToMatch={scrollToMatch}
           scrollToMatchID={scrollToMatchID}
           theme={theme}
         />

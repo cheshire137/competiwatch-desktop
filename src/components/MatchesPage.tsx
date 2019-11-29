@@ -6,7 +6,6 @@ interface Props {
   account: Account;
   season: number;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
-  scrollToMatch: boolean;
   scrollToMatchID: string | null;
   theme: string;
 }
@@ -15,7 +14,6 @@ const MatchesPage = ({
   account,
   onPageChange,
   season,
-  scrollToMatch,
   scrollToMatchID,
   theme
 }: Props) => (
@@ -25,7 +23,6 @@ const MatchesPage = ({
       account={account}
       theme={theme}
       onPageChange={onPageChange}
-      scrollToMatch={scrollToMatch}
       scrollToMatchID={scrollToMatchID}
     />
   </div>

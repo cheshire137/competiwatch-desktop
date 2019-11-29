@@ -61,7 +61,7 @@ const MatchEditPage = ({
           accountID={match.accountID}
           isPlacement={match.isPlacement}
           isLastPlacement={isLastPlacement}
-          onUpdate={() => onPageChange("matches", true, id)}
+          onUpdate={() => onPageChange("matches", id)}
           rank={match.rank}
           comment={match.comment}
           map={match.map}

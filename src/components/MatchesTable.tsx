@@ -8,7 +8,6 @@ interface Props {
   season: number;
   onEdit: (matchID: string) => void;
   theme: string;
-  scrollToMatch: boolean;
   scrollToMatchID: string | null;
 }
 
@@ -25,7 +24,6 @@ const MatchesTable = ({
   season,
   onEdit,
   theme,
-  scrollToMatch,
   scrollToMatchID
 }: Props) => {
   const lastMatchRow = useRef<HTMLTableRowElement>();
@@ -140,10 +138,6 @@ const MatchesTable = ({
     return Math.max(...lossStreaks);
   };
 
-  if (!scrollToMatch) {
-    return null;
-  }
-
   const scrollToComponent = require("react-scroll-to-component");
 
   if (scrollToMatchID) {
@@ -218,7 +212,7 @@ const MatchesTable = ({
               index={i}
               theme={theme}
               ref={(row: HTMLTableRowElement) => {
-                if (match._id) {
+                if (match._id && matchRowsByID[match._id]) {
                   matchRowsByID[match._id].current = row;
                 }
                 if (isLast) {
