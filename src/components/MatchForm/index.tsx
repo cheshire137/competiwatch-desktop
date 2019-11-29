@@ -84,8 +84,8 @@ interface Props {
   rank?: number;
   accountID: string;
   result?: MatchResult;
-  onUpdate?: () => void;
-  onCreate?: () => void;
+  onUpdate?: (id?: string) => void;
+  onCreate?: (id?: string) => void;
   theme: string;
   heroes?: string;
   group?: string;
@@ -315,10 +315,10 @@ const MatchForm = (props: Props) => {
 
     if (props.id) {
       if (props.onUpdate) {
-        props.onUpdate();
+        props.onUpdate(match._id);
       }
     } else if (props.onCreate) {
-      props.onCreate();
+      props.onCreate(match._id);
     }
   };
 

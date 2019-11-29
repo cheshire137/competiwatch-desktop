@@ -60,7 +60,7 @@ const MatchCreatePage = ({
         rank={latestRank}
         latestGroup={latestGroup}
         theme={theme}
-        onCreate={() => onPageChange("matches")}
+        onCreate={(id?: string) => onPageChange("matches", id)}
         priorMatches={matches}
       />
     </div>

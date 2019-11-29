@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useRef, useEffect } from "react";
 import MatchTableRow from "./MatchTableRow";
 import Season from "../models/Season";
 import Match, { MatchResult } from "../models/Match";
@@ -15,10 +15,6 @@ type MatchResultToRankChange = {
   [result: string]: number[];
 };
 
-type MatchRowsByID = {
-  [id: string]: React.MutableRefObject<HTMLTableRowElement>;
-};
-
 const MatchesTable = ({
   matches,
   season,
@@ -27,7 +23,7 @@ const MatchesTable = ({
   scrollToMatchID
 }: Props) => {
   const lastMatchRow = useRef<HTMLTableRowElement>();
-  const matchRowsByID: MatchRowsByID = {};
+  const targetMatchRow = useRef<HTMLTableRowElement>();
 
   const matchRankChangesByResult = () => {
     const results: MatchResult[] = ["win", "loss"];
@@ -138,19 +134,6 @@ const MatchesTable = ({
     return Math.max(...lossStreaks);
   };
 
-  const scrollToComponent = require("react-scroll-to-component");
-
-  if (scrollToMatchID) {
-    if (
-      matchRowsByID[scrollToMatchID] &&
-      matchRowsByID[scrollToMatchID].current
-    ) {
-      scrollToComponent(matchRowsByID[scrollToMatchID].current);
-    }
-  } else if (lastMatchRow.current) {
-    scrollToComponent(lastMatchRow.current);
-  }
-
   const rankChanges = matchRankChangesByResult();
   const showThrowerLeaver = showThrowerLeaverColumn();
   const showPlayOfTheGame = showPlayOfTheGameColumn();
@@ -162,6 +145,16 @@ const MatchesTable = ({
   const showRole = showRoleColumn();
   const longestWinStreak = getLongestWinStreak();
   const longestLossStreak = getLongestLossStreak();
+
+  useEffect(() => {
+    const scrollToComponent = require("react-scroll-to-component");
+
+    if (targetMatchRow.current) {
+      scrollToComponent(targetMatchRow.current);
+    } else if (lastMatchRow.current) {
+      scrollToComponent(lastMatchRow.current);
+    }
+  }, [scrollToMatchID]);
 
   return (
     <table className="width-full">
@@ -212,8 +205,8 @@ const MatchesTable = ({
               index={i}
               theme={theme}
               ref={(row: HTMLTableRowElement) => {
-                if (match._id && matchRowsByID[match._id]) {
-                  matchRowsByID[match._id].current = row;
+                if (match._id && match._id === scrollToMatchID) {
+                  targetMatchRow.current = row;
                 }
                 if (isLast) {
                   lastMatchRow.current = row;
