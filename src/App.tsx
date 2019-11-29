@@ -244,6 +244,8 @@ const App = () => {
       return;
     }
 
+    setActiveAccount(account);
+
     if (activePage !== "trends" && activePage !== "matches") {
       setActivePage("matches");
     }
