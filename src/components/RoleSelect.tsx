@@ -5,7 +5,7 @@ import { HeroRole, HeroRoles } from "../models/Hero";
 interface Props {
   onChange: (role: HeroRole) => void;
   theme: string;
-  selectedRole: HeroRole;
+  selectedRole: HeroRole | null;
 }
 
 const RoleSelect = ({ onChange, theme, selectedRole }: Props) => (

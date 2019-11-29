@@ -16,6 +16,13 @@ import DayOfWeekEmoji from "../DayOfWeekEmoji";
 import GroupMembersField from "../GroupMembersField";
 import "./MatchForm.css";
 
+const shouldEnableRankField = (season: number, role?: HeroRole | null) => {
+  if (role) {
+    return true;
+  }
+  return season < Season.roleQueueSeasonStart;
+}
+
 const roleForHero = (hero: Hero): HeroRole => {
   for (const role of HeroRoles) {
     if (HeroesByRole[role].includes(hero)) {
@@ -224,9 +231,9 @@ const MatchForm = (props: Props) => {
     initialIsLastPlacement
   );
   const [enableRankField, setEnableRankField] = useState(
-    props.season < Season.roleQueueSeasonStart
+    shouldEnableRankField(props.season, props.role)
   );
-  const [rank, setRank] = useState<number | undefined>(props.rank);
+  const [rank, setRank] = useState<number | undefined>();
   const [latestRank, setLatestRank] = useState<number | undefined>(props.rank);
   const [result, setResult] = useState<MatchResult | undefined>(props.result);
   const [comment, setComment] = useState(props.comment || "");
@@ -546,11 +553,11 @@ const MatchForm = (props: Props) => {
     onFormFieldUpdate();
   };
 
-  const { season, latestGroup, theme } = props;
+  const { season, latestGroup, theme, accountID } = props;
   const dayOfWeekTimeOfDay = `${dayOfWeek}-${timeOfDay}`;
 
   useEffect(() => {
-    setEnableRankField(props.season < Season.roleQueueSeasonStart);
+    setEnableRankField(shouldEnableRankField(season, role));
     refreshGroupMembers();
 
     setIsValid(
@@ -558,18 +565,18 @@ const MatchForm = (props: Props) => {
         rank,
         role,
         isPlacement,
-        season: props.season,
+        season,
         groupSize,
         group,
         result
       })
     );
   }, [
-    props.accountID,
+    accountID,
     rank,
     role,
     isPlacement,
-    props.season,
+    season,
     groupSize,
     group,
     result,
@@ -594,7 +601,7 @@ const MatchForm = (props: Props) => {
     }} className="mb-4">
       <div className="clearfix">
         <div className="col-md-12 col-lg-6 float-left pr-3-lg">
-          {season >= Season.roleQueueSeasonStart && role && (
+          {season >= Season.roleQueueSeasonStart && (
             <div className="form-group mt-0">
               <span className="f3 mr-4">Role played:</span>
               <RoleSelect
@@ -645,7 +652,7 @@ const MatchForm = (props: Props) => {
                   autoFocus={season < Season.roleQueueSeasonStart}
                   // ref={el => (this.matchRankField = el)}
                   className="form-control sr-field"
-                  value={rank}
+                  value={rank || ""}
                   onChange={onRankChange}
                   placeholder={
                     typeof latestRank === "number" ? latestRank.toString() : ""
