@@ -14,7 +14,7 @@ const MatchesTab = ({
   onPageChange,
   underlineNavItemClass
 }: Props) => {
-  const [totalMatches, setTotalMatches] = useState<number | null>(null);
+  const [totalMatches, setTotalMatches] = useState<number>(-1);
 
   useEffect(() => {
     async function getTotalMatches() {
@@ -23,9 +23,9 @@ const MatchesTab = ({
     }
 
     getTotalMatches();
-  }, [activeSeason]);
+  }, [activePage, activeSeason]);
 
-  const totalBadge = totalMatches !== null && (
+  const totalBadge = totalMatches >= 0 && (
     <span className="Counter">{totalMatches}</span>
   );
 
