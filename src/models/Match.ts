@@ -403,9 +403,6 @@ class Match {
       result: this.result,
       role: this.role
     };
-    if (!this._id) {
-      return this;
-    }
 
     const record = await Database.upsert("matches", data, this._id);
     const newMatch: Match = record as Match;
