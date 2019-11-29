@@ -4,6 +4,7 @@ import LoadingPage from "../LoadingPage";
 import Match from "../../models/Match";
 import Account from "../../models/Account";
 import "./MatchesList.css";
+import LinkButton from "../LinkButton";
 
 interface Props {
   account: Account;
@@ -51,13 +52,12 @@ const MatchesList = ({
           <div className="d-flex mb-4 mt-2 flex-items-center flex-justify-between">
             <div className="text-small">
               <span>Replace your season {season} matches by </span>
-              <button
+              <LinkButton
                 type="button"
-                className="btn-link"
                 onClick={() => onPageChange("import")}
               >
                 importing them
-              </button>
+              </LinkButton>
               <span> from a CSV file.</span>
             </div>
           </div>

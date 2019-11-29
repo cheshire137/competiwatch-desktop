@@ -1,6 +1,7 @@
 import React from "react";
 import { openLinkInBrowser } from "../utils/electronUtils";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
+import LinkButton from "./LinkButton";
 
 interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
@@ -16,13 +17,12 @@ const HelpPage = ({ onPageChange }: Props) => {
   return (
     <LayoutChildrenContainer>
       <div className="mt-4">
-        <button
+        <LinkButton
           type="button"
           onClick={() => onPageChange("accounts")}
-          className="btn-link"
         >
           &larr; Back to your accounts
-        </button>
+        </LinkButton>
       </div>
       <h1 className="h1 mb-2 mt-4">Help</h1>
       <div className="clearfix mb-4">
@@ -74,13 +74,12 @@ const HelpPage = ({ onPageChange }: Props) => {
                 🎉
               </span>{" "}
               See{" "}
-              <button
+              <LinkButton
                 type="button"
-                className="btn-link"
                 onClick={() => onPageChange("about")}
               >
                 the about page
-              </button>{" "}
+              </LinkButton>{" "}
               for more information, but Competiwatch is my hobby project. Pull
               requests are welcome{" "}
               <a

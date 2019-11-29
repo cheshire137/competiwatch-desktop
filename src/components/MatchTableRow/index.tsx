@@ -9,6 +9,7 @@ import TimeOfDayEmoji from "../TimeOfDayEmoji";
 import DayOfWeekEmoji from "../DayOfWeekEmoji";
 import "./MatchTableRow.css";
 import Match from "../../models/Match";
+import EditMatchButton from "./EditMatchButton";
 
 const winColors = [
   [178, 212, 132],
@@ -546,15 +547,13 @@ const MatchTableRow = (
         </td>
       )}
       <td className="match-cell options-cell">
-        <button
+        <EditMatchButton
           type="button"
           onClick={editMatch}
-          className="btn-link link-gray tooltipped tooltipped-w"
-          aria-label="Edit this match"
           value={_id}
         >
           <span className="ion ion-md-create" />
-        </button>
+        </EditMatchButton>
       </td>
     </tr>
   );

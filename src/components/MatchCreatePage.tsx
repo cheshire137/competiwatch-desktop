@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Match from "../models/Match";
 import MatchForm from "./MatchForm";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
+import LinkButton from "./LinkButton";
 
 interface Props {
   accountID: string;
@@ -45,13 +46,12 @@ const MatchCreatePage = ({
         <p className="flash flash-warn">
           You are logging a match for a past competitive season. Did you want
           <span> to </span>
-          <button
+          <LinkButton
             type="button"
-            className="btn-link"
             onClick={() => onSeasonChange(latestSeason)}
           >
             log a match in season {latestSeason}
-          </button>
+          </LinkButton>
           ?
         </p>
       )}

@@ -2,6 +2,7 @@ import React from "react";
 import SeasonForm from "./SeasonForm";
 import SeasonsList from "./SeasonsList";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
+import LinkButton from "./LinkButton";
 
 interface Props {
   onCreate: (season: number) => void;
@@ -20,13 +21,12 @@ const SeasonsPage = ({
 }: Props) => (
   <LayoutChildrenContainer>
     <div className="mt-4">
-      <button
+      <LinkButton
         type="button"
         onClick={() => onPageChange("accounts")}
-        className="btn-link"
       >
         &larr; Back to your accounts
-      </button>
+      </LinkButton>
     </div>
     <h1 className="h1 mb-2 mt-4">Manage Seasons</h1>
     <div className="clearfix">

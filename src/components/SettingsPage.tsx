@@ -4,6 +4,7 @@ import DatabaseFileLink from "./DatabaseFileLink";
 import Account from "../models/Account";
 import Setting from "../models/Setting";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
+import LinkButton from "./LinkButton";
 
 const dbNames = ["accounts", "matches", "seasons", "settings"];
 
@@ -33,13 +34,12 @@ interface Props {
 const SettingsPage = ({ accounts, settings, onSave, onPageChange }: Props) => (
   <LayoutChildrenContainer>
     <div className="mt-4">
-      <button
+      <LinkButton
         type="button"
         onClick={() => onPageChange("accounts")}
-        className="btn-link"
       >
         &larr; Back to your accounts
-      </button>
+      </LinkButton>
     </div>
     <h1 className="h1 mb-2 mt-4">Settings</h1>
     <div className="col-md-6 mb-4">

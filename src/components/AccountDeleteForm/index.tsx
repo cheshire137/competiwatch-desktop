@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Account from "../../models/Account";
+import DeleteAccountButton from "./DeleteAccountButton";
 
 interface Props {
   battletag?: string;
@@ -41,9 +42,9 @@ const AccountDeleteForm = ({ battletag, id, onDelete }: Props) => {
       evt.preventDefault();
       deleteAccount();
     }}>
-      <button type="submit" className="btn-link text-red text-small">
+      <DeleteAccountButton type="submit" >
         Delete account
-      </button>
+      </DeleteAccountButton>
     </form>
   );
 };
