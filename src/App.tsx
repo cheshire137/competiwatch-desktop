@@ -266,8 +266,6 @@ const App = () => {
     activePage !== "settings" &&
     activePage !== "manage-seasons" &&
     activePage !== "help";
-  const haveActiveSeason =
-    typeof activeSeason === "number" && !isNaN(activeSeason);
 
   let themeInterval: NodeJS.Timeout | null = null;
 
@@ -351,7 +349,7 @@ const App = () => {
         />
       )}
 
-      {activePage === "matches" && haveActiveSeason && activeAccount && (
+      {activePage === "matches" && activeAccount && (
         <MatchesPage
           account={activeAccount}
           season={activeSeason}
@@ -362,7 +360,7 @@ const App = () => {
         />
       )}
 
-      {activePage === "log-match" && haveActiveSeason && activeAccount && (
+      {activePage === "log-match" && activeAccount && (
         <MatchCreatePage
           accountID={activeAccount._id}
           onPageChange={changeActivePage}
@@ -385,7 +383,7 @@ const App = () => {
         />
       )}
 
-      {activePage === "import" && haveActiveSeason && activeAccount && (
+      {activePage === "import" && activeAccount && (
         <ImportPage
           seasonNumber={activeSeason}
           account={activeAccount}
@@ -425,7 +423,7 @@ const App = () => {
         />
       )}
 
-      {activePage === "accounts" && haveActiveSeason && (
+      {activePage === "accounts" && (
         <AccountsPage
           accounts={accounts}
           season={activeSeason}
