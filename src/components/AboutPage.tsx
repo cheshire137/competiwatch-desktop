@@ -3,6 +3,7 @@ import PackageInfo from "../../package.json";
 import { openLinkInBrowser, getAppName } from "../utils/electronUtils";
 import GithubApi from "../models/GithubApi";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
+import LinkButton from "./LinkButton";
 
 interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
@@ -34,13 +35,12 @@ const AboutPage = ({ onPageChange }: Props) => {
   return (
     <LayoutChildrenContainer>
       <div className="mt-4">
-        <button
+        <LinkButton
           type="button"
           onClick={() => onPageChange("accounts")}
-          className="btn-link"
         >
           &larr; Back to your accounts
-        </button>
+        </LinkButton>
       </div>
       <h1 className="h1 mb-2 mt-4">About {appName}</h1>
       <div className="clearfix mb-4">
