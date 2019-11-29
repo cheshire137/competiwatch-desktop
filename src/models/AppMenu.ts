@@ -237,18 +237,17 @@ class AppMenu {
     return {
       label: "Log a Match",
       accelerator: `${this.altOrOption}+L`,
-      click() {
+      async click() {
         const account = self.accounts.filter(
           acct => acct._id === self.accountID
         )[0];
         if (account) {
-          account.latestMatch(self.season).then(match => {
-            if (match) {
-              self.onPageChange("log-match", match.rank, match.group);
-            } else {
-              self.onPageChange("log-match");
-            }
-          });
+          const match = await account.latestMatch(self.season);
+          if (match) {
+            self.onPageChange("log-match", match.rank, match.group);
+          } else {
+            self.onPageChange("log-match");
+          }
         } else {
           self.onPageChange("log-match");
         }
