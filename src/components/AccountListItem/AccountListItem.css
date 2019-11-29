@@ -57,11 +57,3 @@
 .theme-dark .Box .AvatarStack-body .avatar.account-hero-avatar {
   background-color: #2f363d;
 }
-
-.show-on-hover {
-  visibility: hidden;
-}
-
-.account-list-item:hover .show-on-hover {
-  visibility: visible;
-}

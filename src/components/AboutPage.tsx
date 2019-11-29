@@ -103,23 +103,21 @@ const AboutPage = ({ onPageChange }: Props) => {
                     {latestVersion.version === version ? (
                       <span>You have the latest version</span>
                     ) : (
-                      <button
+                      <LinkButton
                         type="button"
-                        className="btn-link"
                         onClick={openLatestVersion}
                       >
                         Version {latestVersion.version} is available
-                      </button>
+                      </LinkButton>
                     )}
                   </span>
                 ) : (
-                  <button
+                  <LinkButton
                     type="button"
-                    className="btn-link"
                     onClick={() => checkLatestVersion()}
                   >
                     Check for new version
-                  </button>
+                  </LinkButton>
                 )}
               </li>
               <li>

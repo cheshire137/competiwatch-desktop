@@ -10,6 +10,11 @@ import "./AccountListItem.css";
 import Account from "../../models/Account";
 import { Hero } from "../../models/Hero";
 import { showSaveDialog } from "../../utils/electronUtils";
+import LinkButton from "../LinkButton";
+import BattletagButton from "./BattletagButton";
+import AccountListItemStyle from "./AccountListItemStyle";
+import ButtonShownOnHover from "./ButtonShownOnHover";
+import RankButton from "./RankButton";
 
 interface Props {
   account: Account;
@@ -117,7 +122,7 @@ const AccountListItem = ({
   const haveLatestResult = latestMatch && latestMatch.result;
 
   return (
-    <li className="Box mb-3 p-3 account-list-item">
+    <AccountListItemStyle>
       <div className="d-flex flex-justify-between flex-items-center">
         <div className="width-full mb-2 mt-1">
           <div className="d-flex flex-items-center flex-justify-between">
@@ -129,22 +134,20 @@ const AccountListItem = ({
                   totalAccounts={1}
                   onUpdate={accountUpdated}
                 />
-                <button
-                  className="btn-link f6"
+                <LinkButton
                   type="button"
                   onClick={() => setShowEditForm(!showEditForm)}
                 >
                   Cancel rename
-                </button>
+                </LinkButton>
               </>
             ) : (
-              <button
+              <BattletagButton
                 type="button"
-                className="btn-link h1 text-bold text-left d-block flex-auto"
                 onClick={() => onAccountChange(account._id)}
               >
                 {battletag}
-              </button>
+              </BattletagButton>
             )}
             <AccountDeleteForm
               id={_id}
@@ -182,38 +185,36 @@ const AccountListItem = ({
               <span>No matches in season {season}</span>
             )}
           </div>
-          <button
-            className="btn-link link-gray-dark f6 show-on-hover"
+          <ButtonShownOnHover
             type="button"
             onClick={() => setShowEditForm(!showEditForm)}
           >
             Rename account
-          </button>
+          </ButtonShownOnHover>
           {totalMatches > 0 ? (
             <>
-              <button
+              <ButtonShownOnHover
+                ml={3}
                 type="button"
                 aria-label="Save season as a CSV file"
-                className="ml-3 btn-link tooltipped show-on-hover tooltipped-n link-gray-dark f6"
                 onClick={exportSeason}
               >
                 Export season {season}
-              </button>
-              <button
+              </ButtonShownOnHover>
+              <ButtonShownOnHover
                 type="button"
-                className="btn-link text-red show-on-hover f6 ml-3"
+                ml={3}
                 onClick={wipeSeason}
               >
                 Delete matches
-              </button>
+              </ButtonShownOnHover>
             </>
           ) : null}
         </div>
         <div className="d-flex flex-items-center">
           {haveLatestRank && latestMatch && (
-            <button
+            <RankButton
               type="button"
-              className="text-center btn-link btn-rank"
               onClick={() => onAccountChange(account._id)}
             >
               {typeof latestMatch.rank === "number" && (
@@ -225,7 +226,7 @@ const AccountListItem = ({
               <h3 className="h4 text-normal lh-condensed text-gray-dark my-0">
                 {latestMatch.rank}
               </h3>
-            </button>
+            </RankButton>
           )}
           <div className="ml-3 text-right">
             {topHeroes && topHeroes.length > 0 ? (
@@ -254,7 +255,7 @@ const AccountListItem = ({
           </div>
         </div>
       </div>
-    </li>
+    </AccountListItemStyle>
   );
 };
 
