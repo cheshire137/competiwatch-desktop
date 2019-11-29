@@ -5,6 +5,7 @@
 - Added competitive season 19
 - Fixed bug where the app would default to opening a past season instead of the latest known season [#79](https://github.com/cheshire137/competiwatch-desktop/issues/79)
 - UI improvements
+- Changing seasons or accounts will now scroll to the last logged match automatically
 
 ## Version 0.2.8
 
