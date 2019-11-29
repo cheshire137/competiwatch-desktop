@@ -82,22 +82,20 @@ class CsvImporter {
       joinedVoice: data["joined voice"]
     };
     const match = new Match(matchData);
-    await match.save();
-    return match;
+    return match.save();
   };
 
-  import(onSave: (match: Match) => void) {
-    return this.parseCsv().then(async (rows: any[]) => {
-      const matches = [];
+  async import(onSave: (match: Match) => void) {
+    const rows: any[] = await this.parseCsv();
+    const matches = [];
 
-      for (const row of rows) {
-        const match = await this.importMatch(row);
-        onSave(match);
-        matches.push(match);
-      }
+    for (const row of rows) {
+      const match = await this.importMatch(row);
+      onSave(match);
+      matches.push(match);
+    }
 
-      return matches;
-    });
+    return matches;
   }
 }
 
