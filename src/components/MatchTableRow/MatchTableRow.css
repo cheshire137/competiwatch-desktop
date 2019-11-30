@@ -19,11 +19,6 @@
   padding-bottom: 0;
 }
 
-.match-cell.role-cell {
-  line-height: 1;
-  vertical-align: middle;
-}
-
 .match-placement-row .match-cell.rank-cell,
 .match-placement-row .match-cell.comment-cell,
 .match-placement-row .match-cell.time-cell,
@@ -31,8 +26,7 @@
 .match-placement-row .match-cell.throwers-leavers-cell,
 .match-placement-row .match-cell.options-cell,
 .match-placement-row .match-cell.group-cell,
-.match-placement-row .match-cell.potg-cell,
-.match-placement-row .match-cell.role-cell {
+.match-placement-row .match-cell.potg-cell {
   background-color: #efefef;
 }
 
@@ -275,7 +269,6 @@
 .theme-dark .match-placement-row .match-cell.heroes-cell,
 .theme-dark .match-placement-row .match-cell.throwers-leavers-cell,
 .theme-dark .match-placement-row .match-cell.options-cell,
-.theme-dark .match-placement-row .match-cell.role-cell,
 .theme-dark .match-placement-row .match-cell.group-cell,
 .theme-dark .match-placement-row .match-cell.potg-cell {
   background-color: #3a434b;

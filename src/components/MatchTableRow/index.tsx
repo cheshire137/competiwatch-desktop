@@ -9,7 +9,7 @@ import DayOfWeekEmoji from "../DayOfWeekEmoji";
 import "./MatchTableRow.css";
 import Match from "../../models/Match";
 import EditMatchButton from "./EditMatchButton";
-import MatchCell from "./MatchCell";
+import RoleCell from "./RoleCell";
 import OptionsCell from "./OptionsCell";
 import HideSmallCell from "./HideSmallCell";
 import NoWrap from "./NoWrap";
@@ -291,11 +291,6 @@ const MatchTableRow = (
     return comment.trim().replace(/"/g, "'");
   };
 
-  const roleClass = () => {
-    const { role } = match;
-    return `match-cell role-cell role-${role}`;
-  };
-
   const commentClass = () => {
     const { comment } = match;
     let classes = ["match-cell", "hide-sm", "comment-cell", "css-truncate"];
@@ -365,9 +360,9 @@ const MatchTableRow = (
     <tr className={outerClass()} ref={ref}>
       <MatchNumberCell isPlacement={match.isPlacement}>{matchNumber()}</MatchNumberCell>
       {showRole && role && (
-        <td className={roleClass()}>
+        <RoleCell isPlacement={match.isPlacement} theme={theme}>
           <RoleImage role={role} theme={theme} className="d-inline-block" />
-        </td>
+        </RoleCell>
       )}
       <ResultCell result={result} theme={theme}>
         {result ? result.charAt(0).toUpperCase() : <span>&mdash;</span>}
