@@ -1,6 +1,5 @@
 import React, { forwardRef, MutableRefObject } from "react";
 import CSS from "csstype";
-import ColorGradient from "../../models/ColorGradient";
 import Season from "../../models/Season";
 import MatchRankImage from "../MatchRankImage";
 import HeroImage from "../HeroImage";
@@ -16,16 +15,7 @@ import HideSmallCell from "./HideSmallCell";
 import NoWrap from "./NoWrap";
 import MatchNumberCell from "./MatchNumberCell";
 import ResultCell from "./ResultCell";
-
-const winColors = [
-  [178, 212, 132],
-  [102, 189, 125]
-];
-const lossColors = [
-  [250, 170, 124],
-  [246, 106, 110]
-];
-const neutralColor = [254, 234, 138];
+import SRChangeCell from "./SRChangeCell";
 
 const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.substr(1);
@@ -178,37 +168,6 @@ const MatchTableRow = (
     }
 
     return index - totalPlacementMatches + 1;
-  };
-
-  const rankChangeStyle = () => {
-    const style: CSS.Properties = {};
-
-    if (match.isPlacement) {
-      return style;
-    }
-
-    let color = null;
-    if (match.result === "draw") {
-      color = neutralColor;
-    } else {
-      const colorRange = match.result === "win" ? winColors : lossColors;
-      const gradient = new ColorGradient(colorRange, rankChanges.length);
-      const rgbColors = gradient.rgb();
-      const index =
-        typeof match.rankChange === "number"
-          ? rankChanges.indexOf(match.rankChange)
-          : -1;
-
-      if (typeof index === "number") {
-        color = rgbColors[index];
-      }
-    }
-
-    if (color) {
-      style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-    }
-
-    return style;
   };
 
   const getPriorMatchesWithRank = () => {
@@ -413,10 +372,7 @@ const MatchTableRow = (
       <ResultCell result={result} theme={theme}>
         {result ? result.charAt(0).toUpperCase() : <span>&mdash;</span>}
       </ResultCell>
-      <td
-        style={rankChangeStyle()}
-        className="position-relative match-cell sr-change-cell"
-      >
+      <SRChangeCell rankChanges={rankChanges} theme={theme} result={match.result} isPlacement={match.isPlacement} rankChange={match.rankChange}>
         {typeof rankChange === "number" ? (
           <span className={`darken-change darken-change-${result}`} />
         ) : null}
@@ -425,7 +381,7 @@ const MatchTableRow = (
         ) : (
           <span>&mdash;</span>
         )}
-      </td>
+      </SRChangeCell>
       <td className={rankClass()}>
         <div className="d-flex flex-items-center flex-justify-center">
           {typeof rank === "number" && (

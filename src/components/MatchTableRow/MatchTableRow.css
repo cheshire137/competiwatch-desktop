@@ -24,7 +24,6 @@
   vertical-align: middle;
 }
 
-.match-placement-row .match-cell.sr-change-cell,
 .match-placement-row .match-cell.rank-cell,
 .match-placement-row .match-cell.comment-cell,
 .match-placement-row .match-cell.time-cell,
@@ -270,7 +269,6 @@
   background-color: #a88600;
 }
 
-.theme-dark .match-placement-row .match-cell.sr-change-cell,
 .theme-dark .match-placement-row .match-cell.rank-cell,
 .theme-dark .match-placement-row .match-cell.comment-cell,
 .theme-dark .match-placement-row .match-cell.time-cell,
