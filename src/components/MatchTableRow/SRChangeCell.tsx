@@ -1,17 +1,7 @@
 import styled from "styled-components";
-import MatchCell from "./MatchCell";
+import MatchCell, { winColors, neutralColor, lossColors } from "./MatchCell";
 import { MatchResult } from "../../models/Match";
 import ColorGradient from "../../models/ColorGradient";
-
-const winColors = [
-  [178, 212, 132],
-  [102, 189, 125]
-];
-const lossColors = [
-  [250, 170, 124],
-  [246, 106, 110]
-];
-const neutralColor = [254, 234, 138];
 
 interface Props {
   result?: MatchResult;

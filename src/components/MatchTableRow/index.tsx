@@ -18,6 +18,7 @@ import ResultCell from "./ResultCell";
 import SRChangeCell from "./SRChangeCell";
 import DarkenSRChange from "./DarkenSRChange";
 import RankCell from "./RankCell";
+import StreakCell from "./StreakCell";
 
 const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.substr(1);
@@ -219,46 +220,6 @@ const MatchTableRow = (
     }
   };
 
-  const streakClass = () => {
-    const classes = ["match-cell", "position-relative", "hide-sm"];
-    if (match.isDraw()) {
-      classes.push("streak-empty");
-    }
-    return classes.join(" ");
-  };
-
-  const streakStyle = () => {
-    const style: CSS.Properties = {};
-    let colors: number[][] = [];
-    let stepCount = 0;
-    const streakList = [];
-    let streak: number | undefined = 0;
-
-    if (match.isWin()) {
-      colors = winColors;
-      stepCount = longestWinStreak;
-      streak = match.winStreak;
-    } else if (match.isLoss()) {
-      colors = lossColors;
-      stepCount = longestLossStreak;
-      streak = match.lossStreak;
-    }
-
-    if (colors.length > 0) {
-      for (let i = 1; i <= stepCount; i++) {
-        streakList.push(i);
-      }
-      const gradient = new ColorGradient(colors, stepCount);
-      const rgbColors = gradient.rgb();
-      const index =
-        typeof streak === "number" ? streakList.indexOf(streak) : -1;
-      const color = rgbColors[index];
-      style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
-    }
-
-    return style;
-  };
-
   const editMatch = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -378,16 +339,16 @@ const MatchTableRow = (
           {typeof rank === "number" ? rank : <span>&mdash;</span>}
         </div>
       </RankCell>
-      <td className={streakClass()} style={streakStyle()}>
+      <StreakCell theme={theme} result={match.result} longestWinStreak={longestWinStreak} longestLossStreak={longestLossStreak} isPlacement={match.isPlacement} winStreak={match.winStreak} lossStreak={match.lossStreak}>
         {isWin || isLoss ? (
-          <span className={`darken-change darken-change-${result}`} />
+          <DarkenSRChange theme={theme} result={match.result} />
         ) : null}
         {isWin ? (
-          <span className="position-relative">{match.winStreak}</span>
+          <span style={{ position: "relative" }}>{match.winStreak}</span>
         ) : isLoss ? (
-          <span className="position-relative">{match.lossStreak}</span>
+          <span style={{ position: "relative" }}>{match.lossStreak}</span>
         ) : null}
-      </td>
+      </StreakCell>
       <td className={`match-cell no-wrap ${mapBackgroundClass()}`}>{map}</td>
       {showComment && (
         <td className={commentClass()} aria-label={commentTooltip()}>

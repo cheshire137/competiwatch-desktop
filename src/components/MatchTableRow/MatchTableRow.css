@@ -57,10 +57,6 @@
   background-color: #e8e8e8;
 }
 
-.streak-empty {
-  background-color: #ddd;
-}
-
 .background-junkertown {
   background-color: #f4b531;
 }
@@ -243,15 +239,6 @@
 .theme-dark .match-placement-log-row .match-number-cell.match-cell {
   background-color: #444d56;
   color: #d1d5da;
-}
-
-.theme-dark .streak-empty {
-  background-color: #a88600;
-}
-
-.theme-dark .match-placement-log-row .match-cell,
-.theme-dark .match-placement-log-row .match-cell.streak-empty {
-  background-color: #2f363d;
 }
 
 .css-truncate .css-truncate-target.comment-truncate-target {
