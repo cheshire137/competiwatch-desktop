@@ -2,14 +2,9 @@
   height: 20px;
 }
 
-.match-cell,
 .match-header {
   border: 1px solid #000;
   padding: 0.3em 0.6em;
-}
-
-.match-cell {
-  text-align: center;
 }
 
 .match-header {
@@ -42,7 +37,6 @@
   background-color: #efefef;
 }
 
-.options-cell,
 .match-placement-row .match-cell.options-cell,
 .options-header {
   border: none;
@@ -82,7 +76,6 @@
   background-color: #fed86e;
 }
 
-.match-number-cell,
 .match-placement-log-row .match-number-cell.match-cell {
   background-color: #d0cece;
 }

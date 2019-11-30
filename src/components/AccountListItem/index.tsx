@@ -229,7 +229,7 @@ const AccountListItem = ({
             </RankButton>
           )}
           <div className="ml-3 text-right">
-            {topHeroes && topHeroes.length > 0 ? (
+            {topHeroes && topHeroes.length > 0 && (
               <div
                 className={`AvatarStack account-avatar-stack AvatarStack--right ${
                   topHeroes.length >= 3
@@ -251,7 +251,7 @@ const AccountListItem = ({
                   ))}
                 </div>
               </div>
-            ) : null}
+            )}
           </div>
         </div>
       </div>

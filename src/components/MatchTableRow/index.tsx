@@ -10,6 +10,11 @@ import DayOfWeekEmoji from "../DayOfWeekEmoji";
 import "./MatchTableRow.css";
 import Match from "../../models/Match";
 import EditMatchButton from "./EditMatchButton";
+import MatchCell from "./MatchCell";
+import OptionsCell from "./OptionsCell";
+import HideSmallCell from "./HideSmallCell";
+import NoWrap from "./NoWrap";
+import MatchNumberCell from "./MatchNumberCell";
 
 const winColors = [
   [178, 212, 132],
@@ -172,16 +177,6 @@ const MatchTableRow = (
     }
 
     return index - totalPlacementMatches + 1;
-  };
-
-  const matchNumberClass = () => {
-    const classes = ["match-cell", "hide-sm", "match-number-cell"];
-
-    if (match.isPlacement) {
-      classes.push("match-placement-number-cell");
-    }
-
-    return classes.join(" ");
   };
 
   const rankChangeStyle = () => {
@@ -408,7 +403,7 @@ const MatchTableRow = (
 
   return (
     <tr className={outerClass()} ref={ref}>
-      <td className={matchNumberClass()}>{matchNumber()}</td>
+      <MatchNumberCell isPlacement={match.isPlacement}>{matchNumber()}</MatchNumberCell>
       {showRole && role && (
         <td className={roleClass()}>
           <RoleImage role={role} theme={theme} className="d-inline-block" />
@@ -461,7 +456,7 @@ const MatchTableRow = (
         </td>
       )}
       {showHeroes && (
-        <td className="match-cell hide-sm heroes-cell">
+        <HideSmallCell style={{ paddingBottom: 0 }}>
           {heroList.map(hero => (
             <span
               key={hero}
@@ -471,10 +466,10 @@ const MatchTableRow = (
               <HeroImage hero={hero} className="rounded-1 d-inline-block" />
             </span>
           ))}
-        </td>
+        </HideSmallCell>
       )}
       {showDayTime && (
-        <td className="match-cell text-center hide-sm time-cell no-wrap">
+        <HideSmallCell>
           {timeAndDayPresent && dayOfWeek && timeOfDay && (
             <div
               className="tooltipped tooltipped-n"
@@ -485,7 +480,7 @@ const MatchTableRow = (
               <TimeOfDayEmoji timeOfDay={timeOfDay} />
             </div>
           )}
-        </td>
+        </HideSmallCell>
       )}
       {showGroup && (
         <td className={groupClass()} aria-label={groupTooltip()}>
@@ -501,27 +496,29 @@ const MatchTableRow = (
         </td>
       )}
       {showThrowerLeaver && (
-        <td className="match-cell no-wrap hide-sm throwers-leavers-cell">
-          {(allyThrower || enemyThrower) && (
-            <span
-              className="Counter tooltipped tooltipped-n text-white bg-red"
-              aria-label={throwerTooltip()}
-            >
-              T
-            </span>
-          )}
-          {(allyLeaver || enemyLeaver) && (
-            <span
-              className="Counter tooltipped tooltipped-n text-white bg-red"
-              aria-label={leaverTooltip()}
-            >
-              L
-            </span>
-          )}
-        </td>
+        <HideSmallCell>
+          <NoWrap>
+            {(allyThrower || enemyThrower) && (
+              <span
+                className="Counter tooltipped tooltipped-n text-white bg-red"
+                aria-label={throwerTooltip()}
+              >
+                T
+              </span>
+            )}
+            {(allyLeaver || enemyLeaver) && (
+              <span
+                className="Counter tooltipped tooltipped-n text-white bg-red"
+                aria-label={leaverTooltip()}
+              >
+                L
+              </span>
+            )}
+          </NoWrap>
+        </HideSmallCell>
       )}
       {(showPlayOfTheGame || showJoinedVoice) && (
-        <td className="match-cell hide-sm potg-cell">
+        <HideSmallCell>
           {playOfTheGame && (
             <span
               className={`tooltipped tooltipped-n ${
@@ -544,9 +541,9 @@ const MatchTableRow = (
               </span>
             </span>
           )}
-        </td>
+        </HideSmallCell>
       )}
-      <td className="match-cell options-cell">
+      <OptionsCell>
         <EditMatchButton
           type="button"
           onClick={editMatch}
@@ -554,7 +551,7 @@ const MatchTableRow = (
         >
           <span className="ion ion-md-create" />
         </EditMatchButton>
-      </td>
+      </OptionsCell>
     </tr>
   );
 };
