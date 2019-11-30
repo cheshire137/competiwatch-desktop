@@ -19,6 +19,7 @@ import SRChangeCell from "./SRChangeCell";
 import DarkenSRChange from "./DarkenSRChange";
 import RankCell from "./RankCell";
 import StreakCell from "./StreakCell";
+import MapCell from "./MapCell";
 
 const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.substr(1);
@@ -133,19 +134,6 @@ const MatchTableRow = (
     }
 
     return tooltip.join(" + ");
-  };
-
-  const mapBackgroundClass = () => {
-    const { map } = match;
-    if (!map) {
-      return "";
-    }
-
-    const slug = map
-      .toLowerCase()
-      .replace(/:/g, "")
-      .replace(/[\s']/g, "-");
-    return `background-${slug}`;
   };
 
   const matchNumber = () => {
@@ -349,7 +337,9 @@ const MatchTableRow = (
           <span style={{ position: "relative" }}>{match.lossStreak}</span>
         ) : null}
       </StreakCell>
-      <td className={`match-cell no-wrap ${mapBackgroundClass()}`}>{map}</td>
+      <MapCell theme={theme} map={match.map}>
+        <NoWrap>{map}</NoWrap>
+      </MapCell>
       {showComment && (
         <td className={commentClass()} aria-label={commentTooltip()}>
           <span className="css-truncate-target comment-truncate-target">
