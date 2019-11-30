@@ -15,6 +15,7 @@ import OptionsCell from "./OptionsCell";
 import HideSmallCell from "./HideSmallCell";
 import NoWrap from "./NoWrap";
 import MatchNumberCell from "./MatchNumberCell";
+import ResultCell from "./ResultCell";
 
 const winColors = [
   [178, 212, 132],
@@ -409,9 +410,9 @@ const MatchTableRow = (
           <RoleImage role={role} theme={theme} className="d-inline-block" />
         </td>
       )}
-      <td className={`match-cell hide-sm result-cell result-${result}`}>
+      <ResultCell result={result} theme={theme}>
         {result ? result.charAt(0).toUpperCase() : <span>&mdash;</span>}
-      </td>
+      </ResultCell>
       <td
         style={rankChangeStyle()}
         className="position-relative match-cell sr-change-cell"

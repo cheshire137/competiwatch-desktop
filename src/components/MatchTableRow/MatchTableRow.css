@@ -62,18 +62,12 @@
   background-color: #fed86e;
 }
 
-.rank-cell.worse-than-placement,
-.result-loss.result-cell {
+.rank-cell.worse-than-placement {
   background-color: #fc0d1b;
 }
 
-.rank-cell.better-than-placement,
-.result-win.result-cell {
+.rank-cell.better-than-placement {
   background-color: #a9cf90;
-}
-
-.result-draw.result-cell {
-  background-color: #fed86e;
 }
 
 .match-placement-log-row .match-number-cell.match-cell {
@@ -295,13 +289,11 @@
   color: #d1d5da;
 }
 
-.theme-dark .rank-cell.better-than-placement,
-.theme-dark .result-win.result-cell {
+.theme-dark .rank-cell.better-than-placement {
   background-color: #69a32a;
   color: #f8f9f7;
 }
 
-.theme-dark .result-draw.result-cell,
 .theme-dark .streak-empty {
   background-color: #a88600;
 }
@@ -318,8 +310,7 @@
   background-color: #a77d0a;
 }
 
-.theme-dark .rank-cell.worse-than-placement,
-.theme-dark .result-loss.result-cell {
+.theme-dark .rank-cell.worse-than-placement {
   background-color: #af121b;
   color: #f9e3e4;
 }
