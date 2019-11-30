@@ -17,6 +17,7 @@ import MatchNumberCell from "./MatchNumberCell";
 import ResultCell from "./ResultCell";
 import SRChangeCell from "./SRChangeCell";
 import DarkenSRChange from "./DarkenSRChange";
+import RankCell from "./RankCell";
 
 const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.substr(1);
@@ -218,21 +219,6 @@ const MatchTableRow = (
     }
   };
 
-  const rankClass = () => {
-    const classes = ["match-cell", "rank-cell"];
-    const placementRank = getPlacementRank();
-
-    if (typeof placementRank === "number") {
-      if (typeof match.rank === "number" && placementRank > match.rank) {
-        classes.push("worse-than-placement");
-      } else {
-        classes.push("better-than-placement");
-      }
-    }
-
-    return classes.join(" ");
-  };
-
   const streakClass = () => {
     const classes = ["match-cell", "position-relative", "hide-sm"];
     if (match.isDraw()) {
@@ -356,6 +342,8 @@ const MatchTableRow = (
   const isWin = match.isWin();
   const isLoss = match.isLoss();
   const priorRank = getPriorRank();
+  const placementRank = getPlacementRank();
+  const betterThanPlacement = typeof placementRank === "number" ? typeof match.rank === "number" && placementRank <= match.rank : undefined;
 
   return (
     <tr className={outerClass()} ref={ref}>
@@ -378,7 +366,7 @@ const MatchTableRow = (
           <span>&mdash;</span>
         )}
       </SRChangeCell>
-      <td className={rankClass()}>
+      <RankCell isPlacement={match.isPlacement} theme={theme} betterThanPlacement={betterThanPlacement}>
         <div className="d-flex flex-items-center flex-justify-center">
           {typeof rank === "number" && (
             <MatchRankImage
@@ -389,7 +377,7 @@ const MatchTableRow = (
           )}
           {typeof rank === "number" ? rank : <span>&mdash;</span>}
         </div>
-      </td>
+      </RankCell>
       <td className={streakClass()} style={streakStyle()}>
         {isWin || isLoss ? (
           <span className={`darken-change darken-change-${result}`} />
