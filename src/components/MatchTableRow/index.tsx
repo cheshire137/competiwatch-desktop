@@ -16,6 +16,7 @@ import NoWrap from "./NoWrap";
 import MatchNumberCell from "./MatchNumberCell";
 import ResultCell from "./ResultCell";
 import SRChangeCell from "./SRChangeCell";
+import DarkenSRChange from "./DarkenSRChange";
 
 const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.substr(1);
@@ -368,11 +369,11 @@ const MatchTableRow = (
         {result ? result.charAt(0).toUpperCase() : <span>&mdash;</span>}
       </ResultCell>
       <SRChangeCell rankChanges={rankChanges} theme={theme} result={match.result} isPlacement={match.isPlacement} rankChange={match.rankChange}>
+        {typeof rankChange === "number" && (
+          <DarkenSRChange theme={theme} result={match.result} />
+        )}
         {typeof rankChange === "number" ? (
-          <span className={`darken-change darken-change-${result}`} />
-        ) : null}
-        {typeof rankChange === "number" ? (
-          <span className="position-relative">{rankChange}</span>
+          <span style={{ position: "relative" }}>{rankChange}</span>
         ) : (
           <span>&mdash;</span>
         )}
