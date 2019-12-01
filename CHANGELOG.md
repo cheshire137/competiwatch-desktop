@@ -6,6 +6,7 @@
 - Fixed bug where the app would default to opening a past season instead of the latest known season [#79](https://github.com/cheshire137/competiwatch-desktop/issues/79)
 - UI improvements
 - Changing seasons or accounts will now scroll to the last logged match automatically
+- Fixed bug where 'Joined voice chat' was always unchecked when editing a match [#76](https://github.com/cheshire137/competiwatch-desktop/issues/76)
 
 ## Version 0.2.8
 

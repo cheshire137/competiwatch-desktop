@@ -77,6 +77,7 @@ const MatchEditPage = ({
           enemyThrower={match.enemyThrower}
           enemyLeaver={match.enemyLeaver}
           playOfTheGame={match.playOfTheGame}
+          joinedVoice={match.joinedVoice}
           result={match.result}
           role={match.role}
         />
