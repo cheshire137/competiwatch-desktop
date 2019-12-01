@@ -101,9 +101,38 @@ const App = () => {
   const [settings, setSettings] = useState<Settings | null>(null);
   const [latestGroup, setLatestGroup] = useState<string | null>(null);
 
+  const activateDefaultAccount = () => {
+    if (!settings || !settings.defaultAccountID) {
+      return;
+    }
+    const defaultAccount = accounts.filter(
+      a => a._id === settings.defaultAccountID
+    )[0];
+    if (defaultAccount) {
+      setActiveAccount(defaultAccount);
+      setActivePage("matches");
+    }
+  };
+
+  async function loadLatestSeason() {
+    const season = await Season.latest();
+    let latestNumber = latestKnownSeason;
+    if (season && season.number > latestNumber) {
+      latestNumber = season.number;
+    }
+    setActiveSeason(latestNumber);
+    changeActiveSeason(latestNumber);
+  }
+
+  async function loadSettings() {
+    const loadedSettings = await Setting.load();
+    setSettings(loadedSettings);
+  }
+
   async function refreshAccounts() {
     const allAccounts = await Account.findAll();
     setAccounts(allAccounts);
+    activateDefaultAccount();
   }
 
   const changeActiveSeason = (newNumber: number) => {
@@ -248,13 +277,7 @@ const App = () => {
   const onSettingsSaved = (newSettings: Settings) => {
     setSettings(newSettings);
     setActivePage("matches");
-
-    const defaultAccount = accounts.filter(
-      a => a._id === newSettings.defaultAccountID
-    )[0];
-    if (defaultAccount) {
-      setActiveAccount(defaultAccount);
-    }
+    activateDefaultAccount();
   };
 
   const showHeader =
@@ -266,32 +289,6 @@ const App = () => {
   let themeInterval: number | null = null;
 
   useEffect(() => {
-    async function loadLatestSeason() {
-      const season = await Season.latest();
-      let latestNumber = latestKnownSeason;
-      if (season && season.number > latestNumber) {
-        latestNumber = season.number;
-      }
-      setActiveSeason(latestNumber);
-      changeActiveSeason(latestNumber);
-    }
-
-    async function loadSettings() {
-      const loadedSettings = await Setting.load();
-      setSettings(loadedSettings);
-
-      if (!activeAccount && loadedSettings.defaultAccountID) {
-        const defaultAccount = accounts.filter(
-          a => a._id === loadedSettings.defaultAccountID
-        )[0];
-
-        if (defaultAccount) {
-          setActiveAccount(defaultAccount);
-          setActivePage("matches");
-        }
-      }
-    }
-
     const millisecondsInHour = 3600000;
     themeInterval = setInterval(() => updateTheme(), millisecondsInHour);
 
@@ -328,6 +325,12 @@ const App = () => {
       accounts
     });
   }, [activeAccount && activeAccount._id, latestSeason, activeSeason]);
+
+  useEffect(() => {
+    if (!activeAccount) {
+      activateDefaultAccount();
+    }
+  }, [settings && settings.defaultAccountID]);
 
   return (
     <LayoutContainer appTheme={theme}>
