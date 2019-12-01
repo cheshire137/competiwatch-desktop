@@ -1,10 +1,6 @@
 import styled from "styled-components";
+import CssTruncateTarget from "../CssTruncateTarget";
 
-export default styled("span")`
-  display: inline-block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  vertical-align: top;
+export default styled(CssTruncateTarget)`
   max-width: 11em;
 `;

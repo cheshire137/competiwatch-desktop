@@ -7,5 +7,4 @@ export default styled(MatchCell)`
   padding: 0.4em 0 0 7px;
   display: block;
   margin-right: -18px;
-  visibility: hidden;
 `;

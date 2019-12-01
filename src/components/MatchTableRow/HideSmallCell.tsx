@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import MatchCell from "./MatchCell";
+import MatchCell, { Props } from "./MatchCell";
 
-export default styled(MatchCell)`
+export default styled(MatchCell)<Props>`
   @media (max-width: 544px) {
     & {
       display:none !important;

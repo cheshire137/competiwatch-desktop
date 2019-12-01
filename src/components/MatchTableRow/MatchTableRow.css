@@ -15,13 +15,8 @@
   background-color: #9dc3e3;
 }
 
-.match-cell.heroes-cell {
-  padding-bottom: 0;
-}
-
 .match-placement-row .match-cell.comment-cell,
 .match-placement-row .match-cell.time-cell,
-.match-placement-row .match-cell.heroes-cell,
 .match-placement-row .match-cell.throwers-leavers-cell,
 .match-placement-row .match-cell.options-cell,
 .match-placement-row .match-cell.potg-cell {
@@ -54,7 +49,6 @@
 
 .theme-dark .match-placement-row .match-cell.comment-cell,
 .theme-dark .match-placement-row .match-cell.time-cell,
-.theme-dark .match-placement-row .match-cell.heroes-cell,
 .theme-dark .match-placement-row .match-cell.throwers-leavers-cell,
 .theme-dark .match-placement-row .match-cell.options-cell,
 .theme-dark .match-placement-row .match-cell.potg-cell {

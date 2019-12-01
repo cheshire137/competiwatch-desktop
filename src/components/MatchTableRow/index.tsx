@@ -20,9 +20,10 @@ import RankCell from "./RankCell";
 import StreakCell from "./StreakCell";
 import MapCell from "./MapCell";
 import GroupCell from "./GroupCell";
-import { Tooltip, CounterLabel } from "@primer/components";
+import { Tooltip, CounterLabel, Box } from "@primer/components";
 import GroupList from "./GroupList";
 import ThrowerLeaverLabel from "./ThrowerLeaverLabel";
+import CssTruncateTarget from "../CssTruncateTarget";
 
 const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.substr(1);
@@ -230,21 +231,6 @@ const MatchTableRow = (
     return comment.trim().replace(/"/g, "'");
   };
 
-  const commentClass = () => {
-    const { comment } = match;
-    let classes = ["match-cell", "hide-sm", "comment-cell", "css-truncate"];
-
-    if (comment && comment.trim().length > 0) {
-      classes = classes.concat([
-        "tooltipped",
-        "tooltipped-multiline",
-        "tooltipped-n"
-      ]);
-    }
-
-    return classes.join(" ");
-  };
-
   const {
     rank,
     _id,
@@ -320,14 +306,16 @@ const MatchTableRow = (
         <NoWrap>{map}</NoWrap>
       </MapCell>
       {showComment && (
-        <td className={commentClass()} aria-label={commentTooltip()}>
-          <span className="css-truncate-target comment-truncate-target">
-            {comment}
-          </span>
-        </td>
+        <HideSmallCell theme={theme} isPlacement={match.isPlacement}>
+          <Tooltip aria-label={commentTooltip()} wrap={true}>
+            <CssTruncateTarget>
+              {comment}
+            </CssTruncateTarget>
+          </Tooltip>
+        </HideSmallCell>
       )}
       {showHeroes && (
-        <HideSmallCell style={{ paddingBottom: 0 }}>
+        <HideSmallCell style={{ paddingBottom: 0 }} theme={theme} isPlacement={match.isPlacement}>
           {heroList.map(hero => (
             <span
               key={hero}
@@ -340,7 +328,7 @@ const MatchTableRow = (
         </HideSmallCell>
       )}
       {showDayTime && (
-        <HideSmallCell>
+        <HideSmallCell theme={theme} isPlacement={match.isPlacement}>
           {timeAndDayPresent && dayOfWeek && timeOfDay && (
             <div
               className="tooltipped tooltipped-n"
@@ -369,7 +357,7 @@ const MatchTableRow = (
         </GroupCell>
       )}
       {showThrowerLeaver && (
-        <HideSmallCell>
+        <HideSmallCell theme={theme} isPlacement={match.isPlacement}>
           <NoWrap>
             {(allyThrower || enemyThrower) && (
               <ThrowerLeaverLabel>
@@ -389,28 +377,22 @@ const MatchTableRow = (
         </HideSmallCell>
       )}
       {(showPlayOfTheGame || showJoinedVoice) && (
-        <HideSmallCell>
+        <HideSmallCell theme={theme} isPlacement={match.isPlacement}>
           {playOfTheGame && (
-            <span
-              className={`tooltipped tooltipped-n ${
-                showJoinedVoice ? "d-inline-block mr-2" : ""
-              }`}
-              aria-label="Play of the game"
-            >
-              <span role="img" aria-label="Party">
-                🎉
-              </span>
-            </span>
+            <Tooltip aria-label="Play of the game">
+              <Box display={showJoinedVoice ? "inline-block" : "inline"} mr={showJoinedVoice ? 2 : 0}>
+                <span role="img" aria-label="Party">
+                  🎉
+                </span>
+              </Box>
+            </Tooltip>
           )}
           {joinedVoice && (
-            <span
-              className="tooltipped tooltipped-n"
-              aria-label="Joined voice chat"
-            >
+            <Tooltip aria-label="Joined voice chat">
               <span role="img" aria-label="Speaker">
                 🔊
               </span>
-            </span>
+            </Tooltip>
           )}
         </HideSmallCell>
       )}
@@ -420,7 +402,9 @@ const MatchTableRow = (
           onClick={editMatch}
           value={_id}
         >
-          <span className="ion ion-md-create" />
+          <Tooltip aria-label="Edit match" direction="w">
+            <span className="ion ion-md-create" />
+          </Tooltip>
         </EditMatchButton>
       </OptionsCell>
     </tr>
