@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Match, { MatchData, MatchResult } from "../../models/Match";
 import { Map } from "../../models/Map";
 import { HeroesByRole, Hero, HeroRoles, HeroRole } from "../../models/Hero";
@@ -213,8 +213,8 @@ const getPlacementStatus = (props: Props): PlacementStatus => {
 };
 
 const MatchForm = (props: Props) => {
-  // this.placementMatchResultField = null;
-  // this.matchRankField = null;
+  const placementMatchResultField = useRef<HTMLSelectElement | null>();
+  const matchRankField = useRef<HTMLInputElement | null>();
 
   const { initialPlayedAt, initialTimeOfDay, initialDayOfWeek } = getPlayTimes(
     props
@@ -480,11 +480,11 @@ const MatchForm = (props: Props) => {
     }
     onFormFieldUpdate();
 
-    // if (this.placementMatchResultField) {
-    //   this.placementMatchResultField.focus();
-    // } else if (this.matchRankField) {
-    //   this.matchRankField.focus();
-    // }
+    if (placementMatchResultField.current) {
+      placementMatchResultField.current.focus();
+    } else if (matchRankField.current) {
+      matchRankField.current.focus();
+    }
   };
 
   const onHeroChange = (hero: Hero, isSelected: boolean) => {
@@ -637,7 +637,7 @@ const MatchForm = (props: Props) => {
                   autoFocus={season < Season.roleQueueSeasonStart}
                   id="match-result"
                   onChange={onResultChange}
-                  // ref={el => (this.placementMatchResultField = el)}
+                  ref={el => (placementMatchResultField.current = el)}
                 >
                   <option value=""></option>
                   <option value="win">Win</option>
@@ -650,7 +650,7 @@ const MatchForm = (props: Props) => {
                   type="number"
                   required
                   autoFocus={season < Season.roleQueueSeasonStart}
-                  // ref={el => (this.matchRankField = el)}
+                  ref={el => (matchRankField.current = el)}
                   className="form-control sr-field"
                   value={rank || ""}
                   onChange={onRankChange}
