@@ -24,7 +24,6 @@
 .match-placement-row .match-cell.heroes-cell,
 .match-placement-row .match-cell.throwers-leavers-cell,
 .match-placement-row .match-cell.options-cell,
-.match-placement-row .match-cell.group-cell,
 .match-placement-row .match-cell.potg-cell {
   background-color: #efefef;
 }
@@ -45,10 +44,6 @@
   visibility: visible;
 }
 
-.match-cell.group-cell span + span {
-  margin-left: 0.5em;
-}
-
 .match-placement-log-row .match-number-cell.match-cell {
   background-color: #d0cece;
 }
@@ -62,7 +57,6 @@
 .theme-dark .match-placement-row .match-cell.heroes-cell,
 .theme-dark .match-placement-row .match-cell.throwers-leavers-cell,
 .theme-dark .match-placement-row .match-cell.options-cell,
-.theme-dark .match-placement-row .match-cell.group-cell,
 .theme-dark .match-placement-row .match-cell.potg-cell {
   background-color: #3a434b;
 }
@@ -74,10 +68,6 @@
 }
 
 .css-truncate .css-truncate-target.comment-truncate-target {
-  max-width: 11em;
-}
-
-.css-truncate .css-truncate-target.group-truncate-target {
   max-width: 11em;
 }
 

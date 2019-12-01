@@ -1,5 +1,4 @@
 import React, { forwardRef, MutableRefObject } from "react";
-import CSS from "csstype";
 import Season from "../../models/Season";
 import MatchRankImage from "../MatchRankImage";
 import HeroImage from "../HeroImage";
@@ -20,6 +19,9 @@ import DarkenSRChange from "./DarkenSRChange";
 import RankCell from "./RankCell";
 import StreakCell from "./StreakCell";
 import MapCell from "./MapCell";
+import GroupCell from "./GroupCell";
+import { Tooltip } from "@primer/components";
+import GroupList from "./GroupList";
 
 const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.substr(1);
@@ -242,30 +244,6 @@ const MatchTableRow = (
     return classes.join(" ");
   };
 
-  const groupClass = () => {
-    const { groupList } = match;
-    let classes = ["match-cell", "hide-sm", "css-truncate", "group-cell"];
-
-    if (groupList.length > 0) {
-      classes = classes.concat([
-        "tooltipped",
-        "tooltipped-n",
-        "tooltipped-multiline"
-      ]);
-    }
-
-    return classes.join(" ");
-  };
-
-  const groupTooltip = () => {
-    const { groupList } = match;
-    if (groupList.length < 1) {
-      return;
-    }
-
-    return groupList.join(", ");
-  };
-
   const {
     rank,
     _id,
@@ -375,17 +353,19 @@ const MatchTableRow = (
         </HideSmallCell>
       )}
       {showGroup && (
-        <td className={groupClass()} aria-label={groupTooltip()}>
+        <GroupCell theme={theme} isPlacement={match.isPlacement}>
           {groupList.length > 0 && (
-            <span className="css-truncate-target group-truncate-target">
-              {groupList.join(", ")}{" "}
-            </span>
+            <Tooltip aria-label={groupList.join(", ")}>
+              <GroupList>
+                {groupList.join(", ")}{" "}
+              </GroupList>
+            </Tooltip>
           )}
           {typeof groupSize === "number" &&
             groupList.length + 1 !== groupSize && (
               <span className="Counter">{groupSizeDescription(groupSize)}</span>
             )}
-        </td>
+        </GroupCell>
       )}
       {showThrowerLeaver && (
         <HideSmallCell>
