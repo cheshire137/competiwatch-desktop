@@ -20,8 +20,9 @@ import RankCell from "./RankCell";
 import StreakCell from "./StreakCell";
 import MapCell from "./MapCell";
 import GroupCell from "./GroupCell";
-import { Tooltip } from "@primer/components";
+import { Tooltip, CounterLabel } from "@primer/components";
 import GroupList from "./GroupList";
+import ThrowerLeaverLabel from "./ThrowerLeaverLabel";
 
 const capitalize = (str: string) => {
   return str.charAt(0).toUpperCase() + str.substr(1);
@@ -355,7 +356,7 @@ const MatchTableRow = (
       {showGroup && (
         <GroupCell theme={theme} isPlacement={match.isPlacement}>
           {groupList.length > 0 && (
-            <Tooltip aria-label={groupList.join(", ")}>
+            <Tooltip aria-label={groupList.join(", ")} wrap={true}>
               <GroupList>
                 {groupList.join(", ")}{" "}
               </GroupList>
@@ -363,7 +364,7 @@ const MatchTableRow = (
           )}
           {typeof groupSize === "number" &&
             groupList.length + 1 !== groupSize && (
-              <span className="Counter">{groupSizeDescription(groupSize)}</span>
+              <CounterLabel>{groupSizeDescription(groupSize)}</CounterLabel>
             )}
         </GroupCell>
       )}
@@ -371,20 +372,18 @@ const MatchTableRow = (
         <HideSmallCell>
           <NoWrap>
             {(allyThrower || enemyThrower) && (
-              <span
-                className="Counter tooltipped tooltipped-n text-white bg-red"
-                aria-label={throwerTooltip()}
-              >
-                T
-              </span>
+              <ThrowerLeaverLabel>
+                <Tooltip aria-label={throwerTooltip()} wrap={true}>
+                  T
+                </Tooltip>
+              </ThrowerLeaverLabel>
             )}
             {(allyLeaver || enemyLeaver) && (
-              <span
-                className="Counter tooltipped tooltipped-n text-white bg-red"
-                aria-label={leaverTooltip()}
-              >
-                L
-              </span>
+              <ThrowerLeaverLabel>
+                <Tooltip aria-label={leaverTooltip()} wrap={true}>
+                  L
+                </Tooltip>
+              </ThrowerLeaverLabel>
             )}
           </NoWrap>
         </HideSmallCell>
