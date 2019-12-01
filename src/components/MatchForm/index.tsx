@@ -15,6 +15,8 @@ import TimeOfDayEmoji from "../TimeOfDayEmoji";
 import DayOfWeekEmoji from "../DayOfWeekEmoji";
 import GroupMembersField from "../GroupMembersField";
 import "./MatchForm.css";
+import LinkButton from "../LinkButton";
+import { Flex } from "@primer/components";
 
 const shouldEnableRankField = (season: number, role?: HeroRole | null) => {
   if (role) {
@@ -876,7 +878,10 @@ const MatchForm = (props: Props) => {
           </dl>
         </div>
       </div>
-      <div className="form-actions">
+      <Flex alignItems="center" justifyContent="flex-end">
+        {props.id && props.onUpdate && (
+          <LinkButton mr={3} onClick={() => props.onUpdate && props.onUpdate()}>Cancel edit</LinkButton>
+        )}
         <button
           type="submit"
           className="btn btn-primary btn-large"
@@ -884,7 +889,7 @@ const MatchForm = (props: Props) => {
         >
           Save match
         </button>
-      </div>
+      </Flex>
     </form>
   );
 };
