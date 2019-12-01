@@ -233,7 +233,7 @@ const MatchForm = (props: Props) => {
   const [enableRankField, setEnableRankField] = useState(
     shouldEnableRankField(props.season, props.role)
   );
-  const [rank, setRank] = useState<number | undefined>();
+  const [rank, setRank] = useState<number | undefined>(props.id ? props.rank : undefined);
   const [latestRank, setLatestRank] = useState<number | undefined>(props.rank);
   const [result, setResult] = useState<MatchResult | undefined>(props.result);
   const [comment, setComment] = useState(props.comment || "");
