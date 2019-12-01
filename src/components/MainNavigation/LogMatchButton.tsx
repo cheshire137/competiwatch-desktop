@@ -14,7 +14,7 @@ const LogMatchButton = ({
   activeAccount,
   onPageChange
 }: Props) => {
-  if (activePage === "log-match") {
+  if (activePage === "log-match" || activePage === "edit-match") {
     return null;
   }
 
