@@ -167,7 +167,7 @@ const App = () => {
     );
   };
 
-  const exportSeason = () => {
+  const exportSeason = async () => {
     if (!activeAccount || !activeSeason || !activeAccount.battletag) {
       return;
     }
@@ -178,11 +178,17 @@ const App = () => {
     );
     const options = { defaultPath };
 
-    showSaveDialog(options, (path: string) => {
-      if (path && path.length > 0) {
-        exportSeasonTo(path);
-      }
-    });
+    const dialogResult = await showSaveDialog(options);
+    const canceled = dialogResult.canceled as boolean;
+    if (canceled) {
+      console.log('export cancelled');
+      return;
+    }
+
+    const filePath = dialogResult.filePath as string;
+    console.log('path for export', filePath, 'season', activeSeason, 'account',
+      activeAccount.battletag);
+    exportSeasonTo(filePath);
   };
 
   const changeActivePage = (activePage: string, val1?: any, val2?: any) => {

@@ -6,22 +6,15 @@ interface Props {
 }
 
 const ExportButton = ({ activePage, onExport }: Props) => {
-  if (["matches", "import", "trends"].indexOf(activePage) < 0) {
+  if (!["matches", "import", "trends"].includes(activePage)) {
     return null;
   }
-
-  const exportSeason = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    event.currentTarget.blur();
-    onExport();
-  };
 
   return (
     <button
       type="button"
       className="btn-link text-small mr-3"
-      onClick={exportSeason}
+      onClick={() => onExport()}
     >
       Export matches
     </button>

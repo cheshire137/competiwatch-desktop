@@ -1,6 +1,5 @@
 import stringify from "csv-stringify";
 import Match from "./Match";
-import Account from "./Account";
 import { writeFile } from "../utils/electronUtils";
 
 const headers = [
@@ -50,10 +49,6 @@ class CsvExporter {
     this.battletag = battletag;
     this.accountID = accountID;
   }
-
-  writeFile = (contents: string) => {
-    return writeFile(this.path, contents);
-  };
 
   getMatches = () => {
     return Match.findAll(this.accountID, this.season);
@@ -137,13 +132,14 @@ class CsvExporter {
   getRowFrom = (match: Match) => {
     const row = [];
     for (const header of headers) {
-      row.push(this.getValueFor(header, match));
+      const value = this.getValueFor(header, match) || null;
+      row.push(value);
     }
     return row;
   };
 
   getRowsFrom = (matches: Match[]) => {
-    const rows: (string | number | null | undefined)[][] = [headers];
+    const rows: (string | number | null)[][] = [headers];
     for (const match of matches) {
       rows.push(this.getRowFrom(match));
     }
@@ -168,7 +164,7 @@ class CsvExporter {
   async export() {
     const matches = await this.getMatches();
     const csv = await this.generateCsv(matches)
-    return this.writeFile(csv);
+    return writeFile(this.path, csv);
   }
 }
 

@@ -6,10 +6,14 @@ export function setTitle(title) {
   }
 }
 
-export function showSaveDialog(options, handler) {
-  if (isElectron()) {
-    window.remote.dialog.showSaveDialog(options, handler);
-  }
+export function showSaveDialog(options) {
+  return new Promise((resolve, reject) => {
+    if (isElectron()) {
+      window.remote.dialog.showSaveDialog(options).then(resolve, reject);
+    } else {
+      reject("not electron, cannot show save dialog");
+    }
+  });
 }
 
 export function openLinkInBrowser(url) {
