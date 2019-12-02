@@ -3,15 +3,16 @@ const path = require('path')
 const PackageInfo = require('../../package.json')
 
 function getInstallerConfig() {
-  console.log('creating Windows installer')
-  const rootPath = path.join('./')
+  const rootPath = path.resolve('./')
   const outPath = path.join(rootPath, 'dist')
+  const outputDirectory = path.join(outPath, 'installers')
+  console.log('creating Windows installer in', outputDirectory)
 
   return Promise.resolve({
     appDirectory: path.join(outPath, `${PackageInfo.name}-win32-x64/`),
     authors: PackageInfo.author.name,
     noMsi: true,
-    outputDirectory: path.join(outPath, 'installers'),
+    outputDirectory: outputDirectory,
     exe: 'Competiwatch.exe',
     setupExe: `Competiwatch-${PackageInfo.version}-Installer.exe`,
     setupIcon: path.join(rootPath, 'icon-files', 'win', 'icon.ico'),

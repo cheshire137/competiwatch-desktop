@@ -101,7 +101,7 @@ npm run electron-build-macos
 For Windows, from a Windows machine run:
 
 ```bash
-# produce new directories in dist/ with .exe files:
+# produce dist/Competiwatch-win32-x64/ with .exe files:
 npm run electron-build-windows
 
 # generate an installer in dist/installers/:
