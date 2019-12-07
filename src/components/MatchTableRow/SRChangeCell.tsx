@@ -37,7 +37,7 @@ function backgroundColor(props: Props) {
     }
   }
 
-  if (color.length > 0) {
+  if (color && color.length > 0) {
     return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
   }
 
