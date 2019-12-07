@@ -30,7 +30,7 @@ const MatchesList = ({
     }
 
     getMatches();
-  }, [account._id, season]);
+  }, [account._id, season, scrollToMatchID]);
 
   if (!matches) {
     return <LoadingPage />;

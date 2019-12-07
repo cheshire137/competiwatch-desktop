@@ -23,7 +23,7 @@ const MatchesTab = ({
     }
 
     getTotalMatches();
-  }, [activeSeason]);
+  }, [activeSeason, activePage]);
 
   const totalBadge = totalMatches >= 0 && (
     <span className="Counter">{totalMatches}</span>

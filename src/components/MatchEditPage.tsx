@@ -83,7 +83,7 @@ const MatchEditPage = ({
         />
       )}
       <div className="border-top pt-2 mt-4">
-        <MatchDeleteForm id={id} onDelete={() => onPageChange("matches")} />
+        <MatchDeleteForm id={id} onDelete={() => onPageChange("matches", id)} />
       </div>
     </LayoutChildrenContainer>
   );
