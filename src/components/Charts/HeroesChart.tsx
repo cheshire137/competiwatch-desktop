@@ -5,39 +5,24 @@ import Color from "../../models/Color";
 import { Heroes, Hero } from "../../models/Hero";
 import ChartUtils from "../../models/ChartUtils";
 
-type Counts = {
-  [hero in Hero]?: number;
-};
+const getCountsForHeroes = (heroes: Hero[], filteredMatches: Match[]) => {
+  const countsOrderedByHero: number[] = [];
 
-const getCountsByHero = (heroes: Hero[], filteredMatches: Match[]) => {
-  const countsByHero: Counts = {};
-
-  for (const match of filteredMatches) {
-    for (const hero of match.heroList) {
-      countsByHero[hero] = (countsByHero[hero] || 0) + 1;
-    }
+  for (const hero of heroes) {
+    const countForHero = filteredMatches.filter(match => new Set(match.heroList).has(hero)).length;
+    countsOrderedByHero.push(countForHero);
   }
 
-  return Object.values(countsByHero);
-};
-
-type HeroToHero = {
-  [hero in Hero]?: Hero;
+  return countsOrderedByHero;
 };
 
 const getHeroLabels = (matches: Match[]) => {
-  const playedHeroes: HeroToHero = {};
-  const heroLists = matches
+  const allPlayedHeroes = matches
     .filter(match => match.heroList.length > 0)
-    .map(match => match.heroList);
+    .map(match => match.heroList).flat();
+  const playedHeroes = new Set(allPlayedHeroes);
 
-  for (const heroList of heroLists) {
-    for (const hero of heroList) {
-      playedHeroes[hero] = hero;
-    }
-  }
-
-  return Heroes.filter(hero => hero in playedHeroes);
+  return Heroes.filter(hero => playedHeroes.has(hero));
 };
 
 interface Props {
@@ -56,21 +41,21 @@ const options = {
 
 const HeroesChart = ({ matches, season }: Props) => {
   const getWins = (heroes: Hero[]) => {
-    return getCountsByHero(
+    return getCountsForHeroes(
       heroes,
       matches.filter(match => match.isWin())
     );
   };
 
   const getLosses = (heroes: Hero[]) => {
-    return getCountsByHero(
+    return getCountsForHeroes(
       heroes,
       matches.filter(match => match.isLoss())
     );
   };
 
   const getDraws = (heroes: Hero[]) => {
-    return getCountsByHero(
+    return getCountsForHeroes(
       heroes,
       matches.filter(match => match.isDraw())
     );
