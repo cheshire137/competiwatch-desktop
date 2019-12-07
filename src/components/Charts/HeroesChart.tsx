@@ -6,14 +6,8 @@ import { Heroes, Hero } from "../../models/Hero";
 import ChartUtils from "../../models/ChartUtils";
 
 const getCountsForHeroes = (heroes: Hero[], filteredMatches: Match[]) => {
-  const countsOrderedByHero: number[] = [];
-
-  for (const hero of heroes) {
-    const countForHero = filteredMatches.filter(match => new Set(match.heroList).has(hero)).length;
-    countsOrderedByHero.push(countForHero);
-  }
-
-  return countsOrderedByHero;
+  return heroes.map(hero =>
+    filteredMatches.filter(match => new Set(match.heroList).has(hero)).length);
 };
 
 const getHeroLabels = (matches: Match[]) => {
