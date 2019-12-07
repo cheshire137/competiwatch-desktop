@@ -1,13 +1,41 @@
 import Database from "./Database";
 import Season from "./Season";
 import { Map } from "./Map";
-import { HeroesByRole, HeroRole, Hero } from "./Hero";
+import { HeroesByRole, HeroRole, Hero, HeroesByType, HeroDetailedRole, HeroDetailedRoles } from "./Hero";
 import DayTimeApproximator, {
   DayOfWeek,
   TimeOfDay
 } from "./DayTimeApproximator";
 
 export type MatchResult = "win" | "loss" | "draw";
+
+const roleFor = (hero: Hero): HeroDetailedRole | null => {
+  if (HeroesByType.DPS.includes(hero)) {
+    return "DPS";
+  }
+  if (HeroesByType["Main Healer"].includes(hero)) {
+    return "Main Healer";
+  }
+  if (HeroesByType["Off-healer"].includes(hero)) {
+    return "Off-healer";
+  }
+  if (HeroesByType.Flanker.includes(hero)) {
+    return "Flanker";
+  }
+  if (HeroesByType.Defense.includes(hero)) {
+    return "Defense";
+  }
+  if (HeroesByType.Hitscan.includes(hero)) {
+    return "Hitscan";
+  }
+  if (HeroesByType["Main Tank"].includes(hero)) {
+    return "Main Tank";
+  }
+  if (HeroesByType["Off-tank"].includes(hero)) {
+    return "Off-tank";
+  }
+  return null;
+};
 
 const getPriorMatch = (match: Match, prevMatches: Match[]) => {
   if (match.season >= Season.roleQueueSeasonStart) {
@@ -349,6 +377,20 @@ class Match {
 
   isLoss() {
     return this.result === "loss";
+  }
+
+  detailedRoles() {
+    if (this.heroList.length < 1) {
+      return [];
+    }
+    const detailedRoles: HeroDetailedRole[] = [];
+    for (const hero of this.heroList) {
+      const role = roleFor(hero);
+      if (role) {
+        detailedRoles.push(role);
+      }
+    }
+    return detailedRoles;
   }
 
   async isLastPlacement() {

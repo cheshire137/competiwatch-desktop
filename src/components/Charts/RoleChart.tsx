@@ -3,38 +3,9 @@ import { Radar } from "react-chartjs-2";
 import Color from "../../models/Color";
 import Match from "../../models/Match";
 import {
-  HeroesByType,
   HeroDetailedRoles,
-  Hero,
   HeroDetailedRole
 } from "../../models/Hero";
-
-const roleFor = (hero: Hero): HeroDetailedRole | undefined => {
-  if (HeroesByType.DPS.includes(hero)) {
-    return "DPS";
-  }
-  if (HeroesByType["Main Healer"].includes(hero)) {
-    return "Main Healer";
-  }
-  if (HeroesByType["Off-healer"].includes(hero)) {
-    return "Off-healer";
-  }
-  if (HeroesByType.Flanker.includes(hero)) {
-    return "Flanker";
-  }
-  if (HeroesByType.Defense.includes(hero)) {
-    return "Defense";
-  }
-  if (HeroesByType.Hitscan.includes(hero)) {
-    return "Hitscan";
-  }
-  if (HeroesByType["Main Tank"].includes(hero)) {
-    return "Main Tank";
-  }
-  if (HeroesByType["Off-tank"].includes(hero)) {
-    return "Off-tank";
-  }
-};
 
 interface Props {
   matches: Match[];
@@ -42,23 +13,9 @@ interface Props {
   theme: string;
 }
 
-type Counts = {
-  [role: string]: number;
-};
-
-const getCountsByRole = (filteredMatches: Match[]) => {
-  const countsByRole: Counts = {};
-
-  for (const match of filteredMatches) {
-    for (const hero of match.heroList) {
-      const detailedRole = roleFor(hero);
-      if (detailedRole) {
-        countsByRole[detailedRole] = (countsByRole[detailedRole] || 0) + 1;
-      }
-    }
-  }
-
-  return Object.values(countsByRole);
+const getCountsByRole = (roles: HeroDetailedRole[], filteredMatches: Match[]) => {
+  return roles.map(role =>
+    filteredMatches.filter(match => match.detailedRoles().includes(role)).length);
 };
 
 const borderWidth = 2;
@@ -68,8 +25,9 @@ const pointBorderWidth = 2;
 const lineTension = 0.1;
 
 const RoleChart = ({ matches, season, theme }: Props) => {
-  const winCounts = getCountsByRole(matches.filter(match => match.isWin()));
-  const lossCounts = getCountsByRole(matches.filter(match => match.isLoss()));
+  const labels = HeroDetailedRoles;
+  const winCounts = getCountsByRole(labels, matches.filter(match => match.isWin()));
+  const lossCounts = getCountsByRole(labels, matches.filter(match => match.isLoss()));
   let maxCount = Math.max(...winCounts.concat(lossCounts));
   maxCount = maxCount + Math.floor(maxCount * 0.1);
   const isDarkTheme = theme === "dark";
@@ -99,7 +57,7 @@ const RoleChart = ({ matches, season, theme }: Props) => {
     ? "rgba(36, 41, 46, 0.8)"
     : "rgba(255, 255, 255, 0.8)";
   const data = {
-    labels: HeroDetailedRoles,
+    labels,
     datasets: [
       {
         label: "# Wins",
