@@ -456,13 +456,13 @@ const MatchForm = (props: Props) => {
 
   const onRoleChange = (newRole: HeroRole) => {
     const { season } = props;
-
     const heroesInRole = HeroesByRole[newRole];
     const oldSelectedHeroes = explodeHeroesString(heroes);
     const selectedHeroes = oldSelectedHeroes.filter(
       hero => heroesInRole.indexOf(hero as Hero) > -1
     );
     const priorPlacementMatchesInRole = getPriorPlacementsInRole(newRole);
+
     setRole(newRole);
     setHeroes(selectedHeroes.join(", "));
 
@@ -481,12 +481,6 @@ const MatchForm = (props: Props) => {
       setEnableRankField(true);
     }
     onFormFieldUpdate();
-
-    if (placementMatchResultField.current) {
-      placementMatchResultField.current.focus();
-    } else if (matchRankField.current) {
-      matchRankField.current.focus();
-    }
   };
 
   const onHeroChange = (hero: Hero, isSelected: boolean) => {
@@ -595,6 +589,29 @@ const MatchForm = (props: Props) => {
     enemyThrower,
     enemyLeaver
   ]);
+
+  useEffect(() => {
+    // Already have new SR and match result, no need to focus the field
+    if (result && typeof rank === "number") {
+      return;
+    }
+
+    // New SR field is shown and disabled, can't focus it
+    if (!isPlacement && !enableRankField) {
+      return;
+    }
+
+    // Role selection is required first
+    if (season >= Season.roleQueueSeasonStart && !role) {
+      return;
+    }
+
+    if (placementMatchResultField.current) {
+      placementMatchResultField.current.focus();
+    } else if (matchRankField.current) {
+      matchRankField.current.focus();
+    }
+  }, [placementMatchResultField, matchRankField, result, rank, enableRankField, season, role, isPlacement]);
 
   return (
     <form onSubmit={evt => {
