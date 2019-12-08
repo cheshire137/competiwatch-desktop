@@ -277,8 +277,8 @@ const MatchTableRow = (
         {typeof rankChange === "number" ? (
           <span style={{ position: "relative" }}>{rankChange}</span>
         ) : (
-          <span>&mdash;</span>
-        )}
+            <span>&mdash;</span>
+          )}
       </SRChangeCell>
       <RankCell isPlacement={match.isPlacement} theme={theme} betterThanPlacement={betterThanPlacement}>
         <div className="d-flex flex-items-center flex-justify-center">
@@ -398,7 +398,7 @@ const MatchTableRow = (
       )}
       <OptionsCell>
         <EditMatchButton
-          type="button"
+          appTheme={theme}
           onClick={editMatch}
           value={_id}
         >
