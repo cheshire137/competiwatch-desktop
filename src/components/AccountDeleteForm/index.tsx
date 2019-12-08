@@ -21,7 +21,7 @@ const AccountDeleteForm = ({ battletag, id, onDelete }: Props) => {
     }
 
     getHasMatches();
-  }, [account._id]);
+  }, [account, account._id]);
 
   if (!showForm) {
     return null;

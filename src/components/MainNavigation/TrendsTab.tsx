@@ -26,7 +26,7 @@ const TrendsTab = ({
     }
 
     getHasMatches();
-  }, [account._id, activeSeason]);
+  }, [account, account._id, activeSeason]);
 
   if (!hasMatches) {
     return null;

@@ -22,7 +22,7 @@ const ImportPage = ({ account, seasonNumber, onImport }: Props) => {
     }
 
     getTotalMatches();
-  }, [account._id, seasonNumber]);
+  }, [account, account._id, seasonNumber]);
 
   if (totalMatches < 0) {
     return <LoadingPage />;

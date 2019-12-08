@@ -1,7 +1,7 @@
 import Database from "./Database";
 import Season from "./Season";
 import { Map } from "./Map";
-import { HeroesByRole, HeroRole, Hero, HeroesByType, HeroDetailedRole, HeroDetailedRoles } from "./Hero";
+import { HeroesByRole, HeroRole, Hero, HeroesByType, HeroDetailedRole } from "./Hero";
 import DayTimeApproximator, {
   DayOfWeek,
   TimeOfDay

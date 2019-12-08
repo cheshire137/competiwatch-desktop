@@ -54,7 +54,7 @@ const AccountListItem = ({
     getLatestMatch();
     getTotalMatches();
     getTopHeroes();
-  }, [account._id, season]);
+  }, [account, account._id, season]);
 
   const wipeSeason = async () => {
     if (totalMatches < 0) {

@@ -5,14 +5,9 @@ import Color from "../../models/Color";
 import ChartUtils from "../../models/ChartUtils";
 import {
   Map,
-  AssaultMap,
   MapType,
   MapTypes,
   MapTypeAliases,
-  AssaultMaps,
-  ControlMap,
-  EscortMap,
-  HybridMap,
   MapsByType
 } from "../../models/Map";
 

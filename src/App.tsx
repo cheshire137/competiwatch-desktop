@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "./components/Header";
 import Account from "./models/Account";
 import Match from "./models/Match";
@@ -90,6 +90,7 @@ function getTitle(
 
 const App = () => {
   const [latestRank, setLatestRank] = useState(2500);
+  const themeInterval = useRef<number | null>(null);
   const [latestSeason, setLatestSeason] = useState(latestKnownSeason);
   const [scrollToMatchID, setScrollToMatchID] = useState<string | null>(null);
   const [theme, setTheme] = useState("light");
@@ -292,19 +293,17 @@ const App = () => {
     activePage !== "manage-seasons" &&
     activePage !== "help";
 
-  let themeInterval: number | null = null;
-
   useEffect(() => {
     const millisecondsInHour = 3600000;
-    themeInterval = setInterval(() => updateTheme(), millisecondsInHour);
+    themeInterval.current = setInterval(() => updateTheme(), millisecondsInHour);
 
     refreshAccounts();
     loadLatestSeason();
     loadSettings();
 
     return () => {
-      if (themeInterval) {
-        clearInterval(themeInterval);
+      if (themeInterval.current) {
+        clearInterval(themeInterval.current);
       }
     };
   }, []);
@@ -330,13 +329,13 @@ const App = () => {
       accountID: activeAccount ? activeAccount._id : null,
       accounts
     });
-  }, [activeAccount && activeAccount._id, latestSeason, activeSeason]);
+  }, [activeAccount && activeAccount._id, latestSeason, activeSeason, accounts.length]);
 
   useEffect(() => {
     if (!activeAccount) {
       activateDefaultAccount();
     }
-  }, [settings && settings.defaultAccountID]);
+  }, [settings && settings.defaultAccountID, activeAccount && activeAccount._id]);
 
   return (
     <LayoutContainer appTheme={theme}>

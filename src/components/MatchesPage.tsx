@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MatchesList from "./MatchesList";
 import Account from "../models/Account";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
