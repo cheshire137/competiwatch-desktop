@@ -8,7 +8,7 @@ interface Props {
 export default styled(Button).attrs({
   p: 0,
   type: "button"
-})<Props>`
+}) <Props>`
   display: inline-block;
   color: ${props => props.appTheme === "dark" ? props.theme.colors.blue[3] : props.theme.colors.blue[5]};
   font-size: inherit;

@@ -5,10 +5,11 @@ import DeleteAccountButton from "./DeleteAccountButton";
 interface Props {
   battletag?: string;
   id: string;
+  theme: string;
   onDelete: () => void;
 }
 
-const AccountDeleteForm = ({ battletag, id, onDelete }: Props) => {
+const AccountDeleteForm = ({ battletag, id, onDelete, theme }: Props) => {
   const [showForm, setShowForm] = useState(false);
   const account = new Account({ _id: id });
 
@@ -42,7 +43,7 @@ const AccountDeleteForm = ({ battletag, id, onDelete }: Props) => {
       evt.preventDefault();
       deleteAccount();
     }}>
-      <DeleteAccountButton type="submit" >
+      <DeleteAccountButton appTheme={theme}>
         Delete account
       </DeleteAccountButton>
     </form>

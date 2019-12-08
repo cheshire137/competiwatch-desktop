@@ -150,15 +150,16 @@ const AccountListItem = ({
                 </LinkButton>
               </>
             ) : (
-              <BattletagButton
-                appTheme={theme}
-                onClick={() => onAccountChange(account._id)}
-              >
-                {battletag}
-              </BattletagButton>
-            )}
+                <BattletagButton
+                  appTheme={theme}
+                  onClick={() => onAccountChange(account._id)}
+                >
+                  {battletag}
+                </BattletagButton>
+              )}
             <AccountDeleteForm
               id={_id}
+              theme={theme}
               onDelete={() => onAccountUpdate()}
               battletag={battletag}
             />
@@ -190,8 +191,8 @@ const AccountListItem = ({
                 </span>
               </>
             ) : (
-              <span>No matches in season {season}</span>
-            )}
+                <span>No matches in season {season}</span>
+              )}
           </div>
           <ButtonShownOnHover
             appTheme={theme}
@@ -243,7 +244,7 @@ const AccountListItem = ({
                   topHeroes.length >= 3
                     ? "AvatarStack--three-plus"
                     : "AvatarStack--two"
-                }`}
+                  }`}
               >
                 <div
                   className="AvatarStack-body tooltipped tooltipped-n"
