@@ -192,10 +192,10 @@ const App = () => {
     exportSeasonTo(filePath);
   };
 
-  const changeActivePage = (activePage: string, val1?: any, val2?: any) => {
-    setActivePage(activePage);
+  const changeActivePage = (newActivePage: string, val1?: any, val2?: any) => {
+    setActivePage(newActivePage);
 
-    if (activePage === "log-match") {
+    if (newActivePage === "log-match") {
       if (typeof val1 === "number") {
         setLatestRank(val1);
       }
@@ -209,12 +209,12 @@ const App = () => {
       setLatestGroup(null);
     }
 
-    if (activePage === "accounts") {
+    if (newActivePage === "accounts") {
       setActiveAccount(null);
       setLatestRank(2500);
     }
 
-    if (activePage === "matches") {
+    if (newActivePage === "matches") {
       if (typeof val1 === "string") {
         setScrollToMatchID(val1);
       } else {
@@ -224,7 +224,7 @@ const App = () => {
       setScrollToMatchID(null);
     }
 
-    if (activePage === "edit-match") {
+    if (newActivePage === "edit-match") {
       setActiveMatchID(val1);
     } else {
       setActiveMatchID(null);
@@ -331,12 +331,6 @@ const App = () => {
       accounts
     });
   }, [activeAccount && activeAccount._id, latestSeason, activeSeason, accounts.length]);
-
-  useEffect(() => {
-    if (!activeAccount) {
-      activateDefaultAccount();
-    }
-  }, [settings && settings.defaultAccountID, activeAccount && activeAccount._id]);
 
   return (
     <LayoutContainer appTheme={theme}>
