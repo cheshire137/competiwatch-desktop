@@ -284,6 +284,7 @@ const App = () => {
   const onSettingsSaved = (newSettings: Settings) => {
     setSettings(newSettings);
     setActivePage("matches");
+    updateTheme();
     activateDefaultAccount();
   };
 
