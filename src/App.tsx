@@ -343,6 +343,7 @@ const App = () => {
       {showHeader && (
         <Header
           accounts={accounts}
+          theme={theme}
           activePage={activePage}
           activeAccount={activeAccount}
           onPageChange={changeActivePage}

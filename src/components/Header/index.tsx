@@ -3,10 +3,11 @@ import SeasonSelect from "../SeasonSelect";
 import AccountSelect from "../AccountSelect";
 import MainNavigation from "../MainNavigation";
 import Account from "../../models/Account";
-import "./Header.css";
+import StickyBar from "./StickyBar";
 
 interface Props {
   activeSeason: number;
+  theme: string;
   latestSeason: number;
   onSeasonChange: (newNumber: number) => void;
   accounts: Array<Account>;
@@ -26,9 +27,10 @@ const Header = ({
   activeAccount,
   onAccountChange,
   activePage,
-  onExport
+  onExport,
+  theme
 }: Props) => (
-  <div className="mb-3 sticky-bar border-bottom">
+  <StickyBar appTheme={theme}>
     <div className="d-flex flex-items-center container">
       {accounts && accounts.length > 0 && (
         <SeasonSelect
@@ -54,7 +56,7 @@ const Header = ({
         onExport={onExport}
       />
     </div>
-  </div>
+  </StickyBar>
 );
 
 export default Header;
