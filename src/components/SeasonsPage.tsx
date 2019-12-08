@@ -10,19 +10,21 @@ interface Props {
   onDelete: (season: number) => void;
   firstNonDeletableSeason: number;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
+  theme: string;
 }
 
 const SeasonsPage = ({
   latestSeason,
   onCreate,
   onPageChange,
+  theme,
   firstNonDeletableSeason,
   onDelete
 }: Props) => (
   <LayoutChildrenContainer>
     <div className="mt-4">
       <LinkButton
-        type="button"
+        appTheme={theme}
         onClick={() => onPageChange("accounts")}
       >
         &larr; Back to your accounts
@@ -38,7 +40,7 @@ const SeasonsPage = ({
         />
       </div>
       <div className="col-4 float-right">
-        <SeasonForm latestSeason={latestSeason} onCreate={onCreate} />
+        <SeasonForm theme={theme} latestSeason={latestSeason} onCreate={onCreate} />
       </div>
     </div>
   </LayoutChildrenContainer>

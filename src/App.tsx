@@ -374,6 +374,7 @@ const App = () => {
 
       {activePage === "manage-seasons" && (
         <SeasonsPage
+          theme={theme}
           latestSeason={latestSeason}
           firstNonDeletableSeason={latestKnownSeason}
           onCreate={changeActiveSeason}
@@ -400,9 +401,9 @@ const App = () => {
         />
       )}
 
-      {activePage === "about" && <AboutPage onPageChange={changeActivePage} />}
+      {activePage === "about" && <AboutPage theme={theme} onPageChange={changeActivePage} />}
 
-      {activePage === "help" && <HelpPage onPageChange={changeActivePage} />}
+      {activePage === "help" && <HelpPage theme={theme} onPageChange={changeActivePage} />}
 
       {activePage === "trends" && activeAccount && activeAccount._id && (
         <TrendsPage
@@ -418,6 +419,7 @@ const App = () => {
           onPageChange={changeActivePage}
           accounts={accounts}
           settings={settings}
+          theme={theme}
           onSave={onSettingsSaved}
         />
       )}
@@ -425,6 +427,7 @@ const App = () => {
       {activePage === "accounts" && (
         <AccountsPage
           accounts={accounts}
+          theme={theme}
           season={activeSeason}
           onCreate={refreshAccounts}
           onAccountChange={changeActiveAccount}

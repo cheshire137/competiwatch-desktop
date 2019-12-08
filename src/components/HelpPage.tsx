@@ -5,9 +5,10 @@ import LinkButton from "./LinkButton";
 
 interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
+  theme: string;
 }
 
-const HelpPage = ({ onPageChange }: Props) => {
+const HelpPage = ({ onPageChange, theme }: Props) => {
   const openLink = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     event.preventDefault();
     const link = event.currentTarget;
@@ -18,7 +19,7 @@ const HelpPage = ({ onPageChange }: Props) => {
     <LayoutChildrenContainer>
       <div className="mt-4">
         <LinkButton
-          type="button"
+          appTheme={theme}
           onClick={() => onPageChange("accounts")}
         >
           &larr; Back to your accounts
@@ -75,7 +76,7 @@ const HelpPage = ({ onPageChange }: Props) => {
               </span>{" "}
               See{" "}
               <LinkButton
-                type="button"
+                appTheme={theme}
                 onClick={() => onPageChange("about")}
               >
                 the about page

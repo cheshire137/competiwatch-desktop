@@ -7,9 +7,10 @@ import LinkButton from "./LinkButton";
 interface Props {
   onCreate: (season: number) => void;
   latestSeason: number;
+  theme: string;
 }
 
-const SeasonForm = ({ onCreate, latestSeason }: Props) => {
+const SeasonForm = ({ theme, onCreate, latestSeason }: Props) => {
   const [season, setSeason] = useState("");
   const [isValid, setIsValid] = useState(false);
 
@@ -55,7 +56,7 @@ const SeasonForm = ({ onCreate, latestSeason }: Props) => {
       <h2 className="h2 text-normal mb-2">Add a season</h2>
       <p>
         <span>A </span>
-        <LinkButton type="button" onClick={openReleasesPage}>
+        <LinkButton appTheme={theme} onClick={openReleasesPage}>
           new version
         </LinkButton>
         <span> of </span>

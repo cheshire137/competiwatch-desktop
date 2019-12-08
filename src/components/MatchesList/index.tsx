@@ -53,7 +53,7 @@ const MatchesList = ({
             <div className="text-small">
               <span>Replace your season {season} matches by </span>
               <LinkButton
-                type="button"
+                appTheme={theme}
                 onClick={() => onPageChange("import")}
               >
                 importing them

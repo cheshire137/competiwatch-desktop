@@ -21,13 +21,15 @@ interface Props {
   onAccountChange: (id: string) => void;
   onAccountUpdate: () => void;
   season: number;
+  theme: string;
 }
 
 const AccountListItem = ({
   account,
   onAccountChange,
   season,
-  onAccountUpdate
+  onAccountUpdate,
+  theme
 }: Props) => {
   const [totalMatches, setTotalMatches] = useState(-1);
   const [showEditForm, setShowEditForm] = useState(false);
@@ -141,7 +143,7 @@ const AccountListItem = ({
                   onUpdate={accountUpdated}
                 />
                 <LinkButton
-                  type="button"
+                  appTheme={theme}
                   onClick={() => setShowEditForm(!showEditForm)}
                 >
                   Cancel rename
@@ -149,7 +151,7 @@ const AccountListItem = ({
               </>
             ) : (
               <BattletagButton
-                type="button"
+                appTheme={theme}
                 onClick={() => onAccountChange(account._id)}
               >
                 {battletag}
@@ -192,7 +194,7 @@ const AccountListItem = ({
             )}
           </div>
           <ButtonShownOnHover
-            type="button"
+            appTheme={theme}
             onClick={() => setShowEditForm(!showEditForm)}
           >
             Rename account
@@ -201,14 +203,14 @@ const AccountListItem = ({
             <>
               <ButtonShownOnHover
                 ml={3}
-                type="button"
+                appTheme={theme}
                 aria-label="Save season as a CSV file"
                 onClick={exportSeason}
               >
                 Export season {season}
               </ButtonShownOnHover>
               <ButtonShownOnHover
-                type="button"
+                appTheme={theme}
                 ml={3}
                 onClick={wipeSeason}
               >
@@ -220,7 +222,7 @@ const AccountListItem = ({
         <div className="d-flex flex-items-center">
           {haveLatestRank && latestMatch && (
             <RankButton
-              type="button"
+              appTheme={theme}
               onClick={() => onAccountChange(account._id)}
             >
               {typeof latestMatch.rank === "number" && (

@@ -7,9 +7,10 @@ import LinkButton from "./LinkButton";
 
 interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
+  theme: string;
 }
 
-const AboutPage = ({ onPageChange }: Props) => {
+const AboutPage = ({ onPageChange, theme }: Props) => {
   const [latestVersion, setLatestVersion] = useState<any>();
 
   const openLink = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -36,7 +37,7 @@ const AboutPage = ({ onPageChange }: Props) => {
     <LayoutChildrenContainer>
       <div className="mt-4">
         <LinkButton
-          type="button"
+          appTheme={theme}
           onClick={() => onPageChange("accounts")}
         >
           &larr; Back to your accounts
@@ -104,7 +105,7 @@ const AboutPage = ({ onPageChange }: Props) => {
                       <span>You have the latest version</span>
                     ) : (
                       <LinkButton
-                        type="button"
+                        appTheme={theme}
                         onClick={openLatestVersion}
                       >
                         Version {latestVersion.version} is available
@@ -113,7 +114,7 @@ const AboutPage = ({ onPageChange }: Props) => {
                   </span>
                 ) : (
                   <LinkButton
-                    type="button"
+                    appTheme={theme}
                     onClick={() => checkLatestVersion()}
                   >
                     Check for new version

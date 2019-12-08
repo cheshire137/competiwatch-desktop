@@ -1,11 +1,16 @@
 import styled from "styled-components";
 import { Button } from "@primer/components";
 
+interface Props {
+  appTheme: string;
+}
+
 export default styled(Button).attrs({
-  p: 0
-})`
+  p: 0,
+  type: "button"
+})<Props>`
   display: inline-block;
-  color: ${props => props.theme.colors.blue[5]};
+  color: ${props => props.appTheme === "dark" ? props.theme.colors.blue[3] : props.theme.colors.blue[5]};
   font-size: inherit;
   text-decoration: none;
   white-space: nowrap;

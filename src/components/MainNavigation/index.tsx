@@ -55,7 +55,7 @@ const MainNavigation = ({
       )}
     </Flex>
     <div>
-      <ExportButton onExport={onExport} activePage={activePage} />
+      <ExportButton theme={theme} onExport={onExport} activePage={activePage} />
       {activeAccount && (
         <LogMatchButton
           activePage={activePage}
