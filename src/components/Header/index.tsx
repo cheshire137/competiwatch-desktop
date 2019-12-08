@@ -54,6 +54,7 @@ const Header = ({
         activeSeason={activeSeason}
         activeAccount={activeAccount}
         onExport={onExport}
+        theme={theme}
       />
     </div>
   </StickyBar>

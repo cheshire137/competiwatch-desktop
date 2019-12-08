@@ -1,28 +1,25 @@
 import React from "react";
+import Tab from "./Tab";
 
 interface Props {
   activePage: string;
+  theme: string;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
-  underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 
 const AccountsTab = ({
   activePage,
   onPageChange,
-  underlineNavItemClass
+  theme
 }: Props) => {
-  if (activePage === "accounts") {
-    return null;
-  }
-
   return (
-    <button
-      type="button"
-      className={underlineNavItemClass("accounts", true)}
+    <Tab
+      appTheme={theme}
+      selected={activePage === "accounts"}
       onClick={() => onPageChange("accounts")}
     >
       Accounts
-    </button>
+    </Tab>
   );
 };
 

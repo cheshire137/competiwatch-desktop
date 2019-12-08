@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Match from "../../models/Match";
+import Tab from "./Tab";
 
 interface Props {
   activeSeason: number;
   activePage: string;
+  theme: string;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
-  underlineNavItemClass: (page: string, isButton: boolean) => string;
 }
 
 const MatchesTab = ({
   activePage,
   activeSeason,
   onPageChange,
-  underlineNavItemClass
+  theme
 }: Props) => {
   const [totalMatches, setTotalMatches] = useState<number>(-1);
 
@@ -29,22 +30,14 @@ const MatchesTab = ({
     <span className="Counter">{totalMatches}</span>
   );
 
-  if (activePage === "matches") {
-    return (
-      <span className={underlineNavItemClass("matches", false)}>
-        Matches {totalBadge}
-      </span>
-    );
-  }
-
   return (
-    <button
-      type="button"
-      className={underlineNavItemClass("matches", true)}
+    <Tab
+      selected={activePage === "matches"}
       onClick={() => onPageChange("matches")}
+      appTheme={theme}
     >
       Matches {totalBadge}
-    </button>
+    </Tab>
   );
 };
 
