@@ -29,26 +29,12 @@
   visibility: visible;
 }
 
-.match-placement-log-row .match-number-cell.match-cell {
-  background-color: #d0cece;
-}
-
-.match-number-cell.match-placement-number-cell {
-  background-color: #e8e8e8;
-}
-
 .theme-dark .match-placement-row .match-cell.comment-cell,
 .theme-dark .match-placement-row .match-cell.time-cell,
 .theme-dark .match-placement-row .match-cell.throwers-leavers-cell,
 .theme-dark .match-placement-row .match-cell.options-cell,
 .theme-dark .match-placement-row .match-cell.potg-cell {
   background-color: #3a434b;
-}
-
-.theme-dark .match-number-cell.match-cell,
-.theme-dark .match-placement-log-row .match-number-cell.match-cell {
-  background-color: #444d56;
-  color: #d1d5da;
 }
 
 .css-truncate .css-truncate-target.comment-truncate-target {

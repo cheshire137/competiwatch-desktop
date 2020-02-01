@@ -261,7 +261,7 @@ const MatchTableRow = (
 
   return (
     <tr className={outerClass()} ref={ref}>
-      <MatchNumberCell isPlacement={match.isPlacement}>{matchNumber()}</MatchNumberCell>
+      <MatchNumberCell theme={theme} isPlacement={match.isPlacement}>{matchNumber()}</MatchNumberCell>
       {showRole && role && (
         <RoleCell isPlacement={match.isPlacement} theme={theme}>
           <RoleImage role={role} theme={theme} className="d-inline-block" />
