@@ -8,6 +8,7 @@ interface Props {
   isAvailable: boolean;
   hero: Hero;
   isChecked: boolean;
+  theme: string;
   unavailableReason?: string;
   onToggle: (hero: Hero, isSelected: boolean) => void;
 }
@@ -17,7 +18,8 @@ const HeroCheckbox = ({
   hero,
   onToggle,
   unavailableReason,
-  isChecked
+  isChecked,
+  theme
 }: Props) => {
   const containerClass = () => {
     let classes = ["form-checkbox", "mb-0", "mt-1"];
@@ -59,6 +61,7 @@ const HeroCheckbox = ({
         />
         <HeroImage
           hero={hero}
+          theme={theme}
           className="d-inline-block rounded-2 flex-shrink-0 mx-2"
         />
         <div className="no-wrap">

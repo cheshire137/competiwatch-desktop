@@ -71,6 +71,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
         Defense
       </h5>
       <HeroCheckboxList
+        theme={theme}
         heroes={HeroesByType.Defense}
         getUnavailableReason={getUnavailableReason}
         isChecked={isChecked}
@@ -100,6 +101,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
               Flankers
             </h5>
             <HeroCheckboxList
+              theme={theme}
               heroes={HeroesByType.Flanker}
               getUnavailableReason={getUnavailableReason}
               isChecked={isChecked}
@@ -122,6 +124,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
               Off-tanks
             </h5>
             <HeroCheckboxList
+              theme={theme}
               heroes={HeroesByType["Off-tank"]}
               getUnavailableReason={getUnavailableReason}
               isChecked={isChecked}
@@ -143,6 +146,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
               Off-healers
             </h5>
             <HeroCheckboxList
+              theme={theme}
               heroes={HeroesByType["Off-healer"]}
               getUnavailableReason={getUnavailableReason}
               isChecked={isChecked}
@@ -166,6 +170,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
               Hitscan
             </h5>
             <HeroCheckboxList
+              theme={theme}
               heroes={HeroesByType.Hitscan}
               getUnavailableReason={getUnavailableReason}
               isChecked={isChecked}
@@ -187,6 +192,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
               Main tanks
             </h5>
             <HeroCheckboxList
+              theme={theme}
               heroes={HeroesByType["Main Tank"]}
               getUnavailableReason={getUnavailableReason}
               isChecked={isChecked}
@@ -208,6 +214,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
               Main healers
             </h5>
             <HeroCheckboxList
+              theme={theme}
               heroes={HeroesByType["Main Healer"]}
               getUnavailableReason={getUnavailableReason}
               isChecked={isChecked}
@@ -230,6 +237,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
             DPS
           </h5>
           <HeroCheckboxList
+            theme={theme}
             heroes={HeroesByType.DPS}
             getUnavailableReason={getUnavailableReason}
             isChecked={isChecked}

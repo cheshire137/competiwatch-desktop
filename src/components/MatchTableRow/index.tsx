@@ -322,7 +322,7 @@ const MatchTableRow = (
               className="tooltipped tooltipped-n d-inline-block hero-portrait-container"
               aria-label={hero}
             >
-              <HeroImage hero={hero} className="rounded-1 d-inline-block" />
+              <HeroImage theme={theme} hero={hero} className="rounded-1 d-inline-block" />
             </span>
           ))}
         </HideSmallCell>

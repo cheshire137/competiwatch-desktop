@@ -1,5 +1,6 @@
 import React from "react";
 import HeroUtil from "../models/HeroUtil";
+import HeroImageTag from "./HeroImageTag";
 
 const knownHeroes = [
   "ana",
@@ -39,10 +40,11 @@ interface Props {
   hero: string;
   className?: string;
   size?: number;
+  theme: string;
 }
 
 const HeroImage = (props: Props) => {
-  const { hero, className, size } = props;
+  const { hero, className, size, theme } = props;
   const slug = HeroUtil.slugify(hero);
   if (knownHeroes.indexOf(slug) < 0) {
     return <span>{hero}</span>;
@@ -51,7 +53,8 @@ const HeroImage = (props: Props) => {
   const src = require(`../images/heroes/${slug}.png`);
 
   return (
-    <img
+    <HeroImageTag
+      appTheme={theme}
       src={src}
       alt={hero}
       className={className}

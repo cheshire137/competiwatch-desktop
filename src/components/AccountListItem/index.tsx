@@ -8,6 +8,7 @@ import MatchRankImage from "../MatchRankImage";
 import HeroImage from "../HeroImage";
 import "./AccountListItem.css";
 import Account from "../../models/Account";
+import { Flex, Tooltip } from "@primer/components";
 import { Hero } from "../../models/Hero";
 import { showSaveDialog } from "../../utils/electronUtils";
 import LinkButton from "../LinkButton";
@@ -15,6 +16,9 @@ import BattletagButton from "./BattletagButton";
 import AccountListItemStyle from "./AccountListItemStyle";
 import ButtonShownOnHover from "./ButtonShownOnHover";
 import RankButton from "./RankButton";
+import AccountMeta from "./AccountMeta";
+import Separator from "./Separator";
+import AccountAvatarStack from "./AccountAvatarStack";
 
 interface Props {
   account: Account;
@@ -131,9 +135,9 @@ const AccountListItem = ({
 
   return (
     <AccountListItemStyle>
-      <div className="d-flex flex-justify-between flex-items-center">
+      <Flex justifyContent="space-between" alignItems="center">
         <div className="width-full mb-2 mt-1">
-          <div className="d-flex flex-items-center flex-justify-between">
+          <Flex justifyContent="space-between" alignItems="center">
             {showEditForm ? (
               <>
                 <AccountForm
@@ -163,29 +167,29 @@ const AccountListItem = ({
               onDelete={() => onAccountUpdate()}
               battletag={battletag}
             />
-          </div>
-          <div className="text-gray f4 account-meta d-flex flex-items-center">
+          </Flex>
+          <AccountMeta appTheme={theme}>
             {haveLatestResult && !haveLatestRank && latestMatch && (
               <span>Last match: {latestMatch.result}</span>
             )}
             {latestMatch && latestMatch.playedAt ? (
               <>
                 {haveLatestResult && !haveLatestRank ? (
-                  <span className="separator" />
+                  <Separator />
                 ) : null}
                 Last played {latestMatch.playedAt.toLocaleDateString()}
               </>
             ) : latestMatch && latestMatch.createdAt ? (
               <>
                 {haveLatestResult && !haveLatestRank ? (
-                  <span className="separator" />
+                  <Separator />
                 ) : null}
                 Last logged {latestMatch.createdAt.toLocaleDateString()}
               </>
             ) : null}
             {totalMatches > 0 ? (
               <>
-                <span className="separator" />
+                <Separator />
                 <span>
                   {totalMatches} match{totalMatches === 1 ? null : "es"}
                 </span>
@@ -193,7 +197,7 @@ const AccountListItem = ({
             ) : (
                 <span>No matches in season {season}</span>
               )}
-          </div>
+          </AccountMeta>
           <ButtonShownOnHover
             appTheme={theme}
             onClick={() => setShowEditForm(!showEditForm)}
@@ -220,7 +224,7 @@ const AccountListItem = ({
             </>
           ) : null}
         </div>
-        <div className="d-flex flex-items-center">
+        <Flex alignItems="center">
           {haveLatestRank && latestMatch && (
             <RankButton
               appTheme={theme}
@@ -239,31 +243,22 @@ const AccountListItem = ({
           )}
           <div className="ml-3 text-right">
             {topHeroes && topHeroes.length > 0 && (
-              <div
-                className={`AvatarStack account-avatar-stack AvatarStack--right ${
-                  topHeroes.length >= 3
-                    ? "AvatarStack--three-plus"
-                    : "AvatarStack--two"
-                  }`}
-              >
-                <div
-                  className="AvatarStack-body tooltipped tooltipped-n"
-                  aria-label={topHeroes.join(", ")}
-                >
+              <Tooltip direction="n" aria-label={topHeroes.join(", ")}>
+                <AccountAvatarStack threePlus={topHeroes.length >= 3}>
                   {topHeroes.map(hero => (
                     <HeroImage
                       key={hero}
                       hero={hero}
-                      className="avatar account-hero-avatar"
                       size={40}
+                      theme={theme}
                     />
                   ))}
-                </div>
-              </div>
+                </AccountAvatarStack>
+              </Tooltip>
             )}
           </div>
-        </div>
-      </div>
+        </Flex>
+      </Flex>
     </AccountListItemStyle>
   );
 };
