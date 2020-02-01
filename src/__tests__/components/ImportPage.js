@@ -21,7 +21,7 @@ jest.mock("is-electron", () => ({
 import ImportPage from "../../components/ImportPage";
 
 it("displays warning when account has matches in that season", async () => {
-  const wrapper = shallow(<ImportPage accountID="123" season="3" />);
+  const wrapper = shallow(<ImportPage theme="dark" accountID="123" season="3" />);
   await TestHelpers.waitForStateProperty(wrapper, "account");
   const warnEl = wrapper.find(".flash-warn");
   expect(warnEl.text()).toMatch(

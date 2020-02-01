@@ -15,6 +15,7 @@ import MapTypeChart from "../Charts/MapTypeChart";
 import Match from "../../models/Match";
 import Account from "../../models/Account";
 import Color from "../../models/Color";
+import Blankslate from "../Blankslate";
 import "./TrendsPage.css";
 
 class TrendsPage extends Component {
@@ -102,22 +103,22 @@ class TrendsPage extends Component {
 
   render() {
     const { matches, account } = this.state;
-    if (!matches || !account) {
-      return <LoadingPage />;
-    }
-
     const { season, theme } = this.props;
+
+    if (!matches || !account) {
+      return <LoadingPage theme={theme} />;
+    }
 
     if (matches.length < 1) {
       return (
         <div className="container mb-4 layout-children-container">
-          <div className="blankslate">
+          <Blankslate appTheme={theme}>
             <h3 className="mb-2 h3">No match history</h3>
             <p>
               No matches have been logged in season {season} for{" "}
               {account.battletag}.
             </p>
-          </div>
+          </Blankslate>
         </div>
       );
     }

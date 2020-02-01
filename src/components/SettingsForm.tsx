@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Setting from "../models/Setting";
 import Account from "../models/Account";
+import Blankslate from "./Blankslate";
 
 interface Props {
   settings: Setting | null;
@@ -20,12 +21,12 @@ const SettingsForm = ({ settings, onSave, accounts }: Props) => {
 
   if (!settings) {
     return (
-      <div className="blankslate">
+      <Blankslate appTheme={theme}>
         <h1>
           <span className="ion ion-md-refresh mr-3 ion-spin" />
           Loading...
         </h1>
-      </div>
+      </Blankslate>
     );
   }
 

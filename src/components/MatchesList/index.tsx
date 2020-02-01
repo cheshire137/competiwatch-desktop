@@ -34,7 +34,7 @@ const MatchesList = ({
   }, [account._id, season, scrollToMatchID]);
 
   if (!matches) {
-    return <LoadingPage />;
+    return <LoadingPage theme={theme} />;
   }
 
   const anyMatches = matches.length > 0;
