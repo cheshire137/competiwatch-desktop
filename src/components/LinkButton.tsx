@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Button } from "@primer/components";
 
-interface Props {
+export interface Props {
   appTheme: string;
 }
 
