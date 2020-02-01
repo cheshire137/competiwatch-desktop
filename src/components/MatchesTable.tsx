@@ -2,6 +2,9 @@ import React, { useRef, useEffect } from "react";
 import MatchTableRow from "./MatchTableRow";
 import Season from "../models/Season";
 import Match, { MatchResult } from "../models/Match";
+import MatchHeader from "./MatchHeader";
+import OptionsHeader from "./OptionsHeader";
+import { Tooltip } from "@primer/components";
 
 interface Props {
   matches: Match[];
@@ -160,35 +163,34 @@ const MatchesTable = ({
     <table className="width-full">
       <thead>
         <tr className="match-header-row">
-          <th className="match-header hide-sm">#</th>
-          {showRole && <th className="match-header hide-sm">Role</th>}
-          <th className="match-header hide-sm">Win/Loss</th>
-          <th className="match-header no-wrap">+/- SR</th>
-          <th className="match-header">Rank</th>
-          <th className="match-header hide-sm no-wrap">Streak</th>
-          <th className="match-header">Map</th>
+          <MatchHeader appTheme={theme} hideSmall={true}>#</MatchHeader>
+          {showRole && <MatchHeader appTheme={theme} hideSmall={true}>Role</MatchHeader>}
+          <MatchHeader appTheme={theme} hideSmall={true}>Win/Loss</MatchHeader>
+          <MatchHeader appTheme={theme} noWrap={true}>+/- SR</MatchHeader>
+          <MatchHeader appTheme={theme}>Rank</MatchHeader>
+          <MatchHeader hideSmall={true} noWrap={true} appTheme={theme}>Streak</MatchHeader>
+          <MatchHeader appTheme={theme}>Map</MatchHeader>
           {showComment ? (
-            <th className="match-header hide-sm">Comment</th>
+            <MatchHeader appTheme={theme} hideSmall={true}>Comment</MatchHeader>
           ) : null}
-          {showHeroes ? <th className="match-header hide-sm">Heroes</th> : null}
+          {showHeroes ? <MatchHeader appTheme={theme} hideSmall={true}>Heroes</MatchHeader> : null}
           {showDayTime ? (
-            <th className="match-header hide-sm">Day/Time</th>
+            <MatchHeader appTheme={theme} hideSmall={true}>Day/Time</MatchHeader>
           ) : null}
-          {showGroup ? <th className="match-header hide-sm">Group</th> : null}
+          {showGroup ? <MatchHeader appTheme={theme} hideSmall={true}>Group</MatchHeader> : null}
           {showThrowerLeaver ? (
-            <th
-              className="match-header hide-sm tooltipped tooltipped-n"
-              aria-label="Throwers and leavers"
-            >
-              <span role="img" aria-label="Sad face">
-                😢
-              </span>
-            </th>
+            <MatchHeader hideSmall={true} appTheme={theme}>
+              <Tooltip aria-label="Throwers and leavers">
+                <span role="img" aria-label="Sad face">
+                  😢
+                </span>
+              </Tooltip>
+            </MatchHeader>
           ) : null}
           {showPlayOfTheGame || showJoinedVoice ? (
-            <th className="match-header hide-sm">Other</th>
+            <MatchHeader appTheme={theme} hideSmall={true}>Other</MatchHeader>
           ) : null}
-          <th className="match-header options-header"></th>
+          <OptionsHeader appTheme={theme}></OptionsHeader>
         </tr>
       </thead>
       <tbody>

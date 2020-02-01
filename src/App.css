@@ -61,10 +61,6 @@ code {
   color: #a6abee;
 }
 
-.theme-dark .match-header {
-  background-color: #212b49;
-}
-
 .theme-dark .border-top,
 .theme-dark .border-bottom,
 .theme-dark .border,
@@ -95,21 +91,13 @@ code {
   color: #d1d5da;
 }
 
-.theme-dark .match-cell,
-.theme-dark .match-header {
+.theme-dark .match-cell {
   border-color: #2f363d;
 }
 
-.theme-dark .blankslate,
 .theme-dark .Box {
   background-color: #2f363d;
   border-color: #444d56;
-}
-
-.theme-dark .blankslate .h1,
-.theme-dark .blankslate .h2,
-.theme-dark .blankslate .h3 {
-  color: #d1d5da;
 }
 
 .theme-dark .btn,
