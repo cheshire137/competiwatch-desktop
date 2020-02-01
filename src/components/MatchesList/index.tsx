@@ -5,6 +5,7 @@ import Match from "../../models/Match";
 import Account from "../../models/Account";
 import "./MatchesList.css";
 import LinkButton from "../LinkButton";
+import Blankslate from "../Blankslate";
 
 interface Props {
   account: Account;
@@ -63,7 +64,7 @@ const MatchesList = ({
           </div>
         </div>
       ) : (
-        <div className="blankslate">
+        <Blankslate appTheme={theme}>
           <h3 className="mb-2">
             No matches have been logged in season {season} for{" "}
             {account.battletag}
@@ -85,7 +86,7 @@ const MatchesList = ({
               Import matches
             </button>
           </div>
-        </div>
+        </Blankslate>
       )}
     </div>
   );
