@@ -13,43 +13,31 @@ const options = {
   responsive: true,
   maintainAspectRatio: false,
   scales: {
-    yAxes: [{ ticks: { callback: ChartUtils.wholeTicks } }]
+    yAxes: [{
+      ticks: {
+        callback: ChartUtils.wholeTicks,
+        beginAtZero: true
+      }
+    }]
   }
 };
 
+const getCountsByVoiceStatus = (matches: Match[]) => {
+  let joinedVoiceCount = 0;
+  let didNotJoinVoiceCount = 0;
+
+  for (const match of matches) {
+    if (match.joinedVoice) {
+      joinedVoiceCount++;
+    } else {
+      didNotJoinVoiceCount++;
+    }
+  }
+
+  return [joinedVoiceCount, didNotJoinVoiceCount];
+};
+
 const VoiceChatChart = ({ matches, season }: Props) => {
-  const getWins = () => {
-    let joinedVoiceCount = 0;
-    let didNotJoinVoiceCount = 0;
-    const wins = matches.filter(match => match.isWin());
-
-    for (const match of wins) {
-      if (match.joinedVoice) {
-        joinedVoiceCount++;
-      } else {
-        didNotJoinVoiceCount++;
-      }
-    }
-
-    return [joinedVoiceCount, didNotJoinVoiceCount];
-  };
-
-  const getLosses = () => {
-    let joinedVoiceCount = 0;
-    let didNotJoinVoiceCount = 0;
-    const losses = matches.filter(match => match.isLoss());
-
-    for (const match of losses) {
-      if (match.joinedVoice) {
-        joinedVoiceCount++;
-      } else {
-        didNotJoinVoiceCount++;
-      }
-    }
-
-    return [joinedVoiceCount, didNotJoinVoiceCount];
-  };
-
   const data = {
     labels: ["Joined Voice", "Did Not Join Voice"],
     datasets: [
@@ -58,14 +46,14 @@ const VoiceChatChart = ({ matches, season }: Props) => {
         borderColor: Color.win,
         borderWidth: 2,
         label: "Wins",
-        data: getWins()
+        data: getCountsByVoiceStatus(matches.filter(match => match.isWin()))
       },
       {
         backgroundColor: Color.transparentLoss,
         borderColor: Color.loss,
         borderWidth: 2,
         label: "Losses",
-        data: getLosses()
+        data: getCountsByVoiceStatus(matches.filter(match => match.isLoss()))
       }
     ]
   };
