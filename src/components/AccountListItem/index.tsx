@@ -134,7 +134,7 @@ const AccountListItem = ({
   const haveLatestResult = latestMatch && latestMatch.result;
 
   return (
-    <AccountListItemStyle>
+    <AccountListItemStyle appTheme={theme}>
       <Flex justifyContent="space-between" alignItems="center">
         <div className="width-full mb-2 mt-1">
           <Flex justifyContent="space-between" alignItems="center">

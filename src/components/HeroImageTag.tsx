@@ -5,7 +5,7 @@ interface Props {
 }
 
 const HeroImageTag = styled("img")<Props>`
-  background-color: ${props => props.appTheme === "dark" ? "#2f363d" : "inherit"};
+  background-color: ${props => props.appTheme === "dark" ? "#2f363d !important" : "inherit"};
 `;
 
 export default HeroImageTag;

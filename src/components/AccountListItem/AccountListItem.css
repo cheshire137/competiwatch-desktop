@@ -6,7 +6,3 @@
 .btn-rank.btn-link:focus {
   text-decoration: none;
 }
-
-.theme-dark .Box .AvatarStack-body .avatar.account-hero-avatar {
-  background-color: #2f363d;
-}
