@@ -27,3 +27,4 @@ dist/installers/*.msi
 dist/installers/*.exe
 dist/installers/RELEASES
 dist/installers/*.tmp
+Dist/installers/*/tmp
