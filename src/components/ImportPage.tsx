@@ -23,7 +23,7 @@ const ImportPage = ({ account, seasonNumber, onImport, theme }: Props) => {
     }
 
     getTotalMatches();
-  }, [account, account._id, seasonNumber]);
+  }, [account && account._id, seasonNumber]);
 
   if (totalMatches < 0) {
     return <LoadingPage theme={theme} />;

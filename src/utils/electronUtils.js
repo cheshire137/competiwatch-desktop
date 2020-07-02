@@ -23,10 +23,10 @@ export function openLinkInBrowser(url) {
 }
 
 export function getAppName() {
-  if (isElectron()) {
+  if (isElectron() && window.remote.app) {
     return window.remote.app.getName();
   }
-  return "";
+  return "Competiwatch";
 }
 
 export function openInExplorer(dbPath) {
@@ -239,7 +239,7 @@ export function writeFile(path, contents) {
 }
 
 export function setAppMenu(template) {
-  if (isElectron()) {
+  if (isElectron() && window.remote.Menu) {
     const menu = window.remote.Menu.buildFromTemplate(template);
     window.remote.Menu.setApplicationMenu(menu);
   }
