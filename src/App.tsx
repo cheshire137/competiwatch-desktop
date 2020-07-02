@@ -24,7 +24,7 @@ import "./ionicons.min.css";
 import "./App.css";
 import { setTitle, showSaveDialog } from "./utils/electronUtils";
 
-const latestKnownSeason = 20;
+const latestKnownSeason = 23;
 
 const isNighttime = () => {
   const currentTime = new Date();
