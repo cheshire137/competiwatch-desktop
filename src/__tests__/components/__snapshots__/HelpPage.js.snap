@@ -2,13 +2,13 @@
 
 exports[`matches snapshot 1`] = `
 <div
-  className="sc-bwzfXH sc-fAjcbJ iiqlmK"
+  className="sc-bwzfXH sc-kgAjT hJWoHg"
 >
   <div
     className="mt-4"
   >
     <button
-      className="sc-VigVT sc-caSCKo fgvXXe"
+      className="sc-jzJRlG sc-cJSrbW eFLIhY"
       onClick={[Function]}
       type="button"
     >
@@ -96,7 +96,7 @@ exports[`matches snapshot 1`] = `
           See
            
           <button
-            className="sc-VigVT sc-caSCKo fgvXXe"
+            className="sc-jzJRlG sc-cJSrbW eFLIhY"
             onClick={[Function]}
             type="button"
           >
