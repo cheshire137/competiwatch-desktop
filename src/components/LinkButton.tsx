@@ -10,10 +10,7 @@ export default styled(Button).attrs({
   type: "button"
 })<Props>`
   display: inline-block;
-  color: ${props =>
-    props.appTheme === "dark"
-      ? props.theme.colors.blue[3]
-      : props.theme.colors.blue[5]};
+  color: ${props => props.theme.linkColor};
   font-size: inherit;
   text-decoration: none;
   white-space: nowrap;
