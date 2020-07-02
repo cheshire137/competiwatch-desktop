@@ -23,6 +23,8 @@ import "./primer.css";
 import "./ionicons.min.css";
 import "./App.css";
 import { setTitle, showSaveDialog } from "./utils/electronUtils";
+import getAppTheme from "./getAppTheme";
+import { ThemeProvider } from "styled-components";
 
 const latestKnownSeason = 23;
 
@@ -347,116 +349,118 @@ const App = () => {
   ]);
 
   return (
-    <LayoutContainer appTheme={theme}>
-      {showHeader && (
-        <Header
-          accounts={accounts}
-          theme={theme}
-          activePage={activePage}
-          activeAccount={activeAccount}
-          onPageChange={changeActivePage}
-          activeSeason={activeSeason}
-          latestSeason={latestSeason}
-          onSeasonChange={changeActiveSeason}
-          onAccountChange={changeActiveAccount}
-          onExport={exportSeason}
-        />
-      )}
-
-      {activePage === "matches" && activeAccount && activeAccount._id && (
-        <MatchesPage
-          account={activeAccount}
-          season={activeSeason}
-          onPageChange={changeActivePage}
-          scrollToMatchID={scrollToMatchID}
-          theme={theme}
-        />
-      )}
-
-      {activePage === "log-match" && activeAccount && activeAccount._id && (
-        <MatchCreatePage
-          accountID={activeAccount._id}
-          onPageChange={changeActivePage}
-          onSeasonChange={changeActiveSeason}
-          latestRank={latestRank}
-          latestGroup={latestGroup}
-          season={activeSeason}
-          theme={theme}
-          latestSeason={latestSeason}
-        />
-      )}
-
-      {activePage === "manage-seasons" && (
-        <SeasonsPage
-          theme={theme}
-          latestSeason={latestSeason}
-          firstNonDeletableSeason={latestKnownSeason}
-          onCreate={changeActiveSeason}
-          onDelete={onSeasonDelete}
-          onPageChange={changeActivePage}
-        />
-      )}
-
-      {activePage === "import" && activeAccount && activeAccount._id && (
-        <ImportPage
-          seasonNumber={activeSeason}
-          account={activeAccount}
-          onImport={onMatchesImported}
-          theme={theme}
-        />
-      )}
-
-      {activePage === "edit-match" &&
-        activeMatchID &&
-        activeAccount &&
-        activeAccount._id && (
-          <MatchEditPage
-            id={activeMatchID}
-            season={activeSeason}
-            accountID={activeAccount._id}
+    <ThemeProvider theme={getAppTheme(theme)}>
+      <LayoutContainer appTheme={theme}>
+        {showHeader && (
+          <Header
+            accounts={accounts}
             theme={theme}
+            activePage={activePage}
+            activeAccount={activeAccount}
+            onPageChange={changeActivePage}
+            activeSeason={activeSeason}
+            latestSeason={latestSeason}
+            onSeasonChange={changeActiveSeason}
+            onAccountChange={changeActiveAccount}
+            onExport={exportSeason}
+          />
+        )}
+
+        {activePage === "matches" && activeAccount && activeAccount._id && (
+          <MatchesPage
+            account={activeAccount}
+            season={activeSeason}
+            onPageChange={changeActivePage}
+            scrollToMatchID={scrollToMatchID}
+            theme={theme}
+          />
+        )}
+
+        {activePage === "log-match" && activeAccount && activeAccount._id && (
+          <MatchCreatePage
+            accountID={activeAccount._id}
+            onPageChange={changeActivePage}
+            onSeasonChange={changeActiveSeason}
+            latestRank={latestRank}
+            latestGroup={latestGroup}
+            season={activeSeason}
+            theme={theme}
+            latestSeason={latestSeason}
+          />
+        )}
+
+        {activePage === "manage-seasons" && (
+          <SeasonsPage
+            theme={theme}
+            latestSeason={latestSeason}
+            firstNonDeletableSeason={latestKnownSeason}
+            onCreate={changeActiveSeason}
+            onDelete={onSeasonDelete}
             onPageChange={changeActivePage}
           />
         )}
 
-      {activePage === "about" && (
-        <AboutPage theme={theme} onPageChange={changeActivePage} />
-      )}
+        {activePage === "import" && activeAccount && activeAccount._id && (
+          <ImportPage
+            seasonNumber={activeSeason}
+            account={activeAccount}
+            onImport={onMatchesImported}
+            theme={theme}
+          />
+        )}
 
-      {activePage === "help" && (
-        <HelpPage theme={theme} onPageChange={changeActivePage} />
-      )}
+        {activePage === "edit-match" &&
+          activeMatchID &&
+          activeAccount &&
+          activeAccount._id && (
+            <MatchEditPage
+              id={activeMatchID}
+              season={activeSeason}
+              accountID={activeAccount._id}
+              theme={theme}
+              onPageChange={changeActivePage}
+            />
+          )}
 
-      {activePage === "trends" && activeAccount && activeAccount._id && (
-        <TrendsPage
-          accountID={activeAccount._id}
-          season={activeSeason}
-          onPageChange={changeActivePage}
-          theme={theme}
-        />
-      )}
+        {activePage === "about" && (
+          <AboutPage theme={theme} onPageChange={changeActivePage} />
+        )}
 
-      {activePage === "settings" && settings && (
-        <SettingsPage
-          onPageChange={changeActivePage}
-          accounts={accounts}
-          settings={settings}
-          theme={theme}
-          onSave={onSettingsSaved}
-        />
-      )}
+        {activePage === "help" && (
+          <HelpPage theme={theme} onPageChange={changeActivePage} />
+        )}
 
-      {activePage === "accounts" && (
-        <AccountsPage
-          accounts={accounts}
-          theme={theme}
-          season={activeSeason}
-          onCreate={refreshAccounts}
-          onAccountChange={changeActiveAccount}
-          onAccountUpdate={refreshAccounts}
-        />
-      )}
-    </LayoutContainer>
+        {activePage === "trends" && activeAccount && activeAccount._id && (
+          <TrendsPage
+            accountID={activeAccount._id}
+            season={activeSeason}
+            onPageChange={changeActivePage}
+            theme={theme}
+          />
+        )}
+
+        {activePage === "settings" && settings && (
+          <SettingsPage
+            onPageChange={changeActivePage}
+            accounts={accounts}
+            settings={settings}
+            theme={theme}
+            onSave={onSettingsSaved}
+          />
+        )}
+
+        {activePage === "accounts" && (
+          <AccountsPage
+            accounts={accounts}
+            theme={theme}
+            season={activeSeason}
+            onCreate={refreshAccounts}
+            onAccountChange={changeActiveAccount}
+            onAccountUpdate={refreshAccounts}
+          />
+        )}
+      </LayoutContainer>
+    </ThemeProvider>
   );
 };
 
