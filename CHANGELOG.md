@@ -1,6 +1,12 @@
 # Change log
 
-## Version 0.2.9
+## Version 0.3.0
+
+- Added competitive seasons 21, 22, and 23
+- Added Echo [#91](https://github.com/cheshire137/competiwatch-desktop/issues/91)
+- Added a win:loss ratio chart per hero to the Trends tab [#93](https://github.com/cheshire137/competiwatch-desktop/issues/93)
+
+## Version [0.2.9](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.9)
 
 - Added competitive seasons 19 and 20
 - Fixed bug where the app would default to opening a past season instead of the latest known season [#79](https://github.com/cheshire137/competiwatch-desktop/issues/79)
@@ -8,7 +14,7 @@
 - Changing seasons or accounts will now scroll to the last logged match automatically
 - Fixed bug where 'Joined voice chat' was always unchecked when editing a match [#76](https://github.com/cheshire137/competiwatch-desktop/issues/76)
 
-## Version 0.2.8
+## Version [0.2.8](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.8)
 
 - Role is now included when exporting and importing matches
 - The match result field is now focused for you once you choose a role when logging a match
