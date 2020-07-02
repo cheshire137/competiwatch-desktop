@@ -6,6 +6,7 @@ import ThrowerLeaverChart from "../Charts/ThrowerLeaverChart";
 import StreaksChart from "../Charts/StreaksChart";
 import GroupSizeChart from "../Charts/GroupSizeChart";
 import HeroesChart from "../Charts/HeroesChart";
+import HeroRatiosChart from "../Charts/HeroRatiosChart";
 import DayTimeChart from "../Charts/DayTimeChart";
 import ThrowerLeaverTimeChart from "../Charts/ThrowerLeaverTimeChart";
 import VoiceChatChart from "../Charts/VoiceChatChart";
@@ -166,6 +167,8 @@ class TrendsPage extends Component {
               <div>
                 <hr className="mb-4 pt-4" />
                 <HeroesChart season={season} matches={matches} />
+                <hr className="mb-4 pt-4" />
+                <HeroRatiosChart season={season} matches={matches} />
               </div>
             ) : null}
             <hr className="mb-4 pt-4" />

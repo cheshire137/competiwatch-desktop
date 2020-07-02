@@ -41,12 +41,14 @@ const HeroCheckbox = ({
     return classes.join(" ");
   };
 
+  const slug = HeroUtil.slugify(hero);
+
   const nameClass = () => {
-    const classes = [`text-${HeroUtil.slugify(hero)}`, "hero-name"];
+    const classes = [`text-${slug}`, "hero-name"];
     return classes.join(" ");
   };
 
-  const domID = `hero-${HeroUtil.slugify(hero)}`;
+  const domID = `hero-${slug}`;
 
   return (
     <div className={containerClass()} aria-label={unavailableReason}>
