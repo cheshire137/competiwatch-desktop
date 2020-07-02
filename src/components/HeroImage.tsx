@@ -10,6 +10,7 @@ const knownHeroes = [
   "brigitte",
   "doomfist",
   "dva",
+  "echo",
   "genji",
   "hanzo",
   "junkrat",

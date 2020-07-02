@@ -32,6 +32,7 @@ export type Hero =
   | "Brigitte"
   | "D.Va"
   | "Doomfist"
+  | "Echo"
   | "Genji"
   | "Hanzo"
   | "Junkrat"
@@ -76,6 +77,7 @@ export const Heroes: Hero[] = [
   "Brigitte",
   "D.Va",
   "Doomfist",
+  "Echo",
   "Genji",
   "Hanzo",
   "Junkrat",
@@ -103,7 +105,7 @@ export const Heroes: Hero[] = [
 ];
 
 export const HeroesByType: HeroDetailedRoleToHeroes = {
-  DPS: ["Pharah", "Reaper", "Doomfist", "Junkrat"],
+  DPS: ["Doomfist", "Echo", "Junkrat", "Pharah", "Reaper"],
   Flanker: ["Genji", "Sombra", "Tracer"],
   Hitscan: ["Ashe", "McCree", "Soldier: 76", "Widowmaker"],
   "Main Tank": ["Orisa", "Reinhardt", "Sigma", "Winston"],
@@ -125,22 +127,23 @@ export const HeroesByRole: HeroRoleToHeroes = {
     "Zarya"
   ],
   Damage: [
+    "Ashe",
+    "Bastion",
+    "Doomfist",
+    "Echo",
+    "Genji",
+    "Hanzo",
+    "Junkrat",
+    "McCree",
+    "Mei",
     "Pharah",
     "Reaper",
-    "Doomfist",
-    "Junkrat",
-    "Genji",
-    "Sombra",
-    "Tracer",
-    "Ashe",
-    "McCree",
     "Soldier: 76",
-    "Widowmaker",
-    "Bastion",
-    "Hanzo",
-    "Mei",
+    "Sombra",
     "Symmetra",
-    "Torbjörn"
+    "Torbjörn",
+    "Tracer",
+    "Widowmaker"
   ],
   Support: [
     "Ana",
@@ -162,5 +165,6 @@ export const HeroFirstSeasons: HeroToNumber = {
   "Wrecking Ball": 11,
   Ashe: 13,
   Baptiste: 15,
-  Sigma: 18
+  Sigma: 18,
+  Echo: 21
 };
