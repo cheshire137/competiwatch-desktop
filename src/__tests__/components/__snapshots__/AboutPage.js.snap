@@ -2,13 +2,13 @@
 
 exports[`matches snapshot 1`] = `
 <div
-  className="sc-bwzfXH sc-kgAjT hJWoHg"
+  className="Box-sc-1b6inku-0 sc-AxjAm bAeCJN"
 >
   <div
     className="mt-4"
   >
     <button
-      className="sc-jzJRlG sc-cJSrbW eFLIhY"
+      className="ButtonBase-exshql-0 Button-sc-1cuu878-0 sc-AxirZ hiXGGL"
       onClick={[Function]}
       type="button"
     >
@@ -116,7 +116,7 @@ exports[`matches snapshot 1`] = `
           </li>
           <li>
             <button
-              className="sc-jzJRlG sc-cJSrbW eFLIhY"
+              className="ButtonBase-exshql-0 Button-sc-1cuu878-0 sc-AxirZ hiXGGL"
               onClick={[Function]}
               type="button"
             >
