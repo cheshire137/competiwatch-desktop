@@ -30,7 +30,7 @@ const Header = ({
   onExport,
   theme
 }: Props) => (
-  <StickyBar appTheme={theme}>
+  <StickyBar>
     <div className="d-flex flex-items-center container">
       {accounts && accounts.length > 0 && (
         <SeasonSelect

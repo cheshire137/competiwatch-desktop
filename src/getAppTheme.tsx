@@ -4,11 +4,14 @@ import { colors } from "@primer/primitives";
 const darkTheme = {
   backgroundColor: '#24292e',
   color: '#e1e4e8',
-  linkColor: colors.blue[3]
+  linkColor: colors.blue[3],
+  borderColor: colors.gray[8]
 };
 
 const lightTheme = {
-  linkColor: colors.blue[5]
+  backgroundColor: '#fff',
+  linkColor: colors.blue[5],
+  borderColor: colors.gray[2]
 };
 
 export default function(themeName: string) {
