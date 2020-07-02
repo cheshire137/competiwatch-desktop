@@ -6,7 +6,6 @@ interface Props {
 }
 
 export default styled(UnderlineNav.Link).attrs({
-  mb: 3,
   as: "button",
   type: "button"
 })<Props>`
@@ -14,5 +13,7 @@ export default styled(UnderlineNav.Link).attrs({
     props.appTheme === "dark" ? "#fff" : props.theme.colors.gray[9]} !important;
   background-color: ${props =>
     props.appTheme === "dark" ? props.theme.colors.gray[9] : "#fff"};
-  border: none;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
 `;
