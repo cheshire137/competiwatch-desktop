@@ -54,7 +54,6 @@ exports[`matches snapshot 1`] = `
         </button>
         <button
           className="select-menu-item text-bold text-left width-full btn-link"
-          name="accounts"
           onClick={[Function]}
           type="button"
         >

@@ -2,13 +2,13 @@
 
 exports[`matches snapshot 1`] = `
 <div
-  className="container layout-children-container"
+  className="sc-bwzfXH sc-fAjcbJ iiqlmK"
 >
   <div
     className="mt-4"
   >
     <button
-      className="btn-link"
+      className="sc-VigVT sc-caSCKo fgvXXe"
       onClick={[Function]}
       type="button"
     >
@@ -42,14 +42,16 @@ exports[`matches snapshot 1`] = `
         <dd
           className="mb-4"
         >
-          No. You have to manually enter data after your games in order to see trends and other data about your competitive season. You might be interested in 
+          No. You have to manually enter data after your games in order to see trends and other data about your competitive season. You might be interested in
+           
           <a
             href="https://overtrack.gg/"
             onClick={[Function]}
           >
             OverTrack
           </a>
-           if you want automated tracking.
+           
+          if you want automated tracking.
         </dd>
         <dt
           className="mb-1 text-bold"
@@ -82,29 +84,35 @@ exports[`matches snapshot 1`] = `
         <dd
           className="mb-4"
         >
-          It's free! 
+          It's free!
+           
           <span
             aria-label="Tada"
             role="img"
           >
             🎉
           </span>
-           See 
+           
+          See
+           
           <button
-            className="btn-link"
+            className="sc-VigVT sc-caSCKo fgvXXe"
             onClick={[Function]}
             type="button"
           >
             the about page
           </button>
-           for more information, but Competiwatch is my hobby project. Pull requests are welcome 
+           
+          for more information, but Competiwatch is my hobby project. Pull requests are welcome
+           
           <a
             href="https://github.com/cheshire137/competiwatch-desktop/"
             onClick={[Function]}
           >
             on GitHub
           </a>
-           if you want to help out.
+           
+          if you want to help out.
         </dd>
       </dl>
     </div>
