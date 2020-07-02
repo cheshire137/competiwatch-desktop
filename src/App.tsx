@@ -350,11 +350,10 @@ const App = () => {
 
   return (
     <ThemeProvider theme={getAppTheme(theme)}>
-      <LayoutContainer appTheme={theme}>
+      <LayoutContainer>
         {showHeader && (
           <Header
             accounts={accounts}
-            theme={theme}
             activePage={activePage}
             activeAccount={activeAccount}
             onPageChange={changeActivePage}

@@ -10,7 +10,6 @@ import { Flex } from "@primer/components";
 
 interface Props {
   activePage: string;
-  theme: string;
   activeAccount: Account | null;
   activeSeason: number;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
@@ -22,28 +21,24 @@ const MainNavigation = ({
   onPageChange,
   activeSeason,
   activePage,
-  onExport,
-  theme
+  onExport
 }: Props) => (
   <Flex ml={3} width="100%" justifyContent="space-between" alignItems="center">
     <Flex>
       <AccountsTab
-        theme={theme}
         onPageChange={onPageChange}
         activePage={activePage}
       />
       {activeAccount && (
         <MatchesTab
-          theme={theme}
           onPageChange={onPageChange}
           activePage={activePage}
           activeSeason={activeSeason}
         />
       )}
-      <ImportTab theme={theme} activePage={activePage} />
+      <ImportTab activePage={activePage} />
       {activeAccount && (
         <TrendsTab
-          theme={theme}
           activePage={activePage}
           activeAccount={activeAccount}
           activeSeason={activeSeason}
@@ -52,7 +47,7 @@ const MainNavigation = ({
       )}
     </Flex>
     <div>
-      <ExportButton theme={theme} onExport={onExport} activePage={activePage} />
+      <ExportButton onExport={onExport} activePage={activePage} />
       {activeAccount && (
         <LogMatchButton
           activePage={activePage}

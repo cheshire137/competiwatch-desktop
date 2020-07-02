@@ -911,11 +911,7 @@ const MatchForm = (props: Props) => {
       </div>
       <Flex alignItems="center" justifyContent="flex-end">
         {props.id && props.onUpdate && (
-          <LinkButton
-            appTheme={theme}
-            mr={3}
-            onClick={() => props.onUpdate && props.onUpdate()}
-          >
+          <LinkButton mr={3} onClick={() => props.onUpdate && props.onUpdate()}>
             Cancel edit
           </LinkButton>
         )}

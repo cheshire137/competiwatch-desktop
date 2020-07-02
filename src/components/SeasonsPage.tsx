@@ -23,7 +23,7 @@ const SeasonsPage = ({
 }: Props) => (
   <LayoutChildrenContainer>
     <div className="mt-4">
-      <LinkButton appTheme={theme} onClick={() => onPageChange("accounts")}>
+      <LinkButton onClick={() => onPageChange("accounts")}>
         &larr; Back to your accounts
       </LinkButton>
     </div>

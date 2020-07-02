@@ -36,7 +36,7 @@ const AboutPage = ({ onPageChange, theme }: Props) => {
   return (
     <LayoutChildrenContainer>
       <div className="mt-4">
-        <LinkButton appTheme={theme} onClick={() => onPageChange("accounts")}>
+        <LinkButton onClick={() => onPageChange("accounts")}>
           &larr; Back to your accounts
         </LinkButton>
       </div>
@@ -101,16 +101,13 @@ const AboutPage = ({ onPageChange, theme }: Props) => {
                     {latestVersion.version === version ? (
                       <span>You have the latest version</span>
                     ) : (
-                      <LinkButton appTheme={theme} onClick={openLatestVersion}>
+                      <LinkButton onClick={openLatestVersion}>
                         Version {latestVersion.version} is available
                       </LinkButton>
                     )}
                   </span>
                 ) : (
-                  <LinkButton
-                    appTheme={theme}
-                    onClick={() => checkLatestVersion()}
-                  >
+                  <LinkButton onClick={() => checkLatestVersion()}>
                     Check for new version
                   </LinkButton>
                 )}

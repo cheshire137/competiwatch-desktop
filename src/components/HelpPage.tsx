@@ -18,7 +18,7 @@ const HelpPage = ({ onPageChange, theme }: Props) => {
   return (
     <LayoutChildrenContainer>
       <div className="mt-4">
-        <LinkButton appTheme={theme} onClick={() => onPageChange("accounts")}>
+        <LinkButton onClick={() => onPageChange("accounts")}>
           &larr; Back to your accounts
         </LinkButton>
       </div>
@@ -72,10 +72,7 @@ const HelpPage = ({ onPageChange, theme }: Props) => {
                 🎉
               </span>{" "}
               See{" "}
-              <LinkButton
-                appTheme={theme}
-                onClick={() => onPageChange("about")}
-              >
+              <LinkButton onClick={() => onPageChange("about")}>
                 the about page
               </LinkButton>{" "}
               for more information, but Competiwatch is my hobby project. Pull

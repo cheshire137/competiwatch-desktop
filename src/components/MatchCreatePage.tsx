@@ -46,10 +46,7 @@ const MatchCreatePage = ({
         <p className="flash flash-warn">
           You are logging a match for a past competitive season. Did you want
           <span> to </span>
-          <LinkButton
-            appTheme={theme}
-            onClick={() => onSeasonChange(latestSeason)}
-          >
+          <LinkButton onClick={() => onSeasonChange(latestSeason)}>
             log a match in season {latestSeason}
           </LinkButton>
           ?

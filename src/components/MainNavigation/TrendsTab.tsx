@@ -3,7 +3,6 @@ import Account from "../../models/Account";
 import Tab from "./Tab";
 
 interface Props {
-  theme: string;
   activePage: string;
   activeAccount: Account;
   activeSeason: number;
@@ -14,8 +13,7 @@ const TrendsTab = ({
   activePage,
   activeSeason,
   activeAccount,
-  onPageChange,
-  theme
+  onPageChange
 }: Props) => {
   const [hasMatches, setHasMatches] = useState(false);
   const account = new Account({ _id: activeAccount._id });
@@ -35,7 +33,6 @@ const TrendsTab = ({
 
   return (
     <Tab
-      appTheme={theme}
       selected={activePage === "trends"}
       onClick={() => onPageChange("trends")}
     >

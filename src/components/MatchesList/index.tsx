@@ -53,10 +53,7 @@ const MatchesList = ({
           <div className="d-flex mb-4 mt-2 flex-items-center flex-justify-between">
             <div className="text-small">
               <span>Replace your season {season} matches by </span>
-              <LinkButton
-                appTheme={theme}
-                onClick={() => onPageChange("import")}
-              >
+              <LinkButton onClick={() => onPageChange("import")}>
                 importing them
               </LinkButton>
               <span> from a CSV file.</span>

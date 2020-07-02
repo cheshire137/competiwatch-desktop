@@ -3,16 +3,15 @@ import Tab from "./Tab";
 
 interface Props {
   activePage: string;
-  theme: string;
 }
 
-const ImportTab = ({ activePage, theme }: Props) => {
+const ImportTab = ({ activePage }: Props) => {
   if (activePage !== "import") {
     return null;
   }
 
   return (
-    <Tab selected appTheme={theme}>
+    <Tab selected>
       Import
     </Tab>
   );

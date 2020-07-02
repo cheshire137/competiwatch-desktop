@@ -5,15 +5,13 @@ import Tab from "./Tab";
 interface Props {
   activeSeason: number;
   activePage: string;
-  theme: string;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }
 
 const MatchesTab = ({
   activePage,
   activeSeason,
-  onPageChange,
-  theme
+  onPageChange
 }: Props) => {
   const [totalMatches, setTotalMatches] = useState<number>(-1);
 
@@ -34,7 +32,6 @@ const MatchesTab = ({
     <Tab
       selected={activePage === "matches"}
       onClick={() => onPageChange("matches")}
-      appTheme={theme}
     >
       Matches {totalBadge}
     </Tab>

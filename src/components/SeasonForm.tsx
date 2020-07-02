@@ -59,7 +59,7 @@ const SeasonForm = ({ theme, onCreate, latestSeason }: Props) => {
       <h2 className="h2 text-normal mb-2">Add a season</h2>
       <p>
         <span>A </span>
-        <LinkButton appTheme={theme} onClick={openReleasesPage}>
+        <LinkButton onClick={openReleasesPage}>
           new version
         </LinkButton>
         <span> of </span>

@@ -7,7 +7,6 @@ import StickyBar from "./StickyBar";
 
 interface Props {
   activeSeason: number;
-  theme: string;
   latestSeason: number;
   onSeasonChange: (newNumber: number) => void;
   accounts: Array<Account>;
@@ -27,8 +26,7 @@ const Header = ({
   activeAccount,
   onAccountChange,
   activePage,
-  onExport,
-  theme
+  onExport
 }: Props) => (
   <StickyBar>
     <div className="d-flex flex-items-center container">
@@ -54,7 +52,6 @@ const Header = ({
         activeSeason={activeSeason}
         activeAccount={activeAccount}
         onExport={onExport}
-        theme={theme}
       />
     </div>
   </StickyBar>

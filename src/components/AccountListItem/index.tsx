@@ -152,10 +152,7 @@ const AccountListItem = ({
                   totalAccounts={1}
                   onUpdate={accountUpdated}
                 />
-                <LinkButton
-                  appTheme={theme}
-                  onClick={() => setShowEditForm(!showEditForm)}
-                >
+                <LinkButton onClick={() => setShowEditForm(!showEditForm)}>
                   Cancel rename
                 </LinkButton>
               </>

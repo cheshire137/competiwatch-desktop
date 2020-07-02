@@ -1,11 +1,8 @@
 import styled from "styled-components";
-import LinkButton, { Props } from "../LinkButton";
+import LinkButton from "../LinkButton";
 
-export default styled(LinkButton)<Props>`
+export default styled(LinkButton)`
   visibility: hidden;
-  color: ${props =>
-    props.appTheme === "dark"
-      ? props.theme.colors.gray[3]
-      : props.theme.colors.gray[8]};
+  color: ${props => props.theme.buttonShownOnHoverColor};
   font-size: 12px;
 `;
