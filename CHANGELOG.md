@@ -5,6 +5,7 @@
 - Added competitive seasons 21, 22, and 23
 - Added Echo [#91](https://github.com/cheshire137/competiwatch-desktop/issues/91)
 - Added a win:loss ratio chart per hero to the Trends tab [#93](https://github.com/cheshire137/competiwatch-desktop/issues/93)
+- UI improvements for dark theme
 
 ## Version [0.2.9](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.2.9)
 

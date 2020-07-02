@@ -5,6 +5,7 @@ import Account from "../models/Account";
 import Setting from "../models/Setting";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
 import LinkButton from "./LinkButton";
+import HorizontalRule from "./HorizontalRule";
 
 const dbNames = ["accounts", "matches", "seasons", "settings"];
 
@@ -49,7 +50,7 @@ const SettingsPage = ({
     <div className="col-md-6 mb-4">
       <SettingsForm accounts={accounts} settings={settings} onSave={onSave} />
     </div>
-    <hr />
+    <HorizontalRule appTheme={theme} />
     <div className="mb-4">
       <h2 className="h2 mb-2">Data files</h2>
       <p>

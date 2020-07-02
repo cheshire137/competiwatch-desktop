@@ -3,6 +3,7 @@ import { Bar } from "react-chartjs-2";
 import Match from "../../models/Match";
 import Color from "../../models/Color";
 import ChartUtils from "../../models/ChartUtils";
+import HorizontalRule from "../HorizontalRule";
 
 const labels = [
   "Solo queue",
@@ -16,6 +17,7 @@ const labels = [
 interface Props {
   matches: Match[];
   season: number;
+  theme: string;
 }
 
 type Counts = {
@@ -56,7 +58,7 @@ const options = {
   maintainAspectRatio: false
 };
 
-const GroupSizeChart = ({ matches, season }: Props) => {
+const GroupSizeChart = ({ matches, season, theme }: Props) => {
   if (!moreThanOneGroupSize(matches)) {
     return null;
   }
@@ -93,7 +95,7 @@ const GroupSizeChart = ({ matches, season }: Props) => {
 
   return (
     <>
-      <hr className="mb-4 pt-4" />
+      <HorizontalRule appTheme={theme} />
       <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
         Wins/Losses by Group Size
         <span className="text-gray text-normal h4 d-inline-block ml-2">

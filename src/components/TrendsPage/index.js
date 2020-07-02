@@ -17,6 +17,7 @@ import Match from "../../models/Match";
 import Account from "../../models/Account";
 import Color from "../../models/Color";
 import Blankslate from "../Blankslate";
+import HorizontalRule from "../HorizontalRule";
 import "./TrendsPage.css";
 
 class TrendsPage extends Component {
@@ -146,13 +147,13 @@ class TrendsPage extends Component {
             </div>
           ) : null}
         </div>
-        <hr className="mb-4 pt-4" />
+        <HorizontalRule appTheme={theme} />
         <StreaksChart season={season} matches={matches} />
         {this.showMapChart() ? (
           <div>
-            <hr className="mb-4 pt-4" />
+            <HorizontalRule appTheme={theme} />
             <MapChart season={season} matches={matches} />
-            <hr className="mb-4 pt-4" />
+            <HorizontalRule appTheme={theme} />
             <div className="clearfix">
               <div className="col-md-6 mx-auto">
                 <MapTypeChart season={season} matches={matches} />
@@ -160,18 +161,18 @@ class TrendsPage extends Component {
             </div>
           </div>
         ) : null}
-        <GroupSizeChart season={season} matches={matches} />
+        <GroupSizeChart theme={theme} season={season} matches={matches} />
         {showHeroesCharts || showVoiceCharts ? (
           <div>
             {showHeroesCharts ? (
               <div>
-                <hr className="mb-4 pt-4" />
+                <HorizontalRule appTheme={theme} />
                 <HeroesChart season={season} matches={matches} />
-                <hr className="mb-4 pt-4" />
+                <HorizontalRule appTheme={theme} />
                 <HeroRatiosChart season={season} matches={matches} />
               </div>
             ) : null}
-            <hr className="mb-4 pt-4" />
+            <HorizontalRule appTheme={theme} />
             <div className="clearfix">
               {showHeroesCharts ? (
                 <div
@@ -204,13 +205,13 @@ class TrendsPage extends Component {
         ) : null}
         {this.showDayTimeChart() ? (
           <div>
-            <hr className="mb-4 pt-4" />
+            <HorizontalRule appTheme={theme} />
             <DayTimeChart season={season} matches={matches} />
           </div>
         ) : null}
         {this.showThrowerLeaverTimeChart() ? (
           <div>
-            <hr className="mb-4 pt-4" />
+            <HorizontalRule appTheme={theme} />
             <ThrowerLeaverTimeChart season={season} matches={matches} />
           </div>
         ) : null}
