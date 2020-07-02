@@ -21,11 +21,13 @@ export default styled(Button).attrs({
   background-image: none;
   font-weight: normal;
   appearance: none;
+  box-shadow: none;
 
   &:hover,
   &:focus {
     background-image: none;
     background-color: transparent;
     text-decoration: underline;
+    box-shadow: none;
   }
 `;
