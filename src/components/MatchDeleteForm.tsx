@@ -17,10 +17,13 @@ const MatchDeleteForm = ({ id, onDelete }: Props) => {
   };
 
   return (
-    <form className="mb-4" onSubmit={evt => {
-      evt.preventDefault();
-      deleteMatch();
-    }}>
+    <form
+      className="mb-4"
+      onSubmit={evt => {
+        evt.preventDefault();
+        deleteMatch();
+      }}
+    >
       <button type="submit" className="btn-link text-red text-small">
         Delete match
       </button>

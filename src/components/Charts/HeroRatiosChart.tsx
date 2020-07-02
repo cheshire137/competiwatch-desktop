@@ -6,14 +6,17 @@ import { Heroes, Hero } from "../../models/Hero";
 import ChartUtils from "../../models/ChartUtils";
 
 const getCountsForHeroes = (heroes: Hero[], filteredMatches: Match[]) => {
-  return heroes.map(hero =>
-    filteredMatches.filter(match => new Set(match.heroList).has(hero)).length);
+  return heroes.map(
+    hero =>
+      filteredMatches.filter(match => new Set(match.heroList).has(hero)).length
+  );
 };
 
 const getHeroLabels = (matches: Match[]) => {
   const allPlayedHeroes = matches
     .filter(match => match.heroList.length > 0)
-    .map(match => match.heroList).flat();
+    .map(match => match.heroList)
+    .flat();
   const playedHeroes = new Set(allPlayedHeroes);
 
   return Heroes.filter(hero => playedHeroes.has(hero));
@@ -68,7 +71,7 @@ const HeroRatiosChart = ({ matches, season }: Props) => {
         borderWidth: 2,
         label: "Wins",
         data: wins,
-        stack: '2'
+        stack: "2"
       },
       {
         backgroundColor: Color.transparentDraw,
@@ -76,7 +79,7 @@ const HeroRatiosChart = ({ matches, season }: Props) => {
         borderWidth: 2,
         label: "Draws",
         data: draws,
-        stack: '2'
+        stack: "2"
       },
       {
         backgroundColor: Color.transparentLoss,
@@ -84,7 +87,7 @@ const HeroRatiosChart = ({ matches, season }: Props) => {
         borderWidth: 2,
         label: "Losses",
         data: losses,
-        stack: '2'
+        stack: "2"
       }
     ]
   };

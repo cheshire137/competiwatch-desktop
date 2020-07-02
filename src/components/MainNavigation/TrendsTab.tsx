@@ -22,7 +22,7 @@ const TrendsTab = ({
 
   useEffect(() => {
     async function getHasMatches() {
-      const result = await account.hasMatches(activeSeason)
+      const result = await account.hasMatches(activeSeason);
       setHasMatches(result);
     }
 

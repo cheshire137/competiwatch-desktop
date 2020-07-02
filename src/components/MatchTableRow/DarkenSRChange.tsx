@@ -24,9 +24,9 @@ function backgroundColor(props: Props) {
 
 export default styled("span")<Props>`
   background-color: ${props => backgroundColor(props)};
-  position: ${props => props.theme === "dark" ? "absolute" : "static"};
-  left: ${props => props.theme === "dark" ? "0" : "auto"};
-  top: ${props => props.theme === "dark" ? "0" : "auto"};
-  width: ${props => props.theme === "dark" ? "100%" : "auto"};
-  height: ${props => props.theme === "dark" ? "100%" : "auto"};
+  position: ${props => (props.theme === "dark" ? "absolute" : "static")};
+  left: ${props => (props.theme === "dark" ? "0" : "auto")};
+  top: ${props => (props.theme === "dark" ? "0" : "auto")};
+  width: ${props => (props.theme === "dark" ? "100%" : "auto")};
+  height: ${props => (props.theme === "dark" ? "100%" : "auto")};
 `;

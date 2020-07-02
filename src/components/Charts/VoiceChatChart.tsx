@@ -13,12 +13,14 @@ const options = {
   responsive: true,
   maintainAspectRatio: false,
   scales: {
-    yAxes: [{
-      ticks: {
-        callback: ChartUtils.wholeTicks,
-        beginAtZero: true
+    yAxes: [
+      {
+        ticks: {
+          callback: ChartUtils.wholeTicks,
+          beginAtZero: true
+        }
       }
-    }]
+    ]
   }
 };
 

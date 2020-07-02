@@ -7,11 +7,7 @@ interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }
 
-const AccountsTab = ({
-  activePage,
-  onPageChange,
-  theme
-}: Props) => {
+const AccountsTab = ({ activePage, onPageChange, theme }: Props) => {
   return (
     <Tab
       appTheme={theme}

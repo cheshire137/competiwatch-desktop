@@ -41,7 +41,7 @@ class Account {
   static async findAll() {
     const sort = { battletag: 1 }; // not case-insensitive
     const rows: AccountData[] = await Database.findAll("accounts", sort);
-    const accounts = rows.map(data => new Account(data))
+    const accounts = rows.map(data => new Account(data));
     return accounts.sort(accountSort);
   }
 
@@ -65,7 +65,11 @@ class Account {
       conditions.season = season;
     }
 
-    const matchRows: MatchData[] = await Database.findAll("matches", sort, conditions);
+    const matchRows: MatchData[] = await Database.findAll(
+      "matches",
+      sort,
+      conditions
+    );
     const matches = matchRows.map(data => new Match(data));
     const groupMembers: GroupMemberCount = {};
 
@@ -87,7 +91,11 @@ class Account {
       conditions.season = season;
     }
 
-    const matchRowsData: any[] = await Database.findAll("matches", sort, conditions);
+    const matchRowsData: any[] = await Database.findAll(
+      "matches",
+      sort,
+      conditions
+    );
     const matchRows = matchRowsData as MatchData[];
     const matches: Match[] = matchRows.map(data => new Match(data));
     const heroCounts: HeroCount = {};

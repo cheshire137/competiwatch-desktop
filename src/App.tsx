@@ -182,13 +182,19 @@ const App = () => {
     const dialogResult = await showSaveDialog(options);
     const canceled = dialogResult.canceled as boolean;
     if (canceled) {
-      console.log('export cancelled');
+      console.log("export cancelled");
       return;
     }
 
     const filePath = dialogResult.filePath as string;
-    console.log('path for export', filePath, 'season', activeSeason, 'account',
-      activeAccount.battletag);
+    console.log(
+      "path for export",
+      filePath,
+      "season",
+      activeSeason,
+      "account",
+      activeAccount.battletag
+    );
     exportSeasonTo(filePath);
   };
 
@@ -296,7 +302,10 @@ const App = () => {
 
   useEffect(() => {
     const millisecondsInHour = 3600000;
-    themeInterval.current = setInterval(() => updateTheme(), millisecondsInHour);
+    themeInterval.current = setInterval(
+      () => updateTheme(),
+      millisecondsInHour
+    );
 
     refreshAccounts();
     loadLatestSeason();
@@ -330,7 +339,12 @@ const App = () => {
       accountID: activeAccount ? activeAccount._id : null,
       accounts
     });
-  }, [activeAccount && activeAccount._id, latestSeason, activeSeason, accounts.length]);
+  }, [
+    activeAccount && activeAccount._id,
+    latestSeason,
+    activeSeason,
+    accounts.length
+  ]);
 
   return (
     <LayoutContainer appTheme={theme}>
@@ -392,19 +406,26 @@ const App = () => {
         />
       )}
 
-      {activePage === "edit-match" && activeMatchID && activeAccount && activeAccount._id && (
-        <MatchEditPage
-          id={activeMatchID}
-          season={activeSeason}
-          accountID={activeAccount._id}
-          theme={theme}
-          onPageChange={changeActivePage}
-        />
+      {activePage === "edit-match" &&
+        activeMatchID &&
+        activeAccount &&
+        activeAccount._id && (
+          <MatchEditPage
+            id={activeMatchID}
+            season={activeSeason}
+            accountID={activeAccount._id}
+            theme={theme}
+            onPageChange={changeActivePage}
+          />
+        )}
+
+      {activePage === "about" && (
+        <AboutPage theme={theme} onPageChange={changeActivePage} />
       )}
 
-      {activePage === "about" && <AboutPage theme={theme} onPageChange={changeActivePage} />}
-
-      {activePage === "help" && <HelpPage theme={theme} onPageChange={changeActivePage} />}
+      {activePage === "help" && (
+        <HelpPage theme={theme} onPageChange={changeActivePage} />
+      )}
 
       {activePage === "trends" && activeAccount && activeAccount._id && (
         <TrendsPage

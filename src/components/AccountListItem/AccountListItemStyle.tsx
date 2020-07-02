@@ -11,7 +11,11 @@ export default styled(Box).attrs({
   p: 3
 })<Props>`
   & + & {
-    border-top: 1px solid ${props => props.appTheme === "dark" ? props.theme.colors.gray[7] : props.theme.colors.gray[3]};
+    border-top: 1px solid
+      ${props =>
+        props.appTheme === "dark"
+          ? props.theme.colors.gray[7]
+          : props.theme.colors.gray[3]};
   }
 
   &:hover ${ButtonShownOnHover} {

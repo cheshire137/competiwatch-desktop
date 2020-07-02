@@ -11,7 +11,11 @@ const ImportTab = ({ activePage, theme }: Props) => {
     return null;
   }
 
-  return <Tab selected appTheme={theme}>Import</Tab>;
+  return (
+    <Tab selected appTheme={theme}>
+      Import
+    </Tab>
+  );
 };
 
 export default ImportTab;

@@ -13,7 +13,7 @@ interface Props {
 type LogEntry = {
   message: string;
   key: string;
-}
+};
 
 const ImportForm = ({ onImport, season, account }: Props) => {
   const [path, setPath] = useState("");
@@ -60,7 +60,7 @@ const ImportForm = ({ onImport, season, account }: Props) => {
     setIsImporting(true);
     setImportLogEntries(logEntries);
 
-    await Match.wipeSeason(account._id, season)
+    await Match.wipeSeason(account._id, season);
     importFromPath();
   };
 
@@ -93,10 +93,12 @@ const ImportForm = ({ onImport, season, account }: Props) => {
   };
 
   return (
-    <form onSubmit={evt => {
-      evt.preventDefault();
-      onFormSubmit();
-    }}>
+    <form
+      onSubmit={evt => {
+        evt.preventDefault();
+        onFormSubmit();
+      }}
+    >
       <dl className="form-group mt-0">
         <dt>
           <label htmlFor="csv">Choose a CSV file:</label>

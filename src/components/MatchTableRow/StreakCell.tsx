@@ -43,8 +43,7 @@ function backgroundColor(props: Props) {
     }
     const gradient = new ColorGradient(colors, stepCount);
     const rgbColors = gradient.rgb();
-    const index =
-      typeof streak === "number" ? streakList.indexOf(streak) : -1;
+    const index = typeof streak === "number" ? streakList.indexOf(streak) : -1;
     const color = rgbColors[index];
     return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
   }

@@ -2,10 +2,7 @@ import React from "react";
 import { Radar } from "react-chartjs-2";
 import Color from "../../models/Color";
 import Match from "../../models/Match";
-import {
-  HeroDetailedRoles,
-  HeroDetailedRole
-} from "../../models/Hero";
+import { HeroDetailedRoles, HeroDetailedRole } from "../../models/Hero";
 
 interface Props {
   matches: Match[];
@@ -13,9 +10,15 @@ interface Props {
   theme: string;
 }
 
-const getCountsByRole = (roles: HeroDetailedRole[], filteredMatches: Match[]) => {
-  return roles.map(role =>
-    filteredMatches.filter(match => match.detailedRoles().includes(role)).length);
+const getCountsByRole = (
+  roles: HeroDetailedRole[],
+  filteredMatches: Match[]
+) => {
+  return roles.map(
+    role =>
+      filteredMatches.filter(match => match.detailedRoles().includes(role))
+        .length
+  );
 };
 
 const borderWidth = 2;
@@ -26,8 +29,14 @@ const lineTension = 0.1;
 
 const RoleChart = ({ matches, season, theme }: Props) => {
   const labels = HeroDetailedRoles;
-  const winCounts = getCountsByRole(labels, matches.filter(match => match.isWin()));
-  const lossCounts = getCountsByRole(labels, matches.filter(match => match.isLoss()));
+  const winCounts = getCountsByRole(
+    labels,
+    matches.filter(match => match.isWin())
+  );
+  const lossCounts = getCountsByRole(
+    labels,
+    matches.filter(match => match.isLoss())
+  );
   let maxCount = Math.max(...winCounts.concat(lossCounts));
   maxCount = maxCount + Math.floor(maxCount * 0.1);
   const isDarkTheme = theme === "dark";

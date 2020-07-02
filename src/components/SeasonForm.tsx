@@ -49,10 +49,13 @@ const SeasonForm = ({ theme, onCreate, latestSeason }: Props) => {
   const appName = getAppName();
 
   return (
-    <form className="Box p-3" onSubmit={evt => {
-      evt.preventDefault();
-      saveSeason();
-    }}>
+    <form
+      className="Box p-3"
+      onSubmit={evt => {
+        evt.preventDefault();
+        saveSeason();
+      }}
+    >
       <h2 className="h2 text-normal mb-2">Add a season</h2>
       <p>
         <span>A </span>

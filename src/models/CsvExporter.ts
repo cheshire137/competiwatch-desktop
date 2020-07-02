@@ -163,7 +163,7 @@ class CsvExporter {
 
   async export() {
     const matches = await this.getMatches();
-    const csv = await this.generateCsv(matches)
+    const csv = await this.generateCsv(matches);
     return writeFile(this.path, csv);
   }
 }

@@ -1,7 +1,13 @@
 import Database from "./Database";
 import Season from "./Season";
 import { Map } from "./Map";
-import { HeroesByRole, HeroRole, Hero, HeroesByType, HeroDetailedRole } from "./Hero";
+import {
+  HeroesByRole,
+  HeroRole,
+  Hero,
+  HeroesByType,
+  HeroDetailedRole
+} from "./Hero";
 import DayTimeApproximator, {
   DayOfWeek,
   TimeOfDay
@@ -226,9 +232,7 @@ class Match {
 
   static async wipeSeason(accountID: string, season: number) {
     const matches = await Match.findAll(accountID, season);
-    const promises = matches.map(
-      match => match._id && Match.delete(match._id)
-    );
+    const promises = matches.map(match => match._id && Match.delete(match._id));
     return Promise.all(promises);
   }
 
@@ -243,7 +247,11 @@ class Match {
 
   static async findAll(accountID: string, season: number) {
     const conditions = { accountID, season };
-    const rows: MatchData[] = await Database.findAll("matches", defaultSort, conditions);
+    const rows: MatchData[] = await Database.findAll(
+      "matches",
+      defaultSort,
+      conditions
+    );
     const matches: Match[] = rows.map(data => new Match(data));
 
     for (let i = 0; i < matches.length; i++) {

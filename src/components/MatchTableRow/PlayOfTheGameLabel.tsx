@@ -5,5 +5,4 @@ interface Props {
   showJoinedVoice: boolean;
 }
 
-export default styled(Box)<Props>`
-`;
+export default styled(Box)<Props>``;

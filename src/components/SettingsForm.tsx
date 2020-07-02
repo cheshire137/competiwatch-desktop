@@ -39,10 +39,12 @@ const SettingsForm = ({ settings, onSave, accounts }: Props) => {
   };
 
   return (
-    <form onSubmit={evt => {
-      evt.preventDefault();
-      onSubmit();
-    }}>
+    <form
+      onSubmit={evt => {
+        evt.preventDefault();
+        onSubmit();
+      }}
+    >
       <dl className="form-group">
         <dt>
           <label htmlFor="default-account" className="label-lg">

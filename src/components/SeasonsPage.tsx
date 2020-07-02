@@ -23,10 +23,7 @@ const SeasonsPage = ({
 }: Props) => (
   <LayoutChildrenContainer>
     <div className="mt-4">
-      <LinkButton
-        appTheme={theme}
-        onClick={() => onPageChange("accounts")}
-      >
+      <LinkButton appTheme={theme} onClick={() => onPageChange("accounts")}>
         &larr; Back to your accounts
       </LinkButton>
     </div>
@@ -40,7 +37,11 @@ const SeasonsPage = ({
         />
       </div>
       <div className="col-4 float-right">
-        <SeasonForm theme={theme} latestSeason={latestSeason} onCreate={onCreate} />
+        <SeasonForm
+          theme={theme}
+          latestSeason={latestSeason}
+          onCreate={onCreate}
+        />
       </div>
     </div>
   </LayoutChildrenContainer>

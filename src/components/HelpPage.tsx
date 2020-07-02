@@ -18,10 +18,7 @@ const HelpPage = ({ onPageChange, theme }: Props) => {
   return (
     <LayoutChildrenContainer>
       <div className="mt-4">
-        <LinkButton
-          appTheme={theme}
-          onClick={() => onPageChange("accounts")}
-        >
+        <LinkButton appTheme={theme} onClick={() => onPageChange("accounts")}>
           &larr; Back to your accounts
         </LinkButton>
       </div>

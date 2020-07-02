@@ -18,5 +18,5 @@ function backgroundColor(props: Props): string {
 
 export default styled(HideSmallCell)<Props>`
   background-color: ${props => backgroundColor(props)};
-  color: ${props => props.theme === "dark" ? "#d1d5da" : "inherit"};
+  color: ${props => (props.theme === "dark" ? "#d1d5da" : "inherit")};
 `;

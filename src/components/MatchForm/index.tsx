@@ -23,7 +23,7 @@ const shouldEnableRankField = (season: number, role?: HeroRole | null) => {
     return true;
   }
   return season < Season.roleQueueSeasonStart;
-}
+};
 
 const roleForHero = (hero: Hero): HeroRole => {
   for (const role of HeroRoles) {
@@ -235,7 +235,9 @@ const MatchForm = (props: Props) => {
   const [enableRankField, setEnableRankField] = useState(
     shouldEnableRankField(props.season, props.role)
   );
-  const [rank, setRank] = useState<number | undefined>(props.id ? props.rank : undefined);
+  const [rank, setRank] = useState<number | undefined>(
+    props.id ? props.rank : undefined
+  );
   const [latestRank, setLatestRank] = useState<number | undefined>(props.rank);
   const [result, setResult] = useState<MatchResult | undefined>(props.result);
   const [comment, setComment] = useState(props.comment || "");
@@ -611,13 +613,25 @@ const MatchForm = (props: Props) => {
     } else if (matchRankField.current) {
       matchRankField.current.focus();
     }
-  }, [placementMatchResultField, matchRankField, result, rank, enableRankField, season, role, isPlacement]);
+  }, [
+    placementMatchResultField,
+    matchRankField,
+    result,
+    rank,
+    enableRankField,
+    season,
+    role,
+    isPlacement
+  ]);
 
   return (
-    <form onSubmit={evt => {
-      evt.preventDefault();
-      onSubmit();
-    }} className="mb-4">
+    <form
+      onSubmit={evt => {
+        evt.preventDefault();
+        onSubmit();
+      }}
+      className="mb-4"
+    >
       <div className="clearfix">
         <div className="col-md-12 col-lg-6 float-left pr-3-lg">
           {season >= Season.roleQueueSeasonStart && (
@@ -897,7 +911,13 @@ const MatchForm = (props: Props) => {
       </div>
       <Flex alignItems="center" justifyContent="flex-end">
         {props.id && props.onUpdate && (
-          <LinkButton appTheme={theme} mr={3} onClick={() => props.onUpdate && props.onUpdate()}>Cancel edit</LinkButton>
+          <LinkButton
+            appTheme={theme}
+            mr={3}
+            onClick={() => props.onUpdate && props.onUpdate()}
+          >
+            Cancel edit
+          </LinkButton>
         )}
         <button
           type="submit"

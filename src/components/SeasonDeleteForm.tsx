@@ -19,10 +19,12 @@ const SeasonDeleteForm = ({ onDelete, seasonNumber }: Props) => {
   };
 
   return (
-    <form onSubmit={evt => {
-      evt.preventDefault();
-      deleteSeason();
-    }}>
+    <form
+      onSubmit={evt => {
+        evt.preventDefault();
+        deleteSeason();
+      }}
+    >
       <button type="submit" className="btn-link text-red text-small">
         Delete season
       </button>

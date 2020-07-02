@@ -33,19 +33,19 @@ const AccountDeleteForm = ({ battletag, id, onDelete, theme }: Props) => {
 
     if (window.confirm(message)) {
       const account = new Account({ _id: id });
-      await account.delete()
+      await account.delete();
       onDelete();
     }
   };
 
   return (
-    <form onSubmit={evt => {
-      evt.preventDefault();
-      deleteAccount();
-    }}>
-      <DeleteAccountButton appTheme={theme}>
-        Delete account
-      </DeleteAccountButton>
+    <form
+      onSubmit={evt => {
+        evt.preventDefault();
+        deleteAccount();
+      }}
+    >
+      <DeleteAccountButton appTheme={theme}>Delete account</DeleteAccountButton>
     </form>
   );
 };

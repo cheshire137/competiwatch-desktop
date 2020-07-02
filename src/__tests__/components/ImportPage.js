@@ -8,9 +8,11 @@ const account = {
   totalMatches: () => 10
 };
 
-describe('ImportPage', () => {
+describe("ImportPage", () => {
   it("displays warning when account has matches in that season", async () => {
-    const wrapper = await mount(<ImportPage theme="dark" account={account} seasonNumber="3" />);
+    const wrapper = await mount(
+      <ImportPage theme="dark" account={account} seasonNumber="3" />
+    );
     wrapper.update();
     const warnEl = wrapper.find(".flash-warn");
     expect(warnEl.text()).toMatch(

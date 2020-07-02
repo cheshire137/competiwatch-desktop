@@ -257,11 +257,16 @@ const MatchTableRow = (
   const isLoss = match.isLoss();
   const priorRank = getPriorRank();
   const placementRank = getPlacementRank();
-  const betterThanPlacement = typeof placementRank === "number" ? typeof match.rank === "number" && placementRank <= match.rank : undefined;
+  const betterThanPlacement =
+    typeof placementRank === "number"
+      ? typeof match.rank === "number" && placementRank <= match.rank
+      : undefined;
 
   return (
     <tr className={outerClass()} ref={ref}>
-      <MatchNumberCell theme={theme} isPlacement={match.isPlacement}>{matchNumber()}</MatchNumberCell>
+      <MatchNumberCell theme={theme} isPlacement={match.isPlacement}>
+        {matchNumber()}
+      </MatchNumberCell>
       {showRole && role && (
         <RoleCell isPlacement={match.isPlacement} theme={theme}>
           <RoleImage role={role} theme={theme} className="d-inline-block" />
@@ -270,17 +275,27 @@ const MatchTableRow = (
       <ResultCell result={result} theme={theme}>
         {result ? result.charAt(0).toUpperCase() : <span>&mdash;</span>}
       </ResultCell>
-      <SRChangeCell rankChanges={rankChanges} theme={theme} result={match.result} isPlacement={match.isPlacement} rankChange={match.rankChange}>
+      <SRChangeCell
+        rankChanges={rankChanges}
+        theme={theme}
+        result={match.result}
+        isPlacement={match.isPlacement}
+        rankChange={match.rankChange}
+      >
         {typeof rankChange === "number" && (
           <DarkenSRChange theme={theme} result={match.result} />
         )}
         {typeof rankChange === "number" ? (
           <span style={{ position: "relative" }}>{rankChange}</span>
         ) : (
-            <span>&mdash;</span>
-          )}
+          <span>&mdash;</span>
+        )}
       </SRChangeCell>
-      <RankCell isPlacement={match.isPlacement} theme={theme} betterThanPlacement={betterThanPlacement}>
+      <RankCell
+        isPlacement={match.isPlacement}
+        theme={theme}
+        betterThanPlacement={betterThanPlacement}
+      >
         <div className="d-flex flex-items-center flex-justify-center">
           {typeof rank === "number" && (
             <MatchRankImage
@@ -292,7 +307,15 @@ const MatchTableRow = (
           {typeof rank === "number" ? rank : <span>&mdash;</span>}
         </div>
       </RankCell>
-      <StreakCell theme={theme} result={match.result} longestWinStreak={longestWinStreak} longestLossStreak={longestLossStreak} isPlacement={match.isPlacement} winStreak={match.winStreak} lossStreak={match.lossStreak}>
+      <StreakCell
+        theme={theme}
+        result={match.result}
+        longestWinStreak={longestWinStreak}
+        longestLossStreak={longestLossStreak}
+        isPlacement={match.isPlacement}
+        winStreak={match.winStreak}
+        lossStreak={match.lossStreak}
+      >
         {isWin || isLoss ? (
           <DarkenSRChange theme={theme} result={match.result} />
         ) : null}
@@ -308,21 +331,27 @@ const MatchTableRow = (
       {showComment && (
         <HideSmallCell theme={theme} isPlacement={match.isPlacement}>
           <Tooltip aria-label={commentTooltip()} wrap={true}>
-            <CssTruncateTarget>
-              {comment}
-            </CssTruncateTarget>
+            <CssTruncateTarget>{comment}</CssTruncateTarget>
           </Tooltip>
         </HideSmallCell>
       )}
       {showHeroes && (
-        <HideSmallCell style={{ paddingBottom: 0 }} theme={theme} isPlacement={match.isPlacement}>
+        <HideSmallCell
+          style={{ paddingBottom: 0 }}
+          theme={theme}
+          isPlacement={match.isPlacement}
+        >
           {heroList.map(hero => (
             <span
               key={hero}
               className="tooltipped tooltipped-n d-inline-block hero-portrait-container"
               aria-label={hero}
             >
-              <HeroImage theme={theme} hero={hero} className="rounded-1 d-inline-block" />
+              <HeroImage
+                theme={theme}
+                hero={hero}
+                className="rounded-1 d-inline-block"
+              />
             </span>
           ))}
         </HideSmallCell>
@@ -345,9 +374,7 @@ const MatchTableRow = (
         <GroupCell theme={theme} isPlacement={match.isPlacement}>
           {groupList.length > 0 && (
             <Tooltip aria-label={groupList.join(", ")} wrap={true}>
-              <GroupList>
-                {groupList.join(", ")}{" "}
-              </GroupList>
+              <GroupList>{groupList.join(", ")} </GroupList>
             </Tooltip>
           )}
           {typeof groupSize === "number" &&
@@ -380,7 +407,10 @@ const MatchTableRow = (
         <HideSmallCell theme={theme} isPlacement={match.isPlacement}>
           {playOfTheGame && (
             <Tooltip aria-label="Play of the game">
-              <Box display={showJoinedVoice ? "inline-block" : "inline"} mr={showJoinedVoice ? 2 : 0}>
+              <Box
+                display={showJoinedVoice ? "inline-block" : "inline"}
+                mr={showJoinedVoice ? 2 : 0}
+              >
                 <span role="img" aria-label="Party">
                   🎉
                 </span>
@@ -397,11 +427,7 @@ const MatchTableRow = (
         </HideSmallCell>
       )}
       <OptionsCell>
-        <EditMatchButton
-          appTheme={theme}
-          onClick={editMatch}
-          value={_id}
-        >
+        <EditMatchButton appTheme={theme} onClick={editMatch} value={_id}>
           <Tooltip aria-label="Edit match" direction="w">
             <span className="ion ion-md-create" />
           </Tooltip>

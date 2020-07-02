@@ -78,7 +78,7 @@ const AccountListItem = ({
     const match = await account.latestMatch(season);
     setLatestMatch(match || null);
 
-    const count = await account.totalMatches(season)
+    const count = await account.totalMatches(season);
     setTotalMatches(count);
 
     const newTopHeroes = await account.topHeroes(season);
@@ -96,7 +96,7 @@ const AccountListItem = ({
       account.battletag
     );
 
-    await exporter.export()
+    await exporter.export();
     console.log(`exported ${account.battletag}'s season ${season}`, path);
   };
 
@@ -113,13 +113,19 @@ const AccountListItem = ({
     const dialogResult = await showSaveDialog(options);
     const canceled = dialogResult.canceled as boolean;
     if (canceled) {
-      console.log('export cancelled');
+      console.log("export cancelled");
       return;
     }
 
     const filePath = dialogResult.filePath as string;
-    console.log('path for export', filePath, 'season', season, 'account',
-      account.battletag);
+    console.log(
+      "path for export",
+      filePath,
+      "season",
+      season,
+      "account",
+      account.battletag
+    );
     exportSeasonTo(filePath);
   };
 
@@ -154,13 +160,13 @@ const AccountListItem = ({
                 </LinkButton>
               </>
             ) : (
-                <BattletagButton
-                  appTheme={theme}
-                  onClick={() => onAccountChange(account._id)}
-                >
-                  {battletag}
-                </BattletagButton>
-              )}
+              <BattletagButton
+                appTheme={theme}
+                onClick={() => onAccountChange(account._id)}
+              >
+                {battletag}
+              </BattletagButton>
+            )}
             <AccountDeleteForm
               id={_id}
               theme={theme}
@@ -174,16 +180,12 @@ const AccountListItem = ({
             )}
             {latestMatch && latestMatch.playedAt ? (
               <>
-                {haveLatestResult && !haveLatestRank ? (
-                  <Separator />
-                ) : null}
+                {haveLatestResult && !haveLatestRank ? <Separator /> : null}
                 Last played {latestMatch.playedAt.toLocaleDateString()}
               </>
             ) : latestMatch && latestMatch.createdAt ? (
               <>
-                {haveLatestResult && !haveLatestRank ? (
-                  <Separator />
-                ) : null}
+                {haveLatestResult && !haveLatestRank ? <Separator /> : null}
                 Last logged {latestMatch.createdAt.toLocaleDateString()}
               </>
             ) : null}
@@ -195,8 +197,8 @@ const AccountListItem = ({
                 </span>
               </>
             ) : (
-                <span>No matches in season {season}</span>
-              )}
+              <span>No matches in season {season}</span>
+            )}
           </AccountMeta>
           <ButtonShownOnHover
             appTheme={theme}
@@ -214,11 +216,7 @@ const AccountListItem = ({
               >
                 Export season {season}
               </ButtonShownOnHover>
-              <ButtonShownOnHover
-                appTheme={theme}
-                ml={3}
-                onClick={wipeSeason}
-              >
+              <ButtonShownOnHover appTheme={theme} ml={3} onClick={wipeSeason}>
                 Delete matches
               </ButtonShownOnHover>
             </>
@@ -246,12 +244,7 @@ const AccountListItem = ({
               <Tooltip direction="n" aria-label={topHeroes.join(", ")}>
                 <AccountAvatarStack threePlus={topHeroes.length >= 3}>
                   {topHeroes.map(hero => (
-                    <HeroImage
-                      key={hero}
-                      hero={hero}
-                      size={40}
-                      theme={theme}
-                    />
+                    <HeroImage key={hero} hero={hero} size={40} theme={theme} />
                   ))}
                 </AccountAvatarStack>
               </Tooltip>

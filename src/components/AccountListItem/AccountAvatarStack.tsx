@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import { AvatarStack } from "@primer/components";
 import HeroImageTag from "../HeroImageTag";
 
@@ -10,7 +10,7 @@ const AccountAvatarStack = styled(AvatarStack).attrs({
   alignRight: true
 })<Props>`
   height: 45px;
-  ${props => props.threePlus ? "min-width: 69px;" : ""}
+  ${props => (props.threePlus ? "min-width: 69px;" : "")}
 
   ${HeroImageTag} {
     width: 45px;

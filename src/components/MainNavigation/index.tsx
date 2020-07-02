@@ -40,10 +40,7 @@ const MainNavigation = ({
           activeSeason={activeSeason}
         />
       )}
-      <ImportTab
-        theme={theme}
-        activePage={activePage}
-      />
+      <ImportTab theme={theme} activePage={activePage} />
       {activeAccount && (
         <TrendsTab
           theme={theme}

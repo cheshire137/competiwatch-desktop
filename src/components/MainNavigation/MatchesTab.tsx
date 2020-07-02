@@ -19,7 +19,7 @@ const MatchesTab = ({
 
   useEffect(() => {
     async function getTotalMatches() {
-      const total = await Match.totalInSeason(activeSeason)
+      const total = await Match.totalInSeason(activeSeason);
       setTotalMatches(total);
     }
 
