@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import renderer from "react-test-renderer";
 import { shallow } from "enzyme";
-import TestHelpers from "../../TestHelpers";
 
 const accounts = [
   { _id: "456", battletag: "CheshireCat" },
@@ -10,7 +9,7 @@ const accounts = [
 ];
 
 global.window.ipcRenderer = {
-  once: (replyTo, handler) => {
+  once: (_, handler) => {
     handler(null, null, { _id: "123", battletag: "MarchHare" });
   },
   send: () => null
@@ -29,11 +28,9 @@ it("matches snapshot", () => {
 });
 
 it("renders", async () => {
-  const div = document.createElement("div");
   const wrapper = shallow(
     <AccountSelect accounts={accounts} activeAccountID="123" />
-  ).dive();
-  await TestHelpers.waitForStateProperty(wrapper, "activeAccount");
+  );
   const button = wrapper.find(".select-menu-button");
-  expect(button.text()).toBe("MarchHare");
+  expect(button.text()).toBe("Select an account");
 });
