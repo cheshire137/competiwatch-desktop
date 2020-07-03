@@ -14,6 +14,12 @@ const options = {
   maintainAspectRatio: false,
   scales: {
     yAxes: [{ ticks: { callback: ChartUtils.wholeTicks } }]
+  },
+  tooltips: {
+    model: "label",
+    callbacks: {
+      label: ChartUtils.numberWithPercentageLabel
+    }
   }
 };
 

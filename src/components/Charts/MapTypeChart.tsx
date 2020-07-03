@@ -73,7 +73,13 @@ const MapTypeChart = ({ matches, season }: Props) => {
   const options = {
     scales: { xAxes: labelAxisOptions, yAxes: numberAxisOptions },
     responsive: true,
-    maintainAspectRatio: false
+    maintainAspectRatio: false,
+    tooltips: {
+      model: "label",
+      callbacks: {
+        label: ChartUtils.numberWithPercentageLabel
+      }
+    }
   };
   const data = {
     labels: getLabels(),

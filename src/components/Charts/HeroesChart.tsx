@@ -33,7 +33,13 @@ const options = {
     yAxes: [{ ticks: { callback: ChartUtils.wholeTicks } }]
   },
   responsive: true,
-  maintainAspectRatio: false
+  maintainAspectRatio: false,
+  tooltips: {
+    model: "label",
+    callbacks: {
+      label: ChartUtils.numberWithPercentageLabel
+    }
+  }
 };
 
 const HeroesChart = ({ matches, season }: Props) => {

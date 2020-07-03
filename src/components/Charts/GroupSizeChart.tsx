@@ -55,7 +55,13 @@ const scales = { xAxes: labelAxisOptions, yAxes: numberAxisOptions };
 const options = {
   scales,
   responsive: true,
-  maintainAspectRatio: false
+  maintainAspectRatio: false,
+  tooltips: {
+    model: "label",
+    callbacks: {
+      label: ChartUtils.numberWithPercentageLabel
+    }
+  }
 };
 
 const GroupSizeChart = ({ matches, season, theme }: Props) => {

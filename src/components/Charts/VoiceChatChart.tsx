@@ -21,6 +21,12 @@ const options = {
         }
       }
     ]
+  },
+  tooltips: {
+    model: "label",
+    callbacks: {
+      label: ChartUtils.numberWithPercentageLabel
+    }
   }
 };
 
