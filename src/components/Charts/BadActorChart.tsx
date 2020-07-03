@@ -17,7 +17,7 @@ const options = {
   }
 };
 
-const ThrowerLeaverChart = ({ matches, season }: Props) => {
+const BadActorChart = ({ matches, season }: Props) => {
   const getThrowers = () => {
     let allyCount = 0;
     let enemyCount = 0;
@@ -50,6 +50,22 @@ const ThrowerLeaverChart = ({ matches, season }: Props) => {
     return [allyCount, enemyCount];
   };
 
+  const getCheaters = () => {
+    let allyCount = 0;
+    let enemyCount = 0;
+
+    for (const match of matches) {
+      if (match.enemyCheater) {
+        enemyCount++;
+      }
+      if (match.allyCheater) {
+        allyCount++;
+      }
+    }
+
+    return [allyCount, enemyCount];
+  };
+
   const data = {
     labels: ["My Team", "Enemy Team"],
     datasets: [
@@ -66,6 +82,13 @@ const ThrowerLeaverChart = ({ matches, season }: Props) => {
         borderWidth: 2,
         label: "Leavers",
         data: getLeavers()
+      },
+      {
+        backgroundColor: Color.transparentDraw,
+        borderColor: Color.draw,
+        borderWidth: 2,
+        label: "Cheaters",
+        data: getCheaters()
       }
     ]
   };
@@ -73,7 +96,7 @@ const ThrowerLeaverChart = ({ matches, season }: Props) => {
   return (
     <div>
       <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
-        Throwers/Leavers
+        Bad Actors
         <span className="text-gray text-normal h4 d-inline-block ml-2">
           Season {season}
         </span>
@@ -85,4 +108,4 @@ const ThrowerLeaverChart = ({ matches, season }: Props) => {
   );
 };
 
-export default ThrowerLeaverChart;
+export default BadActorChart;

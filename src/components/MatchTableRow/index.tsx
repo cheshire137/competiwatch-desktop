@@ -22,7 +22,7 @@ import MapCell from "./MapCell";
 import GroupCell from "./GroupCell";
 import { Tooltip, CounterLabel, Box } from "@primer/components";
 import GroupList from "./GroupList";
-import ThrowerLeaverLabel from "./ThrowerLeaverLabel";
+import BadActorLabel from "./BadActorLabel";
 import CssTruncateTarget from "../CssTruncateTarget";
 
 const capitalize = (str: string) => {
@@ -50,7 +50,7 @@ interface Props {
   longestLossStreak: number;
   longestWinStreak: number;
   onEdit: (matchID: string) => void;
-  showThrowerLeaver: boolean;
+  showBadActor: boolean;
   showPlayOfTheGame: boolean;
   showJoinedVoice: boolean;
   showComment: boolean;
@@ -81,7 +81,7 @@ const MatchTableRow = (
     longestWinStreak,
     longestLossStreak,
     onEdit,
-    showThrowerLeaver,
+    showBadActor,
     showPlayOfTheGame,
     showJoinedVoice,
     showComment,
@@ -135,6 +135,20 @@ const MatchTableRow = (
     }
     if (enemyLeaver) {
       tooltip.push("Leaver on the enemy team");
+    }
+
+    return tooltip.join(" + ");
+  };
+
+  const cheaterTooltip = () => {
+    const { allyCheater, enemyCheater } = match;
+    const tooltip = [];
+
+    if (allyCheater) {
+      tooltip.push("Cheater on my team");
+    }
+    if (enemyCheater) {
+      tooltip.push("Cheater on the enemy team");
     }
 
     return tooltip.join(" + ");
@@ -241,8 +255,10 @@ const MatchTableRow = (
     result,
     allyThrower,
     allyLeaver,
+    allyCheater,
     enemyThrower,
     enemyLeaver,
+    enemyCheater,
     map,
     role,
     rankChange,
@@ -375,22 +391,29 @@ const MatchTableRow = (
             )}
         </GroupCell>
       )}
-      {showThrowerLeaver && (
+      {showBadActor && (
         <HideSmallCell isPlacement={match.isPlacement}>
           <NoWrap>
             {(allyThrower || enemyThrower) && (
-              <ThrowerLeaverLabel>
+              <BadActorLabel>
                 <Tooltip aria-label={throwerTooltip()} wrap={true}>
                   T
                 </Tooltip>
-              </ThrowerLeaverLabel>
+              </BadActorLabel>
             )}
             {(allyLeaver || enemyLeaver) && (
-              <ThrowerLeaverLabel>
+              <BadActorLabel>
                 <Tooltip aria-label={leaverTooltip()} wrap={true}>
                   L
                 </Tooltip>
-              </ThrowerLeaverLabel>
+              </BadActorLabel>
+            )}
+            {(allyCheater || enemyCheater) && (
+              <BadActorLabel>
+                <Tooltip aria-label={cheaterTooltip()} wrap={true}>
+                  C
+                </Tooltip>
+              </BadActorLabel>
             )}
           </NoWrap>
         </HideSmallCell>

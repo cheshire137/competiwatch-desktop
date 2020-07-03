@@ -65,7 +65,7 @@ const options = {
   maintainAspectRatio: false
 };
 
-const ThrowerLeaverTimeChart = ({ matches, season }: Props) => {
+const BadActorsTimeChart = ({ matches, season }: Props) => {
   const data = {
     labels,
     datasets: [
@@ -82,6 +82,13 @@ const ThrowerLeaverTimeChart = ({ matches, season }: Props) => {
         borderWidth: 2,
         label: "Leavers",
         data: getCountsByDayTime(matches.filter(match => match.hasLeaver()))
+      },
+      {
+        backgroundColor: Color.transparentDraw,
+        borderColor: Color.draw,
+        borderWidth: 2,
+        label: "Cheaters",
+        data: getCountsByDayTime(matches.filter(match => match.hasCheater()))
       }
     ]
   };
@@ -89,7 +96,7 @@ const ThrowerLeaverTimeChart = ({ matches, season }: Props) => {
   return (
     <div>
       <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
-        Throwers/Leavers by Day and Time
+        Bad Actors by Day and Time
         <span className="text-gray text-normal h4 d-inline-block ml-2">
           Season {season}
         </span>
@@ -101,4 +108,4 @@ const ThrowerLeaverTimeChart = ({ matches, season }: Props) => {
   );
 };
 
-export default ThrowerLeaverTimeChart;
+export default BadActorsTimeChart;

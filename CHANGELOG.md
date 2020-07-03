@@ -2,6 +2,7 @@
 
 ## Version 0.3.1
 
+- Added ability to log cheaters on your team and the enemy team [#84](https://github.com/cheshire137/competiwatch-desktop/issues/84)
 - Fixed JavaScript errors when adding a new account [#96](https://github.com/cheshire137/competiwatch-desktop/issues/96)
 
 ## Version [0.3.0](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.3.0)

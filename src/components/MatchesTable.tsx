@@ -57,7 +57,7 @@ const MatchesTable = ({
     return rankChanges;
   };
 
-  const showThrowerLeaverColumn = () => {
+  const showBadActorColumn = () => {
     return (
       matches.filter(
         match =>
@@ -138,7 +138,7 @@ const MatchesTable = ({
   };
 
   const rankChanges = matchRankChangesByResult();
-  const showThrowerLeaver = showThrowerLeaverColumn();
+  const showBadActor = showBadActorColumn();
   const showPlayOfTheGame = showPlayOfTheGameColumn();
   const showJoinedVoice = showJoinedVoiceColumn();
   const showComment = showCommentColumn();
@@ -182,9 +182,9 @@ const MatchesTable = ({
             <MatchHeader hideSmall={true}>Day/Time</MatchHeader>
           ) : null}
           {showGroup ? <MatchHeader hideSmall={true}>Group</MatchHeader> : null}
-          {showThrowerLeaver ? (
+          {showBadActor ? (
             <MatchHeader hideSmall={true}>
-              <Tooltip aria-label="Throwers and leavers">
+              <Tooltip aria-label="Throwers, leavers, and cheaters">
                 <span role="img" aria-label="Sad face">
                   😢
                 </span>
@@ -222,7 +222,7 @@ const MatchesTable = ({
               isLast={isLast}
               onEdit={onEdit}
               priorMatches={matches.slice(0, i)}
-              showThrowerLeaver={showThrowerLeaver}
+              showBadActor={showBadActor}
               showPlayOfTheGame={showPlayOfTheGame}
               showJoinedVoice={showJoinedVoice}
               showDayTime={showDayTime}

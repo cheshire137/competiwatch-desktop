@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import { defaults } from "react-chartjs-2";
 import LoadingPage from "../LoadingPage";
 import WinLossChart from "../Charts/WinLossChart";
-import ThrowerLeaverChart from "../Charts/ThrowerLeaverChart";
+import BadActorChart from "../Charts/BadActorChart";
 import StreaksChart from "../Charts/StreaksChart";
 import GroupSizeChart from "../Charts/GroupSizeChart";
 import HeroesChart from "../Charts/HeroesChart";
 import HeroRatiosChart from "../Charts/HeroRatiosChart";
 import DayTimeChart from "../Charts/DayTimeChart";
-import ThrowerLeaverTimeChart from "../Charts/ThrowerLeaverTimeChart";
+import BadActorsTimeChart from "../Charts/BadActorsTimeChart";
 import VoiceChatChart from "../Charts/VoiceChatChart";
 import RoleChart from "../Charts/RoleChart";
 import MapChart from "../Charts/MapChart";
@@ -85,10 +85,10 @@ class TrendsPage extends Component {
     );
   };
 
-  showThrowerLeaverTimeChart = () => {
+  showBadActorsTimeChart = () => {
     return (
       this.state.matches.filter(match => {
-        return match.dayOfWeek && match.timeOfDay && match.hasThrowerOrLeaver();
+        return match.dayOfWeek && match.timeOfDay && match.hasBadActor();
       }).length > 0
     );
   };
@@ -97,9 +97,9 @@ class TrendsPage extends Component {
     return this.state.matches.filter(match => match.map).length > 0;
   };
 
-  anyThrowersLeavers = () => {
+  anyBadActorsInMatches = () => {
     return (
-      this.state.matches.filter(match => match.hasThrowerOrLeaver()).length > 0
+      this.state.matches.filter(match => match.hasBadActor()).length > 0
     );
   };
 
@@ -127,23 +127,23 @@ class TrendsPage extends Component {
 
     const showHeroesCharts = this.anyMatchesWithHeroes();
     const showVoiceCharts = this.anyMatchesJoinedVoice();
-    const showThrowerLeaverChart = this.anyThrowersLeavers();
+    const showBadActorChart = this.anyBadActorsInMatches();
 
     return (
       <div className="container mb-4 layout-children-container">
         <div className="clearfix">
           <div
             className={
-              showThrowerLeaverChart
+              showBadActorChart
                 ? "col-md-5 float-md-left"
                 : "col-md-5 mx-auto"
             }
           >
             <WinLossChart season={season} matches={matches} />
           </div>
-          {showThrowerLeaverChart ? (
+          {showBadActorChart ? (
             <div className="col-md-5 offset-md-2 float-md-left">
-              <ThrowerLeaverChart season={season} matches={matches} />
+              <BadActorChart season={season} matches={matches} />
             </div>
           ) : null}
         </div>
@@ -209,10 +209,10 @@ class TrendsPage extends Component {
             <DayTimeChart season={season} matches={matches} />
           </div>
         ) : null}
-        {this.showThrowerLeaverTimeChart() ? (
+        {this.showBadActorsTimeChart() ? (
           <div>
             <HorizontalRule />
-            <ThrowerLeaverTimeChart season={season} matches={matches} />
+            <BadActorsTimeChart season={season} matches={matches} />
           </div>
         ) : null}
       </div>

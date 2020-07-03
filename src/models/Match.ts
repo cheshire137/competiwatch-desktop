@@ -197,6 +197,8 @@ export interface MatchData {
   allyThrower?: boolean;
   enemyLeaver?: boolean;
   allyLeaver?: boolean;
+  enemyCheater?: boolean;
+  allyCheater?: boolean;
   playOfTheGame?: boolean;
   joinedVoice?: boolean;
 }
@@ -227,6 +229,8 @@ class Match {
   allyThrower?: boolean;
   enemyLeaver?: boolean;
   allyLeaver?: boolean;
+  enemyCheater?: boolean;
+  allyCheater?: boolean;
   playOfTheGame?: boolean;
   joinedVoice?: boolean;
 
@@ -348,6 +352,8 @@ class Match {
     this.allyThrower = data.allyThrower;
     this.enemyLeaver = data.enemyLeaver;
     this.allyLeaver = data.allyLeaver;
+    this.enemyCheater = data.enemyCheater;
+    this.allyCheater = data.allyCheater;
 
     this.playOfTheGame = data.playOfTheGame;
     this.joinedVoice = data.joinedVoice;
@@ -363,8 +369,8 @@ class Match {
     }
   }
 
-  hasThrowerOrLeaver() {
-    return this.hasThrower() || this.hasLeaver();
+  hasBadActor() {
+    return this.hasThrower() || this.hasLeaver() || this.hasCheater();
   }
 
   hasThrower() {
@@ -373,6 +379,10 @@ class Match {
 
   hasLeaver() {
     return this.allyLeaver || this.enemyLeaver;
+  }
+
+  hasCheater() {
+    return this.allyCheater || this.enemyCheater;
   }
 
   isWin() {
@@ -447,6 +457,8 @@ class Match {
       allyThrower: this.allyThrower,
       enemyLeaver: this.enemyLeaver,
       allyLeaver: this.allyLeaver,
+      allyCheater: this.allyCheater,
+      enemyCheater: this.enemyCheater,
       playOfTheGame: this.playOfTheGame,
       joinedVoice: this.joinedVoice,
       season: this.season,

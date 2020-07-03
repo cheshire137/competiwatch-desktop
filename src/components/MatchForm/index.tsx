@@ -70,8 +70,10 @@ interface Props {
   playOfTheGame?: boolean;
   allyThrower?: boolean;
   allyLeaver?: boolean;
+  allyCheater?: boolean;
   enemyThrower?: boolean;
   enemyLeaver?: boolean;
+  enemyCheater?: boolean;
   playedAt?: Date;
   dayOfWeek?: DayOfWeek;
   timeOfDay?: TimeOfDay;
@@ -259,11 +261,17 @@ const MatchForm = (props: Props) => {
   const [allyLeaver, setAllyLeaver] = useState(
     typeof props.allyLeaver === "boolean" ? props.allyLeaver : false
   );
+  const [allyCheater, setAllyCheater] = useState(
+    typeof props.allyCheater === "boolean" ? props.allyCheater : false
+  );
   const [enemyThrower, setEnemyThrower] = useState(
     typeof props.enemyThrower === "boolean" ? props.enemyThrower : false
   );
   const [enemyLeaver, setEnemyLeaver] = useState(
     typeof props.enemyLeaver === "boolean" ? props.enemyLeaver : false
+  );
+  const [enemyCheater, setEnemyCheater] = useState(
+    typeof props.enemyCheater === "boolean" ? props.enemyCheater : false
   );
   const [isValid, setIsValid] = useState(
     isMatchValid({
@@ -299,8 +307,10 @@ const MatchForm = (props: Props) => {
       playedAt,
       allyThrower,
       allyLeaver,
+      allyCheater,
       enemyThrower,
       enemyLeaver,
+      enemyCheater,
       playOfTheGame,
       joinedVoice,
       season: props.season,
@@ -529,6 +539,11 @@ const MatchForm = (props: Props) => {
     onFormFieldUpdate();
   };
 
+  const onAllyCheaterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAllyCheater(event.target.checked);
+    onFormFieldUpdate();
+  };
+
   const onEnemyThrowerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnemyThrower(event.target.checked);
     onFormFieldUpdate();
@@ -536,6 +551,11 @@ const MatchForm = (props: Props) => {
 
   const onEnemyLeaverChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnemyLeaver(event.target.checked);
+    onFormFieldUpdate();
+  };
+
+  const onEnemyCheaterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEnemyCheater(event.target.checked);
     onFormFieldUpdate();
   };
 
@@ -588,8 +608,10 @@ const MatchForm = (props: Props) => {
     joinedVoice,
     allyThrower,
     allyLeaver,
+    allyCheater,
     enemyThrower,
-    enemyLeaver
+    enemyLeaver,
+    enemyCheater
   ]);
 
   useEffect(() => {
@@ -807,7 +829,7 @@ const MatchForm = (props: Props) => {
           </div>
           <div className="mb-3">
             <div className="text-bold">
-              Did anyone try to lose or leave the game early?
+              Did anyone try to sabotage the game?
             </div>
             <div className="float-left col-lg-4 col-md-5">
               <div className="form-checkbox mr-4 mb-0 mt-1">
@@ -830,6 +852,16 @@ const MatchForm = (props: Props) => {
                   Leaver on my team
                 </label>
               </div>
+              <div className="form-checkbox mr-4 my-1">
+                <label className="text-normal no-wrap text-ally">
+                  <input
+                    type="checkbox"
+                    checked={allyCheater}
+                    onChange={onAllyCheaterChange}
+                  />
+                  Cheater on my team
+                </label>
+              </div>
             </div>
             <div className="float-left col-lg-5 col-md-7">
               <div className="form-checkbox mb-0 mt-1">
@@ -850,6 +882,16 @@ const MatchForm = (props: Props) => {
                     onChange={onEnemyLeaverChange}
                   />
                   Leaver on the enemy team
+                </label>
+              </div>
+              <div className="form-checkbox my-1">
+                <label className="text-normal no-wrap text-enemy">
+                  <input
+                    type="checkbox"
+                    checked={enemyCheater}
+                    onChange={onEnemyCheaterChange}
+                  />
+                  Cheater on the enemy team
                 </label>
               </div>
             </div>
