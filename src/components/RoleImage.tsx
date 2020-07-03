@@ -9,8 +9,7 @@ interface Props {
   theme: string;
 }
 
-const RoleImage = (props: Props) => {
-  const { role, className, size, theme } = props;
+const RoleImage = ({ role, className, size, theme }: Props) => {
   const slug = role.toLowerCase();
   if (knownRoles.indexOf(slug) < 0) {
     return <span>{role}</span>;

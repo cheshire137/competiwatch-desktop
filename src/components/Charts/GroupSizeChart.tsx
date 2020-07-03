@@ -95,7 +95,7 @@ const GroupSizeChart = ({ matches, season, theme }: Props) => {
 
   return (
     <>
-      <HorizontalRule appTheme={theme} />
+      <HorizontalRule />
       <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
         Wins/Losses by Group Size
         <span className="text-gray text-normal h4 d-inline-block ml-2">

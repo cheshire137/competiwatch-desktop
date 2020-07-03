@@ -147,13 +147,13 @@ class TrendsPage extends Component {
             </div>
           ) : null}
         </div>
-        <HorizontalRule appTheme={theme} />
+        <HorizontalRule />
         <StreaksChart season={season} matches={matches} />
         {this.showMapChart() ? (
           <div>
-            <HorizontalRule appTheme={theme} />
+            <HorizontalRule />
             <MapChart season={season} matches={matches} />
-            <HorizontalRule appTheme={theme} />
+            <HorizontalRule />
             <div className="clearfix">
               <div className="col-md-6 mx-auto">
                 <MapTypeChart season={season} matches={matches} />
@@ -166,13 +166,13 @@ class TrendsPage extends Component {
           <div>
             {showHeroesCharts ? (
               <div>
-                <HorizontalRule appTheme={theme} />
+                <HorizontalRule />
                 <HeroesChart season={season} matches={matches} />
-                <HorizontalRule appTheme={theme} />
+                <HorizontalRule />
                 <HeroRatiosChart season={season} matches={matches} />
               </div>
             ) : null}
-            <HorizontalRule appTheme={theme} />
+            <HorizontalRule />
             <div className="clearfix">
               {showHeroesCharts ? (
                 <div
@@ -205,13 +205,13 @@ class TrendsPage extends Component {
         ) : null}
         {this.showDayTimeChart() ? (
           <div>
-            <HorizontalRule appTheme={theme} />
+            <HorizontalRule />
             <DayTimeChart season={season} matches={matches} />
           </div>
         ) : null}
         {this.showThrowerLeaverTimeChart() ? (
           <div>
-            <HorizontalRule appTheme={theme} />
+            <HorizontalRule />
             <ThrowerLeaverTimeChart season={season} matches={matches} />
           </div>
         ) : null}

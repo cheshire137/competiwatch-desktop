@@ -50,7 +50,7 @@ const SettingsPage = ({
     <div className="col-md-6 mb-4">
       <SettingsForm accounts={accounts} settings={settings} onSave={onSave} />
     </div>
-    <HorizontalRule appTheme={theme} />
+    <HorizontalRule />
     <div className="mb-4">
       <h2 className="h2 mb-2">Data files</h2>
       <p>
