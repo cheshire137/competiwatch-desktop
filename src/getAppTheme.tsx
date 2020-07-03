@@ -36,6 +36,18 @@ const darkTheme = {
     "Oasis": "#b37061",
     "Horizon Lunar Colony": "#3d3939",
     "Rialto": "#789c86"
+  },
+  darkenSRChange: {
+    backgroundColor: {
+      "win": "rgba(35, 103, 0, 0.5)",
+      "loss": "rgba(175, 18, 27, 0.5)",
+      "draw": "#a88600"
+    },
+    position: "absolute",
+    left: 0,
+    top: 0,
+    width: "100%",
+    height: "100%"
   }
 };
 
@@ -73,6 +85,18 @@ const lightTheme = {
     "Oasis": "#fdf4a6",
     "Horizon Lunar Colony": "#c6c5c0",
     "Rialto": "#87d0a4"
+  },
+  darkenSRChange: {
+    backgroundColor: {
+      "win": "transparent",
+      "loss": "transparent",
+      "draw": "transparent"
+    },
+    position: "static",
+    left: "auto",
+    top: "auto",
+    width: "auto",
+    height: "auto"
   }
 };
 

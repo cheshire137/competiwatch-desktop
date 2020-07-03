@@ -283,7 +283,7 @@ const MatchTableRow = (
         rankChange={match.rankChange}
       >
         {typeof rankChange === "number" && (
-          <DarkenSRChange theme={theme} result={match.result} />
+          <DarkenSRChange result={match.result} />
         )}
         {typeof rankChange === "number" ? (
           <span style={{ position: "relative" }}>{rankChange}</span>
@@ -317,7 +317,7 @@ const MatchTableRow = (
         lossStreak={match.lossStreak}
       >
         {isWin || isLoss ? (
-          <DarkenSRChange theme={theme} result={match.result} />
+          <DarkenSRChange result={match.result} />
         ) : null}
         {isWin ? (
           <span style={{ position: "relative" }}>{match.winStreak}</span>
