@@ -325,22 +325,18 @@ const MatchTableRow = (
           <span style={{ position: "relative" }}>{match.lossStreak}</span>
         ) : null}
       </StreakCell>
-      <MapCell theme={theme} map={match.map}>
+      <MapCell map={match.map}>
         <NoWrap>{map}</NoWrap>
       </MapCell>
       {showComment && (
-        <HideSmallCell theme={theme} isPlacement={match.isPlacement}>
+        <HideSmallCell isPlacement={match.isPlacement}>
           <Tooltip aria-label={commentTooltip()} wrap={true}>
             <CssTruncateTarget>{comment}</CssTruncateTarget>
           </Tooltip>
         </HideSmallCell>
       )}
       {showHeroes && (
-        <HideSmallCell
-          style={{ paddingBottom: 0 }}
-          theme={theme}
-          isPlacement={match.isPlacement}
-        >
+        <HideSmallCell style={{ paddingBottom: 0 }} isPlacement={match.isPlacement}>
           {heroList.map(hero => (
             <span
               key={hero}
@@ -357,7 +353,7 @@ const MatchTableRow = (
         </HideSmallCell>
       )}
       {showDayTime && (
-        <HideSmallCell theme={theme} isPlacement={match.isPlacement}>
+        <HideSmallCell isPlacement={match.isPlacement}>
           {timeAndDayPresent && dayOfWeek && timeOfDay && (
             <div
               className="tooltipped tooltipped-n"
@@ -371,7 +367,7 @@ const MatchTableRow = (
         </HideSmallCell>
       )}
       {showGroup && (
-        <GroupCell theme={theme} isPlacement={match.isPlacement}>
+        <GroupCell isPlacement={match.isPlacement}>
           {groupList.length > 0 && (
             <Tooltip aria-label={groupList.join(", ")} wrap={true}>
               <GroupList>{groupList.join(", ")} </GroupList>
@@ -384,7 +380,7 @@ const MatchTableRow = (
         </GroupCell>
       )}
       {showThrowerLeaver && (
-        <HideSmallCell theme={theme} isPlacement={match.isPlacement}>
+        <HideSmallCell isPlacement={match.isPlacement}>
           <NoWrap>
             {(allyThrower || enemyThrower) && (
               <ThrowerLeaverLabel>
@@ -404,7 +400,7 @@ const MatchTableRow = (
         </HideSmallCell>
       )}
       {(showPlayOfTheGame || showJoinedVoice) && (
-        <HideSmallCell theme={theme} isPlacement={match.isPlacement}>
+        <HideSmallCell isPlacement={match.isPlacement}>
           {playOfTheGame && (
             <Tooltip aria-label="Play of the game">
               <Box

@@ -163,47 +163,47 @@ const MatchesTable = ({
     <table className="width-full">
       <thead>
         <tr className="match-header-row">
-          <MatchHeader appTheme={theme} hideSmall={true}>
+          <MatchHeader hideSmall={true}>
             #
           </MatchHeader>
           {showRole && (
-            <MatchHeader appTheme={theme} hideSmall={true}>
+            <MatchHeader hideSmall={true}>
               Role
             </MatchHeader>
           )}
-          <MatchHeader appTheme={theme} hideSmall={true}>
+          <MatchHeader hideSmall={true}>
             Win/Loss
           </MatchHeader>
-          <MatchHeader appTheme={theme} noWrap={true}>
+          <MatchHeader noWrap={true}>
             +/- SR
           </MatchHeader>
-          <MatchHeader appTheme={theme}>Rank</MatchHeader>
-          <MatchHeader hideSmall={true} noWrap={true} appTheme={theme}>
+          <MatchHeader>Rank</MatchHeader>
+          <MatchHeader hideSmall={true} noWrap={true}>
             Streak
           </MatchHeader>
-          <MatchHeader appTheme={theme}>Map</MatchHeader>
+          <MatchHeader>Map</MatchHeader>
           {showComment ? (
-            <MatchHeader appTheme={theme} hideSmall={true}>
+            <MatchHeader hideSmall={true}>
               Comment
             </MatchHeader>
           ) : null}
           {showHeroes ? (
-            <MatchHeader appTheme={theme} hideSmall={true}>
+            <MatchHeader hideSmall={true}>
               Heroes
             </MatchHeader>
           ) : null}
           {showDayTime ? (
-            <MatchHeader appTheme={theme} hideSmall={true}>
+            <MatchHeader hideSmall={true}>
               Day/Time
             </MatchHeader>
           ) : null}
           {showGroup ? (
-            <MatchHeader appTheme={theme} hideSmall={true}>
+            <MatchHeader hideSmall={true}>
               Group
             </MatchHeader>
           ) : null}
           {showThrowerLeaver ? (
-            <MatchHeader hideSmall={true} appTheme={theme}>
+            <MatchHeader hideSmall={true}>
               <Tooltip aria-label="Throwers and leavers">
                 <span role="img" aria-label="Sad face">
                   😢
@@ -212,11 +212,11 @@ const MatchesTable = ({
             </MatchHeader>
           ) : null}
           {showPlayOfTheGame || showJoinedVoice ? (
-            <MatchHeader appTheme={theme} hideSmall={true}>
+            <MatchHeader hideSmall={true}>
               Other
             </MatchHeader>
           ) : null}
-          <OptionsHeader appTheme={theme}></OptionsHeader>
+          <OptionsHeader></OptionsHeader>
         </tr>
       </thead>
       <tbody>
