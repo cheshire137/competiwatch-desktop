@@ -308,7 +308,6 @@ const MatchTableRow = (
         </div>
       </RankCell>
       <StreakCell
-        theme={theme}
         result={match.result}
         longestWinStreak={longestWinStreak}
         longestLossStreak={longestLossStreak}

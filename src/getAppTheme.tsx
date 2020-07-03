@@ -48,7 +48,8 @@ const darkTheme = {
     top: 0,
     width: "100%",
     height: "100%"
-  }
+  },
+  drawBackgroundColor: "#a88600"
 };
 
 const lightTheme = {
@@ -97,7 +98,8 @@ const lightTheme = {
     top: "auto",
     width: "auto",
     height: "auto"
-  }
+  },
+  drawBackgroundColor: "#ddd"
 };
 
 export default function(themeName: string) {

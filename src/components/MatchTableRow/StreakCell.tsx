@@ -6,7 +6,6 @@ import ColorGradient from "../../models/ColorGradient";
 
 interface Props {
   isPlacement?: boolean;
-  theme: string;
   result?: MatchResult;
   winStreak?: number;
   lossStreak?: number;
@@ -15,13 +14,6 @@ interface Props {
 }
 
 function backgroundColor(props: Props) {
-  if (props.result === "draw") {
-    if (props.theme === "dark") {
-      return "#a88600";
-    }
-    return "#ddd";
-  }
-
   let colors: number[][] = [];
   let stepCount = 0;
   const streakList = [];
@@ -45,20 +37,16 @@ function backgroundColor(props: Props) {
     const rgbColors = gradient.rgb();
     const index = typeof streak === "number" ? streakList.indexOf(streak) : -1;
     const color = rgbColors[index];
-    return `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+    return `rgb(${Math.round(color[0])}, ${Math.round(color[1])}, ${Math.round(color[2])})`;
   }
-
-  if (props.isPlacement) {
-    if (props.theme === "dark") {
-      return "#3a434b";
-    }
-    return "#efefef";
-  }
-
-  return "transparent";
 }
 
 export default styled(HideSmallCell)<Props>`
   position: relative;
-  background-color: ${props => backgroundColor(props)};
+  background-color: ${props =>
+    props.result === "draw" ? props.theme.drawBackgroundColor : (
+      backgroundColor(props) || (
+        props.isPlacement ? props.theme.placementMatchCellBackgroundColor : "transparent"
+      )
+    )};
 `;
