@@ -404,7 +404,6 @@ const App = () => {
             seasonNumber={activeSeason}
             account={activeAccount}
             onImport={onMatchesImported}
-            theme={theme}
           />
         )}
 

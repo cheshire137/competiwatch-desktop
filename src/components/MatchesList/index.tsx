@@ -34,7 +34,7 @@ const MatchesList = ({
   }, [account._id, season, scrollToMatchID]);
 
   if (!matches) {
-    return <LoadingPage theme={theme} />;
+    return <LoadingPage />;
   }
 
   const anyMatches = matches.length > 0;
@@ -61,7 +61,7 @@ const MatchesList = ({
           </div>
         </div>
       ) : (
-        <Blankslate appTheme={theme}>
+        <Blankslate>
           <h3 className="mb-2">
             No matches have been logged in season {season} for{" "}
             {account.battletag}

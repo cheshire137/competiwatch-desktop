@@ -21,7 +21,7 @@ const SettingsForm = ({ settings, onSave, accounts }: Props) => {
 
   if (!settings) {
     return (
-      <Blankslate appTheme={theme}>
+      <Blankslate>
         <h1>
           <span className="ion ion-md-refresh mr-3 ion-spin" />
           Loading...

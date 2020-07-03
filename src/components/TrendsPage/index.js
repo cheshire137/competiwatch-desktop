@@ -108,13 +108,13 @@ class TrendsPage extends Component {
     const { season, theme } = this.props;
 
     if (!matches || !account) {
-      return <LoadingPage theme={theme} />;
+      return <LoadingPage />;
     }
 
     if (matches.length < 1) {
       return (
         <div className="container mb-4 layout-children-container">
-          <Blankslate appTheme={theme}>
+          <Blankslate>
             <h3 className="mb-2 h3">No match history</h3>
             <p>
               No matches have been logged in season {season} for{" "}

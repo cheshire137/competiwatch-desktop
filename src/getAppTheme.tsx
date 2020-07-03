@@ -8,7 +8,9 @@ const darkTheme = {
   borderColor: colors.gray[8],
   headerLinkColor: colors.white,
   headerLinkBackgroundColor: colors.gray[9],
-  buttonShownOnHoverColor: colors.gray[3]
+  buttonShownOnHoverColor: colors.gray[3],
+  blankslateBackgroundColor: "#494949",
+  blankslateBorderColor: "#2f363d"
 };
 
 const lightTheme = {
@@ -17,7 +19,9 @@ const lightTheme = {
   borderColor: colors.gray[2],
   headerLinkColor: colors.gray[9],
   headerLinkBackgroundColor: colors.white,
-  buttonShownOnHoverColor: colors.gray[8]
+  buttonShownOnHoverColor: colors.gray[8],
+  blankslateBackgroundColor: "#fafbfc",
+  blankslateBorderColor: "#e1e4e8"
 };
 
 export default function(themeName: string) {

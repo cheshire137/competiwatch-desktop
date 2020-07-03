@@ -9,10 +9,9 @@ interface Props {
   account: Account;
   seasonNumber: number;
   onImport: (matches: Array<Match>) => void;
-  theme: string;
 }
 
-const ImportPage = ({ account, seasonNumber, onImport, theme }: Props) => {
+const ImportPage = ({ account, seasonNumber, onImport }: Props) => {
   const [totalMatches, setTotalMatches] = useState(-1);
   const [activeSample, setActiveSample] = useState("sample1");
 
@@ -26,7 +25,7 @@ const ImportPage = ({ account, seasonNumber, onImport, theme }: Props) => {
   }, [account && account._id, seasonNumber]);
 
   if (totalMatches < 0) {
-    return <LoadingPage theme={theme} />;
+    return <LoadingPage />;
   }
 
   return (
