@@ -8,7 +8,6 @@ interface Props {
   onAccountChange: (id: string) => void;
   onAccountUpdate: () => void;
   onCreate?: () => void;
-  theme: string;
   accounts: Account[];
   season: number;
 }
@@ -16,7 +15,6 @@ interface Props {
 const AccountsPage = ({
   onAccountChange,
   onAccountUpdate,
-  theme,
   season,
   accounts,
   onCreate
@@ -46,7 +44,6 @@ const AccountsPage = ({
             </h2>
             <p>Choose an account to view and log competitive matches.</p>
             <AccountsList
-              theme={theme}
               season={season}
               accounts={accounts}
               onAccountChange={onAccountChange}

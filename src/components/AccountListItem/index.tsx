@@ -25,15 +25,13 @@ interface Props {
   onAccountChange: (id: string) => void;
   onAccountUpdate: () => void;
   season: number;
-  theme: string;
 }
 
 const AccountListItem = ({
   account,
   onAccountChange,
   season,
-  onAccountUpdate,
-  theme
+  onAccountUpdate
 }: Props) => {
   const [totalMatches, setTotalMatches] = useState(-1);
   const [showEditForm, setShowEditForm] = useState(false);
@@ -140,7 +138,7 @@ const AccountListItem = ({
   const haveLatestResult = latestMatch && latestMatch.result;
 
   return (
-    <AccountListItemStyle appTheme={theme}>
+    <AccountListItemStyle>
       <Flex justifyContent="space-between" alignItems="center">
         <div className="width-full mb-2 mt-1">
           <Flex justifyContent="space-between" alignItems="center">
@@ -163,7 +161,6 @@ const AccountListItem = ({
             )}
             <AccountDeleteForm
               id={_id}
-              theme={theme}
               onDelete={() => onAccountUpdate()}
               battletag={battletag}
             />

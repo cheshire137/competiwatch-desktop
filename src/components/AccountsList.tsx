@@ -7,22 +7,19 @@ interface Props {
   season: number;
   onAccountChange: (id: string) => void;
   onAccountUpdate: () => void;
-  theme: string;
 }
 
 const AccountsList = ({
   onAccountChange,
   onAccountUpdate,
   season,
-  accounts,
-  theme
+  accounts
 }: Props) => (
   <ul className="list-style-none mb-4">
     {accounts.map(account => (
       <AccountListItem
         key={account._id}
         season={season}
-        theme={theme}
         account={account}
         onAccountChange={onAccountChange}
         onAccountUpdate={onAccountUpdate}

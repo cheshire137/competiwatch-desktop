@@ -442,7 +442,6 @@ const App = () => {
             onPageChange={changeActivePage}
             accounts={accounts}
             settings={settings}
-            theme={theme}
             onSave={onSettingsSaved}
           />
         )}
@@ -450,7 +449,6 @@ const App = () => {
         {activePage === "accounts" && (
           <AccountsPage
             accounts={accounts}
-            theme={theme}
             season={activeSeason}
             onCreate={refreshAccounts}
             onAccountChange={changeActiveAccount}

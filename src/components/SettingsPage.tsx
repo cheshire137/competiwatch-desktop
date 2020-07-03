@@ -28,13 +28,11 @@ function dbLabelFor(name: string): string {
 interface Props {
   accounts: Array<Account>;
   settings: Setting;
-  theme: string;
   onSave: (newSettings: Setting) => void;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }
 
 const SettingsPage = ({
-  theme,
   accounts,
   settings,
   onSave,
