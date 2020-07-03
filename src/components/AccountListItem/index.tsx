@@ -157,10 +157,7 @@ const AccountListItem = ({
                 </LinkButton>
               </>
             ) : (
-              <BattletagButton
-                appTheme={theme}
-                onClick={() => onAccountChange(account._id)}
-              >
+              <BattletagButton onClick={() => onAccountChange(account._id)}>
                 {battletag}
               </BattletagButton>
             )}
@@ -171,7 +168,7 @@ const AccountListItem = ({
               battletag={battletag}
             />
           </Flex>
-          <AccountMeta appTheme={theme}>
+          <AccountMeta>
             {haveLatestResult && !haveLatestRank && latestMatch && (
               <span>Last match: {latestMatch.result}</span>
             )}
@@ -197,23 +194,19 @@ const AccountListItem = ({
               <span>No matches in season {season}</span>
             )}
           </AccountMeta>
-          <ButtonShownOnHover
-            appTheme={theme}
-            onClick={() => setShowEditForm(!showEditForm)}
-          >
+          <ButtonShownOnHover onClick={() => setShowEditForm(!showEditForm)}>
             Rename account
           </ButtonShownOnHover>
           {totalMatches > 0 ? (
             <>
               <ButtonShownOnHover
                 ml={3}
-                appTheme={theme}
                 aria-label="Save season as a CSV file"
                 onClick={exportSeason}
               >
                 Export season {season}
               </ButtonShownOnHover>
-              <ButtonShownOnHover appTheme={theme} ml={3} onClick={wipeSeason}>
+              <ButtonShownOnHover ml={3} onClick={wipeSeason}>
                 Delete matches
               </ButtonShownOnHover>
             </>
@@ -221,10 +214,7 @@ const AccountListItem = ({
         </div>
         <Flex alignItems="center">
           {haveLatestRank && latestMatch && (
-            <RankButton
-              appTheme={theme}
-              onClick={() => onAccountChange(account._id)}
-            >
+            <RankButton onClick={() => onAccountChange(account._id)}>
               {typeof latestMatch.rank === "number" && (
                 <MatchRankImage
                   rank={latestMatch.rank}
@@ -241,7 +231,7 @@ const AccountListItem = ({
               <Tooltip direction="n" aria-label={topHeroes.join(", ")}>
                 <AccountAvatarStack threePlus={topHeroes.length >= 3}>
                   {topHeroes.map(hero => (
-                    <HeroImage key={hero} hero={hero} size={40} theme={theme} />
+                    <HeroImage key={hero} hero={hero} size={40} />
                   ))}
                 </AccountAvatarStack>
               </Tooltip>

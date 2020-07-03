@@ -264,11 +264,11 @@ const MatchTableRow = (
 
   return (
     <tr className={outerClass()} ref={ref}>
-      <MatchNumberCell theme={theme} isPlacement={match.isPlacement}>
+      <MatchNumberCell isPlacement={match.isPlacement}>
         {matchNumber()}
       </MatchNumberCell>
       {showRole && role && (
-        <RoleCell isPlacement={match.isPlacement} theme={theme}>
+        <RoleCell isPlacement={match.isPlacement}>
           <RoleImage role={role} theme={theme} className="d-inline-block" />
         </RoleCell>
       )}
@@ -343,7 +343,6 @@ const MatchTableRow = (
               aria-label={hero}
             >
               <HeroImage
-                theme={theme}
                 hero={hero}
                 className="rounded-1 d-inline-block"
               />
@@ -422,7 +421,7 @@ const MatchTableRow = (
         </HideSmallCell>
       )}
       <OptionsCell>
-        <EditMatchButton appTheme={theme} onClick={editMatch} value={_id}>
+        <EditMatchButton onClick={editMatch} value={_id}>
           <Tooltip aria-label="Edit match" direction="w">
             <span className="ion ion-md-create" />
           </Tooltip>

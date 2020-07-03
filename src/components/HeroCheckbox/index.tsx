@@ -63,7 +63,6 @@ const HeroCheckbox = ({
         />
         <HeroImage
           hero={hero}
-          theme={theme}
           className="d-inline-block rounded-2 flex-shrink-0 mx-2"
         />
         <div className="no-wrap">

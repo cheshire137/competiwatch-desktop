@@ -14,6 +14,10 @@ const darkTheme = {
   headerBorderColor: "#2f363d",
   headerBackgroundColor: "#212b49",
   placementMatchCellBackgroundColor: "#3a434b",
+  matchCellBackgroundColor: "#444d56",
+  matchCellColor: "#d1d5da",
+  accountMetaColor: "#d1d5da",
+  heroImageBackgroundColor: "#2f363d !important",
   mapBackgroundColors: {
     "Junkertown": "#b57e0a",
     "Hanamura": "#86385c",
@@ -64,6 +68,10 @@ const lightTheme = {
   headerBorderColor: "#000",
   headerBackgroundColor: "#bed6ed",
   placementMatchCellBackgroundColor: "#efefef",
+  matchCellBackgroundColor: "#d0cece",
+  matchCellColor: "inherit",
+  accountMetaColor: "#586069",
+  heroImageBackgroundColor: "inherit",
   mapBackgroundColors: {
     "Junkertown": "#f4b531",
     "Hanamura": "#f9e4f8",

@@ -41,11 +41,9 @@ interface Props {
   hero: string;
   className?: string;
   size?: number;
-  theme: string;
 }
 
-const HeroImage = (props: Props) => {
-  const { hero, className, size, theme } = props;
+const HeroImage = ({ hero, className, size }: Props) => {
   const slug = HeroUtil.slugify(hero);
   if (knownHeroes.indexOf(slug) < 0) {
     return <span>{hero}</span>;
@@ -55,7 +53,6 @@ const HeroImage = (props: Props) => {
 
   return (
     <HeroImageTag
-      appTheme={theme}
       src={src}
       alt={hero}
       className={className}
