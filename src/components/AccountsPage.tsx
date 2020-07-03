@@ -20,7 +20,7 @@ const AccountsPage = ({
   onCreate
 }: Props) => (
   <LayoutChildrenContainer>
-    {accounts.length < 1 ? (
+    {accounts.length < 1 && (
       <div className="Box mb-4 p-3 col-lg-6">
         <h2 className="Subhead-heading mb-2">
           <span role="img" className="mr-2 d-inline-block" aria-label="Tada">
@@ -33,9 +33,9 @@ const AccountsPage = ({
           below and log some games.
         </div>
       </div>
-    ) : null}
+    )}
     <div className="clearfix">
-      {accounts.length > 0 ? (
+      {accounts.length > 0 && (
         <div className="float-left col-lg-7 col-md-12 col-sm-12 mb-4">
           <div className="mr-4 pr-4">
             <h2 className="h2 text-normal mb-2 d-flex flex-items-center">
@@ -51,7 +51,7 @@ const AccountsPage = ({
             />
           </div>
         </div>
-      ) : null}
+      )}
       <div className="float-left col-lg-5 col-md-12 col-sm-12 mb-4">
         <h2 className="h2 text-normal mb-2">
           {accounts.length > 0 ? "Add another account" : "Add an account"}

@@ -135,7 +135,6 @@ const App = () => {
   async function refreshAccounts() {
     const allAccounts = await Account.findAll();
     setAccounts(allAccounts);
-    activateDefaultAccount();
   }
 
   const changeActiveSeason = (newNumber: number) => {

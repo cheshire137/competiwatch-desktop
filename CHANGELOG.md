@@ -1,6 +1,10 @@
 # Change log
 
-## Version 0.3.0
+## Version 0.3.1
+
+- Fixed JavaScript errors when adding a new account [#96](https://github.com/cheshire137/competiwatch-desktop/issues/96)
+
+## Version [0.3.0](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.3.0)
 
 - Added competitive seasons 21, 22, and 23
 - Added Echo [#91](https://github.com/cheshire137/competiwatch-desktop/issues/91)
