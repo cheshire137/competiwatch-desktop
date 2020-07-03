@@ -2,8 +2,8 @@ import { theme as primer } from "@primer/components";
 import { colors } from "@primer/primitives";
 
 const darkTheme = {
-  backgroundColor: '#24292e',
-  color: '#e1e4e8',
+  backgroundColor: "#24292e",
+  color: "#e1e4e8",
   linkColor: colors.blue[3],
   borderColor: colors.gray[8],
   headerLinkColor: colors.white,
@@ -19,33 +19,33 @@ const darkTheme = {
   accountMetaColor: "#d1d5da",
   heroImageBackgroundColor: "#2f363d !important",
   mapBackgroundColors: {
-    "Junkertown": "#b57e0a",
-    "Hanamura": "#86385c",
+    Junkertown: "#b57e0a",
+    Hanamura: "#86385c",
     "Temple of Anubis": "#a76c40",
     "Volskaya Industries": "#7063b7",
-    "Dorado": "#a15e31",
+    Dorado: "#a15e31",
     "Route 66": "#994e49",
     "Watchpoint: Gibraltar": "#58423f",
-    "Eichenwalde": "#546857",
-    "Busan": "#d56c43",
+    Eichenwalde: "#546857",
+    Busan: "#d56c43",
     "Blizzard World": "#0471bb",
-    "Havana": "#44867b",
-    "Hollywood": "#c68664",
+    Havana: "#44867b",
+    Hollywood: "#c68664",
     "King's Row": "#425a5c",
-    "Numbani": "#566036",
-    "Paris": "#7c6785",
-    "Ilios": "#788bce",
+    Numbani: "#566036",
+    Paris: "#7c6785",
+    Ilios: "#788bce",
     "Lijiang Tower": "#b55f4e",
-    "Nepal": "#5a7cc6",
-    "Oasis": "#b37061",
+    Nepal: "#5a7cc6",
+    Oasis: "#b37061",
     "Horizon Lunar Colony": "#3d3939",
-    "Rialto": "#789c86"
+    Rialto: "#789c86"
   },
   darkenSRChange: {
     backgroundColor: {
-      "win": "rgba(35, 103, 0, 0.5)",
-      "loss": "rgba(175, 18, 27, 0.5)",
-      "draw": "#a88600"
+      win: "rgba(35, 103, 0, 0.5)",
+      loss: "rgba(175, 18, 27, 0.5)",
+      draw: "#a88600"
     },
     position: "absolute",
     left: 0,
@@ -73,33 +73,33 @@ const lightTheme = {
   accountMetaColor: "#586069",
   heroImageBackgroundColor: "inherit",
   mapBackgroundColors: {
-    "Junkertown": "#f4b531",
-    "Hanamura": "#f9e4f8",
+    Junkertown: "#f4b531",
+    Hanamura: "#f9e4f8",
     "Temple of Anubis": "#edc28e",
     "Volskaya Industries": "#b0a9d7",
-    "Dorado": "#d19267",
+    Dorado: "#d19267",
     "Route 66": "#ddbf9f",
     "Watchpoint: Gibraltar": "#c0a6b5",
-    "Eichenwalde": "#a1ad7b",
-    "Busan": "#f19554",
+    Eichenwalde: "#a1ad7b",
+    Busan: "#f19554",
     "Blizzard World": "#2aa6fb",
-    "Havana": "#77e3d1",
-    "Hollywood": "#92d8fd",
+    Havana: "#77e3d1",
+    Hollywood: "#92d8fd",
     "King's Row": "#a1bfc5",
-    "Numbani": "#cad298",
-    "Paris": "#f0d5c0",
-    "Ilios": "#a0eafd",
+    Numbani: "#cad298",
+    Paris: "#f0d5c0",
+    Ilios: "#a0eafd",
     "Lijiang Tower": "#d3a096",
-    "Nepal": "#deeafe",
-    "Oasis": "#fdf4a6",
+    Nepal: "#deeafe",
+    Oasis: "#fdf4a6",
     "Horizon Lunar Colony": "#c6c5c0",
-    "Rialto": "#87d0a4"
+    Rialto: "#87d0a4"
   },
   darkenSRChange: {
     backgroundColor: {
-      "win": "transparent",
-      "loss": "transparent",
-      "draw": "transparent"
+      win: "transparent",
+      loss: "transparent",
+      draw: "transparent"
     },
     position: "static",
     left: "auto",
@@ -116,4 +116,4 @@ export default function(themeName: string) {
   }
 
   return Object.assign({}, primer, lightTheme);
-};
+}

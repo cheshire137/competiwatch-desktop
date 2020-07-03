@@ -7,5 +7,6 @@ interface Props extends MatchCellProps {
 }
 
 export default styled(MatchCell)<Props>`
-  background-color: ${props => props.map ? props.theme.mapBackgroundColors[props.map] : "transparent"};
+  background-color: ${props =>
+    props.map ? props.theme.mapBackgroundColors[props.map] : "transparent"};
 `;

@@ -15,7 +15,10 @@ export interface Props {
 }
 
 export default styled.td<Props>`
-  background-color: ${props => (props.isPlacement ? props.theme.placementMatchCellBackgroundColor : "transparent")};
+  background-color: ${props =>
+    props.isPlacement
+      ? props.theme.placementMatchCellBackgroundColor
+      : "transparent"};
   border: 1px solid #000;
   padding: 0.3em 0.6em;
   text-align: center;

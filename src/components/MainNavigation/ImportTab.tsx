@@ -10,11 +10,7 @@ const ImportTab = ({ activePage }: Props) => {
     return null;
   }
 
-  return (
-    <Tab selected>
-      Import
-    </Tab>
-  );
+  return <Tab selected>Import</Tab>;
 };
 
 export default ImportTab;

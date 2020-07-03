@@ -315,9 +315,7 @@ const MatchTableRow = (
         winStreak={match.winStreak}
         lossStreak={match.lossStreak}
       >
-        {isWin || isLoss ? (
-          <DarkenSRChange result={match.result} />
-        ) : null}
+        {isWin || isLoss ? <DarkenSRChange result={match.result} /> : null}
         {isWin ? (
           <span style={{ position: "relative" }}>{match.winStreak}</span>
         ) : isLoss ? (
@@ -335,17 +333,17 @@ const MatchTableRow = (
         </HideSmallCell>
       )}
       {showHeroes && (
-        <HideSmallCell style={{ paddingBottom: 0 }} isPlacement={match.isPlacement}>
+        <HideSmallCell
+          style={{ paddingBottom: 0 }}
+          isPlacement={match.isPlacement}
+        >
           {heroList.map(hero => (
             <span
               key={hero}
               className="tooltipped tooltipped-n d-inline-block hero-portrait-container"
               aria-label={hero}
             >
-              <HeroImage
-                hero={hero}
-                className="rounded-1 d-inline-block"
-              />
+              <HeroImage hero={hero} className="rounded-1 d-inline-block" />
             </span>
           ))}
         </HideSmallCell>

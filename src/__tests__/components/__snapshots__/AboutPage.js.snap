@@ -8,7 +8,7 @@ exports[`matches snapshot 1`] = `
     className="mt-4"
   >
     <button
-      className="ButtonBase-exshql-0 Button-sc-1cuu878-0 sc-AxirZ hiXGGL"
+      className="ButtonBase-exshql-0 Button-sc-1cuu878-0 sc-AxirZ kfTlON"
       onClick={[Function]}
       type="button"
     >
@@ -116,7 +116,7 @@ exports[`matches snapshot 1`] = `
           </li>
           <li>
             <button
-              className="ButtonBase-exshql-0 Button-sc-1cuu878-0 sc-AxirZ hiXGGL"
+              className="ButtonBase-exshql-0 Button-sc-1cuu878-0 sc-AxirZ kfTlON"
               onClick={[Function]}
               type="button"
             >

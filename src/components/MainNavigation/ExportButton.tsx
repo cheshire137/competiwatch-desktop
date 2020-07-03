@@ -12,11 +12,7 @@ const ExportButton = ({ activePage, onExport }: Props) => {
   }
 
   return (
-    <LinkButton
-      mr={3}
-      style={{ fontSize: "12px" }}
-      onClick={() => onExport()}
-    >
+    <LinkButton mr={3} style={{ fontSize: "12px" }} onClick={() => onExport()}>
       Export matches
     </LinkButton>
   );

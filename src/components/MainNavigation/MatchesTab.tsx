@@ -8,11 +8,7 @@ interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }
 
-const MatchesTab = ({
-  activePage,
-  activeSeason,
-  onPageChange
-}: Props) => {
+const MatchesTab = ({ activePage, activeSeason, onPageChange }: Props) => {
   const [totalMatches, setTotalMatches] = useState<number>(-1);
 
   useEffect(() => {

@@ -37,16 +37,19 @@ function backgroundColor(props: Props) {
     const rgbColors = gradient.rgb();
     const index = typeof streak === "number" ? streakList.indexOf(streak) : -1;
     const color = rgbColors[index];
-    return `rgb(${Math.round(color[0])}, ${Math.round(color[1])}, ${Math.round(color[2])})`;
+    return `rgb(${Math.round(color[0])}, ${Math.round(color[1])}, ${Math.round(
+      color[2]
+    )})`;
   }
 }
 
 export default styled(HideSmallCell)<Props>`
   position: relative;
   background-color: ${props =>
-    props.result === "draw" ? props.theme.drawBackgroundColor : (
-      backgroundColor(props) || (
-        props.isPlacement ? props.theme.placementMatchCellBackgroundColor : "transparent"
-      )
-    )};
+    props.result === "draw"
+      ? props.theme.drawBackgroundColor
+      : backgroundColor(props) ||
+        (props.isPlacement
+          ? props.theme.placementMatchCellBackgroundColor
+          : "transparent")};
 `;

@@ -32,12 +32,7 @@ interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }
 
-const SettingsPage = ({
-  accounts,
-  settings,
-  onSave,
-  onPageChange
-}: Props) => (
+const SettingsPage = ({ accounts, settings, onSave, onPageChange }: Props) => (
   <LayoutChildrenContainer>
     <div className="mt-4">
       <LinkButton onClick={() => onPageChange("accounts")}>

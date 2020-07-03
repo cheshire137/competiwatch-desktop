@@ -163,45 +163,25 @@ const MatchesTable = ({
     <table className="width-full">
       <thead>
         <tr className="match-header-row">
-          <MatchHeader hideSmall={true}>
-            #
-          </MatchHeader>
-          {showRole && (
-            <MatchHeader hideSmall={true}>
-              Role
-            </MatchHeader>
-          )}
-          <MatchHeader hideSmall={true}>
-            Win/Loss
-          </MatchHeader>
-          <MatchHeader noWrap={true}>
-            +/- SR
-          </MatchHeader>
+          <MatchHeader hideSmall={true}>#</MatchHeader>
+          {showRole && <MatchHeader hideSmall={true}>Role</MatchHeader>}
+          <MatchHeader hideSmall={true}>Win/Loss</MatchHeader>
+          <MatchHeader noWrap={true}>+/- SR</MatchHeader>
           <MatchHeader>Rank</MatchHeader>
           <MatchHeader hideSmall={true} noWrap={true}>
             Streak
           </MatchHeader>
           <MatchHeader>Map</MatchHeader>
           {showComment ? (
-            <MatchHeader hideSmall={true}>
-              Comment
-            </MatchHeader>
+            <MatchHeader hideSmall={true}>Comment</MatchHeader>
           ) : null}
           {showHeroes ? (
-            <MatchHeader hideSmall={true}>
-              Heroes
-            </MatchHeader>
+            <MatchHeader hideSmall={true}>Heroes</MatchHeader>
           ) : null}
           {showDayTime ? (
-            <MatchHeader hideSmall={true}>
-              Day/Time
-            </MatchHeader>
+            <MatchHeader hideSmall={true}>Day/Time</MatchHeader>
           ) : null}
-          {showGroup ? (
-            <MatchHeader hideSmall={true}>
-              Group
-            </MatchHeader>
-          ) : null}
+          {showGroup ? <MatchHeader hideSmall={true}>Group</MatchHeader> : null}
           {showThrowerLeaver ? (
             <MatchHeader hideSmall={true}>
               <Tooltip aria-label="Throwers and leavers">
@@ -212,9 +192,7 @@ const MatchesTable = ({
             </MatchHeader>
           ) : null}
           {showPlayOfTheGame || showJoinedVoice ? (
-            <MatchHeader hideSmall={true}>
-              Other
-            </MatchHeader>
+            <MatchHeader hideSmall={true}>Other</MatchHeader>
           ) : null}
           <OptionsHeader></OptionsHeader>
         </tr>

@@ -25,10 +25,7 @@ const MainNavigation = ({
 }: Props) => (
   <Flex ml={3} width="100%" justifyContent="space-between" alignItems="center">
     <Flex>
-      <AccountsTab
-        onPageChange={onPageChange}
-        activePage={activePage}
-      />
+      <AccountsTab onPageChange={onPageChange} activePage={activePage} />
       {activeAccount && (
         <MatchesTab
           onPageChange={onPageChange}

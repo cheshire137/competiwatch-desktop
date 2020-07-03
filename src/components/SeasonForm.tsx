@@ -59,9 +59,7 @@ const SeasonForm = ({ theme, onCreate, latestSeason }: Props) => {
       <h2 className="h2 text-normal mb-2">Add a season</h2>
       <p>
         <span>A </span>
-        <LinkButton onClick={openReleasesPage}>
-          new version
-        </LinkButton>
+        <LinkButton onClick={openReleasesPage}>new version</LinkButton>
         <span> of </span>
         {appName} may have the latest competitive season. If you can't update
         for some reason, you can add a season to continue logging matches.
