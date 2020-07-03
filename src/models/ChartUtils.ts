@@ -13,7 +13,7 @@ class ChartUtils {
       total += data.datasets[i].data[tooltipItem.index];
     }
     const percentage = (currentValue / total * 100).toFixed(0);
-    return `${currentValue} (${percentage}%)`;
+    return `${dataset.label}: ${currentValue} (${percentage}%)`;
   }
 }
 
