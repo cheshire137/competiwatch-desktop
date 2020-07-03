@@ -23,7 +23,7 @@ import "./primer.css";
 import "./ionicons.min.css";
 import "./App.css";
 import { setTitle, showSaveDialog } from "./utils/electronUtils";
-import getAppTheme from "./getAppTheme";
+import getAppTheme from "./utils/getAppTheme";
 import { ThemeProvider } from "styled-components";
 
 const latestKnownSeason = 23;
