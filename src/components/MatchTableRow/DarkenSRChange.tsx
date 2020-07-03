@@ -5,9 +5,11 @@ interface Props {
   result?: MatchResult;
 }
 
-export default styled("span") <Props>`
-  background-color: ${props => props.result ?
-    props.theme.darkenSRChange.backgroundColor[props.result] : "transparent"};
+export default styled("span")<Props>`
+  background-color: ${props =>
+    props.result
+      ? props.theme.darkenSRChange.backgroundColor[props.result]
+      : "transparent"};
   position: ${props => props.theme.darkenSRChange.position};
   left: ${props => props.theme.darkenSRChange.left};
   top: ${props => props.theme.darkenSRChange.top};

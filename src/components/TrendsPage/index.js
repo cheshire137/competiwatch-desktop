@@ -98,9 +98,7 @@ class TrendsPage extends Component {
   };
 
   anyBadActorsInMatches = () => {
-    return (
-      this.state.matches.filter(match => match.hasBadActor()).length > 0
-    );
+    return this.state.matches.filter(match => match.hasBadActor()).length > 0;
   };
 
   render() {
@@ -134,9 +132,7 @@ class TrendsPage extends Component {
         <div className="clearfix">
           <div
             className={
-              showBadActorChart
-                ? "col-md-5 float-md-left"
-                : "col-md-5 mx-auto"
+              showBadActorChart ? "col-md-5 float-md-left" : "col-md-5 mx-auto"
             }
           >
             <WinLossChart season={season} matches={matches} />
