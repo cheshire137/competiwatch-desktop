@@ -35,26 +35,13 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
     return heroList.indexOf(hero) > -1;
   };
 
-  const unavailableClass = (displayedRole: string) => {
-    if (
-      typeof role === "string" &&
-      role.length > 0 &&
-      role.toLowerCase() !== displayedRole
-    ) {
-      return "role-unavailable";
-    }
-  };
-
   const isRoleUnavailable = (displayedRole: string) => typeof role === "string" &&
     role.length > 0 &&
     role.toLowerCase() !== displayedRole;
 
-  const damageUnavailableClass = unavailableClass("damage");
-  const tankUnavailableClass = unavailableClass("tank");
-  const supportUnavailableClass = unavailableClass("support");
-  const damageAvailable = typeof damageUnavailableClass !== "string";
-  const tankAvailable = typeof tankUnavailableClass !== "string";
-  const supportAvailable = typeof supportUnavailableClass !== "string";
+  const damageAvailable = !isRoleUnavailable("damage");
+  const tankAvailable = !isRoleUnavailable("tank");
+  const supportAvailable = !isRoleUnavailable("support");
   const allRolesAvailable =
     damageAvailable && tankAvailable && supportAvailable;
   const headerMarginTop = allRolesAvailable ? 4 : 3;
@@ -64,7 +51,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
     <>
       <HeroGroupHeader
         mt={headerMarginTop}
-        roleUnavailable={isRoleUnavailable("damage")}
+        roleUnavailable={!damageAvailable}
       >
         <RoleImage
           theme={theme}
