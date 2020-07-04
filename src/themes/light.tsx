@@ -16,6 +16,7 @@ const lightTheme = {
   matchCellColor: "inherit",
   accountMetaColor: "#586069",
   heroImageBackgroundColor: "inherit",
+  subtitleColor: colors.gray[6],
   mapBackgroundColors: {
     Junkertown: "#f4b531",
     Hanamura: "#f9e4f8",

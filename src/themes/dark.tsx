@@ -17,6 +17,7 @@ const darkTheme = {
   matchCellColor: "#d1d5da",
   accountMetaColor: "#d1d5da",
   heroImageBackgroundColor: "#2f363d !important",
+  subtitleColor: colors.gray[4],
   mapBackgroundColors: {
     Junkertown: "#b57e0a",
     Hanamura: "#86385c",

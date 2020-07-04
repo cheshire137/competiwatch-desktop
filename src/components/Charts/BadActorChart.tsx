@@ -1,9 +1,10 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import { Flex } from "@primer/components";
+import { Flex, Text } from "@primer/components";
 import Color from "../../models/Color";
 import Match from "../../models/Match";
 import ChartUtils from "../../models/ChartUtils";
+import ChartHeader from "./ChartHeader";
 
 interface Props {
   matches: Match[];
@@ -105,12 +106,7 @@ const BadActorChart = ({ matches, season }: Props) => {
 
   return (
     <Flex flex="1" flexDirection="column">
-      <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
-        Bad Actors
-        <span className="text-gray text-normal h4 d-inline-block ml-2">
-          Season {season}
-        </span>
-      </h3>
+      <ChartHeader title="Bad Actors" seasonNumber={season} />
       <div className="small-chart-container">
         <Bar data={data} options={options} />
       </div>
