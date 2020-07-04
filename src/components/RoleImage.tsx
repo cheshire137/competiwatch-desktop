@@ -1,15 +1,15 @@
 import React from "react";
+import { AvatarProps, Avatar } from "@primer/components";
 
 const knownRoles = ["tank", "support", "damage"];
 
-interface Props {
+interface Props extends AvatarProps {
   role: string;
-  className?: string;
   size?: number;
   theme: string;
 }
 
-const RoleImage = ({ role, className, size, theme }: Props) => {
+const RoleImage = ({ role, size, theme, mr, mx }: Props) => {
   const slug = role.toLowerCase();
   if (knownRoles.indexOf(slug) < 0) {
     return <span>{role}</span>;
@@ -21,10 +21,11 @@ const RoleImage = ({ role, className, size, theme }: Props) => {
   const src = require(`../images/roles/${slug}${color}.png`);
 
   return (
-    <img
+    <Avatar
+      mx={mr ? mr : mx}
+      mr={mx ? mx : mr}
       src={src}
       alt={role}
-      className={className}
       width={size || 20}
       height={size || 20}
     />

@@ -285,7 +285,7 @@ const MatchTableRow = (
       </MatchNumberCell>
       {showRole && role && (
         <RoleCell isPlacement={match.isPlacement}>
-          <RoleImage role={role} theme={theme} className="d-inline-block" />
+          <RoleImage role={role} theme={theme} />
         </RoleCell>
       )}
       <ResultCell result={result} theme={theme}>

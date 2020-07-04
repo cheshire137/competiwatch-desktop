@@ -28,7 +28,7 @@ const RoleSelect = ({ onChange, theme, selectedRole }: Props) => (
             type="radio"
             name="role"
           />
-          <RoleImage role={role} theme={theme} className="mx-2" />
+          <RoleImage role={role} theme={theme} mx={2} />
           {role}
         </label>
       );

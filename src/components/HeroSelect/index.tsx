@@ -57,7 +57,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
           theme={theme}
           role="damage"
           size={12}
-          className="d-inline-block mr-1"
+          mr={1}
         />
         Defense
       </HeroGroupHeader>
@@ -87,7 +87,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
                 theme={theme}
                 role="damage"
                 size={12}
-                className="d-inline-block mr-1"
+                mr={1}
               />
               Flankers
             </HeroGroupHeader>
@@ -111,7 +111,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
                 theme={theme}
                 role="tank"
                 size={12}
-                className="d-inline-block mr-1"
+                mr={1}
               />
               Off-tanks
             </HeroGroupHeader>
@@ -134,7 +134,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
                 theme={theme}
                 role="support"
                 size={12}
-                className="d-inline-block mr-1"
+                mr={1}
               />
               Off-healers
             </HeroGroupHeader>
@@ -158,7 +158,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
                 theme={theme}
                 role="damage"
                 size={12}
-                className="d-inline-block mr-1"
+                mr={1}
               />
               Hitscan
             </HeroGroupHeader>
@@ -180,7 +180,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
                 theme={theme}
                 role="tank"
                 size={12}
-                className="d-inline-block mr-1"
+                mr={1}
               />
               Main tanks
             </HeroGroupHeader>
@@ -202,7 +202,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
                 theme={theme}
                 role="support"
                 size={12}
-                className="d-inline-block mr-1"
+                mr={1}
               />
               Main healers
             </HeroGroupHeader>
@@ -223,7 +223,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
               theme={theme}
               role="damage"
               size={12}
-              className="d-inline-block mr-1"
+              mr={1}
             />
             DPS
           </HeroGroupHeader>
