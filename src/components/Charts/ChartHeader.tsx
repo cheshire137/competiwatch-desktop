@@ -9,7 +9,9 @@ interface Props {
 
 const ChartHeader = ({ title, seasonNumber }: Props) => (
   <Flex mb={2} justifyContent="center" alignItems="center">
-    <Text fontWeight="bold" fontSize={3}>{title}</Text>
+    <Text fontWeight="bold" fontSize={3}>
+      {title}
+    </Text>
     <ChartSeasonNumber>Season {seasonNumber}</ChartSeasonNumber>
   </Flex>
 );

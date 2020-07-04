@@ -72,7 +72,10 @@ const MapTypeChart = ({ matches, season }: Props) => {
   ];
   const labelAxisOptions = [{ ticks: { autoSkip: false } }];
   const options = {
-    scales: { xAxes: labelAxisOptions, yAxes: Object.assign({}, numberAxisOptions, { stacked: true }) },
+    scales: {
+      xAxes: labelAxisOptions,
+      yAxes: Object.assign({}, numberAxisOptions, { stacked: true })
+    },
     responsive: true,
     maintainAspectRatio: false,
     tooltips: {

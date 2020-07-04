@@ -17,7 +17,7 @@ import Account from "../../models/Account";
 import Color from "../../models/Color";
 import Blankslate from "../Blankslate";
 import HorizontalRule from "../HorizontalRule";
-import {Flex} from "@primer/components";
+import { Flex } from "@primer/components";
 import "./TrendsPage.css";
 
 class TrendsPage extends Component {

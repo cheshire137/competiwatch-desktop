@@ -52,7 +52,10 @@ const numberAxisOptions = [
   { ticks: { callback: ChartUtils.wholeTicks, beginAtZero: true } }
 ];
 const labelAxisOptions = [{ ticks: { autoSkip: false } }];
-const scales = { xAxes: labelAxisOptions, yAxes: Object.assign({}, numberAxisOptions, { stacked: true }) };
+const scales = {
+  xAxes: labelAxisOptions,
+  yAxes: Object.assign({}, numberAxisOptions, { stacked: true })
+};
 const options = {
   scales,
   responsive: true,
