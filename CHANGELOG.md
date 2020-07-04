@@ -6,6 +6,7 @@
 - Added percentages to all bar charts on the Trends tab [#50](https://github.com/cheshire137/competiwatch-desktop/issues/50)
 - Fixed JavaScript errors when adding a new account on the Accounts tab [#96](https://github.com/cheshire137/competiwatch-desktop/issues/96)
 - Replaced some bar charts with stacked bar charts on the Trends tab
+- Increased default height of window to reduce scrolling when logging a match
 
 ## Version [0.3.0](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.3.0)
 

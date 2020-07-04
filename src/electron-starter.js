@@ -24,7 +24,7 @@ function onTitleChange(event, suffix) {
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1180,
-    height: 693,
+    height: 730,
     icon: path.join(__dirname, "images/64x64.png"),
     webPreferences: {
       nodeIntegration: false,
