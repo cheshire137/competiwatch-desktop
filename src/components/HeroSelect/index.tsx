@@ -9,6 +9,7 @@ import {
 import HeroCheckboxList from "../HeroCheckboxList";
 import RoleImage from "../RoleImage";
 import "./HeroSelect.css";
+import HeroGroupHeader from "./HeroGroupHeader";
 
 interface Props {
   role: HeroRole | null;
@@ -44,6 +45,10 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
     }
   };
 
+  const isRoleUnavailable = (displayedRole: string) => typeof role === "string" &&
+    role.length > 0 &&
+    role.toLowerCase() !== displayedRole;
+
   const damageUnavailableClass = unavailableClass("damage");
   const tankUnavailableClass = unavailableClass("tank");
   const supportUnavailableClass = unavailableClass("support");
@@ -57,10 +62,10 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
 
   const defenseHeroes = (
     <>
-      <h5
-        className={`h5 border-bottom pb-1 ${
-          allRolesAvailable ? "" : "mt-3"
-        } ${verticalSpacingClass} mb-2 ${damageUnavailableClass}`}
+      <HeroGroupHeader
+        mt={allRolesAvailable ? 4 : 3}
+        mb={2}
+        roleUnavailable={isRoleUnavailable("damage")}
       >
         <RoleImage
           theme={theme}
@@ -69,7 +74,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
           className="d-inline-block mr-1"
         />
         Defense
-      </h5>
+      </HeroGroupHeader>
       <HeroCheckboxList
         theme={theme}
         heroes={HeroesByType.Defense}
