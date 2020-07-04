@@ -52,7 +52,7 @@ const numberAxisOptions = [
   { ticks: { callback: ChartUtils.wholeTicks, beginAtZero: true } }
 ];
 const labelAxisOptions = [{ ticks: { autoSkip: false } }];
-const scales = { xAxes: labelAxisOptions, yAxes: numberAxisOptions };
+const scales = { xAxes: labelAxisOptions, yAxes: Object.assign({}, numberAxisOptions, { stacked: true }) };
 const options = {
   scales,
   responsive: true,
@@ -81,21 +81,24 @@ const GroupSizeChart = ({ matches, season, theme }: Props) => {
         borderColor: Color.win,
         borderWidth: 2,
         label: "Wins",
-        data: wins
-      },
-      {
-        backgroundColor: Color.transparentLoss,
-        borderColor: Color.loss,
-        borderWidth: 2,
-        label: "Losses",
-        data: losses
+        data: wins,
+        stack: "2"
       },
       {
         backgroundColor: Color.transparentDraw,
         borderColor: Color.draw,
         borderWidth: 2,
         label: "Draws",
-        data: draws
+        data: draws,
+        stack: "2"
+      },
+      {
+        backgroundColor: Color.transparentLoss,
+        borderColor: Color.loss,
+        borderWidth: 2,
+        label: "Losses",
+        data: losses,
+        stack: "2"
       }
     ]
   };
