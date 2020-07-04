@@ -3,6 +3,7 @@ import { Radar } from "react-chartjs-2";
 import Color from "../../models/Color";
 import Match from "../../models/Match";
 import { HeroDetailedRoles, HeroDetailedRole } from "../../models/Hero";
+import ChartHeader from "./ChartHeader";
 
 interface Props {
   matches: Match[];
@@ -103,12 +104,7 @@ const RoleChart = ({ matches, season, theme }: Props) => {
 
   return (
     <div>
-      <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
-        Wins/Losses by Role
-        <span className="text-gray text-normal h4 d-inline-block ml-2">
-          Season {season}
-        </span>
-      </h3>
+      <ChartHeader title="Match Results by Role" seasonNumber={season} />
       <div className="tall-chart-container">
         <Radar data={data} options={options} />
       </div>

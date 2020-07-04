@@ -4,6 +4,7 @@ import Match from "../../models/Match";
 import Color from "../../models/Color";
 import ChartUtils from "../../models/ChartUtils";
 import HorizontalRule from "../HorizontalRule";
+import ChartHeader from "./ChartHeader";
 
 const labels = [
   "Solo queue",
@@ -102,12 +103,7 @@ const GroupSizeChart = ({ matches, season, theme }: Props) => {
   return (
     <>
       <HorizontalRule />
-      <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
-        Wins/Losses by Group Size
-        <span className="text-gray text-normal h4 d-inline-block ml-2">
-          Season {season}
-        </span>
-      </h3>
+      <ChartHeader title="Match Results by Group Size" seasonNumber={season} />
       <div className="small-chart-container">
         <Bar data={data} options={options} />
       </div>

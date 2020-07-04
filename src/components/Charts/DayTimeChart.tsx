@@ -3,6 +3,7 @@ import { Bar } from "react-chartjs-2";
 import Color from "../../models/Color";
 import Match from "../../models/Match";
 import ChartUtils from "../../models/ChartUtils";
+import ChartHeader from "./ChartHeader";
 
 const simpleLabels = [
   // must be in the same order as `labels`
@@ -104,12 +105,7 @@ const DayTimeChart = ({ matches, season }: Props) => {
 
   return (
     <div>
-      <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
-        Wins/Losses by Day and Time
-        <span className="text-gray text-normal h4 d-inline-block ml-2">
-          Season {season}
-        </span>
-      </h3>
+      <ChartHeader title="Match Results by Time" seasonNumber={season} />
       <div className="chart-container">
         <Bar data={data} options={options} />
       </div>

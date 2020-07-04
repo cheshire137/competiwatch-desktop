@@ -10,6 +10,7 @@ import {
   MapTypeAliases,
   MapsByType
 } from "../../models/Map";
+import ChartHeader from "./ChartHeader";
 
 function mapTypeFor(map: Map): MapType | undefined {
   for (const mapType of MapTypes) {
@@ -113,12 +114,7 @@ const MapTypeChart = ({ matches, season }: Props) => {
 
   return (
     <div>
-      <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
-        Match Results by Map Type
-        <span className="text-gray text-normal h4 d-inline-block ml-2">
-          Season {season}
-        </span>
-      </h3>
+      <ChartHeader title="Match Results by Map Type" seasonNumber={season} />
       <div className="small-chart-container">
         <Bar data={data} options={options} />
       </div>

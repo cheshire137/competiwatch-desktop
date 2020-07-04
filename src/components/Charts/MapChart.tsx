@@ -4,6 +4,7 @@ import Match from "../../models/Match";
 import Color from "../../models/Color";
 import ChartUtils from "../../models/ChartUtils";
 import { Maps, MapShortNames } from "../../models/Map";
+import ChartHeader from "./ChartHeader";
 
 type Counts = {
   [map: string]: number;
@@ -111,12 +112,7 @@ const MapChart = ({ season, matches }: Props) => {
 
   return (
     <div>
-      <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
-        Match Results by Map
-        <span className="text-gray text-normal h4 d-inline-block ml-2">
-          Season {season}
-        </span>
-      </h3>
+      <ChartHeader title="Match Results by Map" seasonNumber={season} />
       <div className="chart-container">
         <Bar data={data} options={options} />
       </div>

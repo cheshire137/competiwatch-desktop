@@ -4,6 +4,7 @@ import Match from "../../models/Match";
 import Color from "../../models/Color";
 import { Heroes, Hero } from "../../models/Hero";
 import ChartUtils from "../../models/ChartUtils";
+import ChartHeader from "./ChartHeader";
 
 const getCountsForHeroes = (heroes: Hero[], filteredMatches: Match[]) => {
   return heroes.map(
@@ -100,12 +101,7 @@ const HeroRatiosChart = ({ matches, season }: Props) => {
 
   return (
     <div>
-      <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
-        Match Results by Hero
-        <span className="text-gray text-normal h4 d-inline-block ml-2">
-          Season {season}
-        </span>
-      </h3>
+      <ChartHeader title="Match Results by Hero" seasonNumber={season} />
       <div className="chart-container">
         <Bar data={data} options={options} />
       </div>
