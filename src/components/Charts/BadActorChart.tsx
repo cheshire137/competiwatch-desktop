@@ -14,7 +14,7 @@ const options = {
   responsive: true,
   maintainAspectRatio: false,
   scales: {
-    yAxes: [{ ticks: { callback: ChartUtils.wholeTicks } }]
+    yAxes: [{ ticks: { callback: ChartUtils.wholeTicks }, stacked: true }]
   },
   tooltips: {
     model: "label",
@@ -81,21 +81,24 @@ const BadActorChart = ({ matches, season }: Props) => {
         borderColor: Color.ally,
         borderWidth: 2,
         label: "Throwers",
-        data: getThrowers()
+        data: getThrowers(),
+        stack: "2"
       },
       {
         backgroundColor: Color.transparentEnemy,
         borderColor: Color.enemy,
         borderWidth: 2,
         label: "Leavers",
-        data: getLeavers()
+        data: getLeavers(),
+        stack: "2"
       },
       {
         backgroundColor: Color.transparentDraw,
         borderColor: Color.draw,
         borderWidth: 2,
         label: "Cheaters",
-        data: getCheaters()
+        data: getCheaters(),
+        stack: "2"
       }
     ]
   };

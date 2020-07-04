@@ -59,7 +59,7 @@ const numberAxisOptions = [
   { ticks: { callback: ChartUtils.wholeTicks, beginAtZero: true } }
 ];
 const labelAxisOptions = [{ ticks: { autoSkip: false } }];
-const scales = { xAxes: labelAxisOptions, yAxes: numberAxisOptions };
+const scales = { xAxes: labelAxisOptions, yAxes: Object.assign({}, numberAxisOptions, { stacked: true }) };
 const options = {
   scales,
   responsive: true,
@@ -81,21 +81,24 @@ const BadActorsTimeChart = ({ matches, season }: Props) => {
         borderColor: Color.ally,
         borderWidth: 2,
         label: "Throwers",
-        data: getCountsByDayTime(matches.filter(match => match.hasThrower()))
+        data: getCountsByDayTime(matches.filter(match => match.hasThrower())),
+        stack: "2"
       },
       {
         backgroundColor: Color.transparentEnemy,
         borderColor: Color.enemy,
         borderWidth: 2,
         label: "Leavers",
-        data: getCountsByDayTime(matches.filter(match => match.hasLeaver()))
+        data: getCountsByDayTime(matches.filter(match => match.hasLeaver())),
+        stack: "2"
       },
       {
         backgroundColor: Color.transparentDraw,
         borderColor: Color.draw,
         borderWidth: 2,
         label: "Cheaters",
-        data: getCountsByDayTime(matches.filter(match => match.hasCheater()))
+        data: getCountsByDayTime(matches.filter(match => match.hasCheater())),
+        stack: "2"
       }
     ]
   };
