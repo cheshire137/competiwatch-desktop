@@ -69,7 +69,7 @@ const MapChart = ({ season, matches }: Props) => {
   ];
   const labelAxisOptions = [{ ticks: { autoSkip: false } }];
   const options = {
-    scales: { xAxes: labelAxisOptions, yAxes: numberAxisOptions },
+    scales: { xAxes: labelAxisOptions, yAxes: Object.assign({}, numberAxisOptions, { stacked: true }) },
     responsive: true,
     maintainAspectRatio: false,
     tooltips: {
@@ -87,21 +87,24 @@ const MapChart = ({ season, matches }: Props) => {
         borderColor: Color.win,
         borderWidth: 2,
         label: "Wins",
-        data: getWins(matchesWithMaps)
-      },
-      {
-        backgroundColor: Color.transparentLoss,
-        borderColor: Color.loss,
-        borderWidth: 2,
-        label: "Losses",
-        data: getLosses(matchesWithMaps)
+        data: getWins(matchesWithMaps),
+        stack: "2"
       },
       {
         backgroundColor: Color.transparentDraw,
         borderColor: Color.draw,
         borderWidth: 2,
         label: "Draws",
-        data: getDraws(matchesWithMaps)
+        data: getDraws(matchesWithMaps),
+        stack: "2"
+      },
+      {
+        backgroundColor: Color.transparentLoss,
+        borderColor: Color.loss,
+        borderWidth: 2,
+        label: "Losses",
+        data: getLosses(matchesWithMaps),
+        stack: "2"
       }
     ]
   };
@@ -109,7 +112,7 @@ const MapChart = ({ season, matches }: Props) => {
   return (
     <div>
       <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
-        Wins/Losses per Map
+        Match Results by Map
         <span className="text-gray text-normal h4 d-inline-block ml-2">
           Season {season}
         </span>

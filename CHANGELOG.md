@@ -5,7 +5,7 @@
 - Added ability to log cheaters on your team and the enemy team [#84](https://github.com/cheshire137/competiwatch-desktop/issues/84)
 - Added percentages to all bar charts on the Trends tab [#50](https://github.com/cheshire137/competiwatch-desktop/issues/50)
 - Fixed JavaScript errors when adding a new account on the Accounts tab [#96](https://github.com/cheshire137/competiwatch-desktop/issues/96)
-- Changed wins/losses by hero chart to be a stacked bar chart on the Trends tab
+- Replaced some bar charts with stacked bar charts on the Trends tab
 
 ## Version [0.3.0](https://github.com/cheshire137/competiwatch-desktop/releases/tag/0.3.0)
 
