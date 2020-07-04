@@ -5,19 +5,14 @@ export default styled(Button).attrs({
   p: 0,
   type: "button"
 })`
-  display: inline-block;
   color: ${props => props.theme.linkColor};
   font-size: inherit;
-  text-decoration: none;
-  white-space: nowrap;
-  cursor: pointer;
-  user-select: none;
   background-color: transparent;
   border: 0;
   background-image: none;
   font-weight: normal;
-  appearance: none;
   box-shadow: none;
+  vertical-align: baseline;
 
   &:hover,
   &:focus {
