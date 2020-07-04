@@ -101,7 +101,7 @@ const HeroRatiosChart = ({ matches, season }: Props) => {
   return (
     <div>
       <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
-        Win:Loss Ratios by Hero
+        Match Results by Hero
         <span className="text-gray text-normal h4 d-inline-block ml-2">
           Season {season}
         </span>

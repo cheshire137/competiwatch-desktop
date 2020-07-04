@@ -5,7 +5,6 @@ import WinLossChart from "../Charts/WinLossChart";
 import BadActorChart from "../Charts/BadActorChart";
 import StreaksChart from "../Charts/StreaksChart";
 import GroupSizeChart from "../Charts/GroupSizeChart";
-import HeroesChart from "../Charts/HeroesChart";
 import HeroRatiosChart from "../Charts/HeroRatiosChart";
 import DayTimeChart from "../Charts/DayTimeChart";
 import BadActorsTimeChart from "../Charts/BadActorsTimeChart";
@@ -162,8 +161,6 @@ class TrendsPage extends Component {
           <div>
             {showHeroesCharts ? (
               <div>
-                <HorizontalRule />
-                <HeroesChart season={season} matches={matches} />
                 <HorizontalRule />
                 <HeroRatiosChart season={season} matches={matches} />
               </div>
