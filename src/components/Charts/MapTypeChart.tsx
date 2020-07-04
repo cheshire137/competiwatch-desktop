@@ -71,7 +71,7 @@ const MapTypeChart = ({ matches, season }: Props) => {
   ];
   const labelAxisOptions = [{ ticks: { autoSkip: false } }];
   const options = {
-    scales: { xAxes: labelAxisOptions, yAxes: numberAxisOptions },
+    scales: { xAxes: labelAxisOptions, yAxes: Object.assign({}, numberAxisOptions, { stacked: true }) },
     responsive: true,
     maintainAspectRatio: false,
     tooltips: {
@@ -89,21 +89,24 @@ const MapTypeChart = ({ matches, season }: Props) => {
         borderColor: Color.win,
         borderWidth: 2,
         label: "Wins",
-        data: getCountsByMapType(matchesWithMaps, match => match.isWin())
-      },
-      {
-        backgroundColor: Color.transparentLoss,
-        borderColor: Color.loss,
-        borderWidth: 2,
-        label: "Losses",
-        data: getCountsByMapType(matchesWithMaps, match => match.isLoss())
+        data: getCountsByMapType(matchesWithMaps, match => match.isWin()),
+        stack: "2"
       },
       {
         backgroundColor: Color.transparentDraw,
         borderColor: Color.draw,
         borderWidth: 2,
         label: "Draws",
-        data: getCountsByMapType(matchesWithMaps, match => match.isDraw())
+        data: getCountsByMapType(matchesWithMaps, match => match.isDraw()),
+        stack: "2"
+      },
+      {
+        backgroundColor: Color.transparentLoss,
+        borderColor: Color.loss,
+        borderWidth: 2,
+        label: "Losses",
+        data: getCountsByMapType(matchesWithMaps, match => match.isLoss()),
+        stack: "2"
       }
     ]
   };
@@ -111,7 +114,7 @@ const MapTypeChart = ({ matches, season }: Props) => {
   return (
     <div>
       <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
-        Wins/Losses per Map Type
+        Match Results by Map Type
         <span className="text-gray text-normal h4 d-inline-block ml-2">
           Season {season}
         </span>
