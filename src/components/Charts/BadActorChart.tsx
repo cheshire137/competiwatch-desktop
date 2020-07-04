@@ -1,5 +1,6 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
+import { Flex } from "@primer/components";
 import Color from "../../models/Color";
 import Match from "../../models/Match";
 import ChartUtils from "../../models/ChartUtils";
@@ -100,7 +101,7 @@ const BadActorChart = ({ matches, season }: Props) => {
   };
 
   return (
-    <div>
+    <Flex flex="1" flexDirection="column">
       <h3 className="h3 flex-justify-center d-flex flex-items-center mb-2">
         Bad Actors
         <span className="text-gray text-normal h4 d-inline-block ml-2">
@@ -110,7 +111,7 @@ const BadActorChart = ({ matches, season }: Props) => {
       <div className="small-chart-container">
         <Bar data={data} options={options} />
       </div>
-    </div>
+    </Flex>
   );
 };
 

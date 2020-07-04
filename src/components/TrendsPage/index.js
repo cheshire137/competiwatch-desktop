@@ -17,6 +17,7 @@ import Account from "../../models/Account";
 import Color from "../../models/Color";
 import Blankslate from "../Blankslate";
 import HorizontalRule from "../HorizontalRule";
+import {Flex} from "@primer/components";
 import "./TrendsPage.css";
 
 class TrendsPage extends Component {
@@ -125,6 +126,7 @@ class TrendsPage extends Component {
     const showHeroesCharts = this.anyMatchesWithHeroes();
     const showVoiceCharts = this.anyMatchesJoinedVoice();
     const showBadActorChart = this.anyBadActorsInMatches();
+    const showBadActorsTimeChart = this.showBadActorsTimeChart();
 
     return (
       <div className="container mb-4 layout-children-container">
@@ -136,11 +138,6 @@ class TrendsPage extends Component {
           >
             <WinLossChart season={season} matches={matches} />
           </div>
-          {showBadActorChart ? (
-            <div className="col-md-5 offset-md-2 float-md-left">
-              <BadActorChart season={season} matches={matches} />
-            </div>
-          ) : null}
         </div>
         <HorizontalRule />
         <StreaksChart season={season} matches={matches} />
@@ -196,18 +193,22 @@ class TrendsPage extends Component {
             </div>
           </div>
         ) : null}
-        {this.showDayTimeChart() ? (
+        {this.showDayTimeChart() && (
           <div>
             <HorizontalRule />
             <DayTimeChart season={season} matches={matches} />
           </div>
-        ) : null}
-        {this.showBadActorsTimeChart() ? (
-          <div>
-            <HorizontalRule />
-            <BadActorsTimeChart season={season} matches={matches} />
-          </div>
-        ) : null}
+        )}
+        {(showBadActorChart || showBadActorsTimeChart) && (
+          <Flex justifyContent="space-between" alignItems="center">
+            {showBadActorChart && (
+              <BadActorChart season={season} matches={matches} />
+            )}
+            {showBadActorsTimeChart && (
+              <BadActorsTimeChart season={season} matches={matches} />
+            )}
+          </Flex>
+        )}
       </div>
     );
   }
