@@ -57,14 +57,13 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
   const supportAvailable = typeof supportUnavailableClass !== "string";
   const allRolesAvailable =
     damageAvailable && tankAvailable && supportAvailable;
-  const verticalSpacingClass = allRolesAvailable ? "mt-4" : "";
-  const horizontalSpacingClass = allRolesAvailable ? "" : "mr-4";
+  const headerMarginTop = allRolesAvailable ? 4 : 3;
+  const headerMarginRight = allRolesAvailable ? 0 : 4;
 
   const defenseHeroes = (
     <>
       <HeroGroupHeader
-        mt={allRolesAvailable ? 4 : 3}
-        mb={2}
+        mt={headerMarginTop}
         roleUnavailable={isRoleUnavailable("damage")}
       >
         <RoleImage
@@ -94,8 +93,8 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
       <div className="hero-box mb-3">
         {damageAvailable && (
           <>
-            <h5
-              className={`h5 border-bottom ${horizontalSpacingClass} pb-1 mb-2 ${damageUnavailableClass}`}
+            <HeroGroupHeader
+              mr={headerMarginRight}
             >
               <RoleImage
                 theme={theme}
@@ -104,7 +103,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
                 className="d-inline-block mr-1"
               />
               Flankers
-            </h5>
+            </HeroGroupHeader>
             <HeroCheckboxList
               theme={theme}
               heroes={HeroesByType.Flanker}
@@ -117,8 +116,9 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
         )}
         {tankAvailable && (
           <>
-            <h5
-              className={`h5 border-bottom pb-1 ${horizontalSpacingClass} ${verticalSpacingClass} mb-2 ${tankUnavailableClass}`}
+            <HeroGroupHeader
+              mt={headerMarginTop}
+              mr={headerMarginRight}
             >
               <RoleImage
                 theme={theme}
@@ -127,7 +127,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
                 className="d-inline-block mr-1"
               />
               Off-tanks
-            </h5>
+            </HeroGroupHeader>
             <HeroCheckboxList
               theme={theme}
               heroes={HeroesByType["Off-tank"]}
@@ -139,8 +139,9 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
         )}
         {supportAvailable && (
           <>
-            <h5
-              className={`h5 border-bottom pb-1 ${horizontalSpacingClass} ${verticalSpacingClass} mb-2 ${supportUnavailableClass}`}
+            <HeroGroupHeader
+              mt={headerMarginTop}
+              mr={headerMarginRight}
             >
               <RoleImage
                 theme={theme}
@@ -149,7 +150,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
                 className="d-inline-block mr-1"
               />
               Off-healers
-            </h5>
+            </HeroGroupHeader>
             <HeroCheckboxList
               theme={theme}
               heroes={HeroesByType["Off-healer"]}
@@ -163,8 +164,8 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
       <div className="hero-box mb-3">
         {damageAvailable && (
           <>
-            <h5
-              className={`h5 border-bottom pb-1 ${horizontalSpacingClass} mb-2 ${damageUnavailableClass}`}
+            <HeroGroupHeader
+              mr={headerMarginRight}
             >
               <RoleImage
                 theme={theme}
@@ -173,7 +174,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
                 className="d-inline-block mr-1"
               />
               Hitscan
-            </h5>
+            </HeroGroupHeader>
             <HeroCheckboxList
               theme={theme}
               heroes={HeroesByType.Hitscan}
@@ -185,8 +186,8 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
         )}
         {tankAvailable && (
           <>
-            <h5
-              className={`h5 border-bottom pb-1 ${verticalSpacingClass} mb-2 ${tankUnavailableClass}`}
+            <HeroGroupHeader
+              mt={headerMarginTop}
             >
               <RoleImage
                 theme={theme}
@@ -195,7 +196,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
                 className="d-inline-block mr-1"
               />
               Main tanks
-            </h5>
+            </HeroGroupHeader>
             <HeroCheckboxList
               theme={theme}
               heroes={HeroesByType["Main Tank"]}
@@ -207,8 +208,8 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
         )}
         {supportAvailable && (
           <>
-            <h5
-              className={`h5 border-bottom pb-1 mb-2 ${verticalSpacingClass} ${supportUnavailableClass}`}
+            <HeroGroupHeader
+              mt={headerMarginTop}
             >
               <RoleImage
                 theme={theme}
@@ -217,7 +218,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
                 className="d-inline-block mr-1"
               />
               Main healers
-            </h5>
+            </HeroGroupHeader>
             <HeroCheckboxList
               theme={theme}
               heroes={HeroesByType["Main Healer"]}
@@ -230,9 +231,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
       </div>
       {damageAvailable && (
         <div className="hero-box mb-3">
-          <h5
-            className={`h5 border-bottom pb-1 mb-2 ${damageUnavailableClass}`}
-          >
+          <HeroGroupHeader>
             <RoleImage
               theme={theme}
               role="damage"
@@ -240,7 +239,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
               className="d-inline-block mr-1"
             />
             DPS
-          </h5>
+          </HeroGroupHeader>
           <HeroCheckboxList
             theme={theme}
             heroes={HeroesByType.DPS}
