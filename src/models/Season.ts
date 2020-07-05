@@ -21,8 +21,10 @@ class Season {
   // First season where role queue was required for competitive.
   public static roleQueueSeasonStart: number = 18;
 
-  // First season where you could choose role queue or open queue for competitive.
-  public static openQueueSeasonStart: number = 23;
+  // First season where you could choose role queue or open queue for competitive
+  // and this app supported choosing between them. Overwatch introduced open
+  // queue alongside role queue in competitive with season 23.
+  public static openQueueSeasonStart: number = 24;
 
   static async latest() {
     const conditions = {};
