@@ -12,7 +12,6 @@ import AccountsPage from "./components/AccountsPage";
 import MatchesPage from "./components/MatchesPage";
 import HelpPage from "./components/HelpPage";
 import MatchCreatePage from "./components/MatchCreatePage";
-import SeasonsPage from "./components/SeasonsPage";
 import TrendsPage from "./components/TrendsPage";
 import AboutPage from "./components/AboutPage";
 import ImportPage from "./components/ImportPage";
@@ -63,8 +62,6 @@ function getTitle(
     titleParts.push("Log a Match");
   } else if (activePage === "trends") {
     titleParts.push("Trends");
-  } else if (activePage === "manage-seasons") {
-    titleParts.push("Manage Seasons");
   } else if (activePage === "edit-match") {
     titleParts.push("Edit Match");
   } else if (activePage === "import") {
@@ -298,7 +295,6 @@ const App = () => {
   const showHeader =
     activePage !== "about" &&
     activePage !== "settings" &&
-    activePage !== "manage-seasons" &&
     activePage !== "help";
 
   useEffect(() => {
@@ -387,17 +383,6 @@ const App = () => {
           />
         )}
 
-        {activePage === "manage-seasons" && (
-          <SeasonsPage
-            theme={theme}
-            latestSeason={latestSeason}
-            firstNonDeletableSeason={latestKnownSeason}
-            onCreate={changeActiveSeason}
-            onDelete={onSeasonDelete}
-            onPageChange={changeActivePage}
-          />
-        )}
-
         {activePage === "import" && activeAccount && activeAccount._id && (
           <ImportPage
             seasonNumber={activeSeason}
@@ -449,9 +434,11 @@ const App = () => {
           <AccountsPage
             accounts={accounts}
             season={activeSeason}
+            latestSeason={latestSeason}
             onCreate={refreshAccounts}
             onAccountChange={changeActiveAccount}
             onAccountUpdate={refreshAccounts}
+            onSeasonCreate={changeActiveSeason}
           />
         )}
       </LayoutContainer>

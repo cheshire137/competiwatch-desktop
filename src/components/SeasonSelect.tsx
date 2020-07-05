@@ -11,14 +11,12 @@ const getSeasonsList = (latestSeason: number) => {
 interface Props {
   latestSeason: number;
   activeSeason: number;
-  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   onSeasonChange: (season: number) => void;
 }
 
 const SeasonSelect = ({
   latestSeason,
   activeSeason,
-  onPageChange,
   onSeasonChange
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,11 +55,6 @@ const SeasonSelect = ({
     setIsOpen(false);
   };
 
-  const manageSeasons = () => {
-    setIsOpen(false);
-    onPageChange("manage-seasons");
-  };
-
   return (
     <div className="mr-2 my-2">
       <div className={containerClass()}>
@@ -89,14 +82,6 @@ const SeasonSelect = ({
                   <span className="select-menu-item-text">Season {season}</span>
                 </button>
               ))}
-              <button
-                className="select-menu-item text-bold text-left width-full btn-link"
-                type="button"
-                onClick={manageSeasons}
-              >
-                <span className="ion ion-ios-checkmark select-menu-item-icon" />
-                <span className="select-menu-item-text">Manage seasons</span>
-              </button>
             </div>
           </div>
         </div>

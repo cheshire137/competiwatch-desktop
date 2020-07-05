@@ -7,10 +7,9 @@ import LinkButton from "./LinkButton";
 interface Props {
   onCreate: (season: number) => void;
   latestSeason: number;
-  theme: string;
 }
 
-const SeasonForm = ({ theme, onCreate, latestSeason }: Props) => {
+const SeasonForm = ({ onCreate, latestSeason }: Props) => {
   const [season, setSeason] = useState("");
   const [isValid, setIsValid] = useState(false);
 

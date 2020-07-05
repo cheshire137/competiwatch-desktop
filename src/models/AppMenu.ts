@@ -290,23 +290,11 @@ class AppMenu {
     };
   }
 
-  manageSeasonsMenuItem() {
-    const self = this;
-
-    return {
-      label: "Manage Seasons",
-      click() {
-        self.onPageChange("manage-seasons");
-      }
-    };
-  }
-
   seasonSubmenu() {
     const submenu = [];
     for (let season = this.latestSeason; season >= 1; season--) {
       submenu.push(this.seasonMenuItem(season));
     }
-    submenu.push(this.manageSeasonsMenuItem());
     return submenu;
   }
 

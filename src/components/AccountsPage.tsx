@@ -1,6 +1,7 @@
 import React from "react";
 import AccountForm from "./AccountForm";
 import Account from "../models/Account";
+import SeasonForm from "./SeasonForm";
 import AccountsList from "./AccountsList";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
@@ -8,8 +9,10 @@ interface Props {
   onAccountChange: (id: string) => void;
   onAccountUpdate: () => void;
   onCreate?: () => void;
+  onSeasonCreate: (season: number) => void;
   accounts: Account[];
   season: number;
+  latestSeason: number;
 }
 
 const AccountsPage = ({
@@ -17,7 +20,9 @@ const AccountsPage = ({
   onAccountUpdate,
   season,
   accounts,
-  onCreate
+  onCreate,
+  onSeasonCreate,
+  latestSeason
 }: Props) => (
   <LayoutChildrenContainer>
     {accounts.length < 1 && (
@@ -72,6 +77,11 @@ const AccountsPage = ({
             </p>
           )}
         </div>
+
+        <SeasonForm
+          latestSeason={latestSeason}
+          onCreate={onSeasonCreate}
+        />
       </div>
     </div>
   </LayoutChildrenContainer>

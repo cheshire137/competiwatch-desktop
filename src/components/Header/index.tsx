@@ -35,7 +35,6 @@ const Header = ({
           activeSeason={activeSeason}
           latestSeason={latestSeason}
           onSeasonChange={onSeasonChange}
-          onPageChange={onPageChange}
         />
       )}
       {activeAccount && (
