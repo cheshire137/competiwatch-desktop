@@ -4,28 +4,12 @@ import LoadingPage from "./LoadingPage";
 
 interface Props {
   activeSeason: Season;
+  seasons: Season[];
   onSeasonChange: (season: Season) => void;
 }
 
-const SeasonSelect = ({ activeSeason, onSeasonChange }: Props) => {
+const SeasonSelect = ({ activeSeason, seasons, onSeasonChange }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [seasons, setSeasons] = useState<Season[] | null>(null);
-
-  useEffect(() => {
-    async function getSeasons() {
-      const allSeasons = await Season.findAll();
-      console.log(allSeasons);
-      setSeasons(allSeasons);
-    }
-
-    if (seasons === null) {
-      getSeasons();
-    }
-  });
-
-  if (seasons === null) {
-    return <LoadingPage />;
-  }
 
   const containerClass = () => {
     const classes = ["select-menu", "d-inline-block"];

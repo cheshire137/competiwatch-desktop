@@ -116,11 +116,11 @@ const App = () => {
   };
 
   async function loadSeasons() {
-    const seasons = await Season.findAll();
-    const season = seasons[0];
+    const allSeasons = await Season.findAll();
+    const season = allSeasons[0];
     const totalMatches = await season.totalMatches();
 
-    setSeasons(seasons);
+    setSeasons(allSeasons);
     if (latestSeason === null || season.number > latestSeason.number) {
       setLatestSeason(season);
     }
@@ -138,11 +138,6 @@ const App = () => {
     const allAccounts = await Account.findAll();
     setAccounts(allAccounts);
   }
-
-  const onSeasonCreate = (newSeason: Season, allSeasons: Season[]) => {
-    setSeasons(allSeasons);
-    changeActiveSeason(newSeason);
-  };
 
   const changeActiveSeason = (newSeason: Season) => {
     setActiveSeason(newSeason);
@@ -272,12 +267,18 @@ const App = () => {
     changeActivePage("matches");
   };
 
-  const onSeasonDelete = (deletedSeason: Season, priorSeason: Season) => {
+  const onSeasonCreate = (newSeason: Season, allSeasons: Season[]) => {
+    setSeasons(allSeasons);
+    changeActiveSeason(newSeason);
+  };
+
+  const onSeasonDelete = (deletedSeason: Season, allSeasons: Season[]) => {
+    setSeasons(allSeasons);
     if (latestSeason && latestSeason.equals(deletedSeason)) {
-      setLatestSeason(priorSeason);
+      setLatestSeason(allSeasons[0]);
     }
     if (activeSeason && activeSeason.equals(deletedSeason)) {
-      setActiveSeason(priorSeason);
+      changeActiveSeason(allSeasons[0]);
     }
   };
 
@@ -327,7 +328,7 @@ const App = () => {
 
   useEffect(() => {
     setTitle(getTitle(activePage, activeSeason, activeAccount));
-  }, [activeAccount && activeAccount._id, activeSeason, activePage]);
+  }, [activeAccount && activeAccount._id, activeSeason && activeSeason.number, activeSeason && activeSeason.openQueue, activePage]);
 
   useEffect(() => {
     if (accounts.length < 1 || !activeSeason || seasons.length < 1) {
@@ -348,9 +349,12 @@ const App = () => {
     });
   }, [
     activeAccount && activeAccount._id,
-    latestSeason,
-    activeSeason,
-    accounts.length
+    latestSeason && latestSeason.number,
+    latestSeason && latestSeason.openQueue,
+    activeSeason && activeSeason.number,
+    activeSeason && activeSeason.openQueue,
+    accounts.length,
+    seasons.length
   ]);
 
   if (activeSeason === null) {
@@ -369,6 +373,7 @@ const App = () => {
         {showHeader && (
           <Header
             accounts={accounts}
+            seasons={seasons}
             activePage={activePage}
             activeAccount={activeAccount}
             onPageChange={changeActivePage}

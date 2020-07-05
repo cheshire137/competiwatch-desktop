@@ -9,7 +9,7 @@ interface SeasonData {
 }
 
 const getNumberAndOpenQueue = (num: number, openQueue: boolean) => {
-  return `${num}-open-queue-${openQueue}`;
+  return `${num}-${openQueue ? "open-queue" : "role-queue"}`;
 };
 
 const defaultSort = { number: -1, numberAndOpenQueue: -1 };
@@ -156,15 +156,17 @@ class Season {
   }
 
   delete() {
-    const conditions = { number: this.number };
-    return Database.deleteSome("seasons", conditions);
+    if (this._id) {
+      return Database.delete("seasons", this._id);
+    }
+    return Database.deleteSome("seasons", { number: this.number });
   }
 
   async priorSeason() {
     const conditions = { number: this.number - 1 };
-    const season = await Database.findOne("seasons", conditions);
-    if (season) {
-      return season;
+    const data = await Database.findOne("seasons", conditions);
+    if (data) {
+      return new Season(data);
     }
     return new Season(conditions);
   }

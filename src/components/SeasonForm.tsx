@@ -6,7 +6,7 @@ import SeasonDeleteForm from "./SeasonDeleteForm";
 interface Props {
   onCreate: (newSeason: Season, allSeasons: Season[]) => void;
   latestSeason: Season;
-  onDelete: (season: Season, priorSeason: Season) => void;
+  onDelete: (season: Season, allSeasons: Season[]) => void;
   latestSeasonCanBeDeleted: boolean;
 }
 
@@ -28,7 +28,7 @@ const SeasonForm = ({
     }
 
     const seasonNumber = parseInt(season, 10);
-    const newSeason = new Season({ number: seasonNumber });
+    const newSeason = new Season({ number: seasonNumber, openQueue: openQueue });
     await newSeason.save();
     const seasons = await Season.findAll();
 

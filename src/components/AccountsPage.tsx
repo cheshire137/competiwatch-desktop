@@ -15,7 +15,7 @@ interface Props {
   accounts: Account[];
   season: Season;
   latestSeason: Season;
-  onSeasonDelete: (season: Season, priorSeason: Season) => void;
+  onSeasonDelete: (season: Season, allSeasons: Season[]) => void;
   latestSeasonCanBeDeleted: boolean;
 }
 
