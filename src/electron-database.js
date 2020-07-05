@@ -41,9 +41,9 @@ const loadSeasonsDatabase = () => {
   const db = new Datastore({ filename });
 
   db.loadDatabase();
-  db.ensureIndex({ fieldName: "number", unique: true }, err => {
+  db.ensureIndex({ fieldName: "numberAndOpenQueue", unique: true, sparse: true }, err => {
     if (err) {
-      log.error("failed to add seasons.number index", err);
+      log.error("failed to add seasons.numberAndOpenQueue index", err);
     }
   });
 

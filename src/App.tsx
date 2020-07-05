@@ -25,8 +25,6 @@ import { setTitle, showSaveDialog } from "./utils/electronUtils";
 import getAppTheme from "./utils/getAppTheme";
 import { ThemeProvider } from "styled-components";
 
-const latestKnownSeason = 23;
-
 const isNighttime = () => {
   const currentTime = new Date();
   const hours = currentTime.getHours();
@@ -90,11 +88,11 @@ function getTitle(
 const App = () => {
   const [latestRank, setLatestRank] = useState(2500);
   const themeInterval = useRef<number | null>(null);
-  const [latestSeason, setLatestSeason] = useState(latestKnownSeason);
+  const [latestSeason, setLatestSeason] = useState(Season.latestKnownSeason);
   const [scrollToMatchID, setScrollToMatchID] = useState<string | null>(null);
   const [theme, setTheme] = useState("light");
   const [activeAccount, setActiveAccount] = useState<Account | null>(null);
-  const [activeSeason, setActiveSeason] = useState<number>(latestKnownSeason);
+  const [activeSeason, setActiveSeason] = useState<number>(Season.latestKnownSeason);
   const [accounts, setAccounts] = useState<Array<Account>>([]);
   const [activeMatchID, setActiveMatchID] = useState<string | null>(null);
   const [activePage, setActivePage] = useState<string>("accounts");
@@ -117,7 +115,7 @@ const App = () => {
 
   async function loadLatestSeason() {
     const season = await Season.latest();
-    let latestNumber = latestKnownSeason;
+    let latestNumber = Season.latestKnownSeason;
     if (season && season.number > latestNumber) {
       latestNumber = season.number;
     }
@@ -445,7 +443,7 @@ const App = () => {
             onAccountUpdate={refreshAccounts}
             onSeasonCreate={changeActiveSeason}
             onSeasonDelete={onSeasonDelete}
-            latestSeasonCanBeDeleted={latestSeason > latestKnownSeason && latestSeasonTotalMatches === 0}
+            latestSeasonCanBeDeleted={latestSeason > Season.latestKnownSeason && latestSeasonTotalMatches === 0}
           />
         )}
       </LayoutContainer>

@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import Season from "../models/Season";
-import PackageInfo from "../../package.json";
-import { openLinkInBrowser, getAppName } from "../utils/electronUtils";
-import LinkButton from "./LinkButton";
 import { Button, Box, Flex, TextInput } from "@primer/components";
 import SeasonDeleteForm from "./SeasonDeleteForm";
 import Note from "./Note";
@@ -17,6 +14,7 @@ interface Props {
 const SeasonForm = ({ onCreate, latestSeason, onDelete, latestSeasonCanBeDeleted }: Props) => {
   const [season, setSeason] = useState("");
   const [isValid, setIsValid] = useState(false);
+  const [openQueue, setOpenQueue] = useState(latestSeason < Season.roleQueueSeasonStart);
 
   const saveSeason = async () => {
     if (!isValid) {
@@ -30,30 +28,39 @@ const SeasonForm = ({ onCreate, latestSeason, onDelete, latestSeasonCanBeDeleted
     onCreate(seasonNumber);
   };
 
-  const onSeasonChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const seasonStr = event.target.value;
-    if (seasonStr.length < 1) {
-      setSeason(seasonStr);
+  const checkValidity = async (numberStr: string, roleQueueChecked: boolean) => {
+    if (numberStr.length < 1) {
       setIsValid(false);
       return;
     }
 
-    setSeason(seasonStr);
-    setIsValid(parseInt(seasonStr, 10) > latestSeason);
+    const newNumberValue = parseInt(numberStr, 10);
+    const newOpenQueueValue = !roleQueueChecked;
+
+    const seasonAlreadyExists = await Season.exists(newNumberValue, newOpenQueueValue);
+    setIsValid(!seasonAlreadyExists);
   };
 
-  const openReleasesPage = () => {
-    const repoUrl = PackageInfo.repository.url;
-    const joiner = repoUrl.substr(-1) === "/" ? "" : "/";
-    const releasesUrl = `${repoUrl}${joiner}releases`;
+  const onSeasonNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const numberStr = event.target.value;
+    if (numberStr.length < 1) {
+      setSeason(numberStr);
+      setIsValid(false);
+      return;
+    }
 
-    openLinkInBrowser(releasesUrl);
+    setSeason(numberStr);
+    checkValidity(numberStr, !openQueue);
   };
 
-  const appName = getAppName();
+  const onRoleQueueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const roleQueueChecked = event.target.checked;
+    setOpenQueue(!roleQueueChecked);
+    checkValidity(season, roleQueueChecked);
+  };
 
   return (
-    <Box mt={3}>
+    <Box mt={4}>
       <form
         onSubmit={evt => {
           evt.preventDefault();
@@ -69,7 +76,7 @@ const SeasonForm = ({ onCreate, latestSeason, onDelete, latestSeasonCanBeDeleted
             id="season-number"
             type="number"
             value={season}
-            onChange={onSeasonChange}
+            onChange={onSeasonNumberChange}
             min={latestSeason + 1}
             step="1"
             required
@@ -78,13 +85,18 @@ const SeasonForm = ({ onCreate, latestSeason, onDelete, latestSeasonCanBeDeleted
             Add season
           </Button>
         </Flex>
-        <Note>
-          <span>A </span>
-          <LinkButton onClick={openReleasesPage}>new version</LinkButton>
-          <span> of </span>
-          {appName} may have the latest competitive season, or you can add
-          a season to continue logging matches.
-        </Note>
+        <Box mt={2}>
+          <label htmlFor="season-role-queue">
+            <input
+              type="checkbox"
+              id="season-role-queue"
+              checked={!openQueue}
+              onChange={onRoleQueueChange}
+            />
+            <Box ml="1" display="inline-block">Role queue</Box>
+          </label>
+          <Note>Leave unchecked to create an open queue season.</Note>
+        </Box>
       </form>
       {latestSeasonCanBeDeleted && (
         <SeasonDeleteForm seasonNumber={latestSeason} onDelete={onDelete} />
