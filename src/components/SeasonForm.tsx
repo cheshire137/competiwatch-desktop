@@ -3,6 +3,8 @@ import Season from "../models/Season";
 import PackageInfo from "../../package.json";
 import { openLinkInBrowser, getAppName } from "../utils/electronUtils";
 import LinkButton from "./LinkButton";
+import { Button, Box } from "@primer/components";
+import Note from "./Note";
 
 interface Props {
   onCreate: (season: number) => void;
@@ -48,44 +50,45 @@ const SeasonForm = ({ onCreate, latestSeason }: Props) => {
   const appName = getAppName();
 
   return (
-    <form
-      className="Box p-3"
-      onSubmit={evt => {
-        evt.preventDefault();
-        saveSeason();
-      }}
-    >
-      <h2 className="h2 text-normal mb-2">Add a season</h2>
-      <p>
-        <span>A </span>
-        <LinkButton onClick={openReleasesPage}>new version</LinkButton>
-        <span> of </span>
-        {appName} may have the latest competitive season. If you can't update
-        for some reason, you can add a season to continue logging matches.
-      </p>
-      <dl className="form-group mt-0">
-        <dt>
-          <label htmlFor="season-number">Season number:</label>
-        </dt>
-        <dd>
-          <input
-            id="season-number"
-            type="number"
-            className="form-control"
-            value={season}
-            onChange={onSeasonChange}
-            min={latestSeason + 1}
-            step="1"
-            required
-          />
-        </dd>
-      </dl>
-      <div className="form-actions">
-        <button type="submit" className="btn" disabled={!isValid}>
-          Add season
-        </button>
-      </div>
-    </form>
+    <Box mt={3}>
+      <form
+        onSubmit={evt => {
+          evt.preventDefault();
+          saveSeason();
+        }}
+      >
+        <h2 className="h2 text-normal mb-2">Add a season</h2>
+        <dl className="form-group mt-0">
+          <dt>
+            <label htmlFor="season-number">Season number:</label>
+          </dt>
+          <dd>
+            <input
+              id="season-number"
+              type="number"
+              className="form-control"
+              value={season}
+              onChange={onSeasonChange}
+              min={latestSeason + 1}
+              step="1"
+              required
+            />
+          </dd>
+        </dl>
+        <div className="form-actions">
+          <Button type="submit" disabled={!isValid}>
+            Add season
+          </Button>
+        </div>
+        <Note>
+          <span>A </span>
+          <LinkButton onClick={openReleasesPage}>new version</LinkButton>
+          <span> of </span>
+          {appName} may have the latest competitive season. If you can't update
+          for some reason, you can add a season to continue logging matches.
+        </Note>
+      </form>
+    </Box>
   );
 };
 
