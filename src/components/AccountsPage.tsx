@@ -11,7 +11,7 @@ interface Props {
   onAccountChange: (id: string) => void;
   onAccountUpdate: () => void;
   onCreate?: () => void;
-  onSeasonCreate: (season: Season) => void;
+  onSeasonCreate: (newSeason: Season, allSeasons: Season[]) => void;
   accounts: Account[];
   season: Season;
   latestSeason: Season;

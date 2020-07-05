@@ -189,7 +189,7 @@ const AccountListItem = ({
                 </span>
               </>
             ) : (
-              <span>No matches in season {season.number} ({season.description()}</span>
+              <span>No matches in season {season.number} ({season.description()})</span>
             )}
           </AccountMeta>
           <ButtonShownOnHover onClick={() => setShowEditForm(!showEditForm)}>

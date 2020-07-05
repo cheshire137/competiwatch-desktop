@@ -43,9 +43,9 @@ const SeasonSelect = ({ activeSeason, onSeasonChange }: Props) => {
     return classes.join(" ");
   };
 
-  const seasonButtonClass = (seasonNumber: number) => {
+  const seasonButtonClass = (season: Season) => {
     const classes = ["select-menu-item", "text-left", "width-full", "btn-link"];
-    if (activeSeason.number === seasonNumber) {
+    if (activeSeason.equals(season)) {
       classes.push("selected");
     }
     return classes.join(" ");
@@ -74,7 +74,7 @@ const SeasonSelect = ({ activeSeason, onSeasonChange }: Props) => {
             <div className="select-menu-list">
               {seasons.map(season => (
                 <button
-                  className={seasonButtonClass(season.number)}
+                  className={seasonButtonClass(season)}
                   key={season.numberAndOpenQueue}
                   type="button"
                   onClick={e => onChange(e, season)}

@@ -98,11 +98,23 @@ class Season {
     const rows: SeasonData[] = await Database.findAll("seasons", defaultSort);
     const seasons = rows.map(data => new Season(data));
     const seenNumbers = seasons.map(s => s.number);
+    const seenOpenQueueNumbers = seasons.filter(s => s.openQueue).map(s => s.number);
+    const seenRoleQueueNumbers = seasons.filter(s => !s.openQueue).map(s => s.number);
     for (
       let seasonNumber = Season.latestKnownSeason;
       seasonNumber >= 1;
       seasonNumber--
     ) {
+      if (seasonNumber >= Season.openQueueSeasonStart && !seenOpenQueueNumbers.includes(seasonNumber)) {
+        seasons.push(new Season({ number: seasonNumber, openQueue: true }));
+        seenNumbers.push(seasonNumber);
+        seenOpenQueueNumbers.push(seasonNumber);
+      }
+      if (seasonNumber >= Season.roleQueueSeasonStart && !seenRoleQueueNumbers.includes(seasonNumber)) {
+        seasons.push(new Season({ number: seasonNumber, openQueue: false }));
+        seenNumbers.push(seasonNumber);
+        seenRoleQueueNumbers.push(seasonNumber);
+      }
       if (!seenNumbers.includes(seasonNumber)) {
         seasons.push(new Season({ number: seasonNumber }));
       }

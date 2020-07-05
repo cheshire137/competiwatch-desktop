@@ -139,6 +139,11 @@ const App = () => {
     setAccounts(allAccounts);
   }
 
+  const onSeasonCreate = (newSeason: Season, allSeasons: Season[]) => {
+    setSeasons(allSeasons);
+    changeActiveSeason(newSeason);
+  };
+
   const changeActiveSeason = (newSeason: Season) => {
     setActiveSeason(newSeason);
     if (activeMatchID) {
@@ -452,7 +457,7 @@ const App = () => {
             onCreate={refreshAccounts}
             onAccountChange={changeActiveAccount}
             onAccountUpdate={refreshAccounts}
-            onSeasonCreate={changeActiveSeason}
+            onSeasonCreate={onSeasonCreate}
             onSeasonDelete={onSeasonDelete}
             latestSeasonCanBeDeleted={
               latestSeason ? latestSeason.number > Season.latestKnownSeason && latestSeasonTotalMatches === 0 : false

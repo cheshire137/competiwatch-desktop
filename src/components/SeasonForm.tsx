@@ -4,7 +4,7 @@ import { Button, Box, Flex, TextInput } from "@primer/components";
 import SeasonDeleteForm from "./SeasonDeleteForm";
 
 interface Props {
-  onCreate: (season: Season) => void;
+  onCreate: (newSeason: Season, allSeasons: Season[]) => void;
   latestSeason: Season;
   onDelete: (season: Season, priorSeason: Season) => void;
   latestSeasonCanBeDeleted: boolean;
@@ -30,9 +30,10 @@ const SeasonForm = ({
     const seasonNumber = parseInt(season, 10);
     const newSeason = new Season({ number: seasonNumber });
     await newSeason.save();
+    const seasons = await Season.findAll();
 
     setSeason("");
-    onCreate(newSeason);
+    onCreate(newSeason, seasons);
   };
 
   const checkValidity = async (
@@ -112,7 +113,7 @@ const SeasonForm = ({
             type="number"
             value={season}
             onChange={onSeasonNumberChange}
-            min={latestSeason.number + 1}
+            min={Season.openQueueSeasonStart}
             step="1"
             required
           />
