@@ -12,6 +12,8 @@ const getNumberAndOpenQueue = (num: number, openQueue: boolean) => {
   return `${num}-open-queue-${openQueue}`;
 };
 
+const defaultSort = { number: -1, numberAndOpenQueue: -1 };
+
 class Season {
   // Latest season of competitive available at this time.
   public static latestKnownSeason: number = 23;
@@ -79,6 +81,33 @@ class Season {
     }
 
     return season >= this.roleQueueSeasonStart && season <= this.openQueueSeasonStart;
+  }
+
+  static async findAll() {
+    const rows: SeasonData[] = await Database.findAll(
+      "seasons",
+      defaultSort
+    );
+    const seasons = rows.map(data => new Season(data));
+    const seenNumbers = seasons.map(s => s.number);
+    for (let seasonNumber = Season.latestKnownSeason; seasonNumber >= 1; seasonNumber--) {
+      if (!seenNumbers.includes(seasonNumber)) {
+        seasons.push(new Season({ number: seasonNumber }));
+      }
+    }
+    return seasons.sort((a, b) => {
+      if (a.number > b.number) {
+        return -1;
+      }
+      return a.number === b.number ? 0 : 1;
+    });
+  }
+
+  description() {
+    if (this.openQueue) {
+      return "open queue";
+    }
+    return "role queue";
   }
 
   async save() {

@@ -37,6 +37,18 @@ const SeasonForm = ({ onCreate, latestSeason, onDelete, latestSeasonCanBeDeleted
     const newNumberValue = parseInt(numberStr, 10);
     const newOpenQueueValue = !roleQueueChecked;
 
+    // Check if role queue existed yet
+    if (roleQueueChecked && newNumberValue < Season.roleQueueSeasonStart) {
+      setIsValid(false);
+      return;
+    }
+
+    // Check if open queue existed yet
+    if (!roleQueueChecked && newNumberValue >= Season.roleQueueSeasonStart && newNumberValue < Season.openQueueSeasonStart) {
+      setIsValid(false);
+      return;
+    }
+
     const seasonAlreadyExists = await Season.exists(newNumberValue, newOpenQueueValue);
     setIsValid(!seasonAlreadyExists);
   };

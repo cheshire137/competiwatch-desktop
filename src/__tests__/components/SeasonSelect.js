@@ -4,10 +4,9 @@ import SeasonSelect from "../../components/SeasonSelect";
 
 it("renders", () => {
   const div = document.createElement("div");
-  const latestSeason = 11;
   const activeSeason = 10;
   ReactDOM.render(
-    <SeasonSelect activeSeason={activeSeason} latestSeason={latestSeason} />,
+    <SeasonSelect activeSeason={activeSeason} />,
     div
   );
   ReactDOM.unmountComponentAtNode(div);

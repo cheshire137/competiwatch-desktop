@@ -7,7 +7,6 @@ import StickyBar from "./StickyBar";
 
 interface Props {
   activeSeason: number;
-  latestSeason: number;
   onSeasonChange: (newNumber: number) => void;
   accounts: Array<Account>;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
@@ -19,7 +18,6 @@ interface Props {
 
 const Header = ({
   activeSeason,
-  latestSeason,
   onSeasonChange,
   accounts,
   onPageChange,
@@ -33,7 +31,6 @@ const Header = ({
       {accounts && accounts.length > 0 && (
         <SeasonSelect
           activeSeason={activeSeason}
-          latestSeason={latestSeason}
           onSeasonChange={onSeasonChange}
         />
       )}

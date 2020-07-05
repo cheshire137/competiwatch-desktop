@@ -356,7 +356,6 @@ const App = () => {
             activeAccount={activeAccount}
             onPageChange={changeActivePage}
             activeSeason={activeSeason}
-            latestSeason={latestSeason}
             onSeasonChange={changeActiveSeason}
             onAccountChange={changeActiveAccount}
             onExport={exportSeason}
