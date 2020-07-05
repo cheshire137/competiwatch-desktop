@@ -1,5 +1,6 @@
 import React from "react";
 import Account from "../models/Account";
+import Season from "../models/Season";
 import SeasonForm from "./SeasonForm";
 import AddAccountForm from "./AddAccountForm";
 import AccountsList from "./AccountsList";
@@ -10,11 +11,11 @@ interface Props {
   onAccountChange: (id: string) => void;
   onAccountUpdate: () => void;
   onCreate?: () => void;
-  onSeasonCreate: (season: number) => void;
+  onSeasonCreate: (season: Season) => void;
   accounts: Account[];
-  season: number;
-  latestSeason: number;
-  onSeasonDelete: (season: number) => void;
+  season: Season;
+  latestSeason: Season;
+  onSeasonDelete: (season: Season, priorSeason: Season) => void;
   latestSeasonCanBeDeleted: boolean;
 }
 

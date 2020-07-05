@@ -1,5 +1,6 @@
 import stringify from "csv-stringify";
 import Match from "./Match";
+import Season from "./Season";
 import { writeFile } from "../utils/electronUtils";
 
 const headers = [
@@ -25,7 +26,8 @@ const headers = [
   "Ally Thrower",
   "Enemy Leaver",
   "Enemy Thrower",
-  "Joined Voice"
+  "Joined Voice",
+  "Open Queue"
 ];
 
 const charForBoolean = (bool?: boolean) => {
@@ -34,13 +36,13 @@ const charForBoolean = (bool?: boolean) => {
 
 class CsvExporter {
   path: string;
-  season: number;
+  season: Season;
   battletag: string;
   accountID: string;
 
   constructor(
     path: string,
-    season: number,
+    season: Season,
     accountID: string,
     battletag: string
   ) {
@@ -123,6 +125,9 @@ class CsvExporter {
     }
     if (header === "Season") {
       return match.season;
+    }
+    if (header === "Open Queue") {
+      return charForBoolean(match.openQueue);
     }
     if (header === "Battletag") {
       return this.battletag;

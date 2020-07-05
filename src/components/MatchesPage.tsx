@@ -1,11 +1,12 @@
 import React from "react";
 import MatchesList from "./MatchesList";
 import Account from "../models/Account";
+import Season from "../models/Season";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
 interface Props {
   account: Account;
-  season: number;
+  season: Season;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   scrollToMatchID: string | null;
   theme: string;

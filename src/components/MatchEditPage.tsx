@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import MatchDeleteForm from "./MatchDeleteForm";
 import MatchForm from "./MatchForm";
 import Match from "../models/Match";
+import Season from "../models/Season";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
 interface Props {
   accountID: string;
-  season: number;
+  season: Season;
   id: string;
   theme: string;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
@@ -58,7 +59,7 @@ const MatchEditPage = ({
           id={id}
           priorMatches={getPriorMatches(matches, id)}
           theme={theme}
-          season={match.season}
+          season={season}
           accountID={match.accountID}
           isPlacement={match.isPlacement}
           isLastPlacement={isLastPlacement}

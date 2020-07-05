@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import CsvImporter from "../../models/CsvImporter";
 import Match from "../../models/Match";
 import Account from "../../models/Account";
+import Season from "../../models/Season";
 import "./ImportForm.css";
 
 interface Props {
   onImport: (matches: Match[]) => void;
-  season: number;
+  season: Season;
   account: Account;
 }
 
@@ -53,7 +54,7 @@ const ImportForm = ({ onImport, season, account }: Props) => {
 
   const wipeSeasonAndImport = async () => {
     const logEntries = importLogEntries.slice(0);
-    const message = `Deleting ${account.battletag}'s existing matches in season ${season}...`;
+    const message = `Deleting ${account.battletag}'s existing matches in season ${season.number} (${season.description()})...`;
 
     logEntries.unshift({ message, key: "wipe-notice" });
 

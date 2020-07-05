@@ -6,12 +6,13 @@ import TrendsTab from "./TrendsTab";
 import ExportButton from "./ExportButton";
 import LogMatchButton from "./LogMatchButton";
 import Account from "../../models/Account";
+import Season from "../../models/Season";
 import { Flex } from "@primer/components";
 
 interface Props {
   activePage: string;
   activeAccount: Account | null;
-  activeSeason: number;
+  activeSeason: Season;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   onExport: () => void;
 }

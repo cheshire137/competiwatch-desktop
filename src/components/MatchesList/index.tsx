@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MatchesTable from "../MatchesTable";
 import LoadingPage from "../LoadingPage";
 import Match from "../../models/Match";
+import Season from "../../models/Season";
 import Account from "../../models/Account";
 import "./MatchesList.css";
 import LinkButton from "../LinkButton";
@@ -9,7 +10,7 @@ import Blankslate from "../Blankslate";
 
 interface Props {
   account: Account;
-  season: number;
+  season: Season;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   scrollToMatchID: string | null;
   theme: string;

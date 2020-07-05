@@ -3,8 +3,8 @@ import Season from "../models/Season";
 import LoadingPage from "./LoadingPage";
 
 interface Props {
-  activeSeason: number;
-  onSeasonChange: (season: number) => void;
+  activeSeason: Season;
+  onSeasonChange: (season: Season) => void;
 }
 
 const SeasonSelect = ({ activeSeason, onSeasonChange }: Props) => {
@@ -43,19 +43,16 @@ const SeasonSelect = ({ activeSeason, onSeasonChange }: Props) => {
     return classes.join(" ");
   };
 
-  const seasonButtonClass = (season: number) => {
+  const seasonButtonClass = (seasonNumber: number) => {
     const classes = ["select-menu-item", "text-left", "width-full", "btn-link"];
-    if (activeSeason === season) {
+    if (activeSeason.number === seasonNumber) {
       classes.push("selected");
     }
     return classes.join(" ");
   };
 
-  const onChange = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const button = event.currentTarget;
-    const season = parseInt(button.value, 10);
-
-    button.blur();
+  const onChange = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>, season: Season) => {
+    event.currentTarget.blur();
     onSeasonChange(season);
     setIsOpen(false);
   };
@@ -70,7 +67,7 @@ const SeasonSelect = ({ activeSeason, onSeasonChange }: Props) => {
           aria-haspopup="true"
           aria-expanded="false"
         >
-          Season {activeSeason}
+          Season {activeSeason.number} ({activeSeason.description()})
         </button>
         <div className="select-menu-modal-holder">
           <div className="select-menu-modal">
@@ -80,8 +77,7 @@ const SeasonSelect = ({ activeSeason, onSeasonChange }: Props) => {
                   className={seasonButtonClass(season.number)}
                   key={season.numberAndOpenQueue}
                   type="button"
-                  value={season.number}
-                  onClick={onChange}
+                  onClick={e => onChange(e, season)}
                 >
                   <span className="ion ion-ios-checkmark select-menu-item-icon" />
                   <span className="select-menu-item-text">

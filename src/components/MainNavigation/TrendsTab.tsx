@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Account from "../../models/Account";
+import Season from "../../models/Season";
 import Tab from "./Tab";
 
 interface Props {
   activePage: string;
   activeAccount: Account;
-  activeSeason: number;
+  activeSeason: Season;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }
 

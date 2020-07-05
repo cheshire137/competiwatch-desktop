@@ -18,11 +18,11 @@ import "./MatchForm.css";
 import LinkButton from "../LinkButton";
 import { Flex } from "@primer/components";
 
-const shouldEnableRankField = (season: number, role?: HeroRole | null) => {
+const shouldEnableRankField = (season: Season, role?: HeroRole | null) => {
   if (role) {
     return true;
   }
-  return season < Season.roleQueueSeasonStart;
+  return season.openQueue;
 };
 
 const roleForHero = (hero: Hero): HeroRole => {
@@ -82,7 +82,7 @@ interface Props {
   id?: string;
   comment?: string;
   map?: Map;
-  season: number;
+  season: Season;
   priorMatches: Match[];
   role?: HeroRole | null;
   rank?: number;
@@ -99,7 +99,7 @@ interface Props {
 
 interface MatchValidityProps {
   group?: string;
-  season: number;
+  season: Season;
   groupSize: number;
   rank?: number;
   result?: MatchResult;
@@ -131,7 +131,7 @@ const isMatchValid = ({
   }
 
   if (
-    season >= Season.roleQueueSeasonStart &&
+    !season.openQueue &&
     (typeof role !== "string" || role.length < 1)
   ) {
     return false;
@@ -191,7 +191,7 @@ const getPlacementStatus = (props: Props): PlacementStatus => {
   let isLastPlacement = props.isLastPlacement;
   if (typeof isPlacement !== "boolean") {
     const priorPlacements = props.priorMatches.filter(m => m.isPlacement);
-    if (props.season < Season.roleQueueSeasonStart) {
+    if (props.season.openQueue) {
       // no role queue
       isPlacement = priorPlacements.length < 10;
       isLastPlacement = priorPlacements.length === 9;
@@ -313,7 +313,8 @@ const MatchForm = (props: Props) => {
       enemyCheater,
       playOfTheGame,
       joinedVoice,
-      season: props.season,
+      season: props.season.number,
+      openQueue: props.season.openQueue,
       role: role || undefined,
       isPlacement,
       _id: props.id,
@@ -478,7 +479,7 @@ const MatchForm = (props: Props) => {
     setRole(newRole);
     setHeroes(selectedHeroes.join(", "));
 
-    if (season >= Season.roleQueueSeasonStart) {
+    if (!season.openQueue) {
       if (priorPlacementMatchesInRole.length < 5) {
         setIsPlacement(true);
         setIsLastPlacement(priorPlacementMatchesInRole.length === 4);
@@ -500,7 +501,7 @@ const MatchForm = (props: Props) => {
     setHeroes(newHeroes);
     const { season } = props;
 
-    if (season >= Season.roleQueueSeasonStart) {
+    if (!season.openQueue) {
       if (isSelected && (typeof role !== "string" || role.length < 1)) {
         const newRole = roleForHero(hero);
         setRole(newRole);
@@ -626,7 +627,7 @@ const MatchForm = (props: Props) => {
     }
 
     // Role selection is required first
-    if (season >= Season.roleQueueSeasonStart && !role) {
+    if (!season.openQueue && !role) {
       return;
     }
 
@@ -656,7 +657,7 @@ const MatchForm = (props: Props) => {
     >
       <div className="clearfix">
         <div className="col-md-12 col-lg-6 float-left pr-3-lg">
-          {season >= Season.roleQueueSeasonStart && (
+          {!season.openQueue && (
             <div className="form-group mt-0">
               <span className="f3 mr-4">Role played:</span>
               <RoleSelect
@@ -689,7 +690,7 @@ const MatchForm = (props: Props) => {
                   className="form-select select-lg"
                   value={result}
                   required
-                  autoFocus={season < Season.roleQueueSeasonStart}
+                  autoFocus={season.openQueue}
                   id="match-result"
                   onChange={onResultChange}
                   ref={el => (placementMatchResultField.current = el)}
@@ -704,7 +705,7 @@ const MatchForm = (props: Props) => {
                   id="match-rank"
                   type="number"
                   required
-                  autoFocus={season < Season.roleQueueSeasonStart}
+                  autoFocus={season.openQueue}
                   ref={el => (matchRankField.current = el)}
                   className="form-control sr-field"
                   value={rank || ""}
@@ -732,7 +733,7 @@ const MatchForm = (props: Props) => {
             <dl className="form-group mt-0">
               <dt>
                 <label htmlFor="match-rank" className="sr-field-label">
-                  {role && season >= Season.roleQueueSeasonStart
+                  {role && !season.openQueue
                     ? `Where did you place as a ${role}?`
                     : "Where did you place?"}
                 </label>

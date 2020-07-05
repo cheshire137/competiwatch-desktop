@@ -1,5 +1,6 @@
 import Database from "./Database";
 import Match, { MatchData } from "./Match";
+import Season from "./Season";
 import { Hero } from "./Hero";
 
 interface HeroWithCount {
@@ -58,11 +59,12 @@ class Account {
     }
   }
 
-  static async findAllGroupMembers(accountID: string, season?: number) {
+  static async findAllGroupMembers(accountID: string, season?: Season) {
     const sort = {};
     const conditions: any = { accountID, group: { $ne: "" } };
-    if (typeof season === "number" && !isNaN(season)) {
-      conditions.season = season;
+    if (season) {
+      conditions.season = season.number;
+      conditions.openQueue = season.openQueue;
     }
 
     const matchRows: MatchData[] = await Database.findAll(
@@ -84,11 +86,12 @@ class Account {
     return Object.keys(groupMembers).sort();
   }
 
-  async topHeroes(season: number) {
+  async topHeroes(season: Season) {
     const sort = {};
     const conditions: any = { accountID: this._id, heroes: { $ne: "" } };
-    if (typeof season === "number" && !isNaN(season)) {
-      conditions.season = season;
+    if (season) {
+      conditions.season = season.number;
+      conditions.openQueue = season.openQueue;
     }
 
     const matchRowsData: any[] = await Database.findAll(
@@ -126,8 +129,8 @@ class Account {
     return sortableHeroCounts.map(arr => arr.hero).slice(0, 3);
   }
 
-  async latestMatch(season: number) {
-    const conditions = { accountID: this._id, season };
+  async latestMatch(season: Season) {
+    const conditions = { accountID: this._id, season: season.number, openQueue: season.openQueue };
     const sort = { date: -1, createdAt: -1 };
 
     const data: MatchData = await Database.latest("matches", conditions, sort);
@@ -136,16 +139,17 @@ class Account {
     }
   }
 
-  async totalMatches(season?: number) {
+  async totalMatches(season?: Season) {
     const conditions: any = { accountID: this._id };
-    if (typeof season === "number") {
-      conditions.season = season;
+    if (season) {
+      conditions.season = season.number;
+      conditions.openQueue = season.openQueue;
     }
     const count = await Database.count("matches", conditions);
     return count;
   }
 
-  async hasMatches(season?: number) {
+  async hasMatches(season?: Season) {
     const count = await this.totalMatches(season);
     return count > 0;
   }

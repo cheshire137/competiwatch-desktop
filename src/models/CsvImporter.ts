@@ -1,13 +1,14 @@
 import parse from "csv-parse";
 import Match, { MatchData } from "./Match";
+import Season from "./Season";
 import { readFile } from "../utils/electronUtils";
 
 class CsvImporter {
   path: string;
-  season: number;
+  season: Season;
   accountID: string;
 
-  constructor(path: string, season: number, accountID: string) {
+  constructor(path: string, season: Season, accountID: string) {
     this.path = path;
     this.season = season;
     this.accountID = accountID;
@@ -61,7 +62,8 @@ class CsvImporter {
     const data = this.normalizeData(rawData);
     const matchData: MatchData = {
       accountID: this.accountID,
-      season: this.season,
+      season: this.season.number,
+      openQueue: this.season.openQueue,
       rank: data.rank,
       role: data.role,
       comment: data.comment,

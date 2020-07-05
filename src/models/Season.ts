@@ -32,6 +32,8 @@ class Season {
     if (data) {
       return new Season(data);
     }
+
+    return new Season({ number: this.latestKnownSeason, openQueue: false });
   }
 
   _id?: string;
@@ -63,8 +65,12 @@ class Season {
     );
   }
 
-  static totalMatches(season: number) {
-    return Database.count("matches", { season });
+  totalMatches() {
+    const conditions: any = { season: this.number };
+    if (this.number >= Season.openQueueSeasonStart) {
+      conditions.openQueue = this.openQueue;
+    }
+    return Database.count("matches", conditions);
   }
 
   static async exists(season: number, openQueue: boolean) {
@@ -109,6 +115,10 @@ class Season {
     });
   }
 
+  equals(other: Season) {
+    return this.number === other.number && this.openQueue === other.openQueue;
+  }
+
   description() {
     if (this.openQueue) {
       return "open queue";
@@ -134,6 +144,15 @@ class Season {
   delete() {
     const conditions = { number: this.number };
     return Database.deleteSome("seasons", conditions);
+  }
+
+  async priorSeason() {
+    const conditions = { number: this.number - 1 };
+    const season = await Database.findOne("seasons", conditions);
+    if (season) {
+      return season;
+    }
+    return new Season(conditions);
   }
 }
 

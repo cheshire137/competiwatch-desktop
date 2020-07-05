@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Match from "../../models/Match";
+import Season from "../../models/Season";
 import Tab from "./Tab";
 
 interface Props {
-  activeSeason: number;
+  activeSeason: Season;
   activePage: string;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }

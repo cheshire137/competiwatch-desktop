@@ -1,9 +1,10 @@
 import React from "react";
 import Account from "../../models/Account";
+import Season from "../../models/Season";
 
 interface Props {
   activePage: string;
-  activeSeason: number;
+  activeSeason: Season;
   activeAccount: Account;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }

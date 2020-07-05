@@ -181,6 +181,7 @@ export interface MatchData {
   accountID: string;
   comment?: string;
   season: string | number;
+  openQueue?: boolean;
   map?: Map;
   isPlacement?: boolean;
   result?: MatchResult;
@@ -207,6 +208,7 @@ class Match {
   result?: MatchResult;
   rank?: number;
   season: number;
+  openQueue: boolean;
   accountID: string;
   _id?: string;
   createdAt?: Date;
@@ -234,14 +236,14 @@ class Match {
   playOfTheGame?: boolean;
   joinedVoice?: boolean;
 
-  static async wipeSeason(accountID: string, season: number) {
+  static async wipeSeason(accountID: string, season: Season) {
     const matches = await Match.findAll(accountID, season);
     const promises = matches.map(match => match._id && Match.delete(match._id));
     return Promise.all(promises);
   }
 
-  static totalInSeason(number: number) {
-    return Season.totalMatches(number);
+  static totalInSeason(season: Season) {
+    return season.totalMatches();
   }
 
   static async find(id: string) {
@@ -249,8 +251,8 @@ class Match {
     return new Match(data);
   }
 
-  static async findAll(accountID: string, season: number) {
-    const conditions = { accountID, season };
+  static async findAll(accountID: string, season: Season) {
+    const conditions = { accountID, season: season.number, openQueue: season.openQueue };
     const rows: MatchData[] = await Database.findAll(
       "matches",
       defaultSort,
@@ -284,11 +286,18 @@ class Match {
       this._id = data._id;
     }
     this.comment = data.comment;
+
     if (typeof data.season === "number") {
       this.season = data.season;
     } else {
       this.season = parseInt(data.season, 10);
     }
+    if (typeof data.openQueue === "boolean") {
+      this.openQueue = data.openQueue;
+    } else {
+      this.openQueue = this.season < Season.roleQueueSeasonStart;
+    }
+
     this.map = data.map;
     this.isPlacement = data.isPlacement;
     this.result = data.result;

@@ -3,11 +3,12 @@ import SeasonSelect from "../SeasonSelect";
 import AccountSelect from "../AccountSelect";
 import MainNavigation from "../MainNavigation";
 import Account from "../../models/Account";
+import Season from "../../models/Season";
 import StickyBar from "./StickyBar";
 
 interface Props {
-  activeSeason: number;
-  onSeasonChange: (newNumber: number) => void;
+  activeSeason: Season;
+  onSeasonChange: (newNumber: Season) => void;
   accounts: Array<Account>;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   activeAccount: Account | null;

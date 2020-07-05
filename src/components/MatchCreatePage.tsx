@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import Match from "../models/Match";
+import Season from "../models/Season";
 import MatchForm from "./MatchForm";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
 import LinkButton from "./LinkButton";
 
 interface Props {
   accountID: string;
-  season: number;
-  latestSeason: number;
+  season: Season;
+  latestSeason: Season;
   latestRank: number;
   theme: string;
   latestGroup: string | null;
-  onSeasonChange: (season: number) => void;
+  onSeasonChange: (season: Season) => void;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }
 

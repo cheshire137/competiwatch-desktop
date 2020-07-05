@@ -2,27 +2,28 @@ import React, { useState, useEffect } from "react";
 import ImportForm from "./ImportForm";
 import LoadingPage from "./LoadingPage";
 import Account from "../models/Account";
+import Season from "../models/Season";
 import Match from "../models/Match";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
 interface Props {
   account: Account;
-  seasonNumber: number;
+  season: Season;
   onImport: (matches: Array<Match>) => void;
 }
 
-const ImportPage = ({ account, seasonNumber, onImport }: Props) => {
+const ImportPage = ({ account, season, onImport }: Props) => {
   const [totalMatches, setTotalMatches] = useState(-1);
   const [activeSample, setActiveSample] = useState("sample1");
 
   useEffect(() => {
     async function getTotalMatches() {
-      const total = await account.totalMatches(seasonNumber);
+      const total = await account.totalMatches(season);
       setTotalMatches(total);
     }
 
     getTotalMatches();
-  }, [account && account._id, seasonNumber]);
+  }, [account && account._id, season]);
 
   if (totalMatches < 0) {
     return <LoadingPage />;
@@ -37,10 +38,10 @@ const ImportPage = ({ account, seasonNumber, onImport }: Props) => {
             {" "}
             {totalMatches} match{totalMatches === 1 ? null : "es"}{" "}
           </strong>
-          in season {seasonNumber}.
+          in season {season.number} ({season.description()}).
         </p>
       )}
-      <ImportForm season={seasonNumber} onImport={onImport} account={account} />
+      <ImportForm season={season} onImport={onImport} account={account} />
 
       <h4 className="h4 mt-4 mb-2">Requirements:</h4>
       <div className="clearfix">

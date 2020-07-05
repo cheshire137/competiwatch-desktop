@@ -24,6 +24,7 @@ import "./App.css";
 import { setTitle, showSaveDialog } from "./utils/electronUtils";
 import getAppTheme from "./utils/getAppTheme";
 import { ThemeProvider } from "styled-components";
+import LoadingPage from "./components/LoadingPage";
 
 const isNighttime = () => {
   const currentTime = new Date();
@@ -33,11 +34,9 @@ const isNighttime = () => {
 
 function getTitle(
   activePage: string,
-  activeSeason?: number,
+  activeSeason?: Season | null,
   activeAccount?: Account | null
 ) {
-  const haveActiveSeason =
-    typeof activeSeason === "number" && !isNaN(activeSeason);
   const isSeasonRelevant = [
     "matches",
     "log-match",
@@ -74,8 +73,8 @@ function getTitle(
     titleParts.push("Help");
   }
 
-  if (haveActiveSeason && isSeasonRelevant) {
-    titleParts.push(`Season ${activeSeason}`);
+  if (activeSeason && isSeasonRelevant) {
+    titleParts.push(`Season ${activeSeason.number} (${activeSeason.description()})`);
   }
 
   if (activeAccount && isAccountRelevant) {
@@ -88,14 +87,13 @@ function getTitle(
 const App = () => {
   const [latestRank, setLatestRank] = useState(2500);
   const themeInterval = useRef<number | null>(null);
-  const [latestSeason, setLatestSeason] = useState(Season.latestKnownSeason);
+  const [latestSeason, setLatestSeason] = useState<Season | null>(null);
   const [scrollToMatchID, setScrollToMatchID] = useState<string | null>(null);
   const [theme, setTheme] = useState("light");
   const [activeAccount, setActiveAccount] = useState<Account | null>(null);
-  const [activeSeason, setActiveSeason] = useState<number>(
-    Season.latestKnownSeason
-  );
+  const [activeSeason, setActiveSeason] = useState<Season | null>(null);
   const [accounts, setAccounts] = useState<Array<Account>>([]);
+  const [seasons, setSeasons] = useState<Array<Season>>([]);
   const [activeMatchID, setActiveMatchID] = useState<string | null>(null);
   const [activePage, setActivePage] = useState<string>("accounts");
   const [settings, setSettings] = useState<Settings | null>(null);
@@ -117,18 +115,18 @@ const App = () => {
     }
   };
 
-  async function loadLatestSeason() {
-    const season = await Season.latest();
-    let latestNumber = Season.latestKnownSeason;
-    if (season && season.number > latestNumber) {
-      latestNumber = season.number;
+  async function loadSeasons() {
+    const seasons = await Season.findAll();
+    const season = seasons[0];
+    const totalMatches = await season.totalMatches();
+
+    setSeasons(seasons);
+    if (latestSeason === null || season.number > latestSeason.number) {
+      setLatestSeason(season);
     }
-
-    const totalMatches = await Season.totalMatches(latestNumber);
     setLatestSeasonTotalMatches(totalMatches);
-
-    setActiveSeason(latestNumber);
-    changeActiveSeason(latestNumber);
+    setActiveSeason(season);
+    changeActiveSeason(season);
   }
 
   async function loadSettings() {
@@ -141,21 +139,21 @@ const App = () => {
     setAccounts(allAccounts);
   }
 
-  const changeActiveSeason = (newNumber: number) => {
-    setActiveSeason(newNumber);
+  const changeActiveSeason = (newSeason: Season) => {
+    setActiveSeason(newSeason);
     if (activeMatchID) {
       setActiveMatchID(null);
     }
     if (activePage === "edit-match" || activePage === "log-match") {
       setActivePage("matches");
     }
-    if (newNumber > latestSeason) {
-      setLatestSeason(newNumber);
+    if (latestSeason === null || newSeason.number > latestSeason.number) {
+      setLatestSeason(newSeason);
     }
   };
 
   const exportSeasonTo = async (path: string) => {
-    if (!activeAccount || !activeAccount.battletag) {
+    if (!activeAccount || !activeSeason || !activeAccount.battletag) {
       return;
     }
 
@@ -269,12 +267,12 @@ const App = () => {
     changeActivePage("matches");
   };
 
-  const onSeasonDelete = (deletedNumber: number) => {
-    if (latestSeason === deletedNumber) {
-      setLatestSeason(deletedNumber - 1);
+  const onSeasonDelete = (deletedSeason: Season, priorSeason: Season) => {
+    if (latestSeason && latestSeason.equals(deletedSeason)) {
+      setLatestSeason(priorSeason);
     }
-    if (activeSeason === deletedNumber) {
-      setActiveSeason(deletedNumber - 1);
+    if (activeSeason && activeSeason.equals(deletedSeason)) {
+      setActiveSeason(priorSeason);
     }
   };
 
@@ -312,7 +310,7 @@ const App = () => {
     );
 
     refreshAccounts();
-    loadLatestSeason();
+    loadSeasons();
     loadSettings();
 
     return () => {
@@ -327,7 +325,7 @@ const App = () => {
   }, [activeAccount && activeAccount._id, activeSeason, activePage]);
 
   useEffect(() => {
-    if (!accounts) {
+    if (accounts.length < 1 || !activeSeason || seasons.length < 1) {
       return;
     }
 
@@ -339,7 +337,7 @@ const App = () => {
       onAccountChange: changeActiveAccount,
       onExport: exportSeason,
       season: activeSeason,
-      latestSeason,
+      seasons,
       accountID: activeAccount ? activeAccount._id : null,
       accounts
     });
@@ -349,6 +347,16 @@ const App = () => {
     activeSeason,
     accounts.length
   ]);
+
+  if (activeSeason === null) {
+    return (
+      <ThemeProvider theme={getAppTheme(theme)}>
+        <LayoutContainer>
+          <LoadingPage />
+        </LayoutContainer>
+      </ThemeProvider>
+    );
+  }
 
   return (
     <ThemeProvider theme={getAppTheme(theme)}>
@@ -376,7 +384,7 @@ const App = () => {
           />
         )}
 
-        {activePage === "log-match" && activeAccount && activeAccount._id && (
+        {activePage === "log-match" && latestSeason && activeAccount && activeAccount._id && (
           <MatchCreatePage
             accountID={activeAccount._id}
             onPageChange={changeActivePage}
@@ -391,7 +399,7 @@ const App = () => {
 
         {activePage === "import" && activeAccount && activeAccount._id && (
           <ImportPage
-            seasonNumber={activeSeason}
+            season={activeSeason}
             account={activeAccount}
             onImport={onMatchesImported}
           />
@@ -436,7 +444,7 @@ const App = () => {
           />
         )}
 
-        {activePage === "accounts" && (
+        {latestSeason && activePage === "accounts" && (
           <AccountsPage
             accounts={accounts}
             season={activeSeason}
@@ -447,8 +455,7 @@ const App = () => {
             onSeasonCreate={changeActiveSeason}
             onSeasonDelete={onSeasonDelete}
             latestSeasonCanBeDeleted={
-              latestSeason > Season.latestKnownSeason &&
-              latestSeasonTotalMatches === 0
+              latestSeason ? latestSeason.number > Season.latestKnownSeason && latestSeasonTotalMatches === 0 : false
             }
           />
         )}

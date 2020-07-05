@@ -1,10 +1,11 @@
 import React from "react";
 import AccountListItem from "./AccountListItem";
 import Account from "../models/Account";
+import Season from "../models/Season";
 
 interface Props {
   accounts: Account[];
-  season: number;
+  season: Season;
   onAccountChange: (id: string) => void;
   onAccountUpdate: () => void;
 }

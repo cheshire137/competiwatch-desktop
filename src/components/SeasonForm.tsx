@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import Season from "../models/Season";
 import { Button, Box, Flex, TextInput } from "@primer/components";
 import SeasonDeleteForm from "./SeasonDeleteForm";
-import Note from "./Note";
 
 interface Props {
-  onCreate: (season: number) => void;
-  latestSeason: number;
-  onDelete: (season: number) => void;
+  onCreate: (season: Season) => void;
+  latestSeason: Season;
+  onDelete: (season: Season, priorSeason: Season) => void;
   latestSeasonCanBeDeleted: boolean;
 }
 
@@ -20,7 +19,7 @@ const SeasonForm = ({
   const [season, setSeason] = useState("");
   const [isValid, setIsValid] = useState(false);
   const [openQueue, setOpenQueue] = useState(
-    latestSeason < Season.roleQueueSeasonStart
+    latestSeason.openQueue || latestSeason.number < Season.roleQueueSeasonStart
   );
 
   const saveSeason = async () => {
@@ -29,10 +28,11 @@ const SeasonForm = ({
     }
 
     const seasonNumber = parseInt(season, 10);
-    await new Season({ number: seasonNumber }).save();
+    const newSeason = new Season({ number: seasonNumber });
+    await newSeason.save();
 
     setSeason("");
-    onCreate(seasonNumber);
+    onCreate(newSeason);
   };
 
   const checkValidity = async (
@@ -88,6 +88,12 @@ const SeasonForm = ({
     checkValidity(season, roleQueueChecked);
   };
 
+  const onOpenQueueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const openQueueChecked = event.target.checked;
+    setOpenQueue(openQueueChecked);
+    checkValidity(season, !openQueueChecked);
+  };
+
   return (
     <Box mt={4}>
       <form
@@ -106,7 +112,7 @@ const SeasonForm = ({
             type="number"
             value={season}
             onChange={onSeasonNumberChange}
-            min={latestSeason + 1}
+            min={latestSeason.number + 1}
             step="1"
             required
           />
@@ -117,20 +123,30 @@ const SeasonForm = ({
         <Box mt={2}>
           <label htmlFor="season-role-queue">
             <input
-              type="checkbox"
+              type="radio"
               id="season-role-queue"
               checked={!openQueue}
               onChange={onRoleQueueChange}
             />
-            <Box ml="1" display="inline-block">
+            <Box ml="1" mr={4} display="inline-block">
               Role queue
             </Box>
           </label>
-          <Note>Leave unchecked to create an open queue season.</Note>
+          <label htmlFor="season-open-queue">
+            <input
+              type="radio"
+              id="season-open-queue"
+              checked={openQueue}
+              onChange={onOpenQueueChange}
+            />
+            <Box ml="1" display="inline-block">
+              Open queue
+            </Box>
+          </label>
         </Box>
       </form>
       {latestSeasonCanBeDeleted && (
-        <SeasonDeleteForm seasonNumber={latestSeason} onDelete={onDelete} />
+        <SeasonDeleteForm season={latestSeason} onDelete={onDelete} />
       )}
     </Box>
   );

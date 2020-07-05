@@ -6,6 +6,7 @@ import {
   HeroesByType,
   HeroRole
 } from "../../models/Hero";
+import Season from "../../models/Season";
 import HeroCheckboxList from "../HeroCheckboxList";
 import RoleImage from "../RoleImage";
 import "./HeroSelect.css";
@@ -13,7 +14,7 @@ import HeroGroupHeader from "./HeroGroupHeader";
 
 interface Props {
   role: HeroRole | null;
-  season: number;
+  season: Season;
   heroes: string;
   onToggle: (hero: Hero, isSelected: boolean) => void;
   theme: string;
@@ -21,7 +22,7 @@ interface Props {
 
 const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
   const getUnavailableReason = (hero: Hero) => {
-    if ((HeroFirstSeasons[hero] || 1) > season) {
+    if ((HeroFirstSeasons[hero] || 1) > season.number) {
       return "Not available in this season";
     }
     if (role && !HeroesByRole[role].includes(hero)) {

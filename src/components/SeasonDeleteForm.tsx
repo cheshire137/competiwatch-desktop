@@ -2,20 +2,22 @@ import React from "react";
 import Season from "../models/Season";
 
 interface Props {
-  onDelete: (season: number) => void;
-  seasonNumber: number;
+  onDelete: (season: Season, priorSeason: Season) => void;
+  season: Season;
 }
 
-const SeasonDeleteForm = ({ onDelete, seasonNumber }: Props) => {
+const SeasonDeleteForm = ({ onDelete, season }: Props) => {
   const deleteSeason = async () => {
-    const message = `Are you sure you want to delete season ${seasonNumber}?`;
+    const message = `Are you sure you want to delete season ${season.number} (${season.description()})?`;
 
     if (!window.confirm(message)) {
       return;
     }
 
-    await new Season({ number: seasonNumber }).delete();
-    onDelete(seasonNumber);
+    const priorSeason = await season.priorSeason();
+    await season.delete();
+
+    onDelete(season, priorSeason);
   };
 
   return (
@@ -26,7 +28,7 @@ const SeasonDeleteForm = ({ onDelete, seasonNumber }: Props) => {
       }}
     >
       <button type="submit" className="btn-link text-red text-small">
-        Delete season {seasonNumber}
+        Delete season {season.number} ({season.description()})
       </button>
     </form>
   );

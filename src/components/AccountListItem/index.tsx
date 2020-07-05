@@ -8,6 +8,7 @@ import MatchRankImage from "../MatchRankImage";
 import HeroImage from "../HeroImage";
 import "./AccountListItem.css";
 import Account from "../../models/Account";
+import Season from "../../models/Season";
 import { Flex, Tooltip } from "@primer/components";
 import { Hero } from "../../models/Hero";
 import { showSaveDialog } from "../../utils/electronUtils";
@@ -24,7 +25,7 @@ interface Props {
   account: Account;
   onAccountChange: (id: string) => void;
   onAccountUpdate: () => void;
-  season: number;
+  season: Season;
 }
 
 const AccountListItem = ({
@@ -188,7 +189,7 @@ const AccountListItem = ({
                 </span>
               </>
             ) : (
-              <span>No matches in season {season}</span>
+              <span>No matches in season {season.number} ({season.description()}</span>
             )}
           </AccountMeta>
           <ButtonShownOnHover onClick={() => setShowEditForm(!showEditForm)}>

@@ -8,27 +8,28 @@ import {
   toggleDevTools
 } from "../utils/electronUtils";
 import Account from "./Account";
+import Season from "./Season";
 
 interface AppMenuOptions {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
-  onSeasonChange: (season: number) => void;
+  onSeasonChange: (season: Season) => void;
   onAccountChange: (id: string) => void;
   onExport: () => void;
-  latestSeason: number;
+  seasons: Season[];
   accounts: Account[];
   accountID?: string | null;
-  season: number;
+  season: Season;
 }
 
 class AppMenu {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
-  onSeasonChange: (season: number) => void;
+  onSeasonChange: (season: Season) => void;
   onAccountChange: (id: string) => void;
   onExport: () => void;
-  latestSeason: number;
+  seasons: Season[];
   accounts: Account[];
   accountID?: string | null;
-  season: number;
+  season: Season;
   showMatchesMenuItem: boolean;
   showLogMatchMenuItem: boolean;
   showTrendsMenuItem: boolean;
@@ -42,7 +43,7 @@ class AppMenu {
     this.onSeasonChange = options.onSeasonChange;
     this.onAccountChange = options.onAccountChange;
     this.onExport = options.onExport;
-    this.latestSeason = options.latestSeason;
+    this.seasons = options.seasons;
     this.accounts = options.accounts;
     this.accountID = options.accountID;
     this.season = options.season;
@@ -255,11 +256,11 @@ class AppMenu {
     };
   }
 
-  seasonMenuItem(season: number) {
+  seasonMenuItem(season: Season) {
     const self = this;
 
     return {
-      label: `Season ${season}`,
+      label: `Season ${season.number} (${season.description()})`,
       click() {
         self.onSeasonChange(season);
       }
@@ -292,7 +293,7 @@ class AppMenu {
 
   seasonSubmenu() {
     const submenu = [];
-    for (let season = this.latestSeason; season >= 1; season--) {
+    for (const season of this.seasons) {
       submenu.push(this.seasonMenuItem(season));
     }
     return submenu;

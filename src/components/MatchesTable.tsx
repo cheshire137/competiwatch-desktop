@@ -8,7 +8,7 @@ import { Tooltip } from "@primer/components";
 
 interface Props {
   matches: Match[];
-  season: number;
+  season: Season;
   onEdit: (matchID: string) => void;
   theme: string;
   scrollToMatchID: string | null;
@@ -106,7 +106,7 @@ const MatchesTable = ({
 
   const showRoleColumn = () => {
     return (
-      season >= Season.roleQueueSeasonStart &&
+      !season.openQueue &&
       matches.filter(match => typeof match.role === "string").length > 0
     );
   };
