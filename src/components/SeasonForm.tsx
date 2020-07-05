@@ -4,14 +4,17 @@ import PackageInfo from "../../package.json";
 import { openLinkInBrowser, getAppName } from "../utils/electronUtils";
 import LinkButton from "./LinkButton";
 import { Button, Box, Flex, TextInput } from "@primer/components";
+import SeasonDeleteForm from "./SeasonDeleteForm";
 import Note from "./Note";
 
 interface Props {
   onCreate: (season: number) => void;
   latestSeason: number;
+  onDelete: (season: number) => void;
+  latestSeasonCanBeDeleted: boolean;
 }
 
-const SeasonForm = ({ onCreate, latestSeason }: Props) => {
+const SeasonForm = ({ onCreate, latestSeason, onDelete, latestSeasonCanBeDeleted }: Props) => {
   const [season, setSeason] = useState("");
   const [isValid, setIsValid] = useState(false);
 
@@ -83,6 +86,9 @@ const SeasonForm = ({ onCreate, latestSeason }: Props) => {
           a season to continue logging matches.
         </Note>
       </form>
+      {latestSeasonCanBeDeleted && (
+        <SeasonDeleteForm seasonNumber={latestSeason} onDelete={onDelete} />
+      )}
     </Box>
   );
 };

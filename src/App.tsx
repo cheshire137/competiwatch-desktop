@@ -100,6 +100,7 @@ const App = () => {
   const [activePage, setActivePage] = useState<string>("accounts");
   const [settings, setSettings] = useState<Settings | null>(null);
   const [latestGroup, setLatestGroup] = useState<string | null>(null);
+  const [latestSeasonTotalMatches, setLatestSeasonTotalMatches] = useState<number>(-1);
 
   const activateDefaultAccount = () => {
     if (!settings || !settings.defaultAccountID) {
@@ -120,6 +121,10 @@ const App = () => {
     if (season && season.number > latestNumber) {
       latestNumber = season.number;
     }
+
+    const totalMatches = await Season.totalMatches(latestNumber);
+    setLatestSeasonTotalMatches(totalMatches);
+
     setActiveSeason(latestNumber);
     changeActiveSeason(latestNumber);
   }
@@ -439,6 +444,8 @@ const App = () => {
             onAccountChange={changeActiveAccount}
             onAccountUpdate={refreshAccounts}
             onSeasonCreate={changeActiveSeason}
+            onSeasonDelete={onSeasonDelete}
+            latestSeasonCanBeDeleted={latestSeason > latestKnownSeason && latestSeasonTotalMatches === 0}
           />
         )}
       </LayoutContainer>
