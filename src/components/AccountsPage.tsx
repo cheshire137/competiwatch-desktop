@@ -1,7 +1,7 @@
 import React from "react";
-import AccountForm from "./AccountForm";
 import Account from "../models/Account";
 import SeasonForm from "./SeasonForm";
+import AddAccountForm from "./AddAccountForm";
 import AccountsList from "./AccountsList";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
@@ -58,25 +58,11 @@ const AccountsPage = ({
         </div>
       )}
       <div className="float-left col-lg-5 col-md-12 col-sm-12 mb-4">
-        <h2 className="h2 text-normal mb-2">
-          {accounts.length > 0 ? "Add another account" : "Add an account"}
-        </h2>
-        {accounts.length < 1 && (
-          <p>Add an account to begin logging competitive matches.</p>
-        )}
-        <AccountForm
+        <AddAccountForm
+          accounts={accounts}
+          onAccountUpdate={onAccountUpdate}
           onCreate={onCreate}
-          onUpdate={onAccountUpdate}
-          totalAccounts={accounts.length}
-          buttonClass={accounts.length > 0 ? "" : "btn-primary"}
         />
-        <div className="pb-3">
-          {accounts.length > 0 && (
-            <p className="note">
-              <strong>Tip:</strong> the numbers at the end aren't required.
-            </p>
-          )}
-        </div>
 
         <SeasonForm
           latestSeason={latestSeason}
