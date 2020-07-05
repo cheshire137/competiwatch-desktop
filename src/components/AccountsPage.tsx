@@ -52,7 +52,9 @@ const AccountsPage = ({
               <Heading fontSize={4} fontWeight="normal">
                 Battle.net accounts
               </Heading>
-              <CounterLabel ml={2} px={2}>{accounts.length}</CounterLabel>
+              <CounterLabel ml={2} px={2}>
+                {accounts.length}
+              </CounterLabel>
             </Flex>
             <p>Choose an account to view and log competitive matches.</p>
             <AccountsList

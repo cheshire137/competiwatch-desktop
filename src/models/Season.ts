@@ -57,7 +57,10 @@ class Season {
     } else {
       this.openQueue = this.number < Season.roleQueueSeasonStart;
     }
-    this.numberAndOpenQueue = getNumberAndOpenQueue(this.number, this.openQueue);
+    this.numberAndOpenQueue = getNumberAndOpenQueue(
+      this.number,
+      this.openQueue
+    );
   }
 
   static totalMatches(season: number) {
@@ -80,17 +83,20 @@ class Season {
       return season < this.roleQueueSeasonStart;
     }
 
-    return season >= this.roleQueueSeasonStart && season <= this.openQueueSeasonStart;
+    return (
+      season >= this.roleQueueSeasonStart && season <= this.openQueueSeasonStart
+    );
   }
 
   static async findAll() {
-    const rows: SeasonData[] = await Database.findAll(
-      "seasons",
-      defaultSort
-    );
+    const rows: SeasonData[] = await Database.findAll("seasons", defaultSort);
     const seasons = rows.map(data => new Season(data));
     const seenNumbers = seasons.map(s => s.number);
-    for (let seasonNumber = Season.latestKnownSeason; seasonNumber >= 1; seasonNumber--) {
+    for (
+      let seasonNumber = Season.latestKnownSeason;
+      seasonNumber >= 1;
+      seasonNumber--
+    ) {
       if (!seenNumbers.includes(seasonNumber)) {
         seasons.push(new Season({ number: seasonNumber }));
       }

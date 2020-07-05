@@ -35,7 +35,8 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
     return heroList.indexOf(hero) > -1;
   };
 
-  const isRoleUnavailable = (displayedRole: string) => typeof role === "string" &&
+  const isRoleUnavailable = (displayedRole: string) =>
+    typeof role === "string" &&
     role.length > 0 &&
     role.toLowerCase() !== displayedRole;
 
@@ -49,16 +50,8 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
 
   const defenseHeroes = (
     <>
-      <HeroGroupHeader
-        mt={headerMarginTop}
-        roleUnavailable={!damageAvailable}
-      >
-        <RoleImage
-          theme={theme}
-          role="damage"
-          size={12}
-          mr={1}
-        />
+      <HeroGroupHeader mt={headerMarginTop} roleUnavailable={!damageAvailable}>
+        <RoleImage theme={theme} role="damage" size={12} mr={1} />
         Defense
       </HeroGroupHeader>
       <HeroCheckboxList
@@ -80,15 +73,8 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
       <div className="hero-box mb-3">
         {damageAvailable && (
           <>
-            <HeroGroupHeader
-              mr={headerMarginRight}
-            >
-              <RoleImage
-                theme={theme}
-                role="damage"
-                size={12}
-                mr={1}
-              />
+            <HeroGroupHeader mr={headerMarginRight}>
+              <RoleImage theme={theme} role="damage" size={12} mr={1} />
               Flankers
             </HeroGroupHeader>
             <HeroCheckboxList
@@ -103,16 +89,8 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
         )}
         {tankAvailable && (
           <>
-            <HeroGroupHeader
-              mt={headerMarginTop}
-              mr={headerMarginRight}
-            >
-              <RoleImage
-                theme={theme}
-                role="tank"
-                size={12}
-                mr={1}
-              />
+            <HeroGroupHeader mt={headerMarginTop} mr={headerMarginRight}>
+              <RoleImage theme={theme} role="tank" size={12} mr={1} />
               Off-tanks
             </HeroGroupHeader>
             <HeroCheckboxList
@@ -126,16 +104,8 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
         )}
         {supportAvailable && (
           <>
-            <HeroGroupHeader
-              mt={headerMarginTop}
-              mr={headerMarginRight}
-            >
-              <RoleImage
-                theme={theme}
-                role="support"
-                size={12}
-                mr={1}
-              />
+            <HeroGroupHeader mt={headerMarginTop} mr={headerMarginRight}>
+              <RoleImage theme={theme} role="support" size={12} mr={1} />
               Off-healers
             </HeroGroupHeader>
             <HeroCheckboxList
@@ -151,15 +121,8 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
       <div className="hero-box mb-3">
         {damageAvailable && (
           <>
-            <HeroGroupHeader
-              mr={headerMarginRight}
-            >
-              <RoleImage
-                theme={theme}
-                role="damage"
-                size={12}
-                mr={1}
-              />
+            <HeroGroupHeader mr={headerMarginRight}>
+              <RoleImage theme={theme} role="damage" size={12} mr={1} />
               Hitscan
             </HeroGroupHeader>
             <HeroCheckboxList
@@ -173,15 +136,8 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
         )}
         {tankAvailable && (
           <>
-            <HeroGroupHeader
-              mt={headerMarginTop}
-            >
-              <RoleImage
-                theme={theme}
-                role="tank"
-                size={12}
-                mr={1}
-              />
+            <HeroGroupHeader mt={headerMarginTop}>
+              <RoleImage theme={theme} role="tank" size={12} mr={1} />
               Main tanks
             </HeroGroupHeader>
             <HeroCheckboxList
@@ -195,15 +151,8 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
         )}
         {supportAvailable && (
           <>
-            <HeroGroupHeader
-              mt={headerMarginTop}
-            >
-              <RoleImage
-                theme={theme}
-                role="support"
-                size={12}
-                mr={1}
-              />
+            <HeroGroupHeader mt={headerMarginTop}>
+              <RoleImage theme={theme} role="support" size={12} mr={1} />
               Main healers
             </HeroGroupHeader>
             <HeroCheckboxList
@@ -219,12 +168,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
       {damageAvailable && (
         <div className="hero-box mb-3">
           <HeroGroupHeader>
-            <RoleImage
-              theme={theme}
-              role="damage"
-              size={12}
-              mr={1}
-            />
+            <RoleImage theme={theme} role="damage" size={12} mr={1} />
             DPS
           </HeroGroupHeader>
           <HeroCheckboxList

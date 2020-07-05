@@ -11,5 +11,5 @@ export default styled(Heading).attrs({
   fontSize: 1
 })<Props>`
   border-bottom: 1px solid ${props => props.theme.borderColor};
-  opacity: ${props => props.roleUnavailable ? 0.7 : 1};
+  opacity: ${props => (props.roleUnavailable ? 0.7 : 1)};
 `;

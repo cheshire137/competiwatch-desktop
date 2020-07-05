@@ -11,10 +11,17 @@ interface Props {
   latestSeasonCanBeDeleted: boolean;
 }
 
-const SeasonForm = ({ onCreate, latestSeason, onDelete, latestSeasonCanBeDeleted }: Props) => {
+const SeasonForm = ({
+  onCreate,
+  latestSeason,
+  onDelete,
+  latestSeasonCanBeDeleted
+}: Props) => {
   const [season, setSeason] = useState("");
   const [isValid, setIsValid] = useState(false);
-  const [openQueue, setOpenQueue] = useState(latestSeason < Season.roleQueueSeasonStart);
+  const [openQueue, setOpenQueue] = useState(
+    latestSeason < Season.roleQueueSeasonStart
+  );
 
   const saveSeason = async () => {
     if (!isValid) {
@@ -28,7 +35,10 @@ const SeasonForm = ({ onCreate, latestSeason, onDelete, latestSeasonCanBeDeleted
     onCreate(seasonNumber);
   };
 
-  const checkValidity = async (numberStr: string, roleQueueChecked: boolean) => {
+  const checkValidity = async (
+    numberStr: string,
+    roleQueueChecked: boolean
+  ) => {
     if (numberStr.length < 1) {
       setIsValid(false);
       return;
@@ -44,12 +54,19 @@ const SeasonForm = ({ onCreate, latestSeason, onDelete, latestSeasonCanBeDeleted
     }
 
     // Check if open queue existed yet
-    if (!roleQueueChecked && newNumberValue >= Season.roleQueueSeasonStart && newNumberValue < Season.openQueueSeasonStart) {
+    if (
+      !roleQueueChecked &&
+      newNumberValue >= Season.roleQueueSeasonStart &&
+      newNumberValue < Season.openQueueSeasonStart
+    ) {
       setIsValid(false);
       return;
     }
 
-    const seasonAlreadyExists = await Season.exists(newNumberValue, newOpenQueueValue);
+    const seasonAlreadyExists = await Season.exists(
+      newNumberValue,
+      newOpenQueueValue
+    );
     setIsValid(!seasonAlreadyExists);
   };
 
@@ -105,7 +122,9 @@ const SeasonForm = ({ onCreate, latestSeason, onDelete, latestSeasonCanBeDeleted
               checked={!openQueue}
               onChange={onRoleQueueChange}
             />
-            <Box ml="1" display="inline-block">Role queue</Box>
+            <Box ml="1" display="inline-block">
+              Role queue
+            </Box>
           </label>
           <Note>Leave unchecked to create an open queue season.</Note>
         </Box>

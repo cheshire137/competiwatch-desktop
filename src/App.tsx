@@ -92,13 +92,17 @@ const App = () => {
   const [scrollToMatchID, setScrollToMatchID] = useState<string | null>(null);
   const [theme, setTheme] = useState("light");
   const [activeAccount, setActiveAccount] = useState<Account | null>(null);
-  const [activeSeason, setActiveSeason] = useState<number>(Season.latestKnownSeason);
+  const [activeSeason, setActiveSeason] = useState<number>(
+    Season.latestKnownSeason
+  );
   const [accounts, setAccounts] = useState<Array<Account>>([]);
   const [activeMatchID, setActiveMatchID] = useState<string | null>(null);
   const [activePage, setActivePage] = useState<string>("accounts");
   const [settings, setSettings] = useState<Settings | null>(null);
   const [latestGroup, setLatestGroup] = useState<string | null>(null);
-  const [latestSeasonTotalMatches, setLatestSeasonTotalMatches] = useState<number>(-1);
+  const [latestSeasonTotalMatches, setLatestSeasonTotalMatches] = useState<
+    number
+  >(-1);
 
   const activateDefaultAccount = () => {
     if (!settings || !settings.defaultAccountID) {
@@ -442,7 +446,10 @@ const App = () => {
             onAccountUpdate={refreshAccounts}
             onSeasonCreate={changeActiveSeason}
             onSeasonDelete={onSeasonDelete}
-            latestSeasonCanBeDeleted={latestSeason > Season.latestKnownSeason && latestSeasonTotalMatches === 0}
+            latestSeasonCanBeDeleted={
+              latestSeason > Season.latestKnownSeason &&
+              latestSeasonTotalMatches === 0
+            }
           />
         )}
       </LayoutContainer>

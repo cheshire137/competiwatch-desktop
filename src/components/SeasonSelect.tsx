@@ -7,17 +7,14 @@ interface Props {
   onSeasonChange: (season: number) => void;
 }
 
-const SeasonSelect = ({
-  activeSeason,
-  onSeasonChange
-}: Props) => {
+const SeasonSelect = ({ activeSeason, onSeasonChange }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [seasons, setSeasons] = useState<Season[] | null>(null);
 
   useEffect(() => {
     async function getSeasons() {
       const allSeasons = await Season.findAll();
-      console.log(allSeasons)
+      console.log(allSeasons);
       setSeasons(allSeasons);
     }
 
@@ -87,7 +84,9 @@ const SeasonSelect = ({
                   onClick={onChange}
                 >
                   <span className="ion ion-ios-checkmark select-menu-item-icon" />
-                  <span className="select-menu-item-text">Season {season.number} ({season.description()})</span>
+                  <span className="select-menu-item-text">
+                    Season {season.number} ({season.description()})
+                  </span>
                 </button>
               ))}
             </div>

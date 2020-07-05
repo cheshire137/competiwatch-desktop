@@ -75,9 +75,7 @@ const AccountForm = (props: Props) => {
     <form onSubmit={onSubmit}>
       <Flex alignItems="center">
         <Box mr={2}>
-          <label htmlFor={battletagDomID}>
-            Battletag:
-          </label>
+          <label htmlFor={battletagDomID}>Battletag:</label>
         </Box>
         <TextInput
           id={battletagDomID}
@@ -88,11 +86,7 @@ const AccountForm = (props: Props) => {
           placeholder="ASampleAccount#1234"
           autoFocus={totalAccounts < 1}
         />
-        <Button
-          type="submit"
-          disabled={!isValid}
-          ml={2}
-        >
+        <Button type="submit" disabled={!isValid} ml={2}>
           {buttonText}
         </Button>
       </Flex>
