@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Account, { AccountData } from "../../models/Account";
+import { Button, Box, Flex, TextInput } from "@primer/components";
 import "./AccountForm.css";
 
 const isValidBattletag = (battletag: string) => {
@@ -72,39 +73,30 @@ const AccountForm = (props: Props) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <dl
-        className={`form-group position-relative mb-0 mt-0 ${
-          error ? "errored" : null
-        }`}
-      >
-        <dd className="d-flex flex-items-center">
-          <label htmlFor={battletagDomID} className="mr-2">
+      <Flex alignItems="center">
+        <Box mr={2}>
+          <label htmlFor={battletagDomID}>
             Battletag:
           </label>
-          <div className="input-group battletag-input-group">
-            <input
-              id={battletagDomID}
-              type="text"
-              className="form-control"
-              value={battletag}
-              required
-              onChange={onBattletagChange}
-              placeholder="ASampleAccount#1234"
-              autoFocus={totalAccounts < 1}
-            />
-            <span className="input-group-button">
-              <button
-                type="submit"
-                className={`btn ${buttonClass || ""}`}
-                disabled={!isValid}
-              >
-                {buttonText}
-              </button>
-            </span>
-          </div>
-        </dd>
-        {error ? <dd className="error battletag-error">{error}</dd> : null}
-      </dl>
+        </Box>
+        <TextInput
+          id={battletagDomID}
+          type="text"
+          value={battletag}
+          required
+          onChange={onBattletagChange}
+          placeholder="ASampleAccount#1234"
+          autoFocus={totalAccounts < 1}
+        />
+        <Button
+          type="submit"
+          disabled={!isValid}
+          ml={2}
+        >
+          {buttonText}
+        </Button>
+      </Flex>
+      {error && <div className="error battletag-error">{error}</div>}
     </form>
   );
 };

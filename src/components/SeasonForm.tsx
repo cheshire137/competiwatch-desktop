@@ -3,7 +3,7 @@ import Season from "../models/Season";
 import PackageInfo from "../../package.json";
 import { openLinkInBrowser, getAppName } from "../utils/electronUtils";
 import LinkButton from "./LinkButton";
-import { Button, Box } from "@primer/components";
+import { Button, Box, Flex, TextInput } from "@primer/components";
 import Note from "./Note";
 
 interface Props {
@@ -58,28 +58,23 @@ const SeasonForm = ({ onCreate, latestSeason }: Props) => {
         }}
       >
         <h2 className="h2 text-normal mb-2">Add a season</h2>
-        <dl className="form-group mt-0">
-          <dt>
-            <label htmlFor="season-number">Season number:</label>
-          </dt>
-          <dd>
-            <input
-              id="season-number"
-              type="number"
-              className="form-control"
-              value={season}
-              onChange={onSeasonChange}
-              min={latestSeason + 1}
-              step="1"
-              required
-            />
-          </dd>
-        </dl>
-        <div className="form-actions">
-          <Button type="submit" disabled={!isValid}>
+        <Flex alignItems="center">
+          <Box mr={2}>
+            <label htmlFor="season-number">Number:</label>
+          </Box>
+          <TextInput
+            id="season-number"
+            type="number"
+            value={season}
+            onChange={onSeasonChange}
+            min={latestSeason + 1}
+            step="1"
+            required
+          />
+          <Button type="submit" disabled={!isValid} ml={2}>
             Add season
           </Button>
-        </div>
+        </Flex>
         <Note>
           <span>A </span>
           <LinkButton onClick={openReleasesPage}>new version</LinkButton>

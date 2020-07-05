@@ -1,6 +1,7 @@
 import React from "react";
 import Account from "../models/Account";
 import AccountForm from "./AccountForm";
+import Note from "./Note";
 
 interface Props {
   accounts: Account[];
@@ -24,15 +25,12 @@ const AddAccountForm = ({
         onCreate={onCreate}
         onUpdate={onAccountUpdate}
         totalAccounts={accounts.length}
-        buttonClass={accounts.length > 0 ? "" : "btn-primary"}
       />
-      <div className="pb-3">
-        {accounts.length > 0 && (
-          <p className="note">
-            <strong>Tip:</strong> the numbers at the end aren't required.
-          </p>
-        )}
-      </div>
+      {accounts.length > 0 && (
+        <Note>
+          <strong>Tip:</strong> the numbers at the end aren't required.
+        </Note>
+      )}
     </>
   );
 
