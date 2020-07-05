@@ -79,8 +79,8 @@ const SeasonForm = ({ onCreate, latestSeason }: Props) => {
           <span>A </span>
           <LinkButton onClick={openReleasesPage}>new version</LinkButton>
           <span> of </span>
-          {appName} may have the latest competitive season. If you can't update
-          for some reason, you can add a season to continue logging matches.
+          {appName} may have the latest competitive season, or you can add
+          a season to continue logging matches.
         </Note>
       </form>
     </Box>

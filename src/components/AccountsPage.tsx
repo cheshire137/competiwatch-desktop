@@ -4,6 +4,7 @@ import SeasonForm from "./SeasonForm";
 import AddAccountForm from "./AddAccountForm";
 import AccountsList from "./AccountsList";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
+import { Flex, Heading, CounterLabel } from "@primer/components";
 
 interface Props {
   onAccountChange: (id: string) => void;
@@ -43,10 +44,12 @@ const AccountsPage = ({
       {accounts.length > 0 && (
         <div className="float-left col-lg-7 col-md-12 col-sm-12 mb-4">
           <div className="mr-4 pr-4">
-            <h2 className="h2 text-normal mb-2 d-flex flex-items-center">
-              Battle.net accounts{" "}
-              <span className="Counter ml-2 h4 px-2">{accounts.length}</span>
-            </h2>
+            <Flex mb={2} alignItems="center">
+              <Heading fontSize={4} fontWeight="normal">
+                Battle.net accounts
+              </Heading>
+              <CounterLabel ml={2} px={2}>{accounts.length}</CounterLabel>
+            </Flex>
             <p>Choose an account to view and log competitive matches.</p>
             <AccountsList
               season={season}
