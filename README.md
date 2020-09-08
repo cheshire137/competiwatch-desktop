@@ -12,15 +12,15 @@ best on, which roles, whether you do better on weekday mornings or
 weekend evenings, whether joining voice chat helps your win rate,
 that sort of thing.
 
-![Screenshot of match history](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/matches-macos-roles.png)
+![Screenshot of match history](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/main/screenshots/matches-macos-roles.png)
 
-![Screenshot of log match form](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/log-match-role-queue.png)
+![Screenshot of log match form](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/main/screenshots/log-match-role-queue.png)
 
-![Screenshot of trends page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/screenshot-trends.png)
+![Screenshot of trends page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/main/screenshots/screenshot-trends.png)
 
-![Screenshot of settings page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/screenshot-settings.png)
+![Screenshot of settings page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/main/screenshots/screenshot-settings.png)
 
-![Screenshot of accounts page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/master/screenshots/accounts-list.png)
+![Screenshot of accounts page](https://raw.githubusercontent.com/cheshire137/competiwatch-desktop/main/screenshots/accounts-list.png)
 
 See [the changelog](./CHANGELOG.md) for what has changed each version.
 
