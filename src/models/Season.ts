@@ -1,5 +1,4 @@
 import Database from "./Database";
-import { runInNewContext } from "vm";
 
 interface SeasonData {
   _id?: string;
@@ -24,7 +23,7 @@ class Season {
   // First season where you could choose role queue or open queue for competitive
   // and this app supported choosing between them. Overwatch introduced open
   // queue alongside role queue in competitive with season 23.
-  public static openQueueSeasonStart: number = 24;
+  public static openQueueSeasonStart: number = 25;
 
   static async latest() {
     const conditions = {};
