@@ -64,7 +64,7 @@ const MatchesList = ({
       ) : (
         <Blankslate>
           <h3 className="mb-2">
-            No matches have been logged in season {season} for{" "}
+            No matches have been logged in season {season.number} for{" "}
             {account.battletag}
           </h3>
           <div className="d-flex flex-items-center flex-justify-between mx-auto populate-season-choices">

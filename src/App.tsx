@@ -166,7 +166,7 @@ const App = () => {
     await exporter.export();
 
     console.log(
-      `exported ${activeAccount.battletag}'s season ${activeSeason}`,
+      `exported ${activeAccount.battletag}'s season ${activeSeason.number}`,
       path
     );
   };

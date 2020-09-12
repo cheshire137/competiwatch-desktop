@@ -67,7 +67,7 @@ const AccountListItem = ({
     }
 
     const unit = totalMatches === 1 ? "match" : "matches";
-    const message = `Are you sure you want to delete all ${totalMatches} ${unit} from season ${season} for ${account.battletag}? This cannot be undone.`;
+    const message = `Are you sure you want to delete all ${totalMatches} ${unit} from season ${season.number} for ${account.battletag}? This cannot be undone.`;
     if (!window.confirm(message)) {
       return;
     }
@@ -96,7 +96,7 @@ const AccountListItem = ({
     );
 
     await exporter.export();
-    console.log(`exported ${account.battletag}'s season ${season}`, path);
+    console.log(`exported ${account.battletag}'s season ${season.number}`, path);
   };
 
   const exportSeason = async () => {

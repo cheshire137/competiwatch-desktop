@@ -47,7 +47,7 @@ const ImportForm = ({ onImport, season, account }: Props) => {
   const importFromPath = async () => {
     const importer = new CsvImporter(path, season, account._id);
 
-    console.log("wiped season", season, "for account", account._id);
+    console.log("wiped season", season.number, "for account", account._id);
     const matches = await importer.import(logMatchImport);
     onImportComplete(matches);
   };
@@ -66,7 +66,8 @@ const ImportForm = ({ onImport, season, account }: Props) => {
   };
 
   const onFormSubmit = () => {
-    const message = `Are you sure you want to replace match history for ${account.battletag} in season ${season} with this file?`;
+    const message = `Are you sure you want to replace match history for ` +
+      `${account.battletag} in season ${season.number} with this file?`;
     if (!window.confirm(message)) {
       return;
     }
@@ -121,7 +122,7 @@ const ImportForm = ({ onImport, season, account }: Props) => {
         </button>
       ) : (
         <button type="submit" disabled={!isValid} className="btn btn-primary">
-          Import {account.battletag}'s season {season} matches
+          Import {account.battletag}'s season {season.number} matches
         </button>
       )}
       {importLogEntries.length > 0 ? (

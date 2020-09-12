@@ -1,6 +1,6 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import { Flex, Text } from "@primer/components";
+import { Flex } from "@primer/components";
 import Color from "../../models/Color";
 import Match from "../../models/Match";
 import ChartUtils from "../../models/ChartUtils";
