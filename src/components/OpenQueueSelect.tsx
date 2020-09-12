@@ -14,7 +14,7 @@ const OpenQueueSelect = ({ openQueue, onOpenQueueChange }: Props) => {
   };
 
   return (
-    <SubNav aria-label="Open queue or role queue">
+    <SubNav mr={2} aria-label="Open queue or role queue">
       <SubNav.Link
         onClick={e => onChange(e, false)}
         selected={!openQueue}

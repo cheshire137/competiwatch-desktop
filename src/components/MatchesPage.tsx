@@ -6,6 +6,7 @@ import LayoutChildrenContainer from "./LayoutChildrenContainer";
 
 interface Props {
   account: Account;
+  openQueue: boolean;
   season: Season;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   scrollToMatchID: string | null;
@@ -17,6 +18,7 @@ const MatchesPage = ({
   onPageChange,
   season,
   scrollToMatchID,
+  openQueue,
   theme
 }: Props) => (
   <LayoutChildrenContainer>
@@ -24,6 +26,7 @@ const MatchesPage = ({
       season={season}
       account={account}
       theme={theme}
+      openQueue={openQueue}
       onPageChange={onPageChange}
       scrollToMatchID={scrollToMatchID}
     />

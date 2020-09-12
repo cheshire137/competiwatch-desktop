@@ -397,10 +397,11 @@ const App = () => {
           />
         )}
 
-        {activePage === "matches" && activeAccount && activeAccount._id && (
+        {activePage === "matches" && activeAccount && typeof openQueue === "boolean" && activeAccount._id && (
           <MatchesPage
             account={activeAccount}
             season={activeSeason}
+            openQueue={openQueue}
             onPageChange={changeActivePage}
             scrollToMatchID={scrollToMatchID}
             theme={theme}
@@ -450,12 +451,12 @@ const App = () => {
           <HelpPage theme={theme} onPageChange={changeActivePage} />
         )}
 
-        {activePage === "trends" && activeAccount && activeAccount._id && (
+        {activePage === "trends" && typeof openQueue === "boolean" && activeAccount && activeAccount._id && (
           <TrendsPage
-            accountID={activeAccount._id}
+            account={activeAccount}
             season={activeSeason}
-            onPageChange={changeActivePage}
             theme={theme}
+            openQueue={openQueue}
           />
         )}
 

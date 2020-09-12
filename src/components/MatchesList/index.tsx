@@ -14,6 +14,7 @@ interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   scrollToMatchID: string | null;
   theme: string;
+  openQueue: boolean;
 }
 
 const MatchesList = ({
@@ -21,6 +22,7 @@ const MatchesList = ({
   season,
   onPageChange,
   theme,
+  openQueue,
   scrollToMatchID
 }: Props) => {
   const [matches, setMatches] = useState<Array<Match> | null>(null);
@@ -64,7 +66,7 @@ const MatchesList = ({
       ) : (
         <Blankslate>
           <h3 className="mb-2">
-            No matches have been logged in season {season.number} for{" "}
+            No matches have been logged in season {season.number} ({openQueue ? 'open' : 'role'} queue) for{" "}
             {account.battletag}
           </h3>
           <div className="d-flex flex-items-center flex-justify-between mx-auto populate-season-choices">
