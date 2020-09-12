@@ -55,7 +55,7 @@ const MatchesList = ({
           />
           <div className="d-flex mb-4 mt-2 flex-items-center flex-justify-between">
             <div className="text-small">
-              <span>Replace your season {season} matches by </span>
+              <span>Replace your season {season.number} matches by </span>
               <LinkButton onClick={() => onPageChange("import")}>
                 importing them
               </LinkButton>
