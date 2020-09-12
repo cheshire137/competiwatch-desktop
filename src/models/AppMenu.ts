@@ -9,6 +9,7 @@ import {
 } from "../utils/electronUtils";
 import Account from "./Account";
 import Season from "./Season";
+import { timeStamp } from "console";
 
 interface AppMenuOptions {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
@@ -19,6 +20,7 @@ interface AppMenuOptions {
   accounts: Account[];
   accountID?: string | null;
   season: Season;
+  openQueue: boolean;
 }
 
 class AppMenu {
@@ -37,6 +39,7 @@ class AppMenu {
   showExportMatchesMenuItem: boolean;
   isMac: boolean;
   altOrOption: "Option" | "Alt";
+  openQueue: boolean;
 
   constructor(options: AppMenuOptions) {
     this.onPageChange = options.onPageChange;
@@ -47,6 +50,7 @@ class AppMenu {
     this.accounts = options.accounts;
     this.accountID = options.accountID;
     this.season = options.season;
+    this.openQueue = options.openQueue;
     this.showMatchesMenuItem = false;
     if (this.season && this.accountID) {
       this.showMatchesMenuItem = true;
@@ -243,7 +247,7 @@ class AppMenu {
           acct => acct._id === self.accountID
         )[0];
         if (account) {
-          const match = await account.latestMatch(self.season);
+          const match = await account.latestMatch(self.season, self.openQueue);
           if (match) {
             self.onPageChange("log-match", match.rank, match.group);
           } else {

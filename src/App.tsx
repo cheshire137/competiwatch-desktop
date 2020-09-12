@@ -341,7 +341,7 @@ const App = () => {
   }, [activeAccount && activeAccount._id, activeSeason && activeSeason.number, activePage]);
 
   useEffect(() => {
-    if (accounts.length < 1 || !activeSeason || seasons.length < 1) {
+    if (accounts.length < 1 || !activeSeason || seasons.length < 1 || typeof openQueue !== "boolean") {
       return;
     }
 
@@ -355,7 +355,8 @@ const App = () => {
       season: activeSeason,
       seasons,
       accountID: activeAccount ? activeAccount._id : null,
-      accounts
+      accounts,
+      openQueue
     });
   }, [
     activeAccount && activeAccount._id,

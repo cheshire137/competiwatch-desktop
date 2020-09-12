@@ -18,9 +18,6 @@ const SeasonForm = ({
 }: Props) => {
   const [season, setSeason] = useState("");
   const [isValid, setIsValid] = useState(false);
-  const [openQueue, setOpenQueue] = useState(
-    latestSeason.openQueue || latestSeason.number < Season.roleQueueSeasonStart
-  );
 
   const saveSeason = async () => {
     if (!isValid) {
@@ -28,7 +25,7 @@ const SeasonForm = ({
     }
 
     const seasonNumber = parseInt(season, 10);
-    const newSeason = new Season({ number: seasonNumber, openQueue: openQueue });
+    const newSeason = new Season({ number: seasonNumber });
     await newSeason.save();
     const seasons = await Season.findAll();
 
@@ -36,38 +33,15 @@ const SeasonForm = ({
     onCreate(newSeason, seasons);
   };
 
-  const checkValidity = async (
-    numberStr: string,
-    roleQueueChecked: boolean
-  ) => {
+  const checkValidity = async (numberStr: string) => {
     if (numberStr.length < 1) {
       setIsValid(false);
       return;
     }
 
     const newNumberValue = parseInt(numberStr, 10);
-    const newOpenQueueValue = !roleQueueChecked;
 
-    // Check if role queue existed yet
-    if (roleQueueChecked && newNumberValue < Season.roleQueueSeasonStart) {
-      setIsValid(false);
-      return;
-    }
-
-    // Check if open queue existed yet
-    if (
-      !roleQueueChecked &&
-      newNumberValue >= Season.roleQueueSeasonStart &&
-      newNumberValue < Season.openQueueSeasonStart
-    ) {
-      setIsValid(false);
-      return;
-    }
-
-    const seasonAlreadyExists = await Season.exists(
-      newNumberValue,
-      newOpenQueueValue
-    );
+    const seasonAlreadyExists = await Season.exists(newNumberValue);
     setIsValid(!seasonAlreadyExists);
   };
 
@@ -80,19 +54,7 @@ const SeasonForm = ({
     }
 
     setSeason(numberStr);
-    checkValidity(numberStr, !openQueue);
-  };
-
-  const onRoleQueueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const roleQueueChecked = event.target.checked;
-    setOpenQueue(!roleQueueChecked);
-    checkValidity(season, roleQueueChecked);
-  };
-
-  const onOpenQueueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const openQueueChecked = event.target.checked;
-    setOpenQueue(openQueueChecked);
-    checkValidity(season, !openQueueChecked);
+    checkValidity(numberStr);
   };
 
   return (
@@ -121,30 +83,6 @@ const SeasonForm = ({
             Add season
           </Button>
         </Flex>
-        <Box mt={2}>
-          <label htmlFor="season-role-queue">
-            <input
-              type="radio"
-              id="season-role-queue"
-              checked={!openQueue}
-              onChange={onRoleQueueChange}
-            />
-            <Box ml="1" mr={4} display="inline-block">
-              Role queue
-            </Box>
-          </label>
-          <label htmlFor="season-open-queue">
-            <input
-              type="radio"
-              id="season-open-queue"
-              checked={openQueue}
-              onChange={onOpenQueueChange}
-            />
-            <Box ml="1" display="inline-block">
-              Open queue
-            </Box>
-          </label>
-        </Box>
       </form>
       {latestSeasonCanBeDeleted && (
         <SeasonDeleteForm season={latestSeason} onDelete={onDelete} />

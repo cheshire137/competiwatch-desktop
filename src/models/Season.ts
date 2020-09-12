@@ -64,20 +64,12 @@ class Season {
     return Database.count("matches", conditions);
   }
 
-  static async exists(season: number, openQueue: boolean) {
+  static async exists(season: number) {
     const conditions = { number: season }
     const count = await Database.count("seasons", conditions);
     if (count > 0) {
       return true;
     }
-
-    if (openQueue) {
-      return season < this.roleQueueSeasonStart;
-    }
-
-    return (
-      season >= this.roleQueueSeasonStart && season <= this.openQueueSeasonStart
-    );
   }
 
   static async findAll() {

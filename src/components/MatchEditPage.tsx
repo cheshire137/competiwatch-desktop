@@ -57,6 +57,7 @@ const MatchEditPage = ({
       {match && typeof isLastPlacement === "boolean" && (
         <MatchForm
           id={id}
+          openQueue={match.openQueue}
           priorMatches={getPriorMatches(matches, id)}
           theme={theme}
           season={season}
