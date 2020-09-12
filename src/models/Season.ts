@@ -15,10 +15,9 @@ class Season {
   // First season where role queue was required for competitive.
   public static roleQueueSeasonStart: number = 18;
 
-  // First season where you could choose role queue or open queue for competitive
-  // and this app supported choosing between them. Overwatch introduced open
-  // queue alongside role queue in competitive with season 23.
-  public static openQueueSeasonStart: number = 25;
+  // First season where Overwatch introduced the choice between open
+  // queue and role queue in competitive.
+  public static openQueueSeasonStart: number = 23;
 
   static async latest() {
     const conditions = {};
@@ -75,12 +74,16 @@ class Season {
   static async findAll() {
     const rows: SeasonData[] = await Database.findAll("seasons", defaultSort);
     const seasons = rows.map(data => new Season(data));
+    const seenNumbers = seasons.map(s => s.number);
     for (
       let seasonNumber = Season.latestKnownSeason;
       seasonNumber >= 1;
       seasonNumber--
     ) {
-      seasons.push(new Season({ number: seasonNumber }));
+      if (!seenNumbers.includes(seasonNumber)) {
+        seasons.push(new Season({ number: seasonNumber }));
+      }
+      seenNumbers.push(seasonNumber);
     }
     return seasons.sort((a, b) => {
       if (a.number > b.number) {
