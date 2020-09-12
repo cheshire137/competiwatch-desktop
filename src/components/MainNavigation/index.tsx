@@ -1,6 +1,7 @@
 import React from "react";
 import AccountsTab from "./AccountsTab";
 import MatchesTab from "./MatchesTab";
+import OpenQueueSelect from "../OpenQueueSelect";
 import ImportTab from "./ImportTab";
 import TrendsTab from "./TrendsTab";
 import ExportButton from "./ExportButton";
@@ -16,7 +17,12 @@ interface Props {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   onExport: () => void;
   openQueue: boolean;
+  onOpenQueueChange: (newValue: boolean) => void;
 }
+
+const queueTypeSelectionIsSupported = (activeSeason: number) => {
+  return !Season.onlyOpenQueue(activeSeason) && !Season.onlyRoleQueue(activeSeason);
+};
 
 const MainNavigation = ({
   activeAccount,
@@ -24,17 +30,30 @@ const MainNavigation = ({
   activeSeason,
   activePage,
   onExport,
-  openQueue
+  openQueue,
+  onOpenQueueChange
 }: Props) => (
   <Flex ml={3} width="100%" justifyContent="space-between" alignItems="center">
     <Flex>
       <AccountsTab onPageChange={onPageChange} activePage={activePage} />
       {activeAccount && (
-        <MatchesTab
-          onPageChange={onPageChange}
-          activePage={activePage}
-          activeSeason={activeSeason}
-        />
+        <Flex>
+          <MatchesTab
+            onPageChange={onPageChange}
+            activePage={activePage}
+            activeSeason={activeSeason}
+          />
+          {queueTypeSelectionIsSupported(activeSeason.number) ? (
+            <OpenQueueSelect
+              openQueue={openQueue}
+              onOpenQueueChange={onOpenQueueChange}
+            />
+          ) : (
+            <div>
+              {Season.onlyRoleQueue(activeSeason.number) ? 'Role queue' : 'Open queue'}
+            </div>
+          )}
+        </Flex>
       )}
       <ImportTab activePage={activePage} />
       {activeAccount && (

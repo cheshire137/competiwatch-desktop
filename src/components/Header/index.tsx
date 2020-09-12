@@ -1,6 +1,5 @@
 import React from "react";
 import SeasonSelect from "../SeasonSelect";
-import OpenQueueSelect from "../OpenQueueSelect";
 import AccountSelect from "../AccountSelect";
 import MainNavigation from "../MainNavigation";
 import Account from "../../models/Account";
@@ -20,10 +19,6 @@ interface Props {
   openQueue: boolean;
   onOpenQueueChange: (newValue: boolean) => void;
 }
-
-const queueTypeSelectionIsSupported = (activeSeason: number) => {
-  return !Season.onlyOpenQueue(activeSeason) && !Season.onlyRoleQueue(activeSeason);
-};
 
 const Header = ({
   activeSeason,
@@ -47,16 +42,6 @@ const Header = ({
           seasons={seasons}
         />
       )}
-      {queueTypeSelectionIsSupported(activeSeason.number) ? (
-        <OpenQueueSelect
-          openQueue={openQueue}
-          onOpenQueueChange={onOpenQueueChange}
-        />
-      ) : (
-        <div>
-          {Season.onlyRoleQueue(activeSeason.number) ? 'Role queue' : 'Open queue'}
-        </div>
-      )}
       {activeAccount && (
         <AccountSelect
           accounts={accounts}
@@ -72,6 +57,7 @@ const Header = ({
         activeAccount={activeAccount}
         onExport={onExport}
         openQueue={openQueue}
+        onOpenQueueChange={onOpenQueueChange}
       />
     </div>
   </StickyBar>
