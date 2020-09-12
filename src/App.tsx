@@ -159,6 +159,8 @@ const App = () => {
       changeOpenQueue(true);
     } else if (Season.onlyRoleQueue(newSeason.number)) {
       changeOpenQueue(false);
+    } else if (typeof openQueue !== "boolean") {
+      changeOpenQueue(false);
     }
   };
 
