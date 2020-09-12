@@ -11,6 +11,7 @@ interface Props {
   latestSeason: Season;
   latestRank: number;
   theme: string;
+  openQueue: boolean;
   latestGroup: string | null;
   onSeasonChange: (season: Season) => void;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
@@ -21,6 +22,7 @@ const MatchCreatePage = ({
   latestGroup,
   latestRank,
   theme,
+  openQueue,
   season,
   latestSeason,
   onSeasonChange,
@@ -59,6 +61,7 @@ const MatchCreatePage = ({
         rank={latestRank}
         latestGroup={latestGroup}
         theme={theme}
+        openQueue={openQueue}
         onCreate={(id?: string) => onPageChange("matches", id)}
         priorMatches={matches}
       />

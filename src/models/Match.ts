@@ -251,12 +251,13 @@ class Match {
     return new Match(data);
   }
 
-  static async findAll(accountID: string, season: Season) {
-    let rows: MatchData[] = await Database.findAll(
-      "matches",
-      defaultSort,
-      { accountID, season: season.number, openQueue: season.openQueue }
-    );
+  static async findAll(accountID: string, season: Season, openQueue?: boolean) {
+    const conditions: any = { accountID, season: season.number };
+    if (typeof openQueue === 'boolean') {
+      conditions.openQueue = openQueue;
+    }
+    let rows: MatchData[] = await Database.findAll("matches",
+      defaultSort, conditions);
     if (season.number < Season.openQueueSeasonStart && rows.length < 1) {
       const moreRows: MatchData[] = await Database.findAll("matches", defaultSort, {
         accountID, season: season.number

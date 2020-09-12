@@ -106,7 +106,6 @@ const MatchesTable = ({
 
   const showRoleColumn = () => {
     return (
-      !season.openQueue &&
       matches.filter(match => typeof match.role === "string").length > 0
     );
   };

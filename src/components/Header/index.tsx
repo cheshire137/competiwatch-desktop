@@ -1,5 +1,6 @@
 import React from "react";
 import SeasonSelect from "../SeasonSelect";
+import OpenQueueSelect from "../OpenQueueSelect";
 import AccountSelect from "../AccountSelect";
 import MainNavigation from "../MainNavigation";
 import Account from "../../models/Account";
@@ -16,7 +17,13 @@ interface Props {
   onAccountChange: (id: string) => void;
   activePage: string;
   onExport: () => void;
+  openQueue: boolean;
+  onOpenQueueChange: (newValue: boolean) => void;
 }
+
+const queueTypeSelectionIsSupported = (activeSeason: number) => {
+  return !Season.onlyOpenQueue(activeSeason) && !Season.onlyRoleQueue(activeSeason);
+};
 
 const Header = ({
   activeSeason,
@@ -27,7 +34,9 @@ const Header = ({
   activeAccount,
   onAccountChange,
   activePage,
-  onExport
+  onExport,
+  openQueue,
+  onOpenQueueChange
 }: Props) => (
   <StickyBar>
     <div className="d-flex flex-items-center container">
@@ -37,6 +46,16 @@ const Header = ({
           onSeasonChange={onSeasonChange}
           seasons={seasons}
         />
+      )}
+      {queueTypeSelectionIsSupported(activeSeason.number) ? (
+        <OpenQueueSelect
+          openQueue={openQueue}
+          onOpenQueueChange={onOpenQueueChange}
+        />
+      ) : (
+        <div>
+          {Season.onlyRoleQueue(activeSeason.number) ? 'Role queue' : 'Open queue'}
+        </div>
       )}
       {activeAccount && (
         <AccountSelect
@@ -52,6 +71,7 @@ const Header = ({
         activeSeason={activeSeason}
         activeAccount={activeAccount}
         onExport={onExport}
+        openQueue={openQueue}
       />
     </div>
   </StickyBar>

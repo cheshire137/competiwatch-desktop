@@ -7,13 +7,15 @@ interface Props {
   activeSeason: Season;
   activeAccount: Account;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
+  openQueue: boolean;
 }
 
 const LogMatchButton = ({
   activePage,
   activeSeason,
   activeAccount,
-  onPageChange
+  onPageChange,
+  openQueue
 }: Props) => {
   if (activePage === "log-match" || activePage === "edit-match") {
     return null;
@@ -21,7 +23,7 @@ const LogMatchButton = ({
 
   const changeToMatchFormPage = async () => {
     const account = new Account({ _id: activeAccount._id });
-    const latestMatch = await account.latestMatch(activeSeason);
+    const latestMatch = await account.latestMatch(activeSeason, openQueue);
 
     if (latestMatch) {
       onPageChange("log-match", latestMatch.rank, latestMatch.group);

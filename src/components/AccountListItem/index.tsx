@@ -26,13 +26,15 @@ interface Props {
   onAccountChange: (id: string) => void;
   onAccountUpdate: () => void;
   season: Season;
+  openQueue: boolean;
 }
 
 const AccountListItem = ({
   account,
   onAccountChange,
   season,
-  onAccountUpdate
+  onAccountUpdate,
+  openQueue
 }: Props) => {
   const [totalMatches, setTotalMatches] = useState(-1);
   const [showEditForm, setShowEditForm] = useState(false);
@@ -42,17 +44,17 @@ const AccountListItem = ({
 
   useEffect(() => {
     async function getLatestMatch() {
-      const match = await account.latestMatch(season);
+      const match = await account.latestMatch(season, openQueue);
       setLatestMatch(match || null);
     }
 
     async function getTotalMatches() {
-      const count = await account.totalMatches(season);
+      const count = await account.totalMatches(season, openQueue);
       setTotalMatches(count);
     }
 
     async function getTopHeroes() {
-      const newTopHeroes = await account.topHeroes(season);
+      const newTopHeroes = await account.topHeroes(season, openQueue);
       setTopHeroes(newTopHeroes);
     }
 
@@ -74,7 +76,7 @@ const AccountListItem = ({
 
     await Match.wipeSeason(account._id, season);
 
-    const match = await account.latestMatch(season);
+    const match = await account.latestMatch(season, openQueue);
     setLatestMatch(match || null);
 
     const count = await account.totalMatches(season);
@@ -189,7 +191,7 @@ const AccountListItem = ({
                 </span>
               </>
             ) : (
-              <span>No matches in season {season.number} ({season.description()})</span>
+              <span>No matches in season {season.number}</span>
             )}
           </AccountMeta>
           <ButtonShownOnHover onClick={() => setShowEditForm(!showEditForm)}>

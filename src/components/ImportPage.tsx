@@ -38,7 +38,7 @@ const ImportPage = ({ account, season, onImport }: Props) => {
             {" "}
             {totalMatches} match{totalMatches === 1 ? null : "es"}{" "}
           </strong>
-          in season {season.number} ({season.description()}).
+          in season {season.number}.
         </p>
       )}
       <ImportForm season={season} onImport={onImport} account={account} />

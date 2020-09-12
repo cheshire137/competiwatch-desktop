@@ -63,7 +63,7 @@ class CsvImporter {
     const matchData: MatchData = {
       accountID: this.accountID,
       season: this.season.number,
-      openQueue: this.season.openQueue,
+      openQueue: data.openQueue,
       rank: data.rank,
       role: data.role,
       comment: data.comment,

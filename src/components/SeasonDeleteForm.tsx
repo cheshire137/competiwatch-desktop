@@ -8,7 +8,7 @@ interface Props {
 
 const SeasonDeleteForm = ({ onDelete, season }: Props) => {
   const deleteSeason = async () => {
-    const message = `Are you sure you want to delete season ${season.number} (${season.description()})?`;
+    const message = `Are you sure you want to delete season ${season.number}?`;
     if (!window.confirm(message)) {
       return;
     }
@@ -25,7 +25,7 @@ const SeasonDeleteForm = ({ onDelete, season }: Props) => {
       }}
     >
       <button type="submit" className="btn-link text-red text-small">
-        Delete season {season.number} ({season.description()})
+        Delete season {season.number}
       </button>
     </form>
   );

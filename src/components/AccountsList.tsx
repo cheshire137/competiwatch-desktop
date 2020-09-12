@@ -8,13 +8,15 @@ interface Props {
   season: Season;
   onAccountChange: (id: string) => void;
   onAccountUpdate: () => void;
+  openQueue: boolean;
 }
 
 const AccountsList = ({
   onAccountChange,
   onAccountUpdate,
   season,
-  accounts
+  accounts,
+  openQueue
 }: Props) => (
   <ul className="list-style-none mb-4">
     {accounts.map(account => (
@@ -22,6 +24,7 @@ const AccountsList = ({
         key={account._id}
         season={season}
         account={account}
+        openQueue={openQueue}
         onAccountChange={onAccountChange}
         onAccountUpdate={onAccountUpdate}
       />

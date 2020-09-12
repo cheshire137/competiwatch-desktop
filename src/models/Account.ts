@@ -64,7 +64,6 @@ class Account {
     const conditions: any = { accountID, group: { $ne: "" } };
     if (season) {
       conditions.season = season.number;
-      conditions.openQueue = season.openQueue;
     }
 
     const matchRows: MatchData[] = await Database.findAll(
@@ -86,19 +85,18 @@ class Account {
     return Object.keys(groupMembers).sort();
   }
 
-  async topHeroes(season: Season) {
+  async topHeroes(season: Season, openQueue?: boolean) {
     const sort = {};
     const conditions: any = { accountID: this._id, heroes: { $ne: "" } };
     if (season) {
       conditions.season = season.number;
-      conditions.openQueue = season.openQueue;
+    }
+    if (typeof openQueue === "boolean") {
+      conditions.openQueue = openQueue;
     }
 
-    const matchRowsData: any[] = await Database.findAll(
-      "matches",
-      sort,
-      conditions
-    );
+    const matchRowsData: any[] = await Database.findAll("matches",
+      sort, conditions);
     const matchRows = matchRowsData as MatchData[];
     const matches: Match[] = matchRows.map(data => new Match(data));
     const heroCounts: HeroCount = {};
@@ -129,8 +127,8 @@ class Account {
     return sortableHeroCounts.map(arr => arr.hero).slice(0, 3);
   }
 
-  async latestMatch(season: Season) {
-    const conditions = { accountID: this._id, season: season.number, openQueue: season.openQueue };
+  async latestMatch(season: Season, openQueue: boolean) {
+    const conditions = { accountID: this._id, season: season.number, openQueue };
     const sort = { date: -1, createdAt: -1 };
 
     const data: MatchData = await Database.latest("matches", conditions, sort);
@@ -139,11 +137,13 @@ class Account {
     }
   }
 
-  async totalMatches(season?: Season) {
+  async totalMatches(season?: Season, openQueue?: boolean) {
     const conditions: any = { accountID: this._id };
     if (season) {
       conditions.season = season.number;
-      conditions.openQueue = season.openQueue;
+    }
+    if (typeof openQueue === "boolean") {
+      conditions.openQueue = openQueue;
     }
     const count = await Database.count("matches", conditions);
     return count;

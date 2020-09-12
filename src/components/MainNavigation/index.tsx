@@ -15,6 +15,7 @@ interface Props {
   activeSeason: Season;
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   onExport: () => void;
+  openQueue: boolean;
 }
 
 const MainNavigation = ({
@@ -22,7 +23,8 @@ const MainNavigation = ({
   onPageChange,
   activeSeason,
   activePage,
-  onExport
+  onExport,
+  openQueue
 }: Props) => (
   <Flex ml={3} width="100%" justifyContent="space-between" alignItems="center">
     <Flex>
@@ -52,6 +54,7 @@ const MainNavigation = ({
           activeSeason={activeSeason}
           onPageChange={onPageChange}
           activeAccount={activeAccount}
+          openQueue={openQueue}
         />
       )}
     </div>

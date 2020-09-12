@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Season from "../models/Season";
-import LoadingPage from "./LoadingPage";
 
 interface Props {
   activeSeason: Season;
@@ -51,7 +50,7 @@ const SeasonSelect = ({ activeSeason, seasons, onSeasonChange }: Props) => {
           aria-haspopup="true"
           aria-expanded="false"
         >
-          Season {activeSeason.number} ({activeSeason.description()})
+          Season {activeSeason.number}
         </button>
         <div className="select-menu-modal-holder">
           <div className="select-menu-modal">
@@ -59,13 +58,13 @@ const SeasonSelect = ({ activeSeason, seasons, onSeasonChange }: Props) => {
               {seasons.map(season => (
                 <button
                   className={seasonButtonClass(season)}
-                  key={season.numberAndOpenQueue}
+                  key={season.number}
                   type="button"
                   onClick={e => onChange(e, season)}
                 >
                   <span className="ion ion-ios-checkmark select-menu-item-icon" />
                   <span className="select-menu-item-text">
-                    Season {season.number} ({season.description()})
+                    Season {season.number}
                   </span>
                 </button>
               ))}

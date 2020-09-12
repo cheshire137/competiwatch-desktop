@@ -260,7 +260,7 @@ class AppMenu {
     const self = this;
 
     return {
-      label: `Season ${season.number} (${season.description()})`,
+      label: `Season ${season.number}`,
       click() {
         self.onSeasonChange(season);
       }

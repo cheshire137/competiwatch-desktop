@@ -74,7 +74,7 @@ function getTitle(
   }
 
   if (activeSeason && isSeasonRelevant) {
-    titleParts.push(`Season ${activeSeason.number} (${activeSeason.description()})`);
+    titleParts.push(`Season ${activeSeason.number}`);
   }
 
   if (activeAccount && isAccountRelevant) {
@@ -101,6 +101,7 @@ const App = () => {
   const [latestSeasonTotalMatches, setLatestSeasonTotalMatches] = useState<
     number
   >(-1);
+  const [openQueue, setOpenQueue] = useState<boolean | null>(null);
 
   const activateDefaultAccount = () => {
     if (!settings || !settings.defaultAccountID) {
@@ -139,6 +140,10 @@ const App = () => {
     setAccounts(allAccounts);
   }
 
+  const changeOpenQueue = (newValue: boolean) => {
+    setOpenQueue(newValue);
+  };
+
   const changeActiveSeason = (newSeason: Season) => {
     setActiveSeason(newSeason);
     if (activeMatchID) {
@@ -149,6 +154,11 @@ const App = () => {
     }
     if (latestSeason === null || newSeason.number > latestSeason.number) {
       setLatestSeason(newSeason);
+    }
+    if (Season.onlyOpenQueue(newSeason.number)) {
+      changeOpenQueue(true);
+    } else if (Season.onlyRoleQueue(newSeason.number)) {
+      changeOpenQueue(false);
     }
   };
 
@@ -328,7 +338,7 @@ const App = () => {
 
   useEffect(() => {
     setTitle(getTitle(activePage, activeSeason, activeAccount));
-  }, [activeAccount && activeAccount._id, activeSeason && activeSeason.number, activeSeason && activeSeason.openQueue, activePage]);
+  }, [activeAccount && activeAccount._id, activeSeason && activeSeason.number, activePage]);
 
   useEffect(() => {
     if (accounts.length < 1 || !activeSeason || seasons.length < 1) {
@@ -350,9 +360,7 @@ const App = () => {
   }, [
     activeAccount && activeAccount._id,
     latestSeason && latestSeason.number,
-    latestSeason && latestSeason.openQueue,
     activeSeason && activeSeason.number,
-    activeSeason && activeSeason.openQueue,
     accounts.length,
     seasons.length
   ]);
@@ -370,7 +378,7 @@ const App = () => {
   return (
     <ThemeProvider theme={getAppTheme(theme)}>
       <LayoutContainer>
-        {showHeader && (
+        {showHeader && typeof openQueue === "boolean" && (
           <Header
             accounts={accounts}
             seasons={seasons}
@@ -381,6 +389,8 @@ const App = () => {
             onSeasonChange={changeActiveSeason}
             onAccountChange={changeActiveAccount}
             onExport={exportSeason}
+            openQueue={openQueue}
+            onOpenQueueChange={changeOpenQueue}
           />
         )}
 
@@ -394,7 +404,7 @@ const App = () => {
           />
         )}
 
-        {activePage === "log-match" && latestSeason && activeAccount && activeAccount._id && (
+        {activePage === "log-match" && typeof openQueue === "boolean" && latestSeason && activeAccount && activeAccount._id && (
           <MatchCreatePage
             accountID={activeAccount._id}
             onPageChange={changeActivePage}
@@ -403,6 +413,7 @@ const App = () => {
             latestGroup={latestGroup}
             season={activeSeason}
             theme={theme}
+            openQueue={openQueue}
             latestSeason={latestSeason}
           />
         )}
@@ -458,6 +469,7 @@ const App = () => {
           <AccountsPage
             accounts={accounts}
             season={activeSeason}
+            openQueue={activeSeason.number < Season.roleQueueSeasonStart}
             latestSeason={latestSeason}
             onCreate={refreshAccounts}
             onAccountChange={changeActiveAccount}

@@ -54,7 +54,7 @@ const ImportForm = ({ onImport, season, account }: Props) => {
 
   const wipeSeasonAndImport = async () => {
     const logEntries = importLogEntries.slice(0);
-    const message = `Deleting ${account.battletag}'s existing matches in season ${season.number} (${season.description()})...`;
+    const message = `Deleting ${account.battletag}'s existing matches in season ${season.number}...`;
 
     logEntries.unshift({ message, key: "wipe-notice" });
 
