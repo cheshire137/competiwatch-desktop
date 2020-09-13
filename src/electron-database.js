@@ -6,6 +6,53 @@ const Datastore = require("nedb");
 const databases = {};
 const env = process.env.ELECTRON_START_URL ? "development" : "production";
 
+// Migrations
+
+function saveOpenQueue(matchesDB, row, openQueue) {
+  const conditions = {_id: row._id};
+  const data = Object.assign({}, row);
+  data.openQueue = openQueue;
+  const update = { $set: data };
+  const options = {};
+  matchesDB.update(conditions, update, options, (err, numReplaced) => {
+    if (err) {
+      log.error("error updating openQueue for match", row._id, err);
+    } else {
+      log.info(`changed openQueue=${row.openQueue} to openQueue=${openQueue} ` +
+        `for match ${row._id} in season ${row.season}; updated ${numReplaced} row(s)`);
+    }
+  });
+}
+
+function getOpenQueueFor(row) {
+  const season = parseInt(row.season, 10);
+  if (season < 18) { // role queue added in competitive season 18
+    return true;
+  }
+  if (season >= 18 && season < 23) { // role queue only
+    return false;
+  }
+  return false; // open queue supported but default to role queue
+}
+
+function populateOpenQueue(matchesDB) {
+  log.info("migrating matches database: populate openQueue");
+  const conditions = { openQueue: { $nin: [true, false] } };
+  matchesDB.find(conditions).exec((err, rows) => {
+    if (err) {
+      log.error("error finding unpopulated openQueue matches:", err);
+    } else {
+      log.info(`updating ${rows.length} row(s)`)
+      for (const row of rows) {
+        const openQueue = getOpenQueueFor(row);
+        saveOpenQueue(matchesDB, row, openQueue);
+      }
+    }
+  });
+}
+
+// Database utilities
+
 const getDatabaseFilename = name => {
   const dbDir = app.getPath("userData");
   const dbFile = `competiwatch-${name}-${env}.json`;
@@ -33,6 +80,9 @@ const loadMatchesDatabase = () => {
 
   db.loadDatabase();
 
+  // Migrations
+  populateOpenQueue(db);
+
   databases.matches = db;
 };
 
@@ -41,14 +91,6 @@ const loadSeasonsDatabase = () => {
   const db = new Datastore({ filename });
 
   db.loadDatabase();
-  db.ensureIndex(
-    { fieldName: "numberAndOpenQueue", unique: true, sparse: true },
-    err => {
-      if (err) {
-        log.error("failed to add seasons.numberAndOpenQueue index", err);
-      }
-    }
-  );
 
   databases.seasons = db;
 };
@@ -88,6 +130,8 @@ const databaseFor = name => {
     return databases.settings;
   }
 };
+
+// Database call handlers
 
 ipcMain.on("get-db-path", (event, replyTo, dbName) => {
   const dbPath = getDatabaseFilename(dbName);
