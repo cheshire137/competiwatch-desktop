@@ -9,7 +9,6 @@ import {
 } from "../utils/electronUtils";
 import Account from "./Account";
 import Season from "./Season";
-import { timeStamp } from "console";
 
 interface AppMenuOptions {
   onPageChange: (activePage: string, val1?: any, val2?: any) => void;

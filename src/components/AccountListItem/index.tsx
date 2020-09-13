@@ -158,7 +158,7 @@ const AccountListItem = ({
                 </LinkButton>
               </>
             ) : (
-              <BattletagButton onClick={() => onAccountChange(account._id)}>
+              <BattletagButton onClick={() => onAccountChange(_id)}>
                 {battletag}
               </BattletagButton>
             )}

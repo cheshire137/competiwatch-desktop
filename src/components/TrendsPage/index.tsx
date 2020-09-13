@@ -17,7 +17,7 @@ import Account from "../../models/Account";
 import Color from "../../models/Color";
 import Blankslate from "../Blankslate";
 import HorizontalRule from "../HorizontalRule";
-import { Flex, Heading, Box, Grid } from "@primer/components";
+import { Flex, Heading, Grid } from "@primer/components";
 import "./TrendsPage.css";
 import Season from "../../models/Season";
 

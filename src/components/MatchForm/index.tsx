@@ -610,7 +610,8 @@ const MatchForm = (props: Props) => {
     allyCheater,
     enemyThrower,
     enemyLeaver,
-    enemyCheater
+    enemyCheater,
+    openQueue
   ]);
 
   useEffect(() => {
@@ -640,7 +641,7 @@ const MatchForm = (props: Props) => {
     result,
     rank,
     enableRankField,
-    season,
+    openQueue,
     role,
     isPlacement
   ]);
