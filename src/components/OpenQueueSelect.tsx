@@ -8,7 +8,7 @@ interface Props {
 
 const OpenQueueSelect = ({ openQueue, onOpenQueueChange }: Props) => {
   return (
-    <SelectMenu>
+    <SelectMenu mr={3}>
       <Button as="summary">{openQueue ? 'Open queue' : 'Role queue'}</Button>
       <SelectMenu.Modal>
         <SelectMenu.Header>Queue type</SelectMenu.Header>
