@@ -35,13 +35,6 @@ const Header = ({
 }: Props) => (
   <StickyBar>
     <div className="d-flex flex-items-center container">
-      {accounts && accounts.length > 0 && (
-        <SeasonSelect
-          activeSeason={activeSeason}
-          onSeasonChange={onSeasonChange}
-          seasons={seasons}
-        />
-      )}
       {activeAccount && (
         <AccountSelect
           accounts={accounts}
@@ -59,6 +52,13 @@ const Header = ({
         openQueue={openQueue}
         onOpenQueueChange={onOpenQueueChange}
       />
+      {accounts && accounts.length > 0 && (
+        <SeasonSelect
+          activeSeason={activeSeason}
+          onSeasonChange={onSeasonChange}
+          seasons={seasons}
+        />
+      )}
     </div>
   </StickyBar>
 );
