@@ -5,7 +5,7 @@ import Match from "../models/Match";
 import Season from "../models/Season";
 import Account from "../models/Account";
 import Blankslate from "./Blankslate";
-import { Box, Flex } from "@primer/components";
+import { Box, Heading, ButtonPrimary } from "@primer/components";
 
 interface Props {
   account: Account;
@@ -53,27 +53,16 @@ const MatchesList = ({
         />
       ) : (
         <Blankslate>
-          <h3 className="mb-2">
+          <Heading mb={2} as="h3" fontSize={3}>
             No matches have been logged in season {season.number} ({openQueue ? 'open' : 'role'} queue) for{" "}
             {account.battletag}
-          </h3>
-          <Flex alignItems="center" width="21em" justifyItems="space-between" mx="auto">
-            <button
-              type="button"
-              className="btn-large btn btn-primary"
-              onClick={() => onPageChange("log-match")}
-            >
-              Log a match
-            </button>
-            or
-            <button
-              type="button"
-              className="btn btn-sm"
-              onClick={() => onPageChange("import")}
-            >
-              Import matches
-            </button>
-          </Flex>
+          </Heading>
+          <ButtonPrimary
+            variant="large"
+            onClick={() => onPageChange("log-match")}
+          >
+            Log a match
+          </ButtonPrimary>
         </Blankslate>
       )}
     </Box>
