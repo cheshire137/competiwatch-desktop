@@ -38,12 +38,12 @@ const TrendsPage = ({
 
   useEffect(() => {
     async function getMatches() {
-      const m = await Match.findAll(account._id, season);
+      const m = await Match.findAll(account._id, season, openQueue);
       setMatches(m);
     }
 
     getMatches();
-  }, [account._id, season && season.number]);
+  }, [account._id, season && season.number, openQueue]);
 
   if (!matches) {
     return <LoadingPage />;
