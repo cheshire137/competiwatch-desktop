@@ -189,7 +189,7 @@ export interface MatchData {
   groupSize?: number | string;
   group?: string;
   heroes?: string;
-  role?: HeroRole;
+  role?: HeroRole | null;
   createdAt?: string | Date;
   playedAt?: string | Date;
   dayOfWeek?: DayOfWeek;
@@ -456,7 +456,7 @@ class Match {
   }
 
   async save() {
-    const data = {
+    const data: MatchData = {
       rank: this.rank,
       comment: this.comment,
       map: this.map,
@@ -478,7 +478,8 @@ class Match {
       joinedVoice: this.joinedVoice,
       season: this.season,
       result: this.result,
-      role: this.role
+      role: this.role,
+      openQueue: this.openQueue
     };
 
     const record = await Database.upsert("matches", data, this._id);
