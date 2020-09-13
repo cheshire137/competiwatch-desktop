@@ -396,7 +396,6 @@ const App = () => {
             onPageChange={changeActivePage}
             activeSeason={activeSeason}
             onSeasonChange={changeActiveSeason}
-            onAccountChange={changeActiveAccount}
             onExport={exportSeason}
             openQueue={openQueue}
             onOpenQueueChange={changeOpenQueue}
