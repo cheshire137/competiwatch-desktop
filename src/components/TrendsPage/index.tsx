@@ -43,7 +43,7 @@ const TrendsPage = ({
     }
 
     getMatches();
-  }, [account._id, season.number]);
+  }, [account._id, season && season.number]);
 
   if (!matches) {
     return <LoadingPage />;
