@@ -1,5 +1,5 @@
 import React from "react";
-import { SubNav } from "@primer/components";
+import { SelectMenu, Button } from "@primer/components";
 
 interface Props {
   openQueue: boolean;
@@ -7,23 +7,23 @@ interface Props {
 }
 
 const OpenQueueSelect = ({ openQueue, onOpenQueueChange }: Props) => {
-  const onChange = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>, newValue: boolean) => {
-    event.preventDefault();
-    event.currentTarget.blur();
-    onOpenQueueChange(newValue);
-  };
-
   return (
-    <SubNav mr={2} aria-label="Open queue or role queue">
-      <SubNav.Link
-        onClick={e => onChange(e, false)}
-        selected={!openQueue}
-      >Role queue</SubNav.Link>
-      <SubNav.Link
-        onClick={e => onChange(e, true)}
-        selected={openQueue}
-      >Open queue</SubNav.Link>
-    </SubNav>
+    <SelectMenu>
+      <Button as="summary">{openQueue ? 'Open queue' : 'Role queue'}</Button>
+      <SelectMenu.Modal>
+        <SelectMenu.Header>Queue type</SelectMenu.Header>
+        <SelectMenu.List>
+          <SelectMenu.Item
+            onClick={() => onOpenQueueChange(false)}
+            selected={!openQueue}
+          >Role queue</SelectMenu.Item>
+          <SelectMenu.Item
+            onClick={() => onOpenQueueChange(true)}
+            selected={openQueue}
+          >Open queue</SelectMenu.Item>
+        </SelectMenu.List>
+      </SelectMenu.Modal>
+    </SelectMenu>
   );
 };
 

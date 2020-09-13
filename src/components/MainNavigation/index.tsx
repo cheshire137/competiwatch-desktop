@@ -37,7 +37,7 @@ const MainNavigation = ({
     <Flex>
       <AccountsTab onPageChange={onPageChange} activePage={activePage} />
       {activeAccount && (
-        <Flex>
+        <Flex alignItems="center">
           <MatchesTab
             onPageChange={onPageChange}
             activePage={activePage}
