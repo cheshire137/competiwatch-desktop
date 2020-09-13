@@ -137,33 +137,23 @@ const TrendsPage = ({
         </div>
       ) : null}
       <GroupSizeChart theme={theme} season={season.number} matches={matches} />
-      {showHeroesCharts || showVoiceCharts ? (
-        <div>
-          {showHeroesCharts && (
-            <div>
-              <HorizontalRule />
-              <HeroRatiosChart season={season.number} matches={matches} />
-            </div>
-          )}
+      {showHeroesCharts && (
+        <>
           <HorizontalRule />
-          <div className="clearfix">
-            {showVoiceCharts && (
-              <div
-                className={
-                  showHeroesCharts
-                    ? "col-md-5 float-md-left"
-                    : "col-md-5 mx-auto"
-                }
-              >
-                <VoiceChatChart
-                  season={season.number}
-                  matches={matches}
-                />
-              </div>
-            )}
-          </div>
-        </div>
-      ) : null}
+          <HeroRatiosChart season={season.number} matches={matches} />
+        </>
+      )}
+      {showVoiceCharts && (
+        <>
+          <HorizontalRule />
+          <Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
+            <VoiceChatChart
+              season={season.number}
+              matches={matches}
+            />
+          </Grid>
+        </>
+      )}
       {showDayTimeChart() && (
         <>
           <HorizontalRule />
@@ -171,14 +161,17 @@ const TrendsPage = ({
         </>
       )}
       {(showBadActorChart || showBadActorsTimeChart) && (
-        <Flex justifyContent="space-between" alignItems="center">
-          {showBadActorChart && (
-            <BadActorChart season={season.number} matches={matches} />
-          )}
-          {showBadActorsTimeChart && (
-            <BadActorsTimeChart season={season.number} matches={matches} />
-          )}
-        </Flex>
+        <>
+          <HorizontalRule />
+          <Flex justifyContent="space-between" alignItems="center">
+            {showBadActorChart && (
+              <BadActorChart season={season.number} matches={matches} />
+            )}
+            {showBadActorsTimeChart && (
+              <BadActorsTimeChart season={season.number} matches={matches} />
+            )}
+          </Flex>
+        </>
       )}
     </div>
   );
