@@ -17,7 +17,7 @@ import Account from "../../models/Account";
 import Color from "../../models/Color";
 import Blankslate from "../Blankslate";
 import HorizontalRule from "../HorizontalRule";
-import { Flex, Heading } from "@primer/components";
+import { Flex, Heading, Box, Grid } from "@primer/components";
 import "./TrendsPage.css";
 import Season from "../../models/Season";
 
@@ -116,15 +116,12 @@ const TrendsPage = ({
 
   return (
     <div className="container mb-4 layout-children-container">
-      <div className="clearfix">
-        <div
-          className={
-            showBadActorChart ? "col-md-5 float-md-left" : "col-md-5 mx-auto"
-          }
-        >
-          <WinLossChart season={season.number} matches={matches} />
-        </div>
-      </div>
+      <Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
+        <WinLossChart season={season.number} matches={matches} />
+        {showHeroesCharts && (
+          <RoleChart season={season.number} theme={theme} matches={matches} />
+        )}
+      </Grid>
       <HorizontalRule />
       <StreaksChart season={season.number} matches={matches} />
       {showMapChart() ? (
@@ -150,17 +147,6 @@ const TrendsPage = ({
           )}
           <HorizontalRule />
           <div className="clearfix">
-            {showHeroesCharts && (
-              <div
-                className={
-                  showVoiceCharts
-                    ? "col-md-7 float-md-left"
-                    : "col-md-7 mx-auto"
-                }
-              >
-                <RoleChart season={season.number} theme={theme} matches={matches} />
-              </div>
-            )}
             {showVoiceCharts && (
               <div
                 className={
