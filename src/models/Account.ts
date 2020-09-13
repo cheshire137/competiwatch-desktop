@@ -127,8 +127,11 @@ class Account {
     return sortableHeroCounts.map(arr => arr.hero).slice(0, 3);
   }
 
-  async latestMatch(season: Season, openQueue: boolean) {
-    const conditions = { accountID: this._id, season: season.number, openQueue };
+  async latestMatch(season: Season, openQueue?: boolean) {
+    const conditions: any = { accountID: this._id, season: season.number };
+    if (typeof openQueue === "boolean") {
+      conditions.openQueue = openQueue;
+    }
     const sort = { date: -1, createdAt: -1 };
 
     const data: MatchData = await Database.latest("matches", conditions, sort);

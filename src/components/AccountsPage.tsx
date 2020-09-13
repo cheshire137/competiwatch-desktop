@@ -17,7 +17,6 @@ interface Props {
   latestSeason: Season;
   onSeasonDelete: (season: Season, allSeasons: Season[]) => void;
   latestSeasonCanBeDeleted: boolean;
-  openQueue: boolean;
 }
 
 const AccountsPage = ({
@@ -29,8 +28,7 @@ const AccountsPage = ({
   onSeasonCreate,
   latestSeason,
   onSeasonDelete,
-  latestSeasonCanBeDeleted,
-  openQueue
+  latestSeasonCanBeDeleted
 }: Props) => (
   <LayoutChildrenContainer>
     {accounts.length < 1 && (
@@ -65,7 +63,6 @@ const AccountsPage = ({
               accounts={accounts}
               onAccountChange={onAccountChange}
               onAccountUpdate={onAccountUpdate}
-              openQueue={openQueue}
             />
           </div>
         </div>

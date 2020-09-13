@@ -26,15 +26,13 @@ interface Props {
   onAccountChange: (id: string) => void;
   onAccountUpdate: () => void;
   season: Season;
-  openQueue: boolean;
 }
 
 const AccountListItem = ({
   account,
   onAccountChange,
   season,
-  onAccountUpdate,
-  openQueue
+  onAccountUpdate
 }: Props) => {
   const [totalMatches, setTotalMatches] = useState(-1);
   const [showEditForm, setShowEditForm] = useState(false);
@@ -44,17 +42,17 @@ const AccountListItem = ({
 
   useEffect(() => {
     async function getLatestMatch() {
-      const match = await account.latestMatch(season, openQueue);
+      const match = await account.latestMatch(season);
       setLatestMatch(match || null);
     }
 
     async function getTotalMatches() {
-      const count = await account.totalMatches(season, openQueue);
+      const count = await account.totalMatches(season);
       setTotalMatches(count);
     }
 
     async function getTopHeroes() {
-      const newTopHeroes = await account.topHeroes(season, openQueue);
+      const newTopHeroes = await account.topHeroes(season);
       setTopHeroes(newTopHeroes);
     }
 
@@ -76,7 +74,7 @@ const AccountListItem = ({
 
     await Match.wipeSeason(account._id, season);
 
-    const match = await account.latestMatch(season, openQueue);
+    const match = await account.latestMatch(season);
     setLatestMatch(match || null);
 
     const count = await account.totalMatches(season);
@@ -174,12 +172,12 @@ const AccountListItem = ({
             )}
             {latestMatch && latestMatch.playedAt ? (
               <>
-                {haveLatestResult && !haveLatestRank ? <Separator /> : null}
+                {haveLatestResult && !haveLatestRank && <Separator />}
                 Last played {latestMatch.playedAt.toLocaleDateString()}
               </>
             ) : latestMatch && latestMatch.createdAt ? (
               <>
-                {haveLatestResult && !haveLatestRank ? <Separator /> : null}
+                {haveLatestResult && !haveLatestRank && <Separator />}
                 Last logged {latestMatch.createdAt.toLocaleDateString()}
               </>
             ) : null}
@@ -197,7 +195,7 @@ const AccountListItem = ({
           <ButtonShownOnHover onClick={() => setShowEditForm(!showEditForm)}>
             Rename account
           </ButtonShownOnHover>
-          {totalMatches > 0 ? (
+          {totalMatches > 0 && (
             <>
               <ButtonShownOnHover
                 ml={3}
@@ -210,7 +208,7 @@ const AccountListItem = ({
                 Delete matches
               </ButtonShownOnHover>
             </>
-          ) : null}
+          )}
         </div>
         <Flex alignItems="center">
           {haveLatestRank && latestMatch && (

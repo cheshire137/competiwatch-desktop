@@ -473,7 +473,6 @@ const App = () => {
           <AccountsPage
             accounts={accounts}
             season={activeSeason}
-            openQueue={activeSeason.number < Season.roleQueueSeasonStart}
             latestSeason={latestSeason}
             onCreate={refreshAccounts}
             onAccountChange={changeActiveAccount}
