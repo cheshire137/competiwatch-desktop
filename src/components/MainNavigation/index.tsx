@@ -43,15 +43,17 @@ const MainNavigation = ({
             activePage={activePage}
             activeSeason={activeSeason}
           />
-          {queueTypeSelectionIsSupported(activeSeason.number) ? (
-            <OpenQueueSelect
-              openQueue={openQueue}
-              onOpenQueueChange={onOpenQueueChange}
-            />
-          ) : (
-            <div>
-              {Season.onlyRoleQueue(activeSeason.number) ? 'Role queue' : 'Open queue'}
-            </div>
+          {["matches", "trends"].includes(activePage) && (
+            <>
+              {queueTypeSelectionIsSupported(activeSeason.number) ? (
+                <OpenQueueSelect
+                  openQueue={openQueue}
+                  onOpenQueueChange={onOpenQueueChange}
+                />
+              ) : (
+                <>{Season.onlyRoleQueue(activeSeason.number) ? 'Role queue' : 'Open queue'}</>
+              )}
+            </>
           )}
         </Flex>
       )}
