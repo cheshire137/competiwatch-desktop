@@ -1,6 +1,5 @@
 import React from "react";
 import SeasonSelect from "../SeasonSelect";
-import AccountSelect from "../AccountSelect";
 import MainNavigation from "../MainNavigation";
 import Account from "../../models/Account";
 import Season from "../../models/Season";
@@ -35,14 +34,6 @@ const Header = ({
 }: Props) => (
   <StickyBar>
     <div className="d-flex flex-items-center container">
-      {activeAccount && (
-        <AccountSelect
-          accounts={accounts}
-          activeAccount={activeAccount}
-          onChange={onAccountChange}
-          onPageChange={onPageChange}
-        />
-      )}
       <MainNavigation
         onPageChange={onPageChange}
         activePage={activePage}
