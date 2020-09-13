@@ -72,7 +72,9 @@ const Header = ({
                       onOpenQueueChange={onOpenQueueChange}
                     />
                   ) : (
-                      <>{Season.onlyRoleQueue(activeSeason.number) ? 'Role queue' : 'Open queue'}</>
+                      <Heading py={3} mr={3} px={2} fontSize={1} fontWeight="normal" fontStyle="italic">
+                        {Season.onlyRoleQueue(activeSeason.number) ? 'Role queue' : 'Open queue'}
+                      </Heading>
                     )}
                 </>
               )}
