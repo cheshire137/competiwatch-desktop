@@ -46,7 +46,7 @@ const MainNavigation = ({
             activePage={activePage}
             activeSeason={activeSeason}
           />
-          {["matches", "trends"].includes(activePage) && (
+          {["matches", "trends", "log-match"].includes(activePage) && (
             <>
               {queueTypeSelectionIsSupported(activeSeason.number) ? (
                 <OpenQueueSelect
