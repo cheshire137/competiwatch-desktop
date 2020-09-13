@@ -214,6 +214,12 @@ const App = () => {
   };
 
   const changeActivePage = (newActivePage: string, val1?: any, val2?: any) => {
+    if (newActivePage === "import") {
+      if (typeof val1 === "string") {
+        changeActiveAccount(val1);
+      }
+    }
+
     setActivePage(newActivePage);
 
     if (newActivePage === "log-match") {
@@ -303,7 +309,7 @@ const App = () => {
 
     setActiveAccount(account);
 
-    if (activePage !== "trends" && activePage !== "matches") {
+    if (!["trends", "import", "matches"].includes(activePage)) {
       setActivePage("matches");
     }
   };
@@ -475,6 +481,7 @@ const App = () => {
             season={activeSeason}
             latestSeason={latestSeason}
             onCreate={refreshAccounts}
+            onPageChange={changeActivePage}
             onAccountChange={changeActiveAccount}
             onAccountUpdate={refreshAccounts}
             onSeasonCreate={onSeasonCreate}

@@ -17,6 +17,7 @@ interface Props {
   latestSeason: Season;
   onSeasonDelete: (season: Season, allSeasons: Season[]) => void;
   latestSeasonCanBeDeleted: boolean;
+  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }
 
 const AccountsPage = ({
@@ -28,7 +29,8 @@ const AccountsPage = ({
   onSeasonCreate,
   latestSeason,
   onSeasonDelete,
-  latestSeasonCanBeDeleted
+  latestSeasonCanBeDeleted,
+  onPageChange
 }: Props) => (
   <LayoutChildrenContainer>
     {accounts.length < 1 && (
@@ -61,6 +63,7 @@ const AccountsPage = ({
             <AccountsList
               season={season}
               accounts={accounts}
+              onPageChange={onPageChange}
               onAccountChange={onAccountChange}
               onAccountUpdate={onAccountUpdate}
             />

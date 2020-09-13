@@ -25,6 +25,7 @@ interface Props {
   account: Account;
   onAccountChange: (id: string) => void;
   onAccountUpdate: () => void;
+  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
   season: Season;
 }
 
@@ -32,7 +33,8 @@ const AccountListItem = ({
   account,
   onAccountChange,
   season,
-  onAccountUpdate
+  onAccountUpdate,
+  onPageChange
 }: Props) => {
   const [totalMatches, setTotalMatches] = useState(-1);
   const [showEditForm, setShowEditForm] = useState(false);
@@ -195,7 +197,7 @@ const AccountListItem = ({
           <ButtonShownOnHover onClick={() => setShowEditForm(!showEditForm)}>
             Rename account
           </ButtonShownOnHover>
-          {totalMatches > 0 && (
+          {totalMatches > 0 ? (
             <>
               <ButtonShownOnHover
                 ml={3}
@@ -208,6 +210,13 @@ const AccountListItem = ({
                 Delete matches
               </ButtonShownOnHover>
             </>
+          ) : (
+            <ButtonShownOnHover
+              ml={3}
+              onClick={() => onPageChange("import", _id)}
+            >
+              Import matches
+            </ButtonShownOnHover>
           )}
         </div>
         <Flex alignItems="center">

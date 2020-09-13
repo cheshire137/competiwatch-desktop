@@ -8,13 +8,15 @@ interface Props {
   season: Season;
   onAccountChange: (id: string) => void;
   onAccountUpdate: () => void;
+  onPageChange: (activePage: string, val1?: any, val2?: any) => void;
 }
 
 const AccountsList = ({
   onAccountChange,
   onAccountUpdate,
   season,
-  accounts
+  accounts,
+  onPageChange
 }: Props) => (
   <ul className="list-style-none mb-4">
     {accounts.map(account => (
@@ -24,6 +26,7 @@ const AccountsList = ({
         account={account}
         onAccountChange={onAccountChange}
         onAccountUpdate={onAccountUpdate}
+        onPageChange={onPageChange}
       />
     ))}
     {accounts.length < 1 && (
