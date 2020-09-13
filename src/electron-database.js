@@ -21,6 +21,19 @@ function saveRow(db, id, data) {
   });
 }
 
+function insertRow(db, data) {
+  const createdDate = new Date();
+  data.createdAt = createdDate.toJSON();
+  const rows = [data];
+  db.insert(rows, (err, newRecords) => {
+    if (err) {
+      log.error("insert error:", err);
+    } else {
+      log.info(`inserted ${newRecords.length} row(s)`, newRecords.map(row => row._id));
+    }
+  });
+}
+
 function saveOpenQueue(matchesDB, row, openQueue) {
   const data = Object.assign({}, row);
   data.openQueue = openQueue;
@@ -51,6 +64,27 @@ function populateOpenQueue(matchesDB) {
       for (const row of rows) {
         const openQueue = getOpenQueueFor(row);
         saveOpenQueue(matchesDB, row, openQueue);
+      }
+    }
+  });
+}
+
+function populateSeasons(seasonsDB) {
+  log.info("migrating seasons database: populate seasons");
+  const conditions = {};
+  seasonsDB.find(conditions).exec((err, rows) => {
+    if (err) {
+      log.error("error looking up all seasons:", err);
+    } else {
+      const earliestSeason = 1;
+      const latestSeason = 23;
+      const seenSeasons = rows.map(row => parseInt(row.number, 10));
+      for (let i = earliestSeason; i <= latestSeason; i++) {
+        if (!seenSeasons.includes(i)) {
+          const data = { number: i };
+          log.info(`adding season ${i}`);
+          insertRow(seasonsDB, data)
+        }
       }
     }
   });
@@ -96,6 +130,9 @@ const loadSeasonsDatabase = () => {
   const db = new Datastore({ filename });
 
   db.loadDatabase();
+
+  // Migrations
+  populateSeasons(db);
 
   databases.seasons = db;
 };

@@ -74,17 +74,6 @@ class Season {
   static async findAll() {
     const rows: SeasonData[] = await Database.findAll("seasons", defaultSort);
     const seasons = rows.map(data => new Season(data));
-    const seenNumbers = seasons.map(s => s.number);
-    for (
-      let seasonNumber = Season.latestKnownSeason;
-      seasonNumber >= 1;
-      seasonNumber--
-    ) {
-      if (!seenNumbers.includes(seasonNumber)) {
-        seasons.push(new Season({ number: seasonNumber }));
-      }
-      seenNumbers.push(seasonNumber);
-    }
     return seasons.sort((a, b) => {
       if (a.number > b.number) {
         return -1;
