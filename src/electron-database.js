@@ -8,20 +8,25 @@ const env = process.env.ELECTRON_START_URL ? "development" : "production";
 
 // Migrations
 
-function saveOpenQueue(matchesDB, row, openQueue) {
-  const conditions = {_id: row._id};
-  const data = Object.assign({}, row);
-  data.openQueue = openQueue;
+function saveRow(db, id, data) {
+  const conditions = { _id: id };
   const update = { $set: data };
   const options = {};
-  matchesDB.update(conditions, update, options, (err, numReplaced) => {
+  db.update(conditions, update, options, (err, numReplaced) => {
     if (err) {
-      log.error("error updating openQueue for match", row._id, err);
+      log.error("error updating row:", row._id, err);
     } else {
-      log.info(`changed openQueue=${row.openQueue} to openQueue=${openQueue} ` +
-        `for match ${row._id} in season ${row.season}; updated ${numReplaced} row(s)`);
+      log.info(`updated ${numReplaced} row(s)`);
     }
   });
+}
+
+function saveOpenQueue(matchesDB, row, openQueue) {
+  const data = Object.assign({}, row);
+  data.openQueue = openQueue;
+  log.info(`changing openQueue=${row.openQueue} to openQueue=${openQueue} ` +
+    `for match ${row._id} in season ${row.season}`);
+  saveRow(matchesDB, row._id, data);
 }
 
 function getOpenQueueFor(row) {
