@@ -8,7 +8,7 @@ import ExportButton from "./ExportButton";
 import LogMatchButton from "./LogMatchButton";
 import Account from "../../models/Account";
 import Season from "../../models/Season";
-import { Flex } from "@primer/components";
+import { Flex, Heading } from "@primer/components";
 
 interface Props {
   activePage: string;
@@ -35,6 +35,9 @@ const MainNavigation = ({
 }: Props) => (
   <Flex ml={3} width="100%" justifyContent="space-between" alignItems="center">
     <Flex>
+      {activeAccount && (
+        <Heading py={3} mr={3} px={2} fontSize={1}>{activeAccount.battletag}</Heading>
+      )}
       <AccountsTab onPageChange={onPageChange} activePage={activePage} />
       {activeAccount && (
         <Flex alignItems="center">
