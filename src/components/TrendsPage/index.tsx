@@ -17,7 +17,7 @@ import Account from "../../models/Account";
 import Color from "../../models/Color";
 import Blankslate from "../Blankslate";
 import HorizontalRule from "../HorizontalRule";
-import { Flex } from "@primer/components";
+import { Flex, Heading } from "@primer/components";
 import "./TrendsPage.css";
 import Season from "../../models/Season";
 
@@ -99,9 +99,9 @@ const TrendsPage = ({
     return (
       <div className="container mb-4 layout-children-container">
         <Blankslate>
-          <h3 className="mb-2 h3">No match history</h3>
+          <Heading mb={2} as="h3" fontSize={3}>No match history</Heading>
           <p>
-            No matches have been logged in season {season} ({openQueue ? 'open' : 'role'} queue) for{" "}
+            No matches have been logged in season {season.number} ({openQueue ? 'open' : 'role'} queue) for{" "}
             {account.battletag}.
           </p>
         </Blankslate>
@@ -142,15 +142,15 @@ const TrendsPage = ({
       <GroupSizeChart theme={theme} season={season.number} matches={matches} />
       {showHeroesCharts || showVoiceCharts ? (
         <div>
-          {showHeroesCharts ? (
+          {showHeroesCharts && (
             <div>
               <HorizontalRule />
               <HeroRatiosChart season={season.number} matches={matches} />
             </div>
-          ) : null}
+          )}
           <HorizontalRule />
           <div className="clearfix">
-            {showHeroesCharts ? (
+            {showHeroesCharts && (
               <div
                 className={
                   showVoiceCharts
@@ -160,8 +160,8 @@ const TrendsPage = ({
               >
                 <RoleChart season={season.number} theme={theme} matches={matches} />
               </div>
-            ) : null}
-            {showVoiceCharts ? (
+            )}
+            {showVoiceCharts && (
               <div
                 className={
                   showHeroesCharts
@@ -174,15 +174,15 @@ const TrendsPage = ({
                   matches={matches}
                 />
               </div>
-            ) : null}
+            )}
           </div>
         </div>
       ) : null}
       {showDayTimeChart() && (
-        <div>
+        <>
           <HorizontalRule />
           <DayTimeChart season={season.number} matches={matches} />
-        </div>
+        </>
       )}
       {(showBadActorChart || showBadActorsTimeChart) && (
         <Flex justifyContent="space-between" alignItems="center">
