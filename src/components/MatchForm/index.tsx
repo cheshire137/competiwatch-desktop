@@ -16,9 +16,9 @@ import DayOfWeekEmoji from "../DayOfWeekEmoji";
 import GroupMembersField from "../GroupMembersField";
 import "./MatchForm.css";
 import LinkButton from "../LinkButton";
-import { Flex } from "@primer/components";
+import { Flex, ButtonPrimary } from "@primer/components";
 
-const shouldEnableRankField = (season: Season, openQueue: boolean, role?: HeroRole | null) => {
+const shouldEnableRankField = (openQueue: boolean, role?: HeroRole | null) => {
   if (role) {
     return true;
   }
@@ -100,12 +100,12 @@ interface Props {
 
 interface MatchValidityProps {
   group?: string;
-  season: Season;
   groupSize: number;
   rank?: number;
   result?: MatchResult;
   isPlacement?: boolean;
   role: HeroRole | null;
+  openQueue: boolean;
 }
 
 const minRank = 0;
@@ -117,9 +117,9 @@ const isMatchValid = ({
   isPlacement,
   result,
   role,
-  season,
   groupSize,
-  group
+  group,
+  openQueue
 }: MatchValidityProps) => {
   if (typeof rank !== "number" || rank < minRank || rank > maxRank) {
     if (isPlacement && !result) {
@@ -131,7 +131,7 @@ const isMatchValid = ({
     }
   }
 
-  if (typeof role !== "string" || role.length < 1) {
+  if (!openQueue && (typeof role !== "string" || role.length < 1)) {
     return false;
   }
 
@@ -233,7 +233,7 @@ const MatchForm = (props: Props) => {
     initialIsLastPlacement
   );
   const [enableRankField, setEnableRankField] = useState(
-    shouldEnableRankField(props.season, props.openQueue, props.role)
+    shouldEnableRankField(props.openQueue, props.role)
   );
   const [rank, setRank] = useState<number | undefined>(
     props.id ? props.rank : undefined
@@ -277,7 +277,7 @@ const MatchForm = (props: Props) => {
       isPlacement,
       result,
       role,
-      season: props.season,
+      openQueue: props.openQueue,
       groupSize,
       group
     })
@@ -342,7 +342,7 @@ const MatchForm = (props: Props) => {
         isPlacement,
         result,
         role,
-        season: props.season,
+        openQueue: props.openQueue,
         groupSize,
         group
       })
@@ -574,7 +574,7 @@ const MatchForm = (props: Props) => {
   const dayOfWeekTimeOfDay = `${dayOfWeek}-${timeOfDay}`;
 
   useEffect(() => {
-    setEnableRankField(shouldEnableRankField(season, openQueue, role));
+    setEnableRankField(shouldEnableRankField(openQueue, role));
     refreshGroupMembers();
 
     setIsValid(
@@ -582,7 +582,7 @@ const MatchForm = (props: Props) => {
         rank,
         role,
         isPlacement,
-        season,
+        openQueue,
         groupSize,
         group,
         result
@@ -956,13 +956,11 @@ const MatchForm = (props: Props) => {
             Cancel edit
           </LinkButton>
         )}
-        <button
+        <ButtonPrimary
           type="submit"
-          className="btn btn-primary btn-large"
+          variant="large"
           disabled={!isValid}
-        >
-          Save match
-        </button>
+        >Save match</ButtonPrimary>
       </Flex>
     </form>
   );
