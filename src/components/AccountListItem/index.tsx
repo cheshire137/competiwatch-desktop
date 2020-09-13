@@ -204,7 +204,7 @@ const AccountListItem = ({
                 aria-label="Save season as a CSV file"
                 onClick={exportSeason}
               >
-                Export season {season}
+                Export season {season.number}
               </ButtonShownOnHover>
               <ButtonShownOnHover ml={3} onClick={wipeSeason}>
                 Delete matches
