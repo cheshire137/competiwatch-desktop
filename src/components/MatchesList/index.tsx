@@ -29,7 +29,7 @@ const MatchesList = ({
 
   useEffect(() => {
     async function getMatches() {
-      const m = await Match.findAll(account._id, season);
+      const m = await Match.findAll(account._id, season, openQueue);
       setMatches(m);
     }
 
