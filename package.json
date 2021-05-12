@@ -50,7 +50,7 @@
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.7",
     "babel-preset-react-app": "^9.0.2",
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "csv-parse": "^4.10.1",
     "csv-stringify": "^5.5.0",
     "electron": "^7.3.2",
