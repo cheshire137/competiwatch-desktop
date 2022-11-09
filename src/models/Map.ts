@@ -1,15 +1,15 @@
-export type MapType = "Assault" | "Escort" | "Control" | "Hybrid";
+export type MapType = "Escort" | "Control" | "Hybrid" | "Push";
 
 type MapTypeToString = {
   [type in MapType]?: string;
 };
 
-export const MapTypes: MapType[] = ["Assault", "Escort", "Control", "Hybrid"];
+export const MapTypes: MapType[] = ["Escort", "Control", "Hybrid", "Push"];
 
 export const MapTypeAliases: MapTypeToString = {
-  Assault: "2CP",
   Control: "KotH",
-  Escort: "Payload"
+  Escort: "Payload",
+  Push: "Push"
 };
 
 export type AssaultMap =
@@ -43,6 +43,7 @@ export const ControlMaps: ControlMap[] = [
 ];
 
 export type EscortMap =
+  | "Circuit Royale"
   | "Dorado"
   | "Havana"
   | "Junkertown"
@@ -51,6 +52,7 @@ export type EscortMap =
   | "Watchpoint: Gibraltar";
 
 export const EscortMaps: EscortMap[] = [
+  "Circuit Royale",
   "Dorado",
   "Havana",
   "Junkertown",
@@ -64,17 +66,32 @@ export type HybridMap =
   | "Eichenwalde"
   | "Hollywood"
   | "King's Row"
-  | "Numbani";
+  | "Numbani"
+  | "Midtown"
+  | "Paraíso";
 
 export const HybridMaps: HybridMap[] = [
   "Blizzard World",
   "Eichenwalde",
   "Hollywood",
   "King's Row",
-  "Numbani"
+  "Numbani",
+  "Midtown",
+  "Paraíso"
 ];
 
-export type Map = AssaultMap | ControlMap | EscortMap | HybridMap;
+export type PushMap =
+  | "Colosseo"
+  | "Esperança"
+  | "New Queen Street";
+
+export const PushMaps: PushMap[] = [
+  "Colosseo",
+  "Esperança",
+  "New Queen Street"
+];
+
+export type Map = ControlMap | EscortMap | HybridMap | PushMap;
 
 type MapTypeToMaps = {
   [type in MapType]: Map[];
@@ -83,32 +100,37 @@ type MapTypeToMaps = {
 export const Maps: Map[] = [
   "Blizzard World",
   "Busan",
+  "Circuit Royale",
+  "Colosseo",
   "Dorado",
   "Eichenwalde",
-  "Hanamura",
+  "Esperança",
+//  "Hanamura",
   "Havana",
   "Hollywood",
-  "Horizon Lunar Colony",
+//  "Horizon Lunar Colony",
   "Ilios",
   "Junkertown",
   "King's Row",
   "Lijiang Tower",
+  "Midtown",
   "Nepal",
+  "New Queen Street",
   "Numbani",
   "Oasis",
-  "Paris",
+//  "Paris",
   "Rialto",
   "Route 66",
-  "Temple of Anubis",
-  "Volskaya Industries",
+//  "Temple of Anubis",
+//  "Volskaya Industries",
   "Watchpoint: Gibraltar"
 ];
 
 export const MapsByType: MapTypeToMaps = {
-  Assault: AssaultMaps,
   Control: ControlMaps,
   Escort: EscortMaps,
-  Hybrid: HybridMaps
+  Hybrid: HybridMaps,
+  Push:PushMaps
 };
 
 type MapNameToShortName = {
@@ -117,8 +139,9 @@ type MapNameToShortName = {
 
 export const MapShortNames: MapNameToShortName = {
   "Blizzard World": "B. World",
-  "Horizon Lunar Colony": "H. Lunar Colony",
-  "Temple of Anubis": "Anubis",
-  "Volskaya Industries": "Volskaya",
+  //"Horizon Lunar Colony": "H. Lunar Colony",
+  "New Queen Street": "N. Q. Street",
+  //"Temple of Anubis": "Anubis",
+  //"Volskaya Industries": "Volskaya",
   "Watchpoint: Gibraltar": "WP: Gibraltar"
 };

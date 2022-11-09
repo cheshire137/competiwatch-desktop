@@ -30,14 +30,16 @@ export type Hero =
   | "Baptiste"
   | "Bastion"
   | "Brigitte"
+  | "Cassidy"
   | "D.Va"
   | "Doomfist"
   | "Echo"
   | "Genji"
   | "Hanzo"
+  | "Junker Queen"
   | "Junkrat"
+  | "Kiriko"
   | "Lúcio"
-  | "McCree"
   | "Mei"
   | "Mercy"
   | "Moira"
@@ -47,6 +49,7 @@ export type Hero =
   | "Reinhardt"
   | "Roadhog"
   | "Sigma"
+  | "Sojourn"
   | "Soldier: 76"
   | "Sombra"
   | "Symmetra"
@@ -75,14 +78,16 @@ export const Heroes: Hero[] = [
   "Baptiste",
   "Bastion",
   "Brigitte",
+  "Cassidy",
   "D.Va",
   "Doomfist",
   "Echo",
   "Genji",
   "Hanzo",
+  "Junker Queen",
   "Junkrat",
+  "Kiriko",
   "Lúcio",
-  "McCree",
   "Mei",
   "Mercy",
   "Moira",
@@ -92,6 +97,7 @@ export const Heroes: Hero[] = [
   "Reinhardt",
   "Roadhog",
   "Sigma",
+  "Sojourn",
   "Soldier: 76",
   "Sombra",
   "Symmetra",
@@ -105,19 +111,21 @@ export const Heroes: Hero[] = [
 ];
 
 export const HeroesByType: HeroDetailedRoleToHeroes = {
-  DPS: ["Doomfist", "Echo", "Junkrat", "Pharah", "Reaper"],
+  DPS: ["Echo", "Junkrat", "Pharah", "Reaper"],
   Flanker: ["Genji", "Sombra", "Tracer"],
-  Hitscan: ["Ashe", "McCree", "Soldier: 76", "Widowmaker"],
-  "Main Tank": ["Orisa", "Reinhardt", "Sigma", "Winston"],
-  "Off-tank": ["D.Va", "Roadhog", "Wrecking Ball", "Zarya"],
+  Hitscan: ["Ashe", "Cassidy", "Soldier: 76", "Widowmaker", "Sojourn"],
+  "Main Tank": ["Doomfist", "Orisa", "Reinhardt", "Sigma", "Winston","Junker Queen","D.Va", "Roadhog", "Wrecking Ball", "Zarya"],
+  "Off-tank": [],
   Defense: ["Bastion", "Hanzo", "Mei", "Symmetra", "Torbjörn"],
-  "Main Healer": ["Ana", "Baptiste", "Mercy", "Moira"],
+  "Main Healer": ["Ana", "Baptiste", "Mercy", "Moira", "Kiriko"],
   "Off-healer": ["Brigitte", "Lúcio", "Zenyatta"]
 };
 
 export const HeroesByRole: HeroRoleToHeroes = {
   Tank: [
     "D.Va",
+    "Doomfist",
+    "Junker Queen",
     "Orisa",
     "Reinhardt",
     "Roadhog",
@@ -129,15 +137,15 @@ export const HeroesByRole: HeroRoleToHeroes = {
   Damage: [
     "Ashe",
     "Bastion",
-    "Doomfist",
+    "Cassidy",
     "Echo",
     "Genji",
     "Hanzo",
     "Junkrat",
-    "McCree",
     "Mei",
     "Pharah",
     "Reaper",
+    "Sojourn",
     "Soldier: 76",
     "Sombra",
     "Symmetra",
@@ -149,6 +157,7 @@ export const HeroesByRole: HeroRoleToHeroes = {
     "Ana",
     "Baptiste",
     "Brigitte",
+    "Kiriko",
     "Lúcio",
     "Mercy",
     "Moira",
