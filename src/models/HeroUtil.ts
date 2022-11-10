@@ -15,6 +15,12 @@ class HeroUtil {
     if (hero === "Wrecking Ball") {
       return "wrecking-ball";
     }
+    if (hero === "Junker Queen") {
+      return "junker-queen";
+    }
+    if (hero === "McCree") {
+      return "cassidy";
+    }
     return hero.toLowerCase();
   }
 }

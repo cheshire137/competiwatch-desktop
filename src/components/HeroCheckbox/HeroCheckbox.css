@@ -27,6 +27,10 @@
   color: #cb8468;
 }
 
+.text-cassidy {
+  color: #d44124;
+}
+
 .text-doomfist {
   color: #e04e34;
 }
@@ -51,8 +55,16 @@
   color: #776931;
 }
 
+.text-junker-queen {
+  color: #4a6ed1;
+}
+
 .text-junkrat {
   color: #d39308;
+}
+
+.text-kiriko {
+  color: #df544a;
 }
 
 .text-lucio {
@@ -108,7 +120,7 @@
 }
 
 .text-ashe {
-  color: rgb(64, 61, 59);
+  color: #3d3c3a;
 }
 
 .text-sombra {
@@ -163,6 +175,10 @@
   color: #cb8468;
 }
 
+.theme-dark .text-cassidy {
+  color: #e0634b;
+}
+
 .theme-dark .disabled .text-doomfist {
   color: #e04e34;
 }
@@ -200,7 +216,7 @@
 }
 
 .theme-dark .text-ashe {
-  color: rgb(189, 181, 175);
+  color: #bdb9a9;
 }
 
 .theme-dark .text-soldier76 {
