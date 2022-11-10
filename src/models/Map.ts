@@ -119,6 +119,7 @@ export const Maps: Map[] = [
   "Numbani",
   "Oasis",
 //  "Paris",
+  "Paraíso",
   "Rialto",
   "Route 66",
 //  "Temple of Anubis",
