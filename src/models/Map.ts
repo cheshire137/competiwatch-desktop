@@ -131,7 +131,7 @@ export const MapsByType: MapTypeToMaps = {
   Control: ControlMaps,
   Escort: EscortMaps,
   Hybrid: HybridMaps,
-  Push:PushMaps
+  Push: PushMaps
 };
 
 type MapNameToShortName = {

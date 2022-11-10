@@ -18,7 +18,7 @@ class HeroUtil {
     if (hero === "Junker Queen") {
       return "junker-queen";
     }
-    if (hero === "Mccree") {
+    if (hero === "McCree") {
       return "cassidy";
     }
     return hero.toLowerCase();

@@ -20,8 +20,8 @@ const lightTheme = {
   mapBackgroundColors: {
     "New Queen Street": "#27dfdf",
     Esperança: "#d3b8a7",
-    Colosseo:"#e79b68",
-    Paraíso:"#41ce4c",
+    Colosseo: "#e79b68",
+    Paraíso: "#41ce4c",
     Midtown: "#d6c39a",
     "Circuit Royale": "#3265d1",
     Junkertown: "#f4b531",
