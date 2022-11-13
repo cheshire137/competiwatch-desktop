@@ -328,7 +328,7 @@ const App = () => {
 
   useEffect(() => {
     const millisecondsInHour = 3600000;
-    themeInterval.current = setInterval(
+    themeInterval.current = window.setInterval(
       () => updateTheme(),
       millisecondsInHour
     );
@@ -339,7 +339,7 @@ const App = () => {
 
     return () => {
       if (themeInterval.current) {
-        clearInterval(themeInterval.current);
+        window.clearInterval(themeInterval.current);
       }
     };
   }, []);
