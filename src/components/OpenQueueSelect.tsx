@@ -1,5 +1,5 @@
 import React from "react";
-import { SelectMenu, Button } from "@primer/components";
+import { ActionMenu, Button } from "@primer/react";
 
 interface Props {
   openQueue: boolean;
@@ -8,22 +8,22 @@ interface Props {
 
 const OpenQueueSelect = ({ openQueue, onOpenQueueChange }: Props) => {
   return (
-    <SelectMenu mr={3}>
+    <ActionMenu mr={3}>
       <Button as="summary">{openQueue ? 'Open queue' : 'Role queue'}</Button>
-      <SelectMenu.Modal>
-        <SelectMenu.Header>Queue type</SelectMenu.Header>
-        <SelectMenu.List>
-          <SelectMenu.Item
+      <ActionMenu.Modal>
+        <ActionMenu.Header>Queue type</ActionMenu.Header>
+        <ActionMenu.List>
+          <ActionMenu.Item
             onClick={() => onOpenQueueChange(false)}
             selected={!openQueue}
-          >Role queue</SelectMenu.Item>
-          <SelectMenu.Item
+          >Role queue</ActionMenu.Item>
+          <ActionMenu.Item
             onClick={() => onOpenQueueChange(true)}
             selected={openQueue}
-          >Open queue</SelectMenu.Item>
-        </SelectMenu.List>
-      </SelectMenu.Modal>
-    </SelectMenu>
+          >Open queue</ActionMenu.Item>
+        </ActionMenu.List>
+      </ActionMenu.Modal>
+    </ActionMenu>
   );
 };
 

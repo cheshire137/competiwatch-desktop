@@ -17,7 +17,7 @@ import Account from "../../models/Account";
 import Color from "../../models/Color";
 import Blankslate from "../Blankslate";
 import HorizontalRule from "../HorizontalRule";
-import { Flex, Heading, Grid } from "@primer/components";
+import { Box, Heading } from "@primer/react";
 import "./TrendsPage.css";
 import Season from "../../models/Season";
 
@@ -116,12 +116,12 @@ const TrendsPage = ({
 
   return (
     <div className="container mb-4 layout-children-container">
-      <Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
+      <Box display="grid" gridTemplateColumns="repeat(2, auto)" gridGap={3}>
         <WinLossChart season={season.number} matches={matches} />
         {showHeroesCharts && (
           <RoleChart season={season.number} theme={theme} matches={matches} />
         )}
-      </Grid>
+      </Box>
       <HorizontalRule />
       <StreaksChart season={season.number} matches={matches} />
       {showMapChart() ? (
@@ -146,12 +146,12 @@ const TrendsPage = ({
       {showVoiceCharts && (
         <>
           <HorizontalRule />
-          <Grid gridTemplateColumns="repeat(2, auto)" gridGap={3}>
+          <Box display="grid" gridTemplateColumns="repeat(2, auto)" gridGap={3}>
             <VoiceChatChart
               season={season.number}
               matches={matches}
             />
-          </Grid>
+          </Box>
         </>
       )}
       {showDayTimeChart() && (
@@ -163,14 +163,14 @@ const TrendsPage = ({
       {(showBadActorChart || showBadActorsTimeChart) && (
         <>
           <HorizontalRule />
-          <Flex justifyContent="space-between" alignItems="center">
+          <Box display="flex" justifyContent="space-between" alignItems="center">
             {showBadActorChart && (
               <BadActorChart season={season.number} matches={matches} />
             )}
             {showBadActorsTimeChart && (
               <BadActorsTimeChart season={season.number} matches={matches} />
             )}
-          </Flex>
+          </Box>
         </>
       )}
     </div>

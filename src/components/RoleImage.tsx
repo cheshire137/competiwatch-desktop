@@ -1,5 +1,5 @@
 import React from "react";
-import { AvatarProps, Avatar } from "@primer/components";
+import { AvatarProps, Avatar } from "@primer/react";
 
 const knownRoles = ["tank", "support", "damage"];
 

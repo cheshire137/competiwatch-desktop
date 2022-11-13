@@ -16,7 +16,7 @@ import DayOfWeekEmoji from "../DayOfWeekEmoji";
 import GroupMembersField from "../GroupMembersField";
 import "./MatchForm.css";
 import LinkButton from "../LinkButton";
-import { Flex, ButtonPrimary } from "@primer/components";
+import { Box, Button } from "@primer/react";
 
 const shouldEnableRankField = (openQueue: boolean, role?: HeroRole | null) => {
   if (role) {
@@ -951,18 +951,19 @@ const MatchForm = (props: Props) => {
           </dl>
         </div>
       </div>
-      <Flex alignItems="center" justifyContent="flex-end">
+      <Box display="flex" alignItems="center" justifyContent="flex-end">
         {props.id && props.onUpdate && (
           <LinkButton mr={3} onClick={() => props.onUpdate && props.onUpdate()}>
             Cancel edit
           </LinkButton>
         )}
-        <ButtonPrimary
+        <Button
           type="submit"
-          variant="large"
+          size="large"
+          variant="primary"
           disabled={!isValid}
-        >Save match</ButtonPrimary>
-      </Flex>
+        >Save match</Button>
+      </Box>
     </form>
   );
 };

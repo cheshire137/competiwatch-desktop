@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Flex } from "@primer/components";
+import { Box } from "@primer/react";
 
 const LayoutContainer = styled(Flex).attrs({
   flexDirection: "column"

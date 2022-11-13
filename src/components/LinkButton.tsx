@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Button } from "@primer/components";
+import { Button } from "@primer/react";
 
 export default styled(Button).attrs({
   p: 0,

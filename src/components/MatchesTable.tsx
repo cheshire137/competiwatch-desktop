@@ -4,7 +4,7 @@ import Season from "../models/Season";
 import Match, { MatchResult } from "../models/Match";
 import MatchHeader from "./MatchHeader";
 import OptionsHeader from "./OptionsHeader";
-import { Tooltip } from "@primer/components";
+import { Tooltip } from "@primer/react";
 
 interface Props {
   matches: Match[];

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AvatarStack } from "@primer/components";
+import { AvatarStack } from "@primer/react";
 import HeroImageTag from "../HeroImageTag";
 
 interface Props {

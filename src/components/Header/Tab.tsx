@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { UnderlineNav } from "@primer/components";
+import { UnderlineNav } from "@primer/react";
 
 export default styled(UnderlineNav.Link).attrs({
   as: "button",

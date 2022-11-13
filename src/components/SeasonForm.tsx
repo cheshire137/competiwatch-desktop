@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Season from "../models/Season";
-import { Button, Box, Flex, TextInput } from "@primer/components";
+import { Button, Box, TextInput } from "@primer/react";
 import SeasonDeleteForm from "./SeasonDeleteForm";
 
 interface Props {
@@ -66,7 +66,7 @@ const SeasonForm = ({
         }}
       >
         <h2 className="h2 text-normal mb-2">Add a season</h2>
-        <Flex alignItems="center">
+        <Box display="flex" alignItems="center">
           <Box mr={2}>
             <label htmlFor="season-number">Number:</label>
           </Box>
@@ -82,7 +82,7 @@ const SeasonForm = ({
           <Button type="submit" disabled={!isValid} ml={2}>
             Add season
           </Button>
-        </Flex>
+        </Box>
       </form>
       {latestSeasonCanBeDeleted && (
         <SeasonDeleteForm season={latestSeason} onDelete={onDelete} />

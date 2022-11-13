@@ -1,6 +1,6 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import { Flex } from "@primer/components";
+import { Box } from "@primer/react";
 import Color from "../../models/Color";
 import Match from "../../models/Match";
 import ChartUtils from "../../models/ChartUtils";
@@ -105,12 +105,12 @@ const BadActorChart = ({ matches, season }: Props) => {
   };
 
   return (
-    <Flex flex="1" flexDirection="column">
+    <Box display="flex" flex="1" flexDirection="column">
       <ChartHeader title="Bad Actors" seasonNumber={season} />
       <div className="small-chart-container">
         <Bar data={data} options={options} />
       </div>
-    </Flex>
+    </Box>
   );
 };
 

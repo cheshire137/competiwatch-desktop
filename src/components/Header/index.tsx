@@ -3,7 +3,7 @@ import SeasonSelect from "../SeasonSelect";
 import Account from "../../models/Account";
 import Season from "../../models/Season";
 import StickyBar from "./StickyBar";
-import { Flex, Heading } from "@primer/components";
+import { Box, Heading } from "@primer/react";
 import AccountsTab from "../Header/AccountsTab";
 import MatchesTab from "./MatchesTab";
 import OpenQueueSelect from "../OpenQueueSelect";
@@ -51,14 +51,14 @@ const Header = ({
           seasons={seasons}
         />
       )}
-      <Flex ml={3} width="100%" justifyContent="space-between" alignItems="center">
-        <Flex>
+      <Box display="flex" ml={3} width="100%" justifyContent="space-between" alignItems="center">
+        <Box display="flex">
           {activeAccount && (
             <Heading py={3} mr={3} px={2} fontSize={1}>{activeAccount.battletag}</Heading>
           )}
           <AccountsTab onPageChange={onPageChange} activePage={activePage} />
           {activeAccount && (
-            <Flex alignItems="center">
+            <Box display="flex" alignItems="center">
               <MatchesTab
                 onPageChange={onPageChange}
                 activePage={activePage}
@@ -78,7 +78,7 @@ const Header = ({
                     )}
                 </>
               )}
-            </Flex>
+            </Box>
           )}
           <ImportTab activePage={activePage} />
           {activeAccount && (
@@ -89,7 +89,7 @@ const Header = ({
               onPageChange={onPageChange}
             />
           )}
-        </Flex>
+        </Box>
         <div>
           <ExportButton onExport={onExport} activePage={activePage} />
           {activeAccount && (
@@ -107,7 +107,7 @@ const Header = ({
             * All fields optional except match result
           </div>
         )}
-      </Flex>
+      </Box>
     </div>
   </StickyBar>
 );

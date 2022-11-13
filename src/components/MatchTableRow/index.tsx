@@ -20,7 +20,7 @@ import RankCell from "./RankCell";
 import StreakCell from "./StreakCell";
 import MapCell from "./MapCell";
 import GroupCell from "./GroupCell";
-import { Tooltip, CounterLabel, Box } from "@primer/components";
+import { Tooltip, CounterLabel, Box } from "@primer/react";
 import GroupList from "./GroupList";
 import BadActorLabel from "./BadActorLabel";
 import CssTruncateTarget from "../CssTruncateTarget";

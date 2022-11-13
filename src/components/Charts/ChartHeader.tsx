@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Text } from "@primer/components";
+import { Box, Text } from "@primer/react";
 import ChartSeasonNumber from "./ChartSeasonNumber";
 
 interface Props {
@@ -8,12 +8,12 @@ interface Props {
 }
 
 const ChartHeader = ({ title, seasonNumber }: Props) => (
-  <Flex mb={2} justifyContent="center" alignItems="center">
+  <Box display="flex" mb={2} justifyContent="center" alignItems="center">
     <Text fontWeight="bold" fontSize={3}>
       {title}
     </Text>
     <ChartSeasonNumber>Season {seasonNumber}</ChartSeasonNumber>
-  </Flex>
+  </Box>
 );
 
 export default ChartHeader;

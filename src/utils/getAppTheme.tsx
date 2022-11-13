@@ -1,4 +1,4 @@
-import { theme as primer } from "@primer/components";
+import { theme as primer } from "@primer/react";
 import darkTheme from "../themes/dark";
 import lightTheme from "../themes/light";
 

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Text } from "@primer/components";
+import { Text } from "@primer/react";
 
 export default styled(Text).attrs({
   as: "p",

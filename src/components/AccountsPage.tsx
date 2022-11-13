@@ -5,7 +5,7 @@ import SeasonForm from "./SeasonForm";
 import AddAccountForm from "./AddAccountForm";
 import AccountsList from "./AccountsList";
 import LayoutChildrenContainer from "./LayoutChildrenContainer";
-import { Flex, Heading, CounterLabel } from "@primer/components";
+import { Box, Heading, CounterLabel } from "@primer/react";
 
 interface Props {
   onAccountChange: (id: string) => void;
@@ -34,7 +34,7 @@ const AccountsPage = ({
 }: Props) => (
   <LayoutChildrenContainer>
     {accounts.length < 1 && (
-      <div className="Box mb-4 p-3 col-lg-6">
+      <Box mb={4} p={3} className="col-lg-6">
         <h2 className="Subhead-heading mb-2">
           <span role="img" className="mr-2 d-inline-block" aria-label="Tada">
             🎉
@@ -45,20 +45,20 @@ const AccountsPage = ({
           Thanks for using the app! To get started, add a Battle.net account
           below and log some games.
         </div>
-      </div>
+      </Box>
     )}
     <div className="clearfix">
       {accounts.length > 0 && (
-        <div className="float-left col-lg-7 col-md-12 col-sm-12 mb-4">
-          <div className="mr-4 pr-4">
-            <Flex mb={2} alignItems="center">
+        <Box float="left" mb={4} className="col-lg-7 col-md-12 col-sm-12">
+          <Box mr={4} pr={4}>
+            <Box display="flex" mb={2} alignItems="center">
               <Heading fontSize={4} fontWeight="normal">
                 Battle.net accounts
               </Heading>
               <CounterLabel ml={2} px={2}>
                 {accounts.length}
               </CounterLabel>
-            </Flex>
+            </Box>
             <p>Choose an account to view and log competitive matches.</p>
             <AccountsList
               season={season}
@@ -67,10 +67,10 @@ const AccountsPage = ({
               onAccountChange={onAccountChange}
               onAccountUpdate={onAccountUpdate}
             />
-          </div>
-        </div>
+          </Box>
+        </Box>
       )}
-      <div className="float-left col-lg-5 col-md-12 col-sm-12 mb-4">
+      <Box float="left" mb={4} className="col-lg-5 col-md-12 col-sm-12">
         <AddAccountForm
           accounts={accounts}
           onAccountUpdate={onAccountUpdate}
@@ -83,7 +83,7 @@ const AccountsPage = ({
           onDelete={onSeasonDelete}
           latestSeasonCanBeDeleted={latestSeasonCanBeDeleted}
         />
-      </div>
+      </Box>
     </div>
   </LayoutChildrenContainer>
 );

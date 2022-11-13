@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { Flex } from "@primer/components";
+import { Box } from "@primer/react";
 
-const AccountMeta = styled(Flex).attrs({
-  alignItems: "center"
+const AccountMeta = styled(Box).attrs({
+  alignItems: "center",
+  display: "flex"
 })`
   font-size: 16px;
   color: ${props => props.theme.accountMetaColor} !important;

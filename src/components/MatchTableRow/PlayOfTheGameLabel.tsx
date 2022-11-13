@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Box } from "@primer/components";
+import { Box } from "@primer/react";
 
 interface Props {
   showJoinedVoice: boolean;

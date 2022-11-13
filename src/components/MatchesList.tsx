@@ -5,7 +5,7 @@ import Match from "../models/Match";
 import Season from "../models/Season";
 import Account from "../models/Account";
 import Blankslate from "./Blankslate";
-import { Box, Heading, ButtonPrimary } from "@primer/components";
+import { Box, Heading, Button } from "@primer/react";
 
 interface Props {
   account: Account;
@@ -57,12 +57,13 @@ const MatchesList = ({
             No matches have been logged in season {season.number} ({openQueue ? 'open' : 'role'} queue) for{" "}
             {account.battletag}
           </Heading>
-          <ButtonPrimary
-            variant="large"
+          <Button
+            size="large"
+            variant="primary"
             onClick={() => onPageChange("log-match")}
           >
             Log a match
-          </ButtonPrimary>
+          </Button>
         </Blankslate>
       )}
     </Box>

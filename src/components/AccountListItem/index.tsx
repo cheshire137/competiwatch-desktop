@@ -9,7 +9,7 @@ import HeroImage from "../HeroImage";
 import "./AccountListItem.css";
 import Account from "../../models/Account";
 import Season from "../../models/Season";
-import { Flex, Tooltip } from "@primer/components";
+import { Box, Tooltip } from "@primer/react";
 import { Hero } from "../../models/Hero";
 import { showSaveDialog } from "../../utils/electronUtils";
 import LinkButton from "../LinkButton";
@@ -142,9 +142,9 @@ const AccountListItem = ({
 
   return (
     <AccountListItemStyle>
-      <Flex justifyContent="space-between" alignItems="center">
+      <Box display="flex" justifyContent="space-between" alignItems="center">
         <div className="width-full mb-2 mt-1">
-          <Flex justifyContent="space-between" alignItems="center">
+          <Box display="flex" justifyContent="space-between" alignItems="center">
             {showEditForm ? (
               <>
                 <AccountForm
@@ -167,7 +167,7 @@ const AccountListItem = ({
               onDelete={() => onAccountUpdate()}
               battletag={battletag}
             />
-          </Flex>
+          </Box>
           <AccountMeta>
             {haveLatestResult && !haveLatestRank && latestMatch && (
               <span>Last match: {latestMatch.result}</span>
@@ -219,7 +219,7 @@ const AccountListItem = ({
             </ButtonShownOnHover>
           )}
         </div>
-        <Flex alignItems="center">
+        <Box display="flex" alignItems="center">
           {haveLatestRank && latestMatch && (
             <RankButton onClick={() => onAccountChange(account._id)}>
               {typeof latestMatch.rank === "number" && (
@@ -244,8 +244,8 @@ const AccountListItem = ({
               </Tooltip>
             )}
           </div>
-        </Flex>
-      </Flex>
+        </Box>
+      </Box>
     </AccountListItemStyle>
   );
 };

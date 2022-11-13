@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Account, { AccountData } from "../../models/Account";
-import { Button, Box, Flex, TextInput } from "@primer/components";
+import { Button, Box, TextInput } from "@primer/react";
 import "./AccountForm.css";
 
 const isValidBattletag = (battletag: string) => {
@@ -73,7 +73,7 @@ const AccountForm = (props: Props) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <Flex alignItems="center">
+      <Box display="flex" alignItems="center">
         <Box mr={2}>
           <label htmlFor={battletagDomID}>Battletag:</label>
         </Box>
@@ -89,7 +89,7 @@ const AccountForm = (props: Props) => {
         <Button type="submit" disabled={!isValid} ml={2}>
           {buttonText}
         </Button>
-      </Flex>
+      </Box>
       {error && <div className="error battletag-error">{error}</div>}
     </form>
   );
