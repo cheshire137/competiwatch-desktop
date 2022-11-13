@@ -60,7 +60,6 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "foreman": "^3.0.1",
     "ionicons": "^4.5.5",
-    "jest-enzyme": "^7.1.2",
     "prettier": "1.19.1",
     "primer": "^11.0.0",
     "react": "^16.13.1",
