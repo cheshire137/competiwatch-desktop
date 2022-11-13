@@ -54,7 +54,7 @@ const Header = ({
       <Box display="flex" ml={3} width="100%" justifyContent="space-between" alignItems="center">
         <Box display="flex">
           {activeAccount && (
-            <Heading py={3} mr={3} px={2} fontSize={1}>{activeAccount.battletag}</Heading>
+            <Heading sx={{ py: 3, mr: 3, px: 2, fontSize: 1 }}>{activeAccount.battletag}</Heading>
           )}
           <AccountsTab onPageChange={onPageChange} activePage={activePage} />
           {activeAccount && (
@@ -72,7 +72,7 @@ const Header = ({
                       onOpenQueueChange={onOpenQueueChange}
                     />
                   ) : (
-                      <Heading py={3} mr={3} px={2} fontSize={1} fontWeight="normal" fontStyle="italic">
+                      <Heading sx={{ py: 3, mr: 3, px: 2, fontSize: 1, fontWeight: 'normal', fontStyle: 'italic' }}>
                         {Season.onlyRoleQueue(activeSeason.number) ? 'Role queue' : 'Open queue'}
                       </Heading>
                     )}

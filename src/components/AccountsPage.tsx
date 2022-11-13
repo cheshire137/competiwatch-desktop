@@ -49,13 +49,13 @@ const AccountsPage = ({
     )}
     <div className="clearfix">
       {accounts.length > 0 && (
-        <Box float="left" mb={4} className="col-lg-7 col-md-12 col-sm-12">
+        <Box sx={{ float: 'left' }} mb={4} className="col-lg-7 col-md-12 col-sm-12">
           <Box mr={4} pr={4}>
             <Box display="flex" mb={2} alignItems="center">
-              <Heading fontSize={4} fontWeight="normal">
+              <Heading sx={{ fontSize: 4, fontWeight: 'normal' }}>
                 Battle.net accounts
               </Heading>
-              <CounterLabel ml={2} px={2}>
+              <CounterLabel sx={{ ml: 2, px: 2 }}>
                 {accounts.length}
               </CounterLabel>
             </Box>
@@ -70,7 +70,7 @@ const AccountsPage = ({
           </Box>
         </Box>
       )}
-      <Box float="left" mb={4} className="col-lg-5 col-md-12 col-sm-12">
+      <Box sx={{ float: 'left' }} mb={4} className="col-lg-5 col-md-12 col-sm-12">
         <AddAccountForm
           accounts={accounts}
           onAccountUpdate={onAccountUpdate}

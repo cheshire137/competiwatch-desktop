@@ -11,6 +11,7 @@ import HeroCheckboxList from "../HeroCheckboxList";
 import RoleImage from "../RoleImage";
 import "./HeroSelect.css";
 import HeroGroupHeader from "./HeroGroupHeader";
+import { Box } from "@primer/react";
 
 interface Props {
   role: HeroRole | null;
@@ -51,8 +52,8 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
 
   const defenseHeroes = (
     <>
-      <HeroGroupHeader mt={headerMarginTop} roleUnavailable={!damageAvailable}>
-        <RoleImage theme={theme} role="damage" size={12} mr={1} />
+      <HeroGroupHeader sx={{ mt: headerMarginTop }} roleUnavailable={!damageAvailable}>
+        <RoleImage theme={theme} role="damage" size={12} sx={{ mr: 1 }} />
         Defense
       </HeroGroupHeader>
       <HeroCheckboxList
@@ -71,7 +72,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
         allRolesAvailable ? "flex-justify-between" : "flex-justify-start"
       }`}
     >
-      <div className="hero-box mb-3">
+      <Box className="hero-box" mb={3}>
         {damageAvailable && (
           <>
             <HeroGroupHeader mr={headerMarginRight}>
@@ -118,8 +119,8 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
             />
           </>
         )}
-      </div>
-      <div className="hero-box mb-3">
+      </Box>
+      <Box className="hero-box" mb={3}>
         {damageAvailable && (
           <>
             <HeroGroupHeader mr={headerMarginRight}>
@@ -165,7 +166,7 @@ const HeroSelect = ({ role, season, heroes, onToggle, theme }: Props) => {
             />
           </>
         )}
-      </div>
+      </Box>
       {damageAvailable && (
         <div className="hero-box mb-3">
           <HeroGroupHeader>
