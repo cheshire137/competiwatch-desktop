@@ -6,6 +6,7 @@
   "private": true,
   "dependencies": {
     "@primer/components": "^19.1.1",
+    "@primer/octicons-react": "^17.9.0",
     "@types/node": "^12.12.47",
     "@types/react": "^16.9.41",
     "@types/react-autocomplete": "^1.8.5",

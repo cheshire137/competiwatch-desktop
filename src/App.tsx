@@ -18,7 +18,7 @@ import ImportPage from "./components/ImportPage";
 import MatchEditPage from "./components/MatchEditPage";
 import SettingsPage from "./components/SettingsPage";
 import LayoutContainer from "./components/LayoutContainer";
-import "./primer.css";
+
 import "./ionicons.min.css";
 import "./App.css";
 import { setTitle, showSaveDialog } from "./utils/electronUtils";
