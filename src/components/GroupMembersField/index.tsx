@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReactAutocomplete from "react-autocomplete";
+import { Autocomplete } from "@primer/react";
 import "./GroupMembersField.css";
 
 interface Props {
@@ -16,7 +16,7 @@ const GroupMembersField = ({
   onGroupChange
 }: Props) => {
   const [hideCopyGroup, setHideCopyGroup] = useState(false);
-  let autocomplete: ReactAutocomplete | null = null;
+  let autocomplete: typeof Autocomplete | null = null;
 
   const filterGroupMembers = (inputValue: string) => {
     const chosenGroupMembers = inputValue.toLowerCase().split(",");
@@ -134,7 +134,7 @@ const GroupMembersField = ({
         <label htmlFor="match-group">Group members:</label>
       </dt>
       <dd>
-        <ReactAutocomplete
+        <Autocomplete
           value={group}
           getItemValue={groupMember => groupMember}
           items={groupMembers}
