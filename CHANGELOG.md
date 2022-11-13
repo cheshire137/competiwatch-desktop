@@ -11,6 +11,7 @@ Thanks to @PLAYG0N for updating Competiwatch for Overwatch 2!
 - Removed maps Horizon Lunar Colony, Paris, Temple of Anubis, Volskaya Industries
 - Added Push map type
 - Added maps Circuit Royal, Midtown, Paraíso, Colosseo, Esperança, New Queen Street
+- Bump latest known Overwatch 1 competitive season to 33
 
 ## Version 0.3.1
 

@@ -10,7 +10,7 @@ const defaultSort = { number: -1 };
 
 class Season {
   // Latest season of competitive available at this time.
-  public static latestKnownSeason: number = 23;
+  public static latestKnownSeason: number = 33;
 
   // First season where role queue was required for competitive.
   public static roleQueueSeasonStart: number = 18;
