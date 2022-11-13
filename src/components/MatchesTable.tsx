@@ -149,12 +149,10 @@ const MatchesTable = ({
   const longestLossStreak = getLongestLossStreak();
 
   useEffect(() => {
-    const scrollToComponent = require("react-scroll-to-component");
-
     if (targetMatchRow.current) {
-      scrollToComponent(targetMatchRow.current);
+      targetMatchRow.current.scrollIntoView();
     } else if (lastMatchRow.current) {
-      scrollToComponent(lastMatchRow.current);
+      lastMatchRow.current.scrollIntoView();
     }
   }, [scrollToMatchID]);
 
