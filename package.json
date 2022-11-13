@@ -33,9 +33,9 @@
     "url": "https://github.com/cheshire137"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts --openssl-legacy-provider build",
-    "test": "react-scripts test --env=jsdom",
+    "start": "react-app-rewired --openssl-legacy-provider start",
+    "build": "react-app-rewired --openssl-legacy-provider build",
+    "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
     "dev": "nf start",
     "tsc": "tsc",
@@ -48,9 +48,12 @@
     "check-format": "prettier --check 'src/**/*.{js,json,ts,tsx}'"
   },
   "devDependencies": {
+    "assert": "^2.0.0",
     "babel-plugin-styled-components": "^1.10.7",
     "babel-preset-react-app": "^9.0.2",
+    "buffer": "^6.0.3",
     "chart.js": "^2.8.0",
+    "crypto-browserify": "^3.12.0",
     "csv-parse": "^4.10.1",
     "csv-stringify": "^5.5.0",
     "electron": "^18.3.7",
@@ -59,16 +62,23 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "foreman": "^3.0.1",
+    "https-browserify": "^1.0.0",
     "ionicons": "^4.5.5",
+    "os-browserify": "^0.3.0",
     "prettier": "1.19.1",
     "primer": "^11.0.0",
+    "process": "^0.11.10",
     "react": "^16.13.1",
+    "react-app-rewired": "^2.2.1",
     "react-autocomplete": "^1.8.1",
     "react-chartjs-2": "^2.9.0",
     "react-click-outside": "^3.0.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.1",
-    "react-scroll-to-component": "^1.0.2"
+    "react-scripts": "^5.0.1",
+    "react-scroll-to-component": "^1.0.2",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.0"
   },
   "jest": {
     "collectCoverageFrom": [
