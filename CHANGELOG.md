@@ -1,5 +1,17 @@
 # Change log
 
+## Version 0.4.0
+
+Thanks to @PLAYG0N for updating Competiwatch for Overwatch 2!
+
+- Renamed McCree to Cassidy
+- Added Sojourn, Kiriko, Junker Queen
+- Updated hero and rank images
+- Removed Assault map type
+- Removed maps Horizon Lunar Colony, Paris, Temple of Anubis, Volskaya Industries
+- Added Push map type
+- Added maps Circuit Royal, Midtown, Paraíso, Colosseo, Esperança, New Queen Street
+
 ## Version 0.3.1
 
 - Added ability to log cheaters on your team and the enemy team [#84](https://github.com/cheshire137/competiwatch-desktop/issues/84)
